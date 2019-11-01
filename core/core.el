@@ -45,6 +45,7 @@ Use this for files that change often, like cache files. Must end with a slash.")
   "Where package.el and quelpa plugins (and their caches) are stored.
 Must end with a slash.")
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 ;;; Initialize package.el
 (require 'package)
 (setq package--init-file-ensured t
