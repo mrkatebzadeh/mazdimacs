@@ -121,4 +121,9 @@
   :ensure t
   :defer 6)
 
+;;; format-all-buffer
+(use-package format-all
+  :ensure t
+  :defer 6)
+
 ;;; packages.el ends here

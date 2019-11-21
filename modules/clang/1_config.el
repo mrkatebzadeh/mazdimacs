@@ -19,10 +19,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+(setq-default c-default-style "linux")
 (with-eval-after-load 'ccls
   (setq ccls-sem-highlight-method 'font-lock)
   ;; alternatively, (setq ccls-sem-highlight-method 'overlay)
-
   ;; For rainbow semantic highlighting
   (ccls-use-default-rainbow-sem-highlight)
 
