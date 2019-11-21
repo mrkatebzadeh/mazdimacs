@@ -22,7 +22,7 @@
 (with-eval-after-load 'ccls
   (setq ccls-sem-highlight-method 'font-lock)
   ;; alternatively, (setq ccls-sem-highlight-method 'overlay)
-
+  (setq ccls-extra-init-params '(:completion (:detailedLabel t)))
   ;; For rainbow semantic highlighting
   (ccls-use-default-rainbow-sem-highlight)
 

@@ -23,7 +23,7 @@
 (use-package ccls
   :ensure t
   :after projectile
-  :hook ((c-mode c++-mode objc-mode) .
+  :hook ((c-mode c-common-mode c++-mode objc-mode) .
          (lambda () (require 'ccls) (lsp)))
   :custom
   (ccls-args nil)
