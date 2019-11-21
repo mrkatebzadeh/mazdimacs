@@ -1,4 +1,4 @@
-;;; configs.el --- Completion -*- lexical-binding: t; -*-
+;;; bindings.el --- Rust -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -19,19 +19,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; company
-(with-eval-after-load 'company
-  (setq company-idle-delay 0.1
-	company-minimum-prefix-length 3
-	company-show-numbers t
-	company-tooltip-align-annotations 't))
-
-;;; auto-complete
+;;; rust-local
 (general-define-key
- :prefix "SPC t"
+ :prefix "SPC l"
  :states '(normal visual motion)
- :keymaps 'override
- "a" 'global-company-mode)
+ :keymaps 'rust-mode-map
+ "a" 'cargo-process-add
+ "b" 'cargo-process-build
+ "n" 'cargo-process-new
+ "r" 'cargo-process-run
+ )
 
-
-;;; configs.el ends here
+;;; bindings.el ends here

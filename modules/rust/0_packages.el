@@ -22,6 +22,8 @@
 (use-package toml-mode)
 
 (use-package rust-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   :hook (rust-mode . lsp))
 
 ;; Add keybindings for interacting with Cargo

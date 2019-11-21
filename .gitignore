@@ -21,3 +21,5 @@ projectile.cache
 tramp
 org-gcal/
 *.elc
+.org-id-locations
+history

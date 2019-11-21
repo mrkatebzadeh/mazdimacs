@@ -20,6 +20,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (with-eval-after-load 'helm
+  (customize-set-variable 'helm-ff-lynx-style-map t)
   (add-to-list 'display-buffer-alist
 	       `(,(rx bos "*helm" (* not-newline) "*" eos)
 		 (display-buffer-in-side-window)
