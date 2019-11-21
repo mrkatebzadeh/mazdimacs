@@ -184,7 +184,7 @@
   (defvar company-lsp-enable-recompletion t)
   (defvar company-lsp-async t)
   :config
-  (setq company-backends '(company-lsp)))
+  (setq company-backends '(company-lsp company-yasnippet)))
 
 (use-package dap-mode
   :ensure t
