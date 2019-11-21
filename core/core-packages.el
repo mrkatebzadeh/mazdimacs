@@ -98,6 +98,14 @@
 (use-package esup
   :ensure t)
 
+;;; update all packages
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t
+	auto-package-update-interval 7)
+  (auto-package-update-maybe))
+
 (require 'core-bindings)
 
 (provide 'core-packages)
