@@ -39,7 +39,7 @@
 (use-package zoom
   :ensure t
   :init
-  (zoom-mode t)
+					;  (zoom-mode t)
   (custom-set-variables
    '(zoom-size '(0.618 . 0.618))))
 ;;; dark room

@@ -77,7 +77,7 @@
 	treemacs-space-between-root-nodes      t
 	treemacs-tag-follow-cleanup            t
 	treemacs-tag-follow-delay              1.5
-	treemacs-width                         35)
+	treemacs-width                         28)
 
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)

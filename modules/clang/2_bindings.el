@@ -23,10 +23,15 @@
 (general-define-key
  :prefix "SPC l"
  :states '(normal visual motion)
- :keymaps 'c++-mode-map
+ :keymaps 'c-mode-map
  "gc" 'ccls/callee
  "gC" 'ccls/caller
  "gm" 'ccls/member
+ "fr" 'lsp-find-references
+ "fd" 'lsp-find-declaration
+ "fD" 'lsp-find-definition
+ "r"  'lsp-rename
+ "h"  'lsp-symbol-highlight
  )
 
 ;;; bindings.el ends here

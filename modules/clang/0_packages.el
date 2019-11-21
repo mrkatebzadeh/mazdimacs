@@ -23,7 +23,7 @@
 (use-package ccls
   :ensure t
   :after projectile
-  :hook ((c-mode c-common-mode c++-mode objc-mode) .
+  :hook ((c-mode c-common-mode c++-mode objc-mode format-all-buffer-mode ) .
          (lambda () (require 'ccls) (lsp)))
   :custom
   (ccls-args nil)
@@ -35,8 +35,8 @@
 
 ;;; google-c-style
 (use-package google-c-style
-  :hook ((c-mode c++-mode) . google-set-c-style)
-  (c-mode-common . google-make-newline-indent))
+  :hook ((c++-mode) . google-set-c-style))
+					;  (c-mode-common . google-make-newline-indent))
 
 ;;; cmake-mode
 (use-package cmake-mode
@@ -68,5 +68,18 @@
   :bind ([remap comment-region] . cmake-ide-compile)
   :init (cmake-ide-setup)
   :config (advice-add 'cmake-ide-compile :after #'mk-switch-to-compilation-window))
+
+;;; clang-format
+(defun clang-format-buffer-smart ()
+  "Reformat buffer if .clang-format exists in the projectile root."
+  (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+    (clang-format-buffer)))
+(defun clang-format-buffer-smart-on-save ()
+  "Add auto-save hook for clang-format-buffer-smart."
+  (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
+(use-package clang-format
+  :ensure t
+  :hook (c-mode . clang-format-buffer-smart-on-save))
+
 
 ;;; packages.el ends here

@@ -38,7 +38,8 @@
  :states '(normal visual motion)
  :keymaps 'override
  "i" 'imenu-list
- "I" 'helm-imenu)
+ "I" 'helm-imenu
+ "z" 'zoom-mode)
 
 
 ;;; bindings.el ends here
