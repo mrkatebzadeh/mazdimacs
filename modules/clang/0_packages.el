@@ -19,10 +19,16 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; srefactor
+(use-package srefactor
+  :ensure t
+  :config
+  (semantic-mode 1))
+
 ;;; ccls
 (use-package ccls
   :ensure t
-  :after projectile
+  :after (projectile yasnippet)
   :hook ((c-mode c-common-mode c++-mode objc-mode format-all-buffer-mode ) .
          (lambda () (require 'ccls) (lsp)))
   :custom
@@ -81,5 +87,9 @@
   :ensure t
   :hook (c-mode . clang-format-buffer-smart-on-save))
 
+(use-package disaster
+  :defer 5
+  :commands (disaster)
+  :hook ((c-mode c-common-mode c++-mode) . disaster))
 
 ;;; packages.el ends here

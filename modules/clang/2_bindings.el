@@ -32,8 +32,10 @@
  "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
  "i"  'lsp-ui-imenu
+ "d"  'disaster
  "R"  'lsp-restart-workspace
  "h"  'lsp-symbol-highlight
+ "s"  'srefactor-refactor-at-point
  )
 
 ;;; bindings.el ends here
