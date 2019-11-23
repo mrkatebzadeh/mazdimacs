@@ -35,5 +35,21 @@
             t))
 
 (add-hook 'emacs-lisp-mode-hook 'mk-remove-elc-on-save)
+(defun head (string)
+  (substring string 0 1))
 
+(defun tail (string)
+  (substring string 1))
+
+(defun string-distance
+    (string1 string2)
+  (cond ((= 0 (length string1)) (length string2))
+	((= 0 (length string2)) (length string1))
+	(t (min (+ (string-distance (tail string1) string2) 1)
+		(+ (string-distance string1 (tail string2)) 1)
+		(+ (string-distance (tail string1) (tail string2))
+		   (if (string-equal (head string1)
+				     (head string2))
+		       0
+		     1))))))
 ;;; config.el ends here

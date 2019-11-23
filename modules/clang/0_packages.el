@@ -54,27 +54,6 @@
   :after (cmake-mode)
   :hook (cmake-mode . cmake-font-lock-activate))
 
-(use-package cmake-ide
-  :ensure t
-  :after projectile
-  :hook (c++-mode . mk-cmake-ide-find-project)
-  :preface
-  (defun mk-cmake-ide-find-project ()
-    "Finds the directory of the project for cmake-ide."
-    (with-eval-after-load 'projectile
-      (setq cmake-ide-project-dir (projectile-project-root))
-      (setq cmake-ide-build-dir (concat cmake-ide-project-dir "build")))
-    (setq cmake-ide-compile-command
-          (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
-    (cmake-ide-load-db))
-
-  (defun mk-switch-to-compilation-window ()
-    "Switches to the *compilation* buffer after compilation."
-    (other-window 1))
-  :bind ([remap comment-region] . cmake-ide-compile)
-  :init (cmake-ide-setup)
-  :config (advice-add 'cmake-ide-compile :after #'mk-switch-to-compilation-window))
-
 ;;; clang-format
 (defun clang-format-buffer-smart ()
   "Reformat buffer if .clang-format exists in the projectile root."

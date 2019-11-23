@@ -21,6 +21,79 @@
 
 
 (setq-default c-default-style "linux")
+
+(defvar cmake-project-dir nil)
+(defvar cmake-build-dir nil)
+(defvar cmake-build-command nil)
+(defvar cmake-make-command nil)
+(defvar cmake-bclean-command nil)
+(defvar cmake-mclean-command nil)
+
+(defun cmake-find-project ()
+  "Finds the directory of the project for cmake."
+  (setq cmake-project-dir (projectile-project-root))
+  (setq cmake-build-dir (concat cmake-project-dir "build"))
+  (setq cmake-make-command
+	(concat "cd " cmake-build-dir " && make"))
+  (setq cmake-build-command
+	(concat "cd " cmake-build-dir " && cmake .."))
+  (setq cmake-bclean-command
+	(concat "cd " cmake-build-dir " && rm -rf *"))
+  (setq cmake-mclean-command
+	(concat "cd " cmake-build-dir " && make clean"))
+  )
+
+(defun cmake-build ()
+  (interactive)
+  (shell-command cmake-build-command))
+
+(defun cmake-make ()
+  (interactive)
+  (shell-command cmake-make-command))
+
+(defun cmake-build-clean ()
+  (interactive)
+  (shell-command cmake-bclean-command))
+
+(defun cmake-make-clean ()
+  (interactive)
+  (shell-command cmake-mclean-command))
+(defun cmake-objdump-disaster (file-name)
+  (let* ((objdump-cmd (format "%s %s" disaster-objdump (shell-quote-argument file-name)))
+	 (buf (set-buffer (generate-new-buffer objdump-cmd))))
+    (shell-command objdump-cmd buf)
+    (read-only-mode)
+    (asm-mode)
+    (disaster--shadow-non-assembly-code)
+    (switch-to-buffer-other-window buf)))
+
+(defun cmake-find-obj-files ()
+  (interactive)
+  (let* ((exec-files (seq-filter 'file-readable-p
+                                 (directory-files-recursively
+                                  cmake-build-dir ".+\.o[bj]?$")))
+         (base-buffer-name (file-name-base (buffer-name)))
+         (calc-dist (lambda (fn) (cons fn
+                                       (string-distance
+                                        base-buffer-name
+                                        (file-name-base fn)))))
+         (cdr-< (lambda (a b) (< (cdr a) (cdr b))))
+         (distances (sort (mapcar calc-dist exec-files) cdr-<)))
+    (mapcar 'car distances)))
+
+(defun cmake-obj-files-source ()
+  (interactive)
+  (require 'seq)
+  `((name . "Object file to objdump")
+    (candidates . ,(cmake-find-obj-files))
+    (action . (lambda (sel) (cmake-objdump-disaster sel)))))
+
+(defun cmake-objdump ()
+  (interactive)
+  (helm :sources (cmake-obj-files-source)))
+
+(add-hook 'c-mode-common-hook 'cmake-find-project)
+
 (with-eval-after-load 'ccls
   (setq ccls-sem-highlight-method 'font-lock)
   ;; alternatively, (setq ccls-sem-highlight-method 'overlay)
@@ -70,4 +143,5 @@
   ;; References whose filenames are under this project
   (lsp-ui-peek-find-references nil (list :folders (vector (projectile-project-root))))
   )
+
 ;;; config.el ends here

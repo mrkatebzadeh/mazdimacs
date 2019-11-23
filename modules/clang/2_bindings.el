@@ -32,7 +32,11 @@
  "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
  "i"  'lsp-ui-imenu
- "d"  'disaster
+ "d"  'cmake-objdump
+ "m"  'cmake-make
+ "b"  'cmake-build
+ "M"  'cmake-make-clean
+ "B"  'cmake-build-clean
  "R"  'lsp-restart-workspace
  "h"  'lsp-symbol-highlight
  "s"  'srefactor-refactor-at-point
