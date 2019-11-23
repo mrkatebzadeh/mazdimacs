@@ -186,6 +186,12 @@
   :config
   (setq company-backends '(company-lsp company-yasnippet)))
 
+(use-package company-c-headers
+  :defer 7
+  :hook ((c-mode c-common-mode c++-mode) . company-c-headers)
+  :config
+  (push 'company-c-headers company-backends))
+
 (use-package dap-mode
   :ensure t
   :after lsp-mode
