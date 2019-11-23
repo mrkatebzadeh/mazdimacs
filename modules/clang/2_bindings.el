@@ -27,10 +27,12 @@
  "gc" 'ccls/callee
  "gC" 'ccls/caller
  "gm" 'ccls/member
- "fr" 'lsp-find-references
- "fd" 'lsp-find-declaration
- "fD" 'lsp-find-definition
+ "fr" 'lsp-ui-peek-find-references
+ "fd" 'lsp-ui-peek-find-declaration
+ "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
+ "i"  'lsp-ui-imenu
+ "R"  'lsp-restart-workspace
  "h"  'lsp-symbol-highlight
  )
 
