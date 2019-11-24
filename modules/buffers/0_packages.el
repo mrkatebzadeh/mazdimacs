@@ -130,4 +130,9 @@
   :ensure t
   :defer 7)
 
+(use-package hl-todo
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'hl-todo-mode))
+
 ;;; packages.el ends here
