@@ -148,4 +148,7 @@
   :ensure t
   :after erc)
 
+(use-package try
+  :ensure t)
+
 ;;; packages.el ends here
