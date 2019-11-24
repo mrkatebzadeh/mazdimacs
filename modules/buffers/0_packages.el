@@ -99,20 +99,24 @@
 ;;; recentf
 (use-package recentf
   :ensure t
-  :defer 8
-  :init (recentf-mode)
+  :defer t
+  :init
+  (add-hook 'find-file-hook (lambda () (unless recentf-mode
+					 (recentf-mode)
+					 (recentf-track-opened-file))))
   :custom
   (recentf-exclude (list "COMMIT_EDITMSG"
                          "~$"
                          "/scp:"
                          (expand-file-name mk-backup-dir)
                          (expand-file-name mk-local-dir)
+                         (expand-file-name org-directory)
                          (expand-file-name (concat mk-emacs-dir "emms/"))
                          "/ssh:"
                          "/sudo:"
                          "/tmp/"))
   (recentf-max-menu-items 15)
-  (recentf-max-saved-items 200)
+  (recentf-max-saved-items 15)
   (recentf-save-file (concat mk-backup-dir "recentf"))
   :config (run-at-time nil (* 5 60) 'recentf-save-list))
 

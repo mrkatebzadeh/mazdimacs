@@ -88,7 +88,6 @@
 ;;; rfc-mode
 (use-package rfc-mode
   :ensure t
-  :defer 6
-  :init (require 'rfc-mode))
+  :defer t)
 
 ;;; packages.el ends here

@@ -1,4 +1,4 @@
-;;; packages.el --- Media -*- lexical-binding: t; -*-
+;;; bindings.el --- Python -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -19,18 +19,4 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; emms
-(use-package emms
-  :ensure t)
-
-(use-package emms-info-mediainfo
-  :ensure t)
-
-(use-package helm-youtube
-  :ensure t)
-
-;;; transmission
-(use-package transmission
-  :ensure t)
-
-;;; packages.el ends here
+;;; bindings.el ends here

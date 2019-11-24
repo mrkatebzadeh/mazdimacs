@@ -20,6 +20,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; mu4e
+(defun mu4e-init()
+  (interactive)
+  (require 'mu4e)
+  (mu4e))
+
 (with-eval-after-load 'mu4e
   (setq mu4e-maildir "~/.local/share/mail"
 	mu4e-get-mail-command "mbsync -a --verbose"

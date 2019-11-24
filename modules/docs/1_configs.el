@@ -20,6 +20,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; rfc-mode
+(defun rfc-mode-init()
+  (interactive)
+  (require 'rfc-mode)
+  (rfc-mode-browse))
+
 (with-eval-after-load 'rfc-mode
   (setq rfc-mode-directory (expand-file-name "~/Dropbox/rfcs/"))
   (setq rfc-mode-index-path (concat rfc-mode-directory "rfc-index.txt"))

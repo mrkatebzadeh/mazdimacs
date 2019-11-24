@@ -28,6 +28,6 @@
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "m" 'mu4e)
+ "m" 'mu4e-init)
 
 ;;; bindings.el ends here

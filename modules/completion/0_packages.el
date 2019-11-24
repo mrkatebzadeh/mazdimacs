@@ -98,9 +98,7 @@
 
 ;;; yasnippet mode
 (use-package yasnippet
-  :ensure t
-  :init
-  (yas-global-mode 1))
+  :ensure t)
 
 ;;; yasnippet-snippets
 (use-package yasnippet-snippets

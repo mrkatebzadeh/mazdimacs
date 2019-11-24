@@ -23,7 +23,7 @@
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (use-package mu4e
   :ensure nil
-  :defer 5)
+  :defer t)
 
 ;;; mu4e-conversation
 (use-package mu4e-conversation

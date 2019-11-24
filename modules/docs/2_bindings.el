@@ -87,7 +87,7 @@
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "R" 'rfc-mode-browse)
+ "R" 'rfc-mode-init)
 
 (general-define-key
  :prefix "SPC l"

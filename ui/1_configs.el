@@ -27,7 +27,7 @@
       dashboard-center-content t
       dashboard-set-heading-icons t
       dashboard-items '((recents  . 7)
-                        (projects . 5)
+			(projects . 5)
                         (agenda . 5)
                         (bookmarks . 10)))
 (setq initial-scratch-message nil)
@@ -64,7 +64,7 @@
 (global-hl-line-mode +1)
 ;; bars
 (menu-bar-mode -1)
-(toggle-scroll-bar -1) 
-(tool-bar-mode -1) 
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
 
 ;;; configs.el ends here
