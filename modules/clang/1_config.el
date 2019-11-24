@@ -36,7 +36,7 @@
   (setq cmake-make-command
 	(concat "cd " cmake-build-dir " && make"))
   (setq cmake-build-command
-	(concat "cd " cmake-build-dir " && cmake .."))
+	(concat "cd " cmake-build-dir " && cmake .. && cp compile_commands.json .."))
   (setq cmake-bclean-command
 	(concat "cd " cmake-build-dir " && rm -rf *"))
   (setq cmake-mclean-command
