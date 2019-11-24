@@ -29,4 +29,5 @@
 ;;; git-gutter
 (use-package git-gutter-fringe+
   :ensure t)
+
 ;;; packages.el ends here

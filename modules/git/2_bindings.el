@@ -27,4 +27,13 @@
  :states '(normal visual motion)
  :keymaps 'override
  "s" 'magit-status)
+
+;;; Toggles
+(general-define-key
+ :prefix "SPC t"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "g" 'git-gutter+-mode)
+
+
 ;;; bindings.el ends here
