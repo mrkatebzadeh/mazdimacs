@@ -22,6 +22,17 @@
 ;;; Commentary:
 ;; Core packages will be installed from here
 
+;;; gcmh
+(use-package gcmh
+  :ensure t
+  :init
+  (setq gcmh-verbose             t
+        gcmh-lows-cons-threshold #x800000
+        gcmh-high-cons-threshold #x800000
+        gcmh-idle-delay          300)
+  :config
+  (gcmh-mode))
+
 ;;; outshine
 (use-package outshine
   ;; Easier navigation for source files, especially this one.
