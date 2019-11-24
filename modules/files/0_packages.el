@@ -52,6 +52,11 @@
   :after treemacs projectile
   :ensure t)
 
+(use-package lsp-treemacs
+  :config
+  (lsp-metals-treeview-enable t)
+  (setq lsp-metals-treeview-show-when-views-received t))
+
 (use-package treemacs-icons-dired
   :after treemacs dired
   :ensure t
