@@ -32,7 +32,9 @@
  :states '(normal visual motion)
  :keymaps 'override
  "s" 'flyspell-mode
+ "a" 'global-company-mode
  "c" 'global-flycheck-mode
  "y" 'yas-global-mode)
+
 
 ;;; bindings.el ends here

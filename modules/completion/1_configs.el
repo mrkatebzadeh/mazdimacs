@@ -26,12 +26,5 @@
 	company-show-numbers t
 	company-tooltip-align-annotations 't))
 
-;;; auto-complete
-(general-define-key
- :prefix "SPC t"
- :states '(normal visual motion)
- :keymaps 'override
- "a" 'global-company-mode)
-
 
 ;;; configs.el ends here

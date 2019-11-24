@@ -98,7 +98,12 @@
 
 ;;; yasnippet mode
 (use-package yasnippet
-  :ensure t)
+  :ensure t
+  :defer t
+  :commands (yas-minor-mode)
+  :hook ((prog-mode . yas-minor-mode))
+  :config (yas-reload-all)
+  :diminish yas-minor-mode)
 
 ;;; yasnippet-snippets
 (use-package yasnippet-snippets
