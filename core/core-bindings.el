@@ -54,8 +54,7 @@
  :states '(normal visual motion)
  :keymaps 'override
  "Q" 'kill-emacs
- "q" 'delete-frame
- "r" 'restart-emacs)
+ "q" 'delete-frame)
 
 (provide 'core-bindings)
 ;;; core-bindings.el ends here

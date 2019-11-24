@@ -101,10 +101,6 @@
 (use-package evil-magit
   :ensure t)
 
-;;; restart-emacs
-(use-package restart-emacs
-  :ensure t)
-
 ;;; esup
 (use-package esup
   :ensure t)
