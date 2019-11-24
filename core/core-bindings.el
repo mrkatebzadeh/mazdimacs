@@ -53,7 +53,8 @@
  :prefix "SPC q"
  :states '(normal visual motion)
  :keymaps 'override
- "q" 'kill-emacs
+ "Q" 'kill-emacs
+ "q" 'delete-frame
  "r" 'restart-emacs)
 
 (provide 'core-bindings)

@@ -114,6 +114,11 @@
 (load-modules mk-ui-dir)
 ;;; Load modules
 (load-modules mk-modules-dir)
+;;; run server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 (provide 'init)
 
 ;;; init.el ends here
