@@ -72,10 +72,34 @@
 
 ;;; projectile
 (with-eval-after-load 'projectile
+  (setq projectile-globally-ignored-directories
+        '(".bzr"
+          ".ensime_cache"
+          ".eunit"
+          ".fslckout"
+          ".git"
+          ".hg"
+          ".idea"
+          ".stack-work"
+          ".svn"
+          ".tox"
+          ".clangd"
+          ".ccls-cache"
+          "READONLY"
+          "_FOSSIL_"
+          "_darcs"
+          "blaze-bin"
+          "blaze-genfiles"
+          "blaze-google3"
+          "blaze-out"
+          "blaze-testlogs"
+          "node_modules"
+          "third_party"
+	  "backup"
+          "vendor"))
   (setq projectile-completion-system 'helm
 	projectile-enable-caching t
 	projectile-switch-project-action 'helm-projectile-find-file)
-  (add-to-list 'projectile-globally-ignored-directories "backup")
   (projectile-global-mode))
 
 ;;; nlinum-relative
