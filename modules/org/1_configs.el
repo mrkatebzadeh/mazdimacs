@@ -38,7 +38,7 @@
 				      "TOSEW" "|" "DONE(x)")
 			    (sequence "TOWATCH"
 				      "UNRELEASED"
-				      "RELEASED" "|" "WATCHED(x)")
+				      "RELEASED" "|" "WATCHED(w)" "BREAK(b)")
 			    (sequence "TODO"
 				      "DOING"
 				      "TESTING"

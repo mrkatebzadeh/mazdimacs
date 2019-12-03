@@ -54,8 +54,9 @@
           ("show this thread" . mu4e-action-show-thread)
 	  ("View as pdf" . mu4e-action-view-as-pdf)))
   ;; default send
-  (setq mu4e-sent-folder "/sent"
-	mu4e-drafts-folder "/drafts"
+  (setq mu4e-sent-folder "/gmail/[Gmail].Sent Mail"
+	mu4e-drafts-folder "/gmail/[Gmail].Drafts"
+	mu4e-trash-folder "/gmail/Trash"
 	user-mail-address "mr.katebzadeh@gmail.com"
 	smtpmail-default-smtp-server "smtp.gmail.com"
 	smtpmail-smtp-server "smtp.gmail.com"
@@ -89,41 +90,41 @@
   ;; set account
   (defun mu4e-set-account ()
     (let* ((account
-            (if mu4e-compose-parent-message
-                (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                  (string-match "/\\(.*?\\)/" maildir)
-                  (match-string 1 maildir))
-              (completing-read (format "Compose with account: (%s) "
-                                       (mapconcat #'(lambda (var) (car var))
-                                                  mu4e-account-list "/"))
-                               (mapcar #'(lambda (var) (car var)) mu4e-account-list)
-                               nil t nil nil (caar mu4e-account-list))))
-           (account-vars (cdr (assoc account mu4e-account-list))))
+	    (if mu4e-compose-parent-message
+		(let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+		  (string-match "/\\(.*?\\)/" maildir)
+		  (match-string 1 maildir))
+	      (completing-read (format "Compose with account: (%s) "
+				       (mapconcat #'(lambda (var) (car var))
+						  mu4e-account-list "/"))
+			       (mapcar #'(lambda (var) (car var)) mu4e-account-list)
+			       nil t nil nil (caar mu4e-account-list))))
+	   (account-vars (cdr (assoc account mu4e-account-list))))
       (if account-vars
-          (mapc #'(lambda (var)
-                    (set (car var) (cadr var)))
-                account-vars)
-        (error "No email account found"))))
+	  (mapc #'(lambda (var)
+		    (set (car var) (cadr var)))
+		account-vars)
+	(error "No email account found"))))
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
   ;; msmtp
   (setq message-send-mail-function 'message-send-mail-with-sendmail
-        sendmail-program "/usr/bin/msmtp"
-        user-full-name "Siavash Katebzadeh")
+	sendmail-program "/usr/bin/msmtp"
+	user-full-name "Siavash Katebzadeh")
   (defun choose-msmtp-account ()
     (if (message-mail-p)
-        (save-excursion
-          (let*
-              ((from (save-restriction
-                       (message-narrow-to-headers)
-                       (message-fetch-field "from")))
-               (account
-                (cond
-                 ((string-match "mr.katebzadeh@gmail.com" from) "gmail")
-                 ((string-match "mrkatebzadeh.com" from) "gmail")
-                 ((string-match "m.r.katebzadeh@ed.ac.uk" from) "staff")
-                 ((string-match "s1691546@ed.ac.uk" from) "staff")
-                 ((string-match "s1691546@staffmail.ed.ac.uk" from) "staff"))))
-            (setq message-sendmail-extra-arguments (list '"-a" account))))))
+	(save-excursion
+	  (let*
+	      ((from (save-restriction
+		       (message-narrow-to-headers)
+		       (message-fetch-field "from")))
+	       (account
+		(cond
+		 ((string-match "mr.katebzadeh@gmail.com" from) "gmail")
+		 ((string-match "mrkatebzadeh.com" from) "gmail")
+		 ((string-match "m.r.katebzadeh@ed.ac.uk" from) "staff")
+		 ((string-match "s1691546@ed.ac.uk" from) "staff")
+		 ((string-match "s1691546@staffmail.ed.ac.uk" from) "staff"))))
+	    (setq message-sendmail-extra-arguments (list '"-a" account))))))
   (setq message-sendmail-envelope-from 'header)
   (add-hook 'message-send-mail-hook 'choose-msmtp-account)
   ;; signature
