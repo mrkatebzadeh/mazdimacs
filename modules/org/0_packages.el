@@ -143,7 +143,10 @@
   (load-library "~/Dropbox/org/keys/gcal.el.gpg"))
 
 ;;; org-drill
-(require 'org-drill)
+(use-package org-drill
+  :ensure nil
+  :init
+  (require 'org-drill))
 
 ;;; org-tvdb
 (use-package org-tvdb
@@ -157,4 +160,10 @@
 	     org-tvdb-mark-season-watched
 	     org-tvdb-update-series
 	     org-tvdb-update-season))
+
+(use-package ox-moderncv
+  :ensure nil
+  :load-path (lambda () (concat mk-lisp-dir "/org-cv/"))
+  :init (require 'ox-moderncv))
+
 ;;; packages.el ends here
