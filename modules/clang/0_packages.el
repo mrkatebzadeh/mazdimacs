@@ -71,4 +71,10 @@
   :commands (disaster)
   :hook ((c-mode c-common-mode c++-mode) . disaster))
 
+(use-package makefile-executor
+  :ensure t
+  :defer 2
+  :config
+  (add-hook 'makefile-mode-hook 'makefile-executor-mode))
+
 ;;; packages.el ends here
