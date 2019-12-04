@@ -145,7 +145,10 @@
       (message-insert-signature)))
   (add-hook 'mu4e-compose-mode-hook
 	    (lambda () (local-set-key (kbd "C-c C-w") #'mu4e-choose-signature)))
-  (mu4e-maildirs-extension))
+  (mu4e-maildirs-extension)
+;;; org-mu4e
+  (require 'org-mu4e)
+  (setq org-mu4e-link-query-in-headers-mode nil))
 
 ;;; alert
 (with-eval-after-load 'mu4e-alert
@@ -167,8 +170,60 @@
   (setq gnus-dired-mail-mode 'mu4e-user-agent)
   (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 
-;;; org-mu4e
-  (require 'org-mu4e)
-  (setq org-mu4e-link-query-in-headers-mode nil)
+(defun +notmuch-show-expand-only-unread-h ()
+  (interactive)
+  (let ((unread nil)
+        (open (notmuch-show-get-message-ids-for-open-messages)))
+    (notmuch-show-mapc (lambda ()
+                         (when (member "unread" (notmuch-show-get-tags))
+                           (setq unread t))))
+    (when unread
+      (let ((notmuch-show-hook (remove '+notmuch-show-expand-only-unread-h notmuch-show-hook)))
+        (notmuch-show-filter-thread "tag:unread")))))
 
+(defun +notmuch-dont-confirm-on-kill-process-a (orig-fn &rest args)
+  "Don't prompt for confirmation when killing notmuch sentinel."
+  (let (confirm-kill-processes)
+    (apply orig-fn args)))
+
+(with-eval-after-load 'notmuch
+  (setq company-backend
+	'((
+	   notmuch-company
+	   company-ispell
+	   company-yasnippet
+	   )
+	  ))
+
+  (setq notmuch-fcc-dirs nil
+        notmuch-show-logo nil
+        notmuch-message-headers-visible nil
+        message-kill-buffer-on-exit t
+        message-send-mail-function 'message-send-mail-with-sendmail
+        notmuch-search-oldest-first nil
+        send-mail-function 'sendmail-send-it
+        sendmail-program "/usr/local/bin/msmtp"
+        notmuch-search-result-format
+        '(("date" . "%12s ")
+          ("count" . "%-7s ")
+          ("authors" . "%-30s ")
+          ("subject" . "%-72s ")
+          ("tags" . "(%s)"))
+        notmuch-tag-formats
+        '(("unread" (propertize tag 'face 'notmuch-tag-unread)))
+        notmuch-hello-sections
+        '(notmuch-hello-insert-saved-searches
+          notmuch-hello-insert-alltags)
+        notmuch-saved-searches
+        '((:name "inbox"   :query "tag:inbox not tag:trash" :key "i")
+          (:name "flagged" :query "tag:flagged"             :key "f")
+          (:name "sent"    :query "tag:sent"                :key "s")
+          (:name "drafts"  :query "tag:draft"               :key "d"))
+        notmuch-archive-tags '("-inbox" "-unread"))
+  (add-hook 'notmuch-show-hook #'+notmuch-show-expand-only-unread-h)
+
+  (add-hook 'doom-real-buffer-functions #'notmuch-interesting-buffer)
+
+  (advice-add #'notmuch-start-notmuch-sentinel :around #'+notmuch-dont-confirm-on-kill-process-a)
+  )
 ;;; configs.el ends here

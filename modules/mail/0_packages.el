@@ -46,4 +46,19 @@
 (use-package helm-mu
   :ensure t)
 
+;;; notmuch
+(use-package notmuch
+  :ensure t
+  :defer 2)
+
+;;; org-mime
+(use-package org-mime
+  :after (org notmuch)
+  :config (setq org-mime-library 'mml))
+
+;;; helm-notmuch
+(use-package helm-notmuch
+  :commands helm-notmuch
+  :after notmuch)
+
 ;;; packages.el ends here
