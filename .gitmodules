@@ -1,0 +1,3 @@
+[submodule "site-lisp/org-cv"]
+	path = site-lisp/org-cv
+	url = https://github.com/mrkatebzadeh/org-cv.git
