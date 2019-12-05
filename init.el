@@ -31,7 +31,7 @@
   (eval-when-compile (file-truename user-emacs-directory))
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
-(defvar mk-core-dir (concat mk-emacs-dir "core/")
+(defvar mk-core-file (concat mk-emacs-dir "mk-core.el")
   "The root directory of MK's core files. Must end with a slash.")
 
 (defvar mk-modules-dir (concat mk-emacs-dir "modules/")
@@ -40,11 +40,14 @@
 (defvar mk-lisp-dir (concat mk-emacs-dir "site-lisp/")
   "The root directory of MK's external files. Must end with a slash.")
 
-(defvar mk-ui-dir (concat mk-emacs-dir "ui/")
+(defvar mk-ui-file (concat mk-emacs-dir "mk-ui.el")
   "The root directory of MK's UI files. Must end with a slash.")
 
 (defvar mk-backup-dir (concat mk-emacs-dir ".backups/")
   "The root directory of MK's backup files. Must end with a slash.")
+
+(defvar mk-cache-dir (concat mk-emacs-dir ".cache/")
+  "The root directory of MK's cache files. Must end with a slash.")
 
 (defvar mk-autosave-dir (concat mk-emacs-dir ".autosave/")
   "The root directory of MK's autosave files. Must end with a slash.")
@@ -71,7 +74,11 @@
 ;;; Basic configs
 (setq warning-minimum-level :emergency)
 (setq eshell-directory-name mk-eshell-dir)
-; stop creating backup~ files
+(setq pcache-directory (concat mk-cache-dir "/var/pcache"))
+(setq transient-history-file (concat mk-cache-dir "/transient/history.el"))
+(setq srecode-map-save-file (concat mk-cache-dir "/srecode-map.el"))
+(setq projectile-cache-file (concat mk-cache-dir "/projectile.cache"))
+					; stop creating backup~ files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
@@ -105,13 +112,12 @@
 (defun load-modules (dir)
   (mapcar 'load (directory-files-recursively dir "")))
 
-;;; Load core
-(add-to-list 'load-path mk-core-dir)
 (add-to-list 'load-path mk-lisp-dir)
-(require 'core)
+
+(load mk-core-file)
 (message "Core has been loaded.")
 ;;; Load Theme
-(load-modules mk-ui-dir)
+(load mk-ui-file)
 ;;; Load modules
 (load-modules mk-modules-dir)
 ;;; run server
