@@ -27,11 +27,14 @@
 
 (use-package company
   :defer t
+  :config
+  (setq company-frontends (delete  'company-tng-frontend  company-frontends))
   :bind
   (:map company-active-map
 	("C-n" . company-select-next)
 	("C-p" . company-select-previous)
 	("<tab>" . company-complete-common-or-cycle)
+	("RET"  . company-complete-selection)
 	:map company-search-map
 	("C-p" . company-select-previous)
 	("C-n" . company-select-next))
