@@ -65,7 +65,9 @@
   :after lsp-mode
   :config
   (dap-mode t)
-  (dap-ui-mode t))
+  (dap-ui-mode t)
+  (require 'dap-gdb-lldb))
+
 
 
 (provide 'mk-lsp)
