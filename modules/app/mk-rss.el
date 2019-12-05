@@ -122,7 +122,7 @@
     (kbd "8") 'mk-elfeed-unstar
     (kbd "S") 'mk-elfeed-show-starred
     (kbd "F") 'mk-elfeed-toggle-star
-    (kbd "U") 'mk-elfeed-update))
+    (kbd "U") 'elfeed-update))
 
 (provide 'mk-rss)
 ;;; mk-rss.el ends here
