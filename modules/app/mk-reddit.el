@@ -26,7 +26,9 @@
 ;;; Code:
 
 (use-package md4rd
-  :defer t)
+  :defer t
+  :config
+  (setq md4rd-subs-active '(emacs OnePiece boruto archlinux)))
 
 (general-define-key
  :prefix "SPC a"
