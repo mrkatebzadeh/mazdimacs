@@ -89,6 +89,12 @@
 (use-package toml-mode
   :defer t)
 
+(use-package systemd
+  :defer t
+  :mode
+  ("\\.service\\'" "\\.timer\\'" "\\.target\\'" "\\.mount\\'"
+   "\\.automount\\'" "\\.slice\\'" "\\.socket\\'" "\\.path\\'"
+   "\\.netdev\\'" "\\.network\\'" "\\.link\\'"))
 ;;; config
 
 ;;; bindigs
