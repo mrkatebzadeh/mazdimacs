@@ -123,7 +123,7 @@
 
 (use-package disaster
   :defer t
-  :commands (disaster))
+  :commands (disaster disaster-objdump))
 
 (use-package makefile-executor
   :defer t
@@ -176,6 +176,7 @@
   (interactive)
   (shell-command cmake-mclean-command))
 (defun cmake-objdump-disaster (file-name)
+  (require 'disaster)
   (let* ((objdump-cmd (format "%s %s" disaster-objdump (shell-quote-argument file-name)))
 	 (buf (set-buffer (generate-new-buffer objdump-cmd))))
     (shell-command objdump-cmd buf)
