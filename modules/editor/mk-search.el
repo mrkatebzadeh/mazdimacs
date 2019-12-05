@@ -29,6 +29,11 @@
 (use-package engine-mode
   :defer t)
 
+(use-package google-translate
+  :defer t
+  :commands (google-translate-at-point)
+  :custom (google-translate-default-target-language "fa"))
+
 (with-eval-after-load 'engine-mode
   (defengine amazon
     "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
@@ -60,6 +65,7 @@
  :prefix "SPC s"
  :states '(normal visual motion)
  :keymaps 'override
+ "t" 'google-translate-at-point
  "A" 'engine/search-amazon
  "i" 'engine/search-google-images
  "m" 'engine/search-google-maps

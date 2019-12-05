@@ -84,6 +84,8 @@ Must end with a slash.")
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 ;; gcmh
 (use-package gcmh
