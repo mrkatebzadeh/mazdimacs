@@ -28,7 +28,9 @@
 ;;; lsp-mode
 (use-package lsp-mode
   :defer t
-  :hook ((prog-mode) . lsp)
+  :init
+  (setq lsp-auto-guess-root t)
+  (setq lsp-keep-workspace-alive nil)
   :custom
   (lsp-prefer-flymake nil)
   (lsp-session-file (concat mk-backup-dir "lsp-session-v1"))
@@ -39,8 +41,15 @@
 		    :server-id 'pyls)))
 
 (use-package lsp-ui
-  :defer t
-  :after lsp-mode)
+  :demand t
+  :after lsp-mode
+  :config
+  (setq lsp-prefer-flymake nil
+        lsp-ui-doc-max-height 8
+        lsp-ui-doc-max-width 35
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-doc-enable t
+        lsp-ui-sideline-show-hover t))
 
 (use-package company-lsp
   :defer t

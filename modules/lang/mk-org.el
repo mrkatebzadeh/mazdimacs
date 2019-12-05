@@ -52,7 +52,7 @@
 	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
 
 (use-package ox-reveal
-  :defer ox-reveal)
+  :defer t)
 
 (use-package htmlize
   :defer t)
@@ -162,8 +162,7 @@
 (use-package ox-moderncv
   :defer t
   :ensure nil
-  :load-path (lambda () (concat mk-lisp-dir "/org-cv/"))
-  :init (require 'ox-moderncv))
+  :after org)
 
 
 ;;; config
