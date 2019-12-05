@@ -41,6 +41,19 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
+(use-package dashboard
+  :ensure t
+  :init
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "[-< True happiness can be found when two contrary powers cooperate together >-]"
+	dashboard-startup-banner (concat mk-emacs-dir "logo.png")
+	dashboard-center-content t
+	dashboard-set-heading-icons t)
+  (setq dashboard-items '((bookmarks . 1)))
+  (setq initial-scratch-message nil)
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
+
+
 (use-package page-break-lines
   :ensure t)
 
