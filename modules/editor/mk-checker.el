@@ -43,12 +43,16 @@
 
 (use-package langtool
   :defer t
+  :commands (langtool-check
+             langtool-check-done
+             langtool-show-message-at-point
+             langtool-correct-buffer)
   :delight
   :custom
   (langtool-default-language "en")
-  (langtool-language-tool-jar "~/.local/apps/LanguageTool-4.5/languagetool-commandline.jar")
-  (langtool-language-tool-server-jar "~/.local/apps/LanguageTool-4.5/languagetool-server.jar")
-  (langtool-mother-tongue "ir"))
+  (langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
+  (langtool-java-bin "/usr/bin/java")
+  (langtool-mother-tongue "en-US"))
 
 ;;; bindings
 (general-define-key
@@ -56,6 +60,7 @@
  :states '(normal visual motion)
  :keymaps 'override
  "s" 'flyspell-mode
+ "l" 'langtool-check
  "c" 'global-flycheck-mode)
 
 
