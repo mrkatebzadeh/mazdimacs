@@ -162,8 +162,13 @@
 (use-package ox-moderncv
   :defer t
   :ensure nil
-  :after org)
+  :load-path (lambda () (concat mk-lisp-dir "/org-cv/")))
 
+(defun mk-org-export()
+  "Load required packages for exporting org file"
+  (interactive)
+  (require 'ox-moderncv)
+  (require 'ox-reveal))
 
 ;;; config
 (with-eval-after-load 'org
@@ -382,6 +387,7 @@
  :states '(normal visual motion)
  :keymaps 'override
  "a" 'org-agenda
+ "e" 'mk-org-export
  "o" 'org-mode
  "c" 'org-capture
  "t" 'org-journal-new-entry
