@@ -119,7 +119,7 @@
   (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
 (use-package clang-format
   :defer t
-  :hook ((c-mode cc-mode c-common-mode) . clang-format-buffer-smart-on-save))
+  :hook ((c-mode cc-mode c-common-mode c++-mode) . clang-format-buffer-smart-on-save))
 
 (use-package disaster
   :defer t
@@ -219,7 +219,7 @@
 (general-define-key
  :prefix "SPC l"
  :states '(normal visual motion)
- :keymaps 'c-mode-map
+ :keymaps '(c-mode-map c++-mode-map)
  "gc" 'ccls/callee
  "gC" 'ccls/caller
  "gm" 'ccls/member
@@ -227,6 +227,7 @@
  "fd" 'lsp-ui-peek-find-declaration
  "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
+ "F"  'clang-format-buffer
  "i"  'lsp-ui-imenu
  "d"  'cmake-objdump
  "m"  'cmake-make
