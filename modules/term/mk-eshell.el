@@ -29,6 +29,15 @@
   :defer t
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 
+(use-package aweshell
+  :ensure nil
+  :defer t
+  :load-path (lambda () (concat mk-lisp-dir "/aweshell/"))
+  :commands (aweshell-toggle aweshell-dedicated-toggle)
+  :bind
+  (("M-#" . aweshell-dedicated-open)
+   (:map eshell-mode-map ("M-#" . aweshell-dedicated-close))))
+
 (defun mk-update-ticket()
   (interactive)
   (let ((command (format
@@ -61,12 +70,15 @@
 
 ;;; bindings
 (general-define-key
- :prefix "SPC S"
+ :prefix "SPC s"
  :states '(normal visual motion)
  :keymaps 'override
- "s" 'eshell
+ "s" 'aweshell-toggle
+ "n" 'aweshell-new
+ "a" 'aweshell-dedicated-toggle
  "u" 'mk-update-ticket
  "c" 'mk-scp-project)
+
 
 
 (provide 'mk-eshell)

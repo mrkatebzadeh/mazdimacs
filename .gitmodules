@@ -1,3 +1,6 @@
 [submodule "site-lisp/org-cv"]
 	path = site-lisp/org-cv
 	url = https://github.com/mrkatebzadeh/org-cv.git
+[submodule "site-lisp/aweshell"]
+	path = site-lisp/aweshell
+	url = https://github.com/manateelazycat/aweshell.git

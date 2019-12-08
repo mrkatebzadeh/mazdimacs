@@ -189,7 +189,7 @@
  "u" 'undo-tree-visualize)
 
 (general-define-key
- :prefix "SPC s"
+ :prefix "SPC /"
  :states '(normal visual motion)
  :keymaps 'override
  "e" 'er/expand-region

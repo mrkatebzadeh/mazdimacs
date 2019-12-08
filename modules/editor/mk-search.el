@@ -62,7 +62,7 @@
     :docstring "Searchin' the wikis."))
 
 (general-define-key
- :prefix "SPC s"
+ :prefix "SPC /"
  :states '(normal visual motion)
  :keymaps 'override
  "t" 'google-translate-at-point
