@@ -76,10 +76,14 @@
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
 	    (lambda ()
-	      (evil-org-set-key-theme '(navigation insert textobjects))))
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+	      (evil-org-set-key-theme '(navigation insert textobjects)))))
+
+(use-package org-agenda
+  :defer t
+  :ensure nil
+  :init
+  (setq org-agenda-restore-windows-after-quit t)
+  (setq org-agenda-window-setup 'current-window))
 
 (use-package org-bullets
   :defer t
@@ -400,6 +404,7 @@
  :prefix "SPC l"
  :states '(normal visual motion)
  :keymaps 'org-mode-map
+ "c" '(:ignore t :which-key "org-crypt")
  "ce" 'org-encrypt-entry
  "cE" 'org-encrypt-entries
  "cd" 'org-decrypt-entry
@@ -407,6 +412,7 @@
  "'" 'org-edit-special
  "d" 'org-deadline
  "D" 'org-insert-drawer
+ "e" '(:ignore t :which-key "export")
  "ee" 'org-export-dispatch
  "f" 'org-set-effort
  "P" 'org-set-property
@@ -421,6 +427,7 @@
  "!" 'org-time-stamp-inactive
 
  ;; headings
+ "h" '(:ignore t :which-key "headings")
  "hi" 'org-insert-heading-after-current
  "hI" 'org-insert-heading
  "hs" 'org-insert-subheading
@@ -438,21 +445,25 @@
  "C-S-k" 'org-shiftcontrolup
 
  ;; Subtree editing
+ "S" '(:ignore t :which-key "subtree")
  "Sl" 'org-demote-subtree
  "Sh" 'org-promote-subtree
  "Sj" 'org-move-subtree-down
  "Sk" 'org-move-subtree-up
 
  ;; tables
+ "t" '(:ignore t :which-key "table")
  "ta" 'org-table-align
  "tb" 'org-table-blank-field
  "tc" 'org-table-convert
+ "td" '(:ignore t :which-key "delete")
  "tdc" 'org-table-delete-column
  "tdr" 'org-table-kill-row
  "te" 'org-table-eval-formula
  "tE" 'org-table-export
  "th" 'org-table-previous-field
  "tH" 'org-table-move-column-left
+ "ti" '(:ignore t :which-key "insert")
  "tic" 'org-table-insert-column
  "tih" 'org-table-insert-hline
  "tiH" 'org-table-hline-and-move
@@ -467,13 +478,145 @@
  "tN" 'org-table-create-with-table.el
  "tr" 'org-table-recalculate
  "ts" 'org-table-sort-lines
+ "tt" '(:ignore t :which-key "toggles")
  "ttf" 'org-table-toggle-formula-debugger
  "tto" 'org-table-toggle-coordinate-overlays
  "tw" 'org-table-wrap-region
  )
 
+(general-define-key
+ :prefix "SPC l"
+ :states '(normal visual motion emacs)
+ :keymaps 'org-agenda-mode-map
+ "h" '(:ignore t :which-key "headings")
+ "ht" 'org-agenda-todo
+ "hk" 'org-agenda-kill
+ "hr" 'org-agenda-refile
+ "hA" 'org-agenda-archive-default
+ "hT" 'org-agenda-set-tags
+ "hp" 'org-agenda-priority
 
+ ;; Visit entry
+ "SPC" 'org-agenda-show-and-scroll-up
+ "<tab>" 'org-agenda-goto
+ "TAB" 'org-agenda-goto
+ "RET" 'org-agenda-switch-to
+ "o"   'link-hint-open-link
 
+ ;; Date
+ "d" '(:ignore t :which-key "date")
+ "ds" 'org-agenda-schedule
+ "dd" 'org-agenda-deadline
+ "dt" 'org-agenda-date-prompt
+ "+" 'org-agenda-do-date-later
+ "-" 'org-agenda-do-date-earlier
 
+ ;; View
+ "v" '(:ignore t :which-key "view")
+ "vd" 'org-agenda-day-view
+ "vw" 'org-agenda-week-view
+ "vt" 'org-agenda-fortnight-view
+ "vm" 'org-agenda-month-view
+ "vy" 'org-agenda-year-view
+ "vn" 'org-agenda-later
+ "vp" 'org-agenda-earlier
+ "vr" 'org-agenda-reset-view
+
+ ;; Toggle mode
+ "t" '(:ignore t :which-key "toggle")
+ "tf" 'org-agenda-follow-mode
+ "tl" 'org-agenda-log-mode
+ "ta" 'org-agenda-archives-mode
+ "tr" 'org-agenda-clockreport-mode
+ "td" 'org-agenda-toggle-diary
+
+ ;; Filter
+ "f" '(:ignore t :which-key "filter")
+ "ft" 'org-agenda-filter-by-tag
+ "fr" 'org-agenda-filter-by-tag-refine
+ "fc" 'org-agenda-filter-by-category
+ "fh" 'org-agenda-filter-by-top-headline
+ "fx" 'org-agenda-filter-by-regexp
+ "fd" 'org-agenda-filter-remove-all
+
+ ;; Clock
+ "c" '(:ignore t :which-key "clock")
+ "ci" 'org-agenda-clock-in
+ "co" 'org-agenda-clock-out
+ "ck" 'org-agenda-clock-cancel
+ "cj" 'org-agenda-clock-goto
+
+ ;; Other
+ "q" 'org-agenda-quit
+ "gr" 'org-agenda-redo
+ "." 'org-agenda-goto-today
+ "gd" 'org-agenda-goto-date)
+
+(eval-after-load 'org-agenda
+  '(progn
+     (evil-set-initial-state 'org-agenda-mode 'normal)
+     (evil-define-key 'normal org-agenda-mode-map
+       (kbd "<RET>") 'org-agenda-switch-to
+       (kbd "\t") 'org-agenda-goto
+
+       "q" 'org-agenda-quit
+       "r" 'org-agenda-redo
+       "S" 'org-save-all-org-buffers
+       "gj" 'org-agenda-goto-date
+       "gJ" 'org-agenda-clock-goto
+       "gm" 'org-agenda-bulk-mark
+       "go" 'org-agenda-open-link
+       "s" 'org-agenda-schedule
+       "+" 'org-agenda-priority-up
+       "," 'org-agenda-priority
+       "-" 'org-agenda-priority-down
+       "y" 'org-agenda-todo-yesterday
+       "n" 'org-agenda-add-note
+       "t" 'org-agenda-todo
+       ":" 'org-agenda-set-tags
+       ";" 'org-timer-set-timer
+       "I" 'helm-org-task-file-headings
+       "i" 'org-agenda-clock-in-avy
+       "O" 'org-agenda-clock-out-avy
+       "u" 'org-agenda-bulk-unmark
+       "x" 'org-agenda-exit
+       "j"  'org-agenda-next-line
+       "k"  'org-agenda-previous-line
+       "vt" 'org-agenda-toggle-time-grid
+       "va" 'org-agenda-archives-mode
+       "vw" 'org-agenda-week-view
+       "vl" 'org-agenda-log-mode
+       "vd" 'org-agenda-day-view
+       "vc" 'org-agenda-show-clocking-issues
+       "g/" 'org-agenda-filter-by-tag
+       "o" 'delete-other-windows
+       "gh" 'org-agenda-holiday
+       "gv" 'org-agenda-view-mode-dispatch
+       "f" 'org-agenda-later
+       "b" 'org-agenda-earlier
+       "c" 'helm-org-capture-templates
+       "e" 'org-agenda-set-effort
+       "n" nil  ; evil-search-next
+       "{" 'org-agenda-manipulate-query-add-re
+       "}" 'org-agenda-manipulate-query-subtract-re
+       "A" 'org-agenda-toggle-archive-tag
+       "." 'org-agenda-goto-today
+       "0" 'evil-digit-argument-or-evil-beginning-of-line
+       "<" 'org-agenda-filter-by-category
+       ">" 'org-agenda-date-prompt
+       "F" 'org-agenda-follow-mode
+       "D" 'org-agenda-deadline
+       "H" 'org-agenda-holidays
+       "J" 'org-agenda-next-date-line
+       "K" 'org-agenda-previous-date-line
+       "L" 'org-agenda-recenter
+       "P" 'org-agenda-show-priority
+       "R" 'org-agenda-clockreport-mode
+       "Z" 'org-agenda-sunrise-sunset
+       "T" 'org-agenda-show-tags
+       "X" 'org-agenda-clock-cancel
+       "[" 'org-agenda-manipulate-query-add
+       "g\\" 'org-agenda-filter-by-tag-refine
+       "]" 'org-agenda-manipulate-query-subtract)))
 (provide 'mk-org)
 ;;; mk-org.el ends here
