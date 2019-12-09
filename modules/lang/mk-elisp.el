@@ -72,6 +72,8 @@
 		       0
 		     1))))))
 
-
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (set (make-local-variable 'company-backends) '(company-elisp company-yasnippet))))
 (provide 'mk-elisp)
 ;;; mk-elisp.el ends here
