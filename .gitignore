@@ -23,3 +23,4 @@ org-gcal/
 *.elc
 .org-id-locations
 history
+.extension

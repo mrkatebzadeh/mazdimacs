@@ -64,9 +64,18 @@
   :defer t
   :after lsp-mode
   :config
-  (dap-mode t)
-  (dap-ui-mode t)
-  (require 'dap-gdb-lldb))
+  (dap-mode -1)
+  (dap-ui-mode -1)
+  :bind
+  (:map dap-mode-map
+        (("<f12>" . dap-debug)
+         ("<f6>" . dap-breakpoint-condition)
+         ("<f8>" . dap-continue)
+         ("<f9>" . dap-next)
+         ("<M-f11>" . dap-step-in)
+         ("C-M-<f11>" . dap-step-out)
+         ("<f7>" . dap-breakpoint-toggle))))
+
 
 
 
