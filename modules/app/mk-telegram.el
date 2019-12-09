@@ -1,4 +1,4 @@
-;;; mk-torrent.el --- Torrent  -*- lexical-binding: t; -*-
+;;; mk-telegram.el --- Telegram -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,21 +25,37 @@
 
 ;;; Code:
 
-(use-package transmission
+(use-package telega
+  :commands (telega)
+  :custom (semanticdb-default-save-directory (concat mk-cache-dir "/semanticdb"))
   :defer t)
 
-(with-eval-after-load 'transmission
-  (defvar transmission-auto-refresh-all nil
-    "Enable status auto refresh in all transmission buffers.")
-  (setq transmission-refresh-modes '(transmission-mode
-				     transmission-files-mode
-				     transmission-info-mode
-				     transmission-peers-mode)))
+(with-eval-after-load 'telega
+  (add-hook 'telega-chat-mode-hook
+	    (lambda ()
+	      (set (make-local-variable 'company-backends)
+		   (append '(telega-company-emoji
+			     telega-company-username
+			     telega-company-hashtag)
+			   (when (telega-chat-bot-p telega-chatbuf--chat)
+			     '(telega-company-botcmd))))
+	      (company-mode 1))))
+
 (general-define-key
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "b" 'transmission)
+ "T" 'telega)
 
-(provide 'mk-torrent)
-;;; mk-torrent.el ends here
+(general-define-key
+ :prefix "SPC l"
+ :states '(normal visual motion)
+ :keymaps 'telega-chat-mode-map
+ "q"  'kill-this-buffer
+ "s"  'telega-sticker-choose-favorite-or-recent)
+
+(general-define-key
+ :prefix "SPC l"
+ :states '(normal visual motion)
+ :keymaps 'telega-root-mode-map
+ "q"  'telega-kill)
