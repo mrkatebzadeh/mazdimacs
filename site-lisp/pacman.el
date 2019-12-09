@@ -135,11 +135,6 @@ Special commands:
       (require 'shell)
       (shell-mode)
       (set-process-filter (get-buffer-process installbuffer) 'comint-output-filter))
-    (if (y-or-n-p (concat "Install " installstring "? "))
-	(progn
-	  (process-send-string installprocess "y\n"))
-      (progn
-	(delete-process installprocess)))
     )
   )
 
@@ -164,9 +159,6 @@ Special commands:
       (require 'shell)
       (shell-mode)
       (set-process-filter (get-buffer-process removebuffer) 'comint-output-filter))
-    (if (y-or-n-p (concat "Remove " removestring "?"))
-	(process-send-string removeprocess "y\n")
-      (delete-process removeprocess))
     )
   )
 
@@ -235,13 +227,6 @@ Special commands:
       (require 'shell)
       (shell-mode)
       (set-process-filter (get-buffer-process updatebuffer) 'comint-output-filter))
-    (if (y-or-n-p "Continue updating system? ")
-	(progn
-	  (process-send-string updateprocess "y\n")
-
-	  )
-      (progn
-	(delete-process updateprocess)))
     )
   )
 
