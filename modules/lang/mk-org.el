@@ -104,11 +104,11 @@
      ("TODO" . (:foreground "green" :weight bold))
      ("WAITING" . (:foreground "red" :weight bold)))))
 
-(use-package org-cryptd
+(use-package org-crypt
   :ensure nil
   :after org
   :defer t
-  :custom (org-crypt-key "3797D501BCA4213083024D46533892D5073A452C"))
+  :custom (org-crypt-key "mr.katebzadeh@gmail.com"))
 
 (use-package org-journal
   :defer t
@@ -395,6 +395,84 @@
  "r" 'helm-bibtex
  "s" 'mk-helm-ref
  "l" 'org-store-link)
+
+(general-define-key
+ :prefix "SPC l"
+ :states '(normal visual motion)
+ :keymaps 'org-mode-map
+ "ce" 'org-encrypt-entry
+ "cE" 'org-encrypt-entries
+ "cd" 'org-decrypt-entry
+ "cD" 'org-decrypt-entries
+ "'" 'org-edit-special
+ "d" 'org-deadline
+ "D" 'org-insert-drawer
+ "ee" 'org-export-dispatch
+ "f" 'org-set-effort
+ "P" 'org-set-property
+ ":" 'org-set-tags
+
+ "b" 'org-tree-to-indirect-buffer
+ "A" 'org-archive-subtree
+ "l" 'org-open-at-point
+ "T" 'org-show-todo-tree
+
+ "." 'org-time-stamp
+ "!" 'org-time-stamp-inactive
+
+ ;; headings
+ "hi" 'org-insert-heading-after-current
+ "hI" 'org-insert-heading
+ "hs" 'org-insert-subheading
+
+ ;; More cycling options (timestamps, headlines, items, properties)
+ "L" 'org-shiftright
+ "H" 'org-shiftleft
+ "J" 'org-shiftdown
+ "K" 'org-shiftup
+
+ ;; Change between TODO sets
+ "C-S-l" 'org-shiftcontrolright
+ "C-S-h" 'org-shiftcontrolleft
+ "C-S-j" 'org-shiftcontroldown
+ "C-S-k" 'org-shiftcontrolup
+
+ ;; Subtree editing
+ "Sl" 'org-demote-subtree
+ "Sh" 'org-promote-subtree
+ "Sj" 'org-move-subtree-down
+ "Sk" 'org-move-subtree-up
+
+ ;; tables
+ "ta" 'org-table-align
+ "tb" 'org-table-blank-field
+ "tc" 'org-table-convert
+ "tdc" 'org-table-delete-column
+ "tdr" 'org-table-kill-row
+ "te" 'org-table-eval-formula
+ "tE" 'org-table-export
+ "th" 'org-table-previous-field
+ "tH" 'org-table-move-column-left
+ "tic" 'org-table-insert-column
+ "tih" 'org-table-insert-hline
+ "tiH" 'org-table-hline-and-move
+ "tir" 'org-table-insert-row
+ "tI" 'org-table-import
+ "tj" 'org-table-next-row
+ "tJ" 'org-table-move-row-down
+ "tK" 'org-table-move-row-up
+ "tl" 'org-table-next-field
+ "tL" 'org-table-move-column-right
+ "tn" 'org-table-create
+ "tN" 'org-table-create-with-table.el
+ "tr" 'org-table-recalculate
+ "ts" 'org-table-sort-lines
+ "ttf" 'org-table-toggle-formula-debugger
+ "tto" 'org-table-toggle-coordinate-overlays
+ "tw" 'org-table-wrap-region
+ )
+
+
 
 
 (provide 'mk-org)
