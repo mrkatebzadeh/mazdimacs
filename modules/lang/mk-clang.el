@@ -294,9 +294,11 @@
  :prefix "SPC l"
  :states '(normal visual motion)
  :keymaps '(c-mode-map c++-mode-map)
+ "g" '(:ignore t :which-key "goto")
  "gc" 'ccls/callee
  "gC" 'ccls/caller
  "gm" 'ccls/member
+ "f" '(:ignore t :which-key "find")
  "fr" 'lsp-ui-peek-find-references
  "fd" 'lsp-ui-peek-find-declaration
  "fD" 'lsp-ui-peek-find-definitions

@@ -111,6 +111,7 @@
  ">"   'markdown-indent-region
  "<"   'markdown-exdent-region
  ;; Buffer-wide commands
+ "c" '(:ignore t :which-key "commands")
  "c]"  'markdown-complete-buffer
  "cc"  'markdown-check-refs
  "ce"  'markdown-export
@@ -121,6 +122,7 @@
  "cv"  'markdown-export-and-preview
  "cw"  'markdown-kill-ring-save
  ;; headings
+ "h" '(:ignore t :which-key "headings")
  "hi"  'markdown-insert-header-dwim
  "hI"  'markdown-insert-header-setext-dwim
  "h1"  'markdown-insert-header-atx-1
@@ -132,6 +134,7 @@
  "h!"  'markdown-insert-header-setext-1
  "h@"  'markdown-insert-header-setext-2
  ;; Insertion of common elements
+ "i" '(:ignore t :which-key "insert")
  "-"   'markdown-insert-hr
  "if"  'markdown-insert-footnote
  "ii"  'markdown-insert-image
@@ -146,6 +149,7 @@
  ;; List editing
  "li"  'markdown-insert-list-item
  ;; region manipulation
+ "f" '(:ignore t :which-key "region")
  "xb"  'markdown-insert-bold
  "xi"  'markdown-insert-italic
  "xc"  'markdown-insert-code

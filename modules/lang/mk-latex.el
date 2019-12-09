@@ -123,6 +123,8 @@
  "a" 'TeX-command-run-all
  "k" 'TeX-kill-job
  "l" 'TeX-recenter-output-buffer
+ "i" '(:ignore t :which-key "insert")
+ "ii" 'LaTeX-insert-item
  "im" 'TeX-insert-macro
  "v" 'TeX-view
  "hd" 'TeX-doc
@@ -130,12 +132,13 @@
  "." 'LaTeX-mark-environment
  "c" 'LaTeX-close-environment
  "e" 'LaTeX-environment
- "ii" 'LaTeX-insert-item
  "s" 'LaTeX-section
+ "f" '(:ignore t :which-key "fill")
  "fe" 'LaTeX-fill-environment
  "fp" 'LaTeX-fill-paragraph
  "fr" 'LaTeX-fill-region
  "fs" 'LaTeX-fill-section
+ "p" '(:ignore t :which-key "preview")
  "pb" 'preview-buffer
  "pc" 'preview-clearout
  "pd" 'preview-document
@@ -144,6 +147,7 @@
  "pp" 'preview-at-point
  "pr" 'preview-region
  "ps" 'preview-section
+ "r" '(:ignore t :which-key "reftex")
  "rc" 'reftex-citation
  "rg" 'reftex-grep-document
  "ri" 'reftex-index-selection-or-word
