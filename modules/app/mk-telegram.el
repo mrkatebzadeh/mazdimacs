@@ -59,3 +59,6 @@
  :states '(normal visual motion)
  :keymaps 'telega-root-mode-map
  "q"  'telega-kill)
+
+(provide 'mk-telegram)
+;;; mk-telegram.el ends here
