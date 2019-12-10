@@ -171,6 +171,10 @@
 				 cmake-build-command)
     (with-current-buffer buildbuffer
       (display-buffer (current-buffer))
+      (evil-force-normal-state)
+      (read-only-mode -1)
+      (kill-region (point-min) (point-max))
+      (read-only-mode t)
       (require 'shell)
       (shell-mode)
       (set-process-filter (get-buffer-process buildbuffer) 'comint-output-filter))
@@ -187,6 +191,10 @@
 				 cmake-make-command)
     (with-current-buffer makebuffer
       (display-buffer (current-buffer))
+      (evil-force-normal-state)
+      (read-only-mode -1)
+      (kill-region (point-min) (point-max))
+      (read-only-mode t)
       (require 'shell)
       (shell-mode)
       (set-process-filter (get-buffer-process makebuffer) 'comint-output-filter))
