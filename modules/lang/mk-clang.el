@@ -148,6 +148,7 @@
 
 (defun cmake-find-project ()
   "Finds the directory of the project for cmake."
+  (interactive)
   (setq cmake-project-dir (projectile-project-root))
   (setq cmake-build-dir (concat cmake-project-dir "build"))
   (setq cmake-make-command
@@ -162,19 +163,46 @@
 
 (defun cmake-build ()
   (interactive)
-  (shell-command cmake-build-command))
+  (let* (
+	 (buildbuffer (concat "*build*"))
+	 (buildprocess (concat "buildprocess")))
+    (start-process-shell-command buildprocess
+				 buildbuffer
+				 cmake-build-command)
+    (with-current-buffer buildbuffer
+      (display-buffer (current-buffer))
+      (require 'shell)
+      (shell-mode)
+      (set-process-filter (get-buffer-process buildbuffer) 'comint-output-filter))
+    )
+  (message cmake-build-command))
 
 (defun cmake-make ()
   (interactive)
-  (shell-command cmake-make-command))
+  (let* (
+	 (makebuffer (concat "*make*"))
+	 (makeprocess (concat "makeprocess")))
+    (start-process-shell-command makeprocess
+				 makebuffer
+				 cmake-make-command)
+    (with-current-buffer makebuffer
+      (display-buffer (current-buffer))
+      (require 'shell)
+      (shell-mode)
+      (set-process-filter (get-buffer-process makebuffer) 'comint-output-filter))
+    )
+  (message cmake-make-command))
 
 (defun cmake-build-clean ()
   (interactive)
-  (shell-command cmake-bclean-command))
+  (shell-command cmake-bclean-command)
+  (message cmake-bclean-command))
 
 (defun cmake-make-clean ()
   (interactive)
-  (shell-command cmake-mclean-command))
+  (shell-command cmake-mclean-command)
+  (message cmake-mclean-command))
+
 (defun cmake-objdump-disaster (file-name)
   (require 'disaster)
   (let* ((objdump-cmd (format "%s %s" disaster-objdump (shell-quote-argument file-name)))
