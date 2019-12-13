@@ -1,4 +1,4 @@
-/* `(insert (buffer-name))` --- `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))` -*- lexical-binding: t; -*-
+/* `(insert (buffer-name))` --- `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`
 
  *
  * Author: M.R.Siavash Katebzadeh <mr.katebzadeh@gmail.com>
