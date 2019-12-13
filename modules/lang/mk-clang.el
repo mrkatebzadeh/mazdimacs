@@ -170,7 +170,7 @@
 				 buildbuffer
 				 cmake-build-command)
     (with-current-buffer buildbuffer
-      (display-buffer (current-buffer))
+					;(display-buffer (current-buffer))
       (evil-force-normal-state)
       (read-only-mode -1)
       (kill-region (point-min) (point-max))
@@ -190,7 +190,7 @@
 				 makebuffer
 				 cmake-make-command)
     (with-current-buffer makebuffer
-      (display-buffer (current-buffer))
+					;(display-buffer (current-buffer))
       (evil-force-normal-state)
       (read-only-mode -1)
       (kill-region (point-min) (point-max))
