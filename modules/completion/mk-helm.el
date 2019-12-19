@@ -27,7 +27,8 @@
 
 (use-package helm
   :defer t
-  :init
+  :commands (helm-find-files)
+  :config
   (helm-mode 1)
   (setq helm-ff-skip-boring-files t))
 
