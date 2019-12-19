@@ -113,16 +113,20 @@
  "e" 'elfeed)
 
 (with-eval-after-load 'elfeed
-  (evil-define-key 'normal elfeed-search-mode-map (kbd "A") 'elfeed-show-all
-    (kbd "e") 'mk-elfeed-show-emacs
-    (kbd "d") 'mk-elfeed-show-daily
-    (kbd "a") 'mk-elfeed-show-network
-    (kbd "q") 'mk-elfeed-save-db-and-bury
-    (kbd "*") 'mk-elfeed-star
-    (kbd "8") 'mk-elfeed-unstar
-    (kbd "S") 'mk-elfeed-show-starred
-    (kbd "F") 'mk-elfeed-toggle-star
-    (kbd "U") 'elfeed-update))
+  (general-define-key
+   :prefix "SPC l"
+   :states 'normal
+   :keymaps 'elfeed-search-mode-map
+   "a" 'elfeed-show-all
+   "b" '(:ignore t :which-key "bookmarks")
+   "be" 'mk-elfeed-show-emacs
+   "bd" 'mk-elfeed-show-daily
+   "bn" 'mk-elfeed-show-network
+   "bs" 'mk-elfeed-show-starred
+   "q" 'mk-elfeed-save-db-and-bury
+   "s" 'mk-elfeed-star
+   "S" 'mk-elfeed-unstar
+   "u" 'elfeed-update))
 
 (provide 'mk-rss)
 ;;; mk-rss.el ends here
