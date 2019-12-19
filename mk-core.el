@@ -110,7 +110,8 @@ Must end with a slash.")
                                   motion
                                   operator
                                   replace))
-  (general-override-mode))
+  (general-override-mode)
+  (general-auto-unbind-keys))
 
 ;; which-key
 (use-package which-key
