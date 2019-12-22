@@ -41,5 +41,30 @@
  :keymaps 'override
  "b" 'transmission)
 
-(provide 'mk-torrent)
+(with-eval-after-load 'transmission
+  (general-define-key
+   :prefix "SPC l"
+   :states '(normal visual motion emacs)
+   :keymaps 'transmission-mode-map
+   "a" 'transmission-add
+   "d" 'transmission-set-download
+   "e" 'transmission-peers
+   "f" 'transmission-files
+   "i" 'transmission-info
+   "k" 'transmission-trackers-add
+   "l" 'transmission-set-ratio
+   "m" 'transmission-toggle-mark
+   "r" 'transmission-remove
+   "D" 'transmission-delete
+   "s" 'transmission-toggle
+   "t" 'transmission-invert-marks
+   "u" 'transmission-set-upload
+   "v" 'transmission-verify
+   "q" 'transmission-quit
+   "x" 'transmission-toggle
+   "y" 'transmission-set-bandwidth-priority
+   "U" 'transmission-unmark-all))
+
+
+  (provide 'mk-torrent)
 ;;; mk-torrent.el ends here
