@@ -35,6 +35,9 @@
 (require 'request) ;; To use GitHub's REST API
 
 
+(defvar speed-type-dir (locate-user-emacs-file (format "speed-type"))
+  "Speed-test cache directory.")
+
 (defun speed-type--seconds-to-minutes (seconds)
   "Return minutes in float for SECONDS."
   (/ seconds 60.0))
@@ -194,8 +197,8 @@ Total errors: %d
 
 (defun speed-type--gb-retrieve (book-num)
   "Return buffer with book number BOOK-NUM in it."
-  (let ((dr (locate-user-emacs-file (format "speed-type")))
-        (fn (locate-user-emacs-file (format "speed-type/%d.txt" book-num)))
+  (let ((dr speed-type-dir)
+        (fn (concat speed-type-dir (format "/%d.txt" book-num)))
         (url-request-method "GET"))
     (if (file-readable-p fn)
         (find-file-noselect fn t)
@@ -339,8 +342,8 @@ Total errors: %d
 
 (defun speed-type--code-retrieve (sample-num)
   "Returns a buffer with the sample SAMPLE-NUM in it."
-  (let ((dr (locate-user-emacs-file (format "speed-type")))
-        (fn (locate-user-emacs-file (format "speed-type/code-%d.txt" sample-num)))
+  (let ((dr speed-type-dir)
+        (fn (concat speed-type-dir (format "/code-%d.txt" sample-num)))
         (url-request-method "GET")
         (sample (speed-type--code-sample sample-num)))
     (if (file-readable-p fn)
