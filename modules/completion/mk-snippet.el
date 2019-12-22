@@ -49,10 +49,10 @@
   (auto-insert-mode 1)
 
   :config
-  (define-auto-insert "\\.c?$" ["default-c.c" autoinsert-yas-expand])
-  (define-auto-insert "\\.el?$" ["default-el.el" autoinsert-yas-expand])
-  (define-auto-insert "\\.h?$" ["default-h.h" autoinsert-yas-expand])
-  (define-auto-insert "\\.html?$" "default-html.html"))
+  (define-auto-insert "\\.c?$" ["default-c" autoinsert-yas-expand])
+  (define-auto-insert "\\.el?$" ["default-el" autoinsert-yas-expand])
+  (define-auto-insert "\\.h?$" ["default-h" autoinsert-yas-expand])
+  (define-auto-insert "\\.html?$" "default-html"))
 
 (use-package abbrev
   :ensure nil
