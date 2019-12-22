@@ -31,6 +31,7 @@
   :defer t)
 
 (with-eval-after-load 'telega
+  (telega-notifications-mode 1)
   (add-hook 'telega-chat-mode-hook
 	    (lambda ()
 	      (set (make-local-variable 'company-backends)
