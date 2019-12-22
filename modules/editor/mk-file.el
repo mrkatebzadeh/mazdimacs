@@ -63,11 +63,51 @@
 (use-package docker-tramp
   :defer t)
 
+(defun mk-kill-dired-buffers ()
+  (interactive)
+  (mapc (lambda (buffer)
+	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+	    (kill-buffer buffer)))
+	(buffer-list)))
+
+(use-package dired
+  :ensure nil
+  :config
+  (evil-collection-init 'dired)
+  (let ((args (list "-aBhl" "--group-directories-first")))
+    (setq dired-listing-switches (string-join args " ")))
+  (evil-define-key 'normal dired-mode-map (kbd "/") 'dired-narrow
+    (kbd "P") 'peep-dired
+    (kbd "t") 'dired-subtree-insert
+    (kbd "T") 'dired-subtree-remove
+    (kbd "q") 'mk-kill-dired-buffers)
+  (require 'dired-rainbow)
+  (evil-define-key 'normal peep-dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down
+    (kbd "C-<SPC>") 'peep-dired-scroll-page-up
+    (kbd "<backspace>") 'peep-dired-scroll-page-up
+    (kbd "j") 'peep-dired-next-file
+    (kbd "k") 'peep-dired-prev-file)
+  (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+  :init
+  (setq dired-auto-revert-buffer t
+	dired-dwim-target t
+	dired-hide-details-hide-symlink-targets nil
+	;; Always copy/delete recursively
+	dired-recursive-copies  'always
+	dired-recursive-deletes 'top
+	;; Where to store image caches
+	image-dired-dir (concat mk-cache-dir "image-dired/")
+	image-dired-db-file (concat image-dired-dir "db.el")
+	image-dired-gallery-dir (concat image-dired-dir "gallery/")
+	image-dired-temp-image-file (concat image-dired-dir "temp-image")
+	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
+
 (use-package peep-dired
   :after dired
   :defer t
   :init
   (setq peep-dired-cleanup-on-disable t
+	peep-dired-cleanup-eagerly t
 	peep-dired-enable-on-directories t
 	peep-dired-ignored-extensions '("mkv" "iso" "mp4")))
 
@@ -79,9 +119,8 @@
   :after dired
   :defer t)
 
-(use-package dired-quick-sort
-  :after dired
-  :defer t)
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package dired-rainbow
   :defer t
@@ -167,30 +206,6 @@
 	projectile-switch-project-action 'helm-projectile-find-file)
   (projectile-global-mode))
 
-(defun mk-dired-init ()
-  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse))
-
-(if (boundp 'dired-mode-map)
-    (mk-dired-init)
-  (add-hook 'dired-load-hook 'mk-dired-init))
-
-
-(with-eval-after-load 'dired
-  (require 'dired-single)
-  (require 'ls-lisp)
-  (setq dired-listing-switches "-lhG"
-	ls-lisp-use-insert-directory-program nil
-	ls-lisp-ignore-case t
-	ls-lisp-use-string-collate nil
-	ls-lisp-verbosity '(links uid)
-	ls-lisp-format-time-list '("%b %e %H:%M" "%b %e  %Y")
-	ls-lisp-use-localized-time-format t)
-
-  (setq wdired-allow-to-change-permissions t)
-
-  (with-eval-after-load 'dired-quick-sort
-    (dired-quick-sort-setup)))
-
 (with-eval-after-load 'treemacs
   (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
 	treemacs-deferred-git-apply-delay      0.5
@@ -267,23 +282,6 @@
  "sg" 'helm-projectile-grep
  "sa" 'helm-projectile-ack
  "ss" 'helm-projectile-ag)
-
-(with-eval-after-load 'dired
-  (evil-collection-init 'dired)
-  (evil-define-key 'normal dired-mode-map (kbd "/") 'dired-narrow
-    (kbd "P") 'peep-dired
-    (kbd "t") 'dired-subtree-insert
-    (kbd "T") 'dired-subtree-remove
-    (kbd "<return>") 'dired-single-buffer
-    (kbd "l") 'dired-single-buffer
-    (kbd "h") 'dired-single-up-directory)
-
-  (evil-define-key 'normal peep-dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down
-    (kbd "C-<SPC>") 'peep-dired-scroll-page-up
-    (kbd "<backspace>") 'peep-dired-scroll-page-up
-    (kbd "j") 'peep-dired-next-file
-    (kbd "k") 'peep-dired-prev-file)
-  (add-hook 'peep-dired-hook 'evil-normalize-keymaps))
 
 (general-define-key
  :prefix "SPC a"
