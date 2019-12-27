@@ -27,7 +27,11 @@
 
 (use-package helm
   :defer t
-  :commands (helm-find-files)
+  :commands (helm-find-files
+	     helm-show-kill-ring
+	     helm-recentf
+	     helm-tramp
+	     helm-tramp-quit)
   :config
   (helm-mode 1)
   (setq helm-ff-skip-boring-files t))
@@ -46,17 +50,17 @@
 		 (window-height . 0.35))))
 
 ;;; Files
-(with-eval-after-load 'helm
-  (general-define-key
-   :prefix "SPC f"
-   :states '(normal visual motion)
-   :keymaps 'override
-   "k" 'helm-show-kill-ring
-   "r" 'helm-recentf
-   "t" 'helm-tramp
-   "T" 'helm-tramp-quit
-   "f" 'helm-find-files)
+(general-define-key
+ :prefix "SPC f"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "k" 'helm-show-kill-ring
+ "r" 'helm-recentf
+ "t" 'helm-tramp
+ "T" 'helm-tramp-quit
+ "f" 'helm-find-files)
 
+(with-eval-after-load 'helm
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z") #'helm-select-action))

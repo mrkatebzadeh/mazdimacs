@@ -35,7 +35,7 @@
 	     helm-projectile-find-file-in-known-projects
 	     helm-projectile-recentf
 	     helm-projectile-ag)
-  :init
+  :config
   (helm-projectile-on))
 
 (use-package recentf
