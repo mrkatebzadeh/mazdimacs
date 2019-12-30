@@ -51,6 +51,10 @@
 	'(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
 	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
 
+(use-package helm-org
+  :after helm
+  :defer t)
+
 (use-package ox-reveal
   :defer t)
 
@@ -64,7 +68,7 @@
   :defer t
   :init
   (setq org-ref-bibliography-notes     (concat org-directory "/ref/notes.org")
-        org-ref-default-bibliography   '(concat org-directory "/ref/master.bib")
+        org-ref-default-bibliography   (list (concat org-directory "/ref/master.bib"))
         org-ref-pdf-directory          (concat org-directory "/ref/files/"))
   (setq org-latex-pdf-process '("latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -output-directory=%o -f %f"))
   (setq interleave-org-notes-dir-list `(,(concat org-directory "/ref/files"))))
@@ -289,7 +293,7 @@
     (cond
      ((equal candidate "Research")
       (setq org-ref-bibliography-notes     (concat org-directory "/ref/notes.org")
-	    org-ref-default-bibliography   '(concat org-directory "/ref/master.bib")
+	    org-ref-default-bibliography   (list (concat org-directory "/ref/master.bib"))
 	    org-ref-pdf-directory          (concat org-directory "/ref/files/")
 	    bibtex-completion-bibliography (concat org-directory "/ref/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/ref/files")
@@ -298,7 +302,7 @@
 	    helm-bibtex-library-path bibtex-completion-library-path))
      ((equal candidate "Ebooks")
       (setq org-ref-bibliography-notes     (concat org-directory "/ebooks/notes.org")
-	    org-ref-default-bibliography   '(concat org-directory "/ebooks/master.bib")
+	    org-ref-default-bibliography   (list (concat org-directory "/ebooks/master.bib"))
 	    org-ref-pdf-directory          (concat org-directory "/ebooks/files/")
 	    bibtex-completion-bibliography (concat org-directory "/ebooks/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/ebooks/files")
@@ -307,7 +311,7 @@
 	    helm-bibtex-library-path bibtex-completion-library-path))
      ((equal candidate "PDFs")
       (setq org-ref-bibliography-notes     (concat org-directory "/pdfs/notes.org")
-	    org-ref-default-bibliography   '(concat org-directory "/pdfs/master.bib")
+	    org-ref-default-bibliography   (list (concat org-directory "/pdfs/master.bib"))
 	    org-ref-pdf-directory          (concat org-directory "/pdfs/files/")
 	    bibtex-completion-bibliography (concat org-directory "/pdfs/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/pdfs/files")
