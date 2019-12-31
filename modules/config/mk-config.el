@@ -35,10 +35,10 @@
 
 ;;; bindigs
 (general-define-key
- :prefix "SPC C"
+ :prefix "SPC c"
  :states '(normal visual motion)
  :keymaps 'override
- "C" 'mk-init-file
+ "c" 'mk-init-file
  "t" 'try)
 
 
