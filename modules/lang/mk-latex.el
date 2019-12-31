@@ -49,10 +49,6 @@
 (use-package reftex
   :defer t)
 
-(use-package pdf-tools
-  :defer t
-  :mode ("\\.pdf\\'" . pdf-tools-install))
-
 (use-package helm-bibtex
   :defer t)
 
@@ -89,9 +85,6 @@
 (with-eval-after-load 'reftex
   (setq reftex-cite-prompt-optional-args t))
 
-					;(with-eval-after-load 'pdf-tools
-					;  (setq mouse-wheel-follow-mouse t
-					;	pdf-view-resize-factor 1.10))
 
 (with-eval-after-load 'helm-bibtex
   (setq bibtex-completion-bibliography (concat org-directory "/ref/master.bib")

@@ -95,6 +95,16 @@
   ("\\.service\\'" "\\.timer\\'" "\\.target\\'" "\\.mount\\'"
    "\\.automount\\'" "\\.slice\\'" "\\.socket\\'" "\\.path\\'"
    "\\.netdev\\'" "\\.network\\'" "\\.link\\'"))
+
+(use-package pdf-tools
+  :defer t
+  :mode ("\\.pdf\\'" . pdf-tools-install)
+  :config
+  (setq mouse-wheel-follow-mouse t
+	pdf-view-resize-factor 1.10))
+
+
+
 ;;; config
 
 ;;; bindigs
@@ -164,6 +174,37 @@
  "P"   'markdown-previous-link
  "<RET>" 'markdown-jump)
 
+(with-eval-after-load 'pdf-tools
+  (general-define-key
+   :prefix "SPC l"
+   :states '(normal visual motion)
+   :keymaps 'pdf-view-mode-map
+   ;; Slicing image
+   "s" '(:ignore t :which-key "slicing")
+   "sm" 'pdf-view-set-slice-using-mouse
+   "sb" 'pdf-view-set-slice-from-bounding-box
+   "sr" 'pdf-view-reset-slice
+   ;; Annotations
+   "a" '(:ignore t :which-key "annotations")
+   "aD" 	'pdf-annot-delete
+   "at" 	'pdf-annot-attachment-dired
+   "ah" 	'pdf-annot-add-highlight-markup-annotation
+   "al" 	'pdf-annot-list-annotations
+   "am" 	'pdf-annot-add-markup-annotation
+   "ao" 	'pdf-annot-add-strikeout-markup-annotation
+   "as" 	'pdf-annot-add-squiggly-markup-annotation
+   "at" 	'pdf-annot-add-text-annotation
+   "au" 	'pdf-annot-add-underline-markup-annotation
+   ;; Fit image to window
+   "f" '(:ignore t :which-key "fit")
+   "fw" 'pdf-view-fit-width-to-window
+   "fh" 'pdf-view-fit-height-to-window
+   "fp" 'pdf-view-fit-page-to-window
+   ;; Other
+   "o" 'pdf-occur
+   "p" 'pdf-misc-print-document
+   "O" 'pdf-outline
+   "n" 'pdf-view-midnight-minor-mode))
 
 
 
