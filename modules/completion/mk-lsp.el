@@ -29,6 +29,7 @@
 (use-package lsp-mode
   :defer t
   :init
+  (add-to-list 'exec-path "~/.cargo/bin")
   (setq lsp-auto-guess-root t)
   (setq lsp-keep-workspace-alive nil)
   :custom
