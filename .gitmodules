@@ -4,3 +4,6 @@
 [submodule "site-lisp/aweshell"]
 	path = site-lisp/aweshell
 	url = https://github.com/manateelazycat/aweshell.git
+[submodule "site-lisp/cpp-auto-include"]
+	path = site-lisp/cpp-auto-include
+	url = https://github.com/emacsorphanage/cpp-auto-include.git

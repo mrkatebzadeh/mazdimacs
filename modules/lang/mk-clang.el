@@ -135,6 +135,12 @@
   :config
   (push 'company-c-headers company-backends))
 
+(use-package cpp-auto-include
+  :defer t
+  :ensure nil
+  :commands (cpp-auto-include)
+  :load-path (lambda () (concat mk-lisp-dir "/cpp-auto-include")))
+
 ;;; config
 
 (setq-default c-default-style "linux")
@@ -339,6 +345,7 @@
  "fd" 'lsp-ui-peek-find-declaration
  "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
+ "h"  'cpp-auto-include
  "F"  'clang-format-buffer
  "i"  'lsp-ui-imenu
  "d"  'cmake-objdump
@@ -349,7 +356,7 @@
  "M"  'cmake-make-clean
  "B"  'cmake-build-clean
  "R"  'lsp-restart-workspace
- "h"  'lsp-symbol-highlight
+ "H"  'lsp-symbol-highlight
  "s"  'srefactor-refactor-at-point)
 
 
