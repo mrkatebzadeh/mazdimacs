@@ -45,10 +45,11 @@
  :prefix "SPC l"
  :states '(normal visual motion)
  :keymaps 'rust-mode-map
- "a" 'cargo-process-add
- "b" 'cargo-process-build
- "n" 'cargo-process-new
- "r" 'cargo-process-run)
+ "c" '(:ignore t :which-key "cargo")
+ "ca" 'cargo-process-add
+ "cb" 'cargo-process-build
+ "cn" 'cargo-process-new
+ "cr" 'cargo-process-run)
 
 
 (provide 'mk-rust)
