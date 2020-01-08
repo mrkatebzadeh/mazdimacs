@@ -54,8 +54,8 @@
  :prefix "SPC f"
  :states '(normal visual motion)
  :keymaps 'override
- "k" 'helm-show-kill-ring
- "r" 'helm-recentf
+ "K" 'helm-show-kill-ring
+ "R" 'helm-recentf
  "t" 'helm-tramp
  "T" 'helm-tramp-quit
  "f" 'helm-find-files)
