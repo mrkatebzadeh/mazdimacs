@@ -26,7 +26,9 @@
 ;;; Code:
 
 (use-package projectile
-  :defer t)
+  :defer t
+  :commands (projectile-project-root)
+  :config (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
 
 (use-package helm-projectile
   :defer t

@@ -44,6 +44,9 @@
 (use-package lsp-ui
   :demand t
   :after lsp-mode
+  :commands (lsp-ui-peek-find-definitions
+	     lsp-ui-peek-find-implementation
+	     lsp-ui-peek-find-references)
   :config
   (setq lsp-prefer-flymake nil
         lsp-ui-doc-max-height 8

@@ -94,8 +94,7 @@
   (ccls-executable (executable-find "ccls"))
   (projectile-project-root-files-top-down-recurring
    (append '("compile_commands.json" ".ccls")
-	   projectile-project-root-files-top-down-recurring))
-  :config (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
+	   projectile-project-root-files-top-down-recurring)))
 
 (use-package google-c-style
   :hook ((c++-mode) . google-set-c-style))
@@ -342,7 +341,7 @@
  "gm" 'ccls/member
  "f" '(:ignore t :which-key "find")
  "fr" 'lsp-ui-peek-find-references
- "fd" 'lsp-ui-peek-find-declaration
+ "fd" 'lsp-ui-peek-find-implementation
  "fD" 'lsp-ui-peek-find-definitions
  "r"  'lsp-rename
  "h"  'cpp-auto-include
