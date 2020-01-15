@@ -389,6 +389,14 @@
       (kill-buffer)))
   (add-hook 'org-ref-clean-bibtex-entry-hook 'my-orcb-key))
 
+(defun mk-open-bib-file()
+  (interactive)
+  (find-file (car org-ref-default-bibliography)))
+
+(defun mk-open-note-file()
+  (interactive)
+  (find-file org-ref-bibliography-notes))
+
 ;;; bindings
 (general-define-key
  :prefix "SPC o"
@@ -398,11 +406,50 @@
  "e" 'mk-org-export
  "o" 'org-mode
  "c" 'org-capture
- "t" 'org-journal-new-entry
- "y" 'journal-file-yesterday
- "r" 'helm-bibtex
- "s" 'mk-helm-ref
+ "r" '(:ignore t :which-key "org-ref")
+ "rs" 'mk-helm-ref
+ "ri" 'org-ref-helm-insert-cite-link
+ "rl" 'helm-bibtex
+ "rd" 'doi-utils-add-bibtex-entry-from-doi
+ "rn" 'mk-open-note-file
+ "ro" 'mk-open-bib-file
+ "j" '(:ignore t :which-key "org-journal")
+ "jt" 'org-journal-new-entry
+ "jy" 'journal-file-yesterday
  "l" 'org-store-link)
+
+
+(evil-define-key 'normal bibtex-mode-map
+  (kbd "C-j") 'org-ref-bibtex-next-entry
+  (kbd "C-k") 'org-ref-bibtex-previous-entry
+  "gj" 'org-ref-bibtex-next-entry
+  "gk" 'org-ref-bibtex-previous-entry)
+
+(general-define-key
+ :prefix "SPC l"
+ :states '(normal visual motion)
+ :keymaps 'bibtex-mode-map
+ ;; Navigation
+ "j" 'org-ref-bibtex-next-entry
+ "k" 'org-ref-bibtex-previous-entry
+
+ ;; Open
+ "b" 'org-ref-open-in-browser
+ "n" 'org-ref-open-bibtex-notes
+ "p" 'org-ref-open-bibtex-pdf
+
+ ;; Misc
+ "h" 'org-ref-bibtex-hydra/body
+ "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+ "s" 'org-ref-sort-bibtex-entry
+
+ ;; Lookup utilities
+ "l" '(:ignore t :which-key "lookup")
+ "la" 'arxiv-add-bibtex-entry
+ "lA" 'arxiv-get-pdf-add-bibtex-entry
+ "ld" 'doi-utils-add-bibtex-entry-from-doi
+ "li" 'isbn-to-bibtex
+ "lp" 'pubmed-insert-bibtex-from-pmid)
 
 (general-define-key
  :prefix "SPC l"
