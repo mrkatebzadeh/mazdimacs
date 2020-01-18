@@ -71,11 +71,6 @@
 (use-package csv-mode
   :defer t)
 
-(use-package dockerfile-mode
-  :defer t
-  :delight "δ "
-  :mode "Dockerfile\\'")
-
 (use-package elisp-mode
   :defer t
   :ensure nil
