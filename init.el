@@ -124,7 +124,13 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+(add-to-list 'exec-path "/usr/local/bin/")
+(add-to-list 'exec-path "/usr/local/texlive/2019basic/bin/x86_64-darwin/")
+(add-to-list 'exec-path "/Library/TeX/texbin/")
 
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin/"))
+(setenv "PATH" (concat (getenv "PATH") "/usr/local/texlive/2019basic/bin/x86_64-darwin/"))
+(setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin/"))
 (provide 'init)
 
 ;;; init.el ends here
