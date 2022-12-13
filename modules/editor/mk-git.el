@@ -40,8 +40,8 @@
 ;;; config
 
 (with-eval-after-load 'magit
-  (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
-  (evil-magit-init))
+  (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
+;; (evil-magit-init))
 
 (with-eval-after-load 'git-gutter-fringe+
   (custom-set-variables '(git-gutter:update-interval 2))
