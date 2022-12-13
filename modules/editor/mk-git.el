@@ -33,9 +33,9 @@
 (use-package git-gutter-fringe+
   :defer t)
 
-(use-package evil-magit
-  :after (evil magit)
-  :defer t)
+;; (use-package evil-magit
+;;   :after (evil magit)
+;;   :defer t)
 
 ;;; config
 

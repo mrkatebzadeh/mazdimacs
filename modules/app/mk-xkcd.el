@@ -27,10 +27,9 @@
 
 (use-package xkcd
   :defer t
-  :custom
-  (xkcd-cache-dir (concat mk-emacs-dir ".xkcd/"))
-  (xkcd-cache-latest (concat xkcd-cache-dir "latest"))
-  :init
+  :config
+  (setq xkcd-cache-dir (concat mk-emacs-dir ".xkcd/"))
+  (setq xkcd-cache-latest (concat xkcd-cache-dir "latest"))
   (make-directory xkcd-cache-dir t))
 
 (general-define-key

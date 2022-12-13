@@ -55,14 +55,14 @@
         lsp-ui-doc-enable t
         lsp-ui-sideline-show-hover t))
 
-(use-package company-lsp
-  :defer t
-  :after (company lsp-mode)
-  :init
-  (defvar company-lsp-enable-recompletion t)
-  (defvar company-lsp-async t)
-  :config
-  (setq company-backends '(company-lsp company-yasnippet)))
+;; (use-package company-lsp
+;;   :defer t
+;;   :after (company lsp-mode)
+;;   :init
+;;   (defvar company-lsp-enable-recompletion t)
+;;   (defvar company-lsp-async t)
+;;   :config
+;;   (setq company-backends '(company-lsp company-yasnippet)))
 
 (use-package dap-mode
   :defer t
@@ -72,13 +72,13 @@
   (dap-ui-mode -1)
   :bind
   (:map dap-mode-map
-        (("<f12>" . dap-debug)
-         ("<f6>" . dap-breakpoint-condition)
-         ("<f8>" . dap-continue)
-         ("<f9>" . dap-next)
-         ("<M-f11>" . dap-step-in)
-         ("C-M-<f11>" . dap-step-out)
-         ("<f7>" . dap-breakpoint-toggle))))
+	(("<f12>" . dap-debug)
+	 ("<f6>" . dap-breakpoint-condition)
+	 ("<f8>" . dap-continue)
+	 ("<f9>" . dap-next)
+	 ("<M-f11>" . dap-step-in)
+	 ("C-M-<f11>" . dap-step-out)
+	 ("<f7>" . dap-breakpoint-toggle))))
 
 
 
