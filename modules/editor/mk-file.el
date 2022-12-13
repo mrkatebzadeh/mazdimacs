@@ -124,7 +124,9 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package treemacs
-  :defer t)
+  :defer t
+  :config
+  (treemacs-project-follow-mode 1))
 
 (use-package treemacs-evil
   :after (treemacs evil)
@@ -499,6 +501,15 @@ Compare them on count first,and in case of tie sort them alphabetically."
  :states '(normal visual motion)
  :keymaps 'override
  "s" '(:ignore t :which-key "Search"))
+
+(general-define-key
+ :prefix "SPC s"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "g" 'helm-projectile-grep
+ "a" 'helm-projectile-ack
+ "/" 'helm-projectile-ag)
+
 
 (general-define-key
  :prefix "SPC p"
