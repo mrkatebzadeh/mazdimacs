@@ -61,8 +61,17 @@
     "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
     :docstring "Searchin' the wikis."))
 
+
 (general-define-key
- :prefix "SPC /"
+ :prefix "SPC"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "s" '(:ignore t :which-key "Search")
+ )
+
+
+(general-define-key
+ :prefix "SPC s"
  :states '(normal visual motion)
  :keymaps 'override
  "t" 'google-translate-at-point

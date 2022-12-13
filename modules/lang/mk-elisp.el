@@ -75,5 +75,22 @@
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (set (make-local-variable 'company-backends) '(company-elisp company-yasnippet))))
+
+(general-define-key
+ :prefix "SPC"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "e" '(:ignore t :which-key "Eval")
+ )
+(general-define-key
+ :prefix "SPC e"
+ :states '(normal visual motion)
+ :keymaps 'override
+ ";" 'eval-expression
+ "b" 'eval-buffer
+ "e" 'eval-last-sexp)
+
+
+
 (provide 'mk-elisp)
 ;;; mk-elisp.el ends here

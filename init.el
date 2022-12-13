@@ -31,11 +31,14 @@
   (eval-when-compile (file-truename user-emacs-directory))
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
+(defvar mk-vars-file (concat mk-emacs-dir "mk-vars.el")
+  "The MK's vars files. Must end with a slash.")
+
 (defvar mk-core-file (concat mk-emacs-dir "mk-core.el")
   "The root directory of MK's core files. Must end with a slash.")
 
 (defvar mk-modules-dir (concat mk-emacs-dir "modules/")
-"The root directory for MK's modules. Must end with a slash.")
+  "The root directory for MK's modules. Must end with a slash.")
 
 (defvar mk-lisp-dir (concat mk-emacs-dir "site-lisp/")
   "The root directory of MK's external files. Must end with a slash.")
@@ -114,8 +117,12 @@
 
 (add-to-list 'load-path mk-lisp-dir)
 
+(load mk-vars-file)
+(message "Vars has been loaded.")
+
 (load mk-core-file)
 (message "Core has been loaded.")
+
 ;;; Load Theme
 (load mk-ui-file)
 ;;; Load modules

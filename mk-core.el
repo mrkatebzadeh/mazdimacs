@@ -25,30 +25,6 @@
 
 ;;; Code:
 
-;; Constants
-(defconst mk-version "0.0.1"
-  "Current version of MK Emacs.")
-
-;; Variables
-(defvar mk-local-dir (concat mk-emacs-dir ".local/")
-  "Root directory for local storage.
-Use this as a storage location for this system's installation of MK Emacs.
-These files should not be shared across systems. By default, it is used by
-`mk-etc-dir' and `mk-cache-dir'. Must end with a slash.")
-
-(defvar mk-etc-dir (concat mk-local-dir "etc/")
-  "Directory for non-volatile local storage.
-Use this for files that don't change much, like server binaries, external
-dependencies or long-term shared data. Must end with a slash.")
-
-(defvar mk-cache-dir (concat mk-local-dir "cache/")
-  "Directory for volatile local storage.
-Use this for files that change often, like cache files. Must end with a slash.")
-
-(defvar mk-packages-dir (concat mk-local-dir "packages/")
-  "Where package.el and quelpa plugins (and their caches) are stored.
-Must end with a slash.")
-
 
 ;; Uncomment the following line if you got “no match” error after `M-x package-install` on a package on MacOS
 ;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
@@ -117,6 +93,7 @@ Must end with a slash.")
 (use-package which-key
   :defer t
   :init
+  (setq which-key-idle-delay 0.1)
   (which-key-mode))
 
 ;; evil
@@ -158,15 +135,13 @@ Must end with a slash.")
  :keymaps 'override
  "" '(nil :which-key "My lieutenant general prefix")
  "f" '(:ignore t :which-key "Files")
- "C" '(:ignore t :which-key "Config Files")
+ "c" '(:ignore t :which-key "Config Files")
  "o" '(:ignore t :which-key "Org")
  "a" '(:ignore t :which-key "Applications")
  "g" '(:ignore t :which-key "Magit")
  "m" '(:ignore t :which-key "EMMS")
  "l" '(:ignore t :which-key "Local Bindings")
  "b" '(:ignore t :which-key "Buffers")
- "s" '(:ignore t :which-key "Search")
- "S" '(:ignore t :which-key "Shell")
  "h" '(:ignore t :which-key "Help!")
  "v" '(:ignore t :which-key "Volume")
  "w" '(:ignore t :which-key "Windows")
@@ -174,7 +149,6 @@ Must end with a slash.")
  "t" '(:ignore t :which-key "Toggles")
 
  "x" 'helm-M-x
- ";" 'eval-expression
  )
 
 ;; Exit/restart/reboot/shutdown

@@ -70,7 +70,13 @@
 
 ;;; bindings
 (general-define-key
- :prefix "SPC s"
+ :prefix "SPC"
+ :states '(normal visual motion)
+ :keymaps 'override
+ "S" '(:ignore t :which-key "Shell")
+ )
+(general-define-key
+ :prefix "SPC S"
  :states '(normal visual motion)
  :keymaps 'override
  "s" 'aweshell-toggle
