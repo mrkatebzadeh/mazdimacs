@@ -126,11 +126,22 @@
 (use-package treemacs
   :defer t
   :config
-  (treemacs-project-follow-mode 1))
+  (evil-define-key 'normal treemacs-mode-map
+    (kbd "d") 'treemacs-delete-file
+    (kbd "<") 'treemacs-decrement-width
+    (kbd ">") 'treemacs-increment-width
+    (kbd ".") 'treemacs-toggle-show-dotfiles
+    (kbd "<tab>") 'treemacs-RET-action
+    (kbd "RET") 'treemacs-rename-file
+    (kbd "r") 'treemacs-rename-file
+    )
+  (treemacs-project-follow-mode 1)
+  (treemacs-peek-mode 1))
 
 (use-package treemacs-evil
   :after (treemacs evil)
-  :defer t)
+  :defer t
+  )
 
 (use-package treemacs-projectile
   :after (treemacs projectile)

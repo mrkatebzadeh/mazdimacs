@@ -36,15 +36,23 @@
 	      (TeX-source-correlate-mode)
               (turn-on-reftex)
               (reftex-isearch-minor-mode)
-	      (add-to-list 'TeX-view-program-selection
-			   '(output-pdf "Zathura"))
+	      ;; (add-to-list 'TeX-view-program-selection
+	      ;; '(output-pdf "Zathura"))
+	      ;; (add-to-list 'TeX-view-program-selection
+	      ;; '(output-pdf "zathura"))
+	      (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+		    TeX-source-correlate-start-server t)
 	      (setq-default TeX-master nil)
               (setq reftex-plug-into-AUCTeX t
                     TeX-PDF-mode t
 		    TeX-command-force ""
 		    TeX-source-correlate-method 'synctex
 		    TeX-source-correlate-start-server t
+		    TeX-command-default "latex -synctex=1"
 		    ))))
+
+(use-package latex-preview-pane
+  :defer t)
 
 (use-package reftex
   :defer t)
@@ -65,6 +73,7 @@
 
 (with-eval-after-load 'auctex
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'LaTeX-mode-hook
 	    (lambda ()
 	      (add-hook 'after-save-hook 'TeX-command-master nil t)))
@@ -102,12 +111,18 @@
 (with-eval-after-load 'company-auctex
   (company-auctex-init))
 
+(defun latex-compile ()
+  (interactive)
+  (save-buffer)
+  (TeX-command "LaTeX" 'TeX-master-file))
+
 ;;; bindings
 
 (general-define-key
  :prefix "SPC l"
  :states '(normal visual motion)
  :keymaps 'LaTeX-mode-map
+ "b" 'latex-compile
  "c" 'TeX-command-master
  "\\" 'TeX-insert-macro
  "-" 'TeX-recenter-output-buffer

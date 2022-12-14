@@ -36,7 +36,7 @@
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   :bind
   (("M-#" . aweshell-dedicated-open)
-   (:map eshell-mode-map ("M-#" . aweshell-dedicated-close))))
+
 
 (defun mk-update-ticket()
   (interactive)
@@ -82,6 +82,7 @@
  "s" 'aweshell-toggle
  "n" 'aweshell-new
  "a" 'aweshell-dedicated-toggle
+ "t" 'eshell-toggle
  "u" 'mk-update-ticket
  "c" 'mk-scp-project)
 
