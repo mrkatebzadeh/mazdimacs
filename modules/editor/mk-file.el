@@ -136,7 +136,14 @@
     (kbd "r") 'treemacs-rename-file
     )
   (treemacs-project-follow-mode 1)
-  (treemacs-peek-mode 1))
+  (treemacs-peek-mode 1)
+  (treemacs-load-all-the-icons-with-workaround-font "FiraCode Nerd Font")
+  )
+
+(use-package treemacs-all-the-icons
+  :after (treemacs all-the-icons)
+  :defer t
+  )
 
 (use-package treemacs-evil
   :after (treemacs evil)
@@ -149,10 +156,7 @@
 
 (use-package lsp-treemacs
   :after (lsp-mode treemacs)
-  :defer t
-  :config
-  (lsp-metals-treeview-enable t)
-  (setq lsp-metals-treeview-show-when-views-received t))
+  :defer t)
 
 (use-package treemacs-icons-dired
   :after (treemacs dired)
@@ -557,6 +561,7 @@ Compare them on count first,and in case of tie sort them alphabetically."
  :prefix "SPC f"
  :states '(normal visual motion)
  :keymaps 'override
+ "e" 'treemacs
  "r" '(:ignore t :which-key "rename")
  "rf" 'mk-rename-file
  "rb" 'mk-rename-current-buffer-file

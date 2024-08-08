@@ -96,7 +96,11 @@
   :defer t)
 
 (use-package highlight-indent-guides
-  :defer t)
+  :defer t
+  :config
+  (set-face-background 'highlight-indent-guides-odd-face "dimgray")
+  (set-face-background 'highlight-indent-guides-even-face "dimgray")
+  (set-face-foreground 'highlight-indent-guides-character-face "dimgray"))
 
 
 ;;; config
