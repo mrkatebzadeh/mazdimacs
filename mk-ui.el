@@ -29,17 +29,13 @@
 
 ;; Font
 (set-face-attribute 'default nil
-                    :family "Source Code Pro"
-                    :height 200
+                    :family "FiraCode Nerd Font"
+                    :height 160
                     :weight 'normal
                     :width 'normal)
 
 ;; highlight current line
 (global-hl-line-mode +1)
-;; bars
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
 
 (use-package dashboard
   :ensure t
@@ -57,15 +53,13 @@
 (use-package page-break-lines
   :ensure t)
 
-;; theme
-(use-package challenger-deep-theme
-  :ensure t)
-					;  :init  (load-theme 'challenger-deep t))
-
-;; dracula-theme
-(use-package dracula-theme
+;; catppuccin-theme
+(use-package catppuccin-theme
   :ensure t
-  :init (load-theme 'dracula t))
+  :init
+  (setq catppuccin-flavor 'frappe)
+  (load-theme 'catppuccin :no-confirm))
+
 ;; all-the-icons
 (use-package all-the-icons
   :ensure t)
