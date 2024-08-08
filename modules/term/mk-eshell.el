@@ -35,7 +35,7 @@
   :load-path (lambda () (concat mk-lisp-dir "/aweshell/"))
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   :bind
-  (("M-#" . aweshell-dedicated-open)
+  (("C-\\" . aweshell-dedicated-toggle)))
 
 
 (defun mk-update-ticket()
