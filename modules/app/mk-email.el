@@ -43,10 +43,6 @@
 (use-package gnus
   :defer t)
 
-(use-package mu4e-maildirs-extension
-  :defer t
-  :after mu4e)
-
 ;;; helm-mu
 (use-package helm-mu
   :defer t
