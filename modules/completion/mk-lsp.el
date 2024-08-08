@@ -29,13 +29,30 @@
 (use-package lsp-mode
   :defer t
   :init
-  (add-to-list 'exec-path "~/.cargo/bin")
   (setq lsp-auto-guess-root t)
   (setq lsp-keep-workspace-alive nil)
   :custom
   (lsp-prefer-flymake nil)
   (lsp-session-file (concat mk-backup-dir "lsp-session-v1"))
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-eldoc-enable-hover nil)
+  (lsp-modeline-diagnostics-enable t)
+  (lsp-idle-delay 0.6)
+  ;; enable / disable the hints as you prefer:
+  (lsp-inlay-hint-enable t)
+  (lsp-enable-symbol-highlighting t)
+  (lsp-lens-enable t)
+  ;; These are optional configurations. See https://emacs-lsp.github.io/lsp-mode/page/lsp-rust-analyzer/#lsp-rust-analyzer-display-chaining-hints for a full list
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
   :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (add-hook 'rustic-mode-hook #'lsp)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "pyls")
 		    :major-modes '(python-mode)
@@ -52,8 +69,9 @@
         lsp-ui-doc-max-height 8
         lsp-ui-doc-max-width 35
         lsp-ui-sideline-ignore-duplicate t
-        lsp-ui-doc-enable t
-        lsp-ui-sideline-show-hover t))
+	lsp-ui-doc-enable t
+	lsp-ui-doc-show-with-mouse t
+	lsp-ui-sideline-show-hover nil))
 
 ;; (use-package company-lsp
 ;;   :defer t
