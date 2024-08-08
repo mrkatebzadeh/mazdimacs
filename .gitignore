@@ -24,3 +24,5 @@ org-gcal/
 .org-id-locations
 history
 .extension
+eln-cache/
+quelpa

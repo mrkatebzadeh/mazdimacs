@@ -25,6 +25,11 @@
 ;; in org style) to navigate through sections, and "imenu" to locate individual
 ;; use-package definition.
 
+;; bars
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
 ;;; Path vars
 ;;(setq user-emacs-directory (file-name-directory load-file-name))
 (defvar mk-emacs-dir
@@ -134,10 +139,12 @@
 (add-to-list 'exec-path "/usr/local/bin/")
 (add-to-list 'exec-path "/usr/local/texlive/2019basic/bin/x86_64-darwin/")
 (add-to-list 'exec-path "/Library/TeX/texbin/")
+(add-to-list 'exec-path "/run/current-system/sw/bin")
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/texlive/2019basic/bin/x86_64-darwin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))
+(setenv "PATH" (concat (getenv "PATH") ":/run/current-system/sw/bin"))
 (provide 'init)
 
 ;;; init.el ends here
