@@ -25,14 +25,12 @@
 
 ;;; Code:
 
-
-;; Uncomment the following line if you got “no match” error after `M-x package-install` on a package on MacOS
-;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
 ;; Initialize package.el
 (require 'package)
 (setq package--init-file-ensured t
       initial-scratch-message ""
+      frame-inhibit-implied-resize t
+      initial-major-mode 'fundamental-mode
       tab-width 4
       select-enable-clipboard t
       user-full-name "M.R. Siavash Katebzadeh"
@@ -124,6 +122,7 @@
 ;; esup
 (use-package esup
   :defer t)
+
 
 ;; Esc
 (global-set-key [escape] 'keyboard-escape-quit)
