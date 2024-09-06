@@ -25,6 +25,25 @@
 
 ;;; Code:
 
+(use-package flymake
+  :defer t
+  :ensure nil
+  :config ; (Optional) For fix bad icon display (Only for left margin)
+  (advice-add #'flymake--indicator-overlay-spec
+              :filter-return
+              (lambda (indicator)
+                (concat indicator
+                        (propertize " "
+                                    'face 'default
+                                    'display `((margin left-margin)
+                                               (space :width 5))))))
+  :custom
+  (flymake-indicator-type 'margins)
+  (flymake-margin-indicators-string
+   `((error ,(nerd-icons-faicon "nf-fa-remove_sign") compilation-error)
+     (warning ,(nerd-icons-faicon "nf-fa-warning") compilation-warning)
+     (note ,(nerd-icons-faicon "nf-fa-circle_info") compilation-info))))
+
 (use-package flycheck
   :defer t)
 
@@ -55,13 +74,10 @@
   (langtool-mother-tongue "en-US"))
 
 ;;; bindings
-(general-define-key
- :prefix "SPC t"
- :states '(normal visual motion)
- :keymaps 'override
- "s" 'flyspell-mode
- "l" 'langtool-check
- "c" 'global-flycheck-mode)
+(leader
+  "ts" 'flyspell-mode
+  "tl" 'langtool-check
+  "tc" 'global-flycheck-mode)
 
 
 (provide 'mk-checker)

@@ -27,10 +27,12 @@
 
 ;;; lsp-mode
 (use-package lsp-mode
+  :ensure t
   :defer t
   :init
   (setq lsp-auto-guess-root t)
   (setq lsp-keep-workspace-alive nil)
+  (setq read-process-output-max (* 1024 1024))
   :custom
   (lsp-prefer-flymake nil)
   (lsp-session-file (concat mk-backup-dir "lsp-session-v1"))
@@ -56,9 +58,11 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "pyls")
 		    :major-modes '(python-mode)
-		    :server-id 'pyls)))
+		    :server-id 'pyls))
+  )
 
 (use-package lsp-ui
+  :ensure t
   :demand t
   :after lsp-mode
   :commands (lsp-ui-peek-find-definitions
@@ -66,40 +70,74 @@
 	     lsp-ui-peek-find-references)
   :config
   (setq lsp-prefer-flymake nil
-        lsp-ui-doc-max-height 8
-        lsp-ui-doc-max-width 35
+        lsp-ui-doc-max-height 15
+	lsp-ui-doc-max-width 150
         lsp-ui-sideline-ignore-duplicate t
 	lsp-ui-doc-enable t
 	lsp-ui-doc-show-with-mouse t
-	lsp-ui-sideline-show-hover nil))
+	lsp-ui-sideline-show-diagnostics t
+	lsp-ui-sideline-update-mode "line"
+	lsp-ui-sideline-show-hover nil)
+  )
 
-;; (use-package company-lsp
-;;   :defer t
-;;   :after (company lsp-mode)
-;;   :init
-;;   (defvar company-lsp-enable-recompletion t)
-;;   (defvar company-lsp-async t)
-;;   :config
-;;   (setq company-backends '(company-lsp company-yasnippet)))
+(when (string= mk-completion "featured")
+  (use-package company-lsp
+    :ensure t
+    :defer t
+    :after (company lsp-mode)
+    :init
+    (defvar company-lsp-enable-recompletion t)
+    (defvar company-lsp-async t)
+    :config
+    (setq company-backends '(company-lsp company-yasnippet)))
+  )
 
 (use-package dap-mode
+    :ensure t
+    :defer t
+    :after lsp-mode
+    :config
+    (dap-mode -1)
+    (dap-ui-mode -1)
+    :bind
+    (:map dap-mode-map
+	  (("<f12>" . dap-debug)
+	   ("<f6>" . dap-breakpoint-condition)
+	   ("<f8>" . dap-continue)
+	   ("<f9>" . dap-next)
+	   ("<M-f11>" . dap-step-in)
+	   ("C-M-<f11>" . dap-step-out)
+	   ("<f7>" . dap-breakpoint-toggle))))
+
+(leader
+  "d" '(:ignore t :which-key "Debug")
+  "dd" 'dap-debug
+  "dB" 'dap-breakpoint-condition
+  "dc" 'dap-continue
+  "dn" 'dap-next
+  "di" 'dap-step-in
+  "do" 'dap-step-out
+  "db" 'dap-breakpoint-toggle
+  )
+
+(use-package format-all
+  :ensure t
   :defer t
-  :after lsp-mode
+  :commands format-all-mode
+  :hook (prog-mode . format-all-mode)
   :config
-  (dap-mode -1)
-  (dap-ui-mode -1)
-  :bind
-  (:map dap-mode-map
-	(("<f12>" . dap-debug)
-	 ("<f6>" . dap-breakpoint-condition)
-	 ("<f8>" . dap-continue)
-	 ("<f9>" . dap-next)
-	 ("<M-f11>" . dap-step-in)
-	 ("C-M-<f11>" . dap-step-out)
-	 ("<f7>" . dap-breakpoint-toggle))))
+  (setq-default format-all-formatters
+                '(("C"     (astyle "--mode=c"))
+		  ("Rust"     (rustfmt))
+		  ("Nix"     (nixpkgs-fmt))
+                  ("Shell" (shfmt "-i" "4" "-ci")))))
 
-
-
+(leader
+  "ld" 'lsp-ui-peek-find-definitions
+  "lD" 'lsp-ui-peek-find-implementation
+  "lr" 'lsp-ui-peek-find-references
+  "lf" 'format-all-mode
+  "lk" 'lsp-ui-doc-glance)
 
 (provide 'mk-lsp)
-;;; mk-lsp.el ends here
+;;; mk-lsp.el ends

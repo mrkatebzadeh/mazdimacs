@@ -25,46 +25,48 @@
 
 ;;; Code:
 
-(use-package helm
-  :defer t
-  :commands (helm-find-files
-	     helm-show-kill-ring
-	     helm-recentf
-	     helm-tramp
-	     helm-tramp-quit)
-  :config
-  (helm-mode 1)
-  (setq helm-ff-skip-boring-files t))
+(when (string= mk-completion "featured")
+  (use-package helm
+    :disabled
+    :defer t
+    :commands (helm-find-files
+	       helm-show-kill-ring
+	       helm-recentf
+	       helm-tramp
+	       helm-tramp-quit)
+    :config
+    (helm-mode 1)
+    (setq helm-ff-skip-boring-files t))
+
+
+(with-eval-after-load 'helm
+(customize-set-variable 'helm-ff-lynx-style-map t)
+(add-to-list 'display-buffer-alist
+	     `(,(rx bos "*helm" (* not-newline) "*" eos)
+	       (display-buffer-in-side-window)
+	       (inhibit-same-window . t)
+	       (window-height . 0.35)))
+(define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z") #'helm-select-action))
+
+
+
 
 ;;; helm-tramp
 (use-package helm-tramp
   :after helm
   :defer t)
 
-(with-eval-after-load 'helm
-  (customize-set-variable 'helm-ff-lynx-style-map t)
-  (add-to-list 'display-buffer-alist
-	       `(,(rx bos "*helm" (* not-newline) "*" eos)
-		 (display-buffer-in-side-window)
-		 (inhibit-same-window . t)
-		 (window-height . 0.35))))
-
 ;;; Files
-(general-define-key
- :prefix "SPC f"
- :states '(normal visual motion)
- :keymaps 'override
- "K" 'helm-show-kill-ring
- "R" 'helm-recentf
- "t" 'helm-tramp
- "T" 'helm-tramp-quit
- "f" 'helm-find-files)
+(leader
+  "fK" 'helm-show-kill-ring
+  "fr" 'helm-recentf
+  "ft" 'helm-tramp
+  "fT" 'helm-tramp-quit
+  "ff" 'helm-find-files)
 
-(with-eval-after-load 'helm
-  (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action))
-
+)
 
 (provide 'mk-helm)
 ;;; mk-helm.el ends here

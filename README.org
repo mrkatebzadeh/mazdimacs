@@ -1,5 +1,4 @@
-* MangeKyo Emacs
-  [[./logo.png]]
+* Siarch Emacs
 
 This repository contains all my GNU Emacs configuration.
 

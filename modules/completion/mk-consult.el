@@ -1,4 +1,4 @@
-;;; `(insert (buffer-name))` --- ${1:<TITLE>} -*- lexical-binding: t; -*-
+;;; mk-consult.el --- Consult -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,8 +25,31 @@
 
 ;;; Code:
 
-;;${0:<CODE>}
+(when (string= mk-completion "light")
 
+  (use-package consult
+    :ensure t
+    :defer t
+    :commands
+    (consult-grep
+     consult-find
+     consult-outline
+     consult-line
+     consult-buffer
+     ))
 
-(provide '`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`)
-;;; `(insert (buffer-name))` ends here
+  (use-package consult-tramp
+    :ensure nil
+    :defer t
+    :commands (consult-tramp))
+
+;;; Files
+  (leader
+    "fK" 'consult-yank-kill-ring
+    "fr" 'consult-recent-file
+    "ft" 'consult-tramp
+    "ff" 'find-file)
+
+  )
+(provide 'mk-consult)
+;;; mk-consult.el ends here

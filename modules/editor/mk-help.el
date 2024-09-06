@@ -1,4 +1,4 @@
-;;; `(insert (buffer-name))` --- ${1:<TITLE>} -*- lexical-binding: t; -*-
+;;; mk-help.el --- Help -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,8 +25,12 @@
 
 ;;; Code:
 
-;;${0:<CODE>}
+(leader
+  "hv" 'describe-variable
+  "hm" 'describe-mode
+  "hf" 'describe-function
+  "hk" 'describe-key)
 
 
-(provide '`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`)
-;;; `(insert (buffer-name))` ends here
+(provide 'mk-help)
+;;; mk-help.el ends here

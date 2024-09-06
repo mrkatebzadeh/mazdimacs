@@ -1,6 +1,15 @@
+.desktop
+.emacs.desktop
+project-window-list
+elpa/
+straight/
+projects
+el-get/
+bookmarks
 *~
 ac-comphist.dat
 .auto-saves/
+autosaves/
 .backups/
 emojis/
 irony/
@@ -26,3 +35,4 @@ history
 .extension
 eln-cache/
 quelpa
+.dap-breakpoints

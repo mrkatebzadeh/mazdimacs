@@ -25,22 +25,57 @@
 
 ;;; Code:
 
-(use-package projectile
-  :defer t
-  :commands (projectile-project-root)
-  :config (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
+(when (string= mk-completion "featured")
+  (use-package projectile
+    :ensure t
+    :defer t
+    :commands (projectile-project-root)
+    :config (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
 
-(use-package helm-projectile
-  :defer t
-  :commands (helm-projectile-switch-project
-	     helm-projectile-find-file
-	     helm-projectile-find-file-in-known-projects
-	     helm-projectile-recentf
-	     helm-projectile-ag)
-  :config
-  (helm-projectile-on))
+  (use-package helm-projectile
+    :ensure t
+    :defer t
+    :commands (helm-projectile-switch-project
+	       helm-projectile-find-file
+	       helm-projectile-find-file-in-known-projects
+	       helm-projectile-recentf
+	       helm-projectile-ag)
+    :config
+    (helm-projectile-on)
+    (setq projectile-use-git-grep t))
+  )
+
+(when (string= mk-completion "light")
+  (use-package consult-project-extra
+    :defer t
+    :ensure t)
+
+  (use-package project-x
+    :defer t
+    :after project
+    :config
+    (add-hook 'project-find-functions 'project-x-try-local 90)
+    (add-hook 'kill-emacs-hook 'project-x--window-state-write)
+    (setq project-switch-commands #'project-x-windows)
+    )
+
+  (defun mk-project-close ()
+    "Close all buffers associated with the current project."
+    (interactive)
+    (let ((project (project-current t)))
+      (if project
+          (let* ((project-root (project-root project))
+		 (buffers (project-buffers project)))
+            (dolist (buffer buffers)
+              (when (string-prefix-p project-root (or (buffer-file-name buffer) ""))
+		(kill-buffer buffer)))
+            (message "Closed all buffers for project: %s" project-root))
+	(message "No project found."))))
+
+  )
 
 (use-package recentf
+  :ensure t
   :defer t
   :init
   (add-hook 'find-file-hook (lambda () (unless recentf-mode
@@ -63,6 +98,7 @@
   :config (run-at-time nil (* 5 60) 'recentf-save-list))
 
 (use-package docker-tramp
+  :ensure t
   :defer t)
 
 (defun mk-kill-dired-buffers ()
@@ -74,7 +110,9 @@
 
 (use-package dired
   :ensure nil
+  :defer t
   :config
+  (setq dired-kill-when-opening-new-dired-buffer t)
   (evil-collection-init 'dired)
   (let ((args (list "-aBhl" "--group-directories-first")))
     (setq dired-listing-switches (string-join args " ")))
@@ -103,7 +141,15 @@
 	image-dired-temp-image-file (concat image-dired-dir "temp-image")
 	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
 
+(use-package diredfl
+  :ensure t
+  :defer t
+  :after dired
+  :config
+  (diredfl-global-mode))
+
 (use-package peep-dired
+  :ensure t
   :after dired
   :defer t
   :init
@@ -113,60 +159,91 @@
 	peep-dired-ignored-extensions '("mkv" "iso" "mp4")))
 
 (use-package dired-narrow
+  :ensure t
   :after dired
   :defer t)
 
 (use-package dired-subtree
+  :ensure t
   :after dired
   :defer t)
 
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+(use-package nerd-icons-dired
+  :defer t
+  :ensure t
+  :hook (dired-mode . nerd-icons-dired-mode))
+
 
 (use-package treemacs
+  :ensure t
   :defer t
   :config
   (evil-define-key 'normal treemacs-mode-map
     (kbd "d") 'treemacs-delete-file
-    (kbd "<") 'treemacs-decrement-width
-    (kbd ">") 'treemacs-increment-width
-    (kbd ".") 'treemacs-toggle-show-dotfiles
+    (kbd "a") 'treemacs-create-file
+    (kbd "A") 'treemacs-create-dir
+    (kbd "<") 'treemacs-decrease-width
+    (kbd ">") 'treemacs-increase-width
+    (kbd "H") 'treemacs-toggle-show-dotfiles
     (kbd "<tab>") 'treemacs-RET-action
-    (kbd "RET") 'treemacs-rename-file
-    (kbd "r") 'treemacs-rename-file
-    )
+    (kbd "<RET>") #'treemacs-RET-action
+    (kbd "r") 'treemacs-rename-file)
   (treemacs-project-follow-mode 1)
-  (treemacs-peek-mode 1)
-  (treemacs-load-all-the-icons-with-workaround-font "FiraCode Nerd Font")
   )
 
-(use-package treemacs-all-the-icons
-  :after (treemacs all-the-icons)
-  :defer t
+(use-package treemacs-nerd-icons
+  :ensure t
+  :after (treemacs nerd-icons)
+  :config
+  (treemacs-load-theme "nerd-icons")
   )
 
 (use-package treemacs-evil
+  :ensure t
   :after (treemacs evil)
   :defer t
   )
 
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :defer t)
+(when (string= mk-completion "featured")
+  (use-package treemacs-projectile
+    :after (treemacs projectile)
+    :defer t))
 
 (use-package lsp-treemacs
+  :ensure t
   :after (lsp-mode treemacs)
-  :defer t)
+  :defer t
+  :custom
+  (lsp-treemacs-theme "nerd-icons-ext"))
+
+(use-package lsp-treemacs-nerd-icons
+  :ensure nil
+  :defer t
+  ;; HACK: Load after the `lsp-treemacs' created default themes
+  :init (with-eval-after-load 'lsp-treemacs
+	  (require 'lsp-treemacs-nerd-icons)))
 
 (use-package treemacs-icons-dired
+  :ensure t
   :after (treemacs dired)
   :defer t
   :config (treemacs-icons-dired-mode))
 
 (use-package treemacs-magit
+  :ensure t
   :after (treemacs magit)
   :defer t)
 
+(use-package direnv
+  :defer t
+  :ensure t
+  :config
+  (direnv-mode))
+
+(use-package inheritenv
+  :defer t
+  :ensure t
+  )
 ;;; config
 (with-eval-after-load 'projectile
   (setq projectile-globally-ignored-directories
@@ -200,16 +277,21 @@
   (projectile-global-mode))
 
 (with-eval-after-load 'treemacs
+  (defun mk-treemacs-disable-line-numbers ()
+    "Disable line numbers in Treemacs mode."
+    (display-line-numbers-mode -1))
+
+  (add-hook 'treemacs-mode-hook 'mk-treemacs-disable-line-numbers)
   (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
 	treemacs-deferred-git-apply-delay      0.5
 	treemacs-display-in-side-window        t
 	treemacs-eldoc-display                 t
 	treemacs-file-event-delay              5000
-	treemacs-file-follow-delay             0.2
+	treemacs-file-follow-delay             0.01
 	treemacs-follow-after-init             t
 	treemacs-git-command-pipe              ""
 	treemacs-goto-tag-strategy             'refetch-index
-	treemacs-indentation                   2
+	treemacs-indentation                   1
 	treemacs-indentation-string            " "
 	treemacs-is-never-other-window         nil
 	treemacs-max-git-entries               5000
@@ -224,18 +306,20 @@
 	treemacs-recenter-after-project-jump   'always
 	treemacs-recenter-after-project-expand 'on-distance
 	treemacs-show-cursor                   nil
-	treemacs-show-hidden-files             t
+	treemacs-show-hidden-files             nil
 	treemacs-silent-filewatch              nil
 	treemacs-silent-refresh                nil
-	treemacs-sorting                       'alphabetic-desc
+	treemacs-sorting                       'alphabetic-asc
 	treemacs-space-between-root-nodes      t
-	treemacs-tag-follow-cleanup            t
-	treemacs-tag-follow-delay              1.5
+	treemacs-tag-follow-cleanup            nil
+	treemacs-tag-follow-delay              0.05
 	treemacs-width                         28)
 
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode t)
+  (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-ace)
+  (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-ace)
   (pcase (cons (not (null (executable-find "git")))
 	       (not (null (executable-find "python3"))))
     (`(t . t)
@@ -505,87 +589,78 @@ Compare them on count first,and in case of tie sort them alphabetically."
     words))
 
 ;;; bindings
-(general-define-key
- :prefix "SPC"
- :states '(normal visual motion)
- :keymaps 'override
- "p" '(:ignore t :which-key "Projects"))
+(leader
+  "p" '(:ignore t :which-key "Projects"))
 
-(general-define-key
- :prefix "SPC p"
- :states '(normal visual motion)
- :keymaps 'override
- "s" '(:ignore t :which-key "Search"))
+(when (string= mk-completion "light")
+  (leader
+    "fg" 'consult-git-grep
+    )
+  (leader
+    "pa" 'consult-project-extra-find-other-window
+    "pc" 'mk-project-close
+    "pf" 'project-find-file
+    "pF" 'consult-project-extra-find
+    "pb" 'project-switch-to-buffer
+    "pd" 'project-find-dir
+    "pp" 'project-switch-project
+    "ps" 'project-x-window-state-save
+    "pl" 'project-x-window-state-load
+    )
+  )
 
-(general-define-key
- :prefix "SPC s"
- :states '(normal visual motion)
- :keymaps 'override
- "g" 'helm-projectile-grep
- "a" 'helm-projectile-ack
- "/" 'helm-projectile-ag)
+(when (string= mk-completion "featured")
+  (leader
+    "fg" 'helm-projectile-grep
+    )
+  (leader
+    "pi" 'projectile-invalidate-cache
+    "pz" 'projectile-cache-current-file
+    "pa" 'helm-projectile-find-other-file
+    "pb" 'helm-projectile-switch-to-buffer
+    "pd" 'helm-projectile-find-dir
+    "pf" 'helm-projectile-find-file
+    "pF" 'helm-projectile-find-file-in-known-projects
+    "pg" 'helm-projectile-find-file-dwim
+    "pp" 'helm-projectile-switch-project
+    "pr" 'helm-projectile-recentf
+    ))
 
+(leader
+  "ad" 'dired)
 
-(general-define-key
- :prefix "SPC p"
- :states '(normal visual motion)
- :keymaps 'override
- "a" 'helm-projectile-find-other-file
- "b" 'helm-projectile-switch-to-buffer
- "d" 'helm-projectile-find-dir
- "e" 'helm-projectile-recentf
- "f" 'helm-projectile-find-file
- "F" 'helm-projectile-find-file-in-known-projects
- "g" 'helm-projectile-find-file-dwim
- "i" 'projectile-invalidate-cache
- "p" 'helm-projectile-switch-project
- "r" 'helm-projectile-recentf
- "z" 'projectile-cache-current-file
- "sg" 'helm-projectile-grep
- "sa" 'helm-projectile-ack
- "ss" 'helm-projectile-ag)
+(leader
+  "tf" 'treemacs)
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "d" 'dired)
+(leader
+  "fb" 'bookmark-jump
+  "fe" 'treemacs
+  "fR" '(:ignore t :which-key "rename")
+  "fRf" 'mk-rename-file
+  "fRb" 'mk-rename-current-buffer-file
+  "fd" '(:ignore t :which-key "delete")
+  "fdf" 'mk-delete-file-confirm
+  "fdb" 'mk-delete-current-buffer-file
+  "fdw" 'mk-delete-window
+  "fda" 'mk-ace-delete-window
+  "fk" '(:ignore t :which-key "kill")
+  "fkb" 'mk-kill-this-buffer
+  "fka" 'mk-ace-kill-this-buffer
+  "fko" 'mk-kill-other-buffers
+  "fD" 'mk-toggle-current-window-dedication
+  "fs" 'mk-sudo-edit
+  "fF" 'mk-show-and-copy-buffer-filename
+  "fn" 'mk-new-empty-buffer
+  "fy" 'mk-copy-whole-buffer-to-clipboard
+  "fp" 'mk-copy-clipboard-to-whole-buffer
+  "fC" '(:ignore t :which-key "convert")
+  "fCu" 'mk-dos2unix
+  "fCd" 'mk-unix2dos
+  "fc" 'mk-copy-file
+  "fa" 'mk-count-words-analysis)
 
-(general-define-key
- :prefix "SPC t"
- :states '(normal visual motion)
- :keymaps 'override
- "f" 'treemacs)
-
-(general-define-key
- :prefix "SPC f"
- :states '(normal visual motion)
- :keymaps 'override
- "e" 'treemacs
- "r" '(:ignore t :which-key "rename")
- "rf" 'mk-rename-file
- "rb" 'mk-rename-current-buffer-file
- "d" '(:ignore t :which-key "delete")
- "df" 'mk-delete-file-confirm
- "db" 'mk-delete-current-buffer-file
- "dw" 'mk-delete-window
- "da" 'mk-ace-delete-window
- "k" '(:ignore t :which-key "kill")
- "kb" 'mk-kill-this-buffer
- "ka" 'mk-ace-kill-this-buffer
- "ko" 'mk-kill-other-buffers
- "D" 'mk-toggle-current-window-dedication
- "s" 'mk-sudo-edit
- "F" 'mk-show-and-copy-buffer-filename
- "n" 'mk-new-empty-buffer
- "y" 'mk-copy-whole-buffer-to-clipboard
- "p" 'mk-copy-clipboard-to-whole-buffer
- "C" '(:ignore t :which-key "convert")
- "Cu" 'mk-dos2unix
- "Cd" 'mk-unix2dos
- "c" 'mk-copy-file
- "a" 'mk-count-words-analysis)
-
+(leader
+  "lt" 'lsp-treemacs-errors-list)
 
 (provide 'mk-file)
 ;;; mk-file.el ends here

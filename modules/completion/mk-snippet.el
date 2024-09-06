@@ -28,7 +28,6 @@
 (use-package yasnippet
   :defer t
   :commands (yas-minor-mode)
-  :hook ((prog-mode . yas-minor-mode))
   :config (yas-reload-all))
 
 (use-package yasnippet-snippets
@@ -63,11 +62,8 @@
   (if (file-exists-p abbrev-file-name)
       (quietly-read-abbrev-file)))
 
-(general-define-key
- :prefix "SPC t"
- :states '(normal visual motion)
- :keymaps 'override
- "y" 'yas-global-mode)
+(leader
+  "ty" 'yas-global-mode)
 
 
 (provide 'mk-snippet)

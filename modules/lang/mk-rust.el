@@ -35,10 +35,12 @@
 ;;   )
 
 (use-package cargo
+  :ensure t
   :defer t
   :hook (rust-mode . cargo-minor-mode))
 
 (use-package flycheck-rust
+  :ensure t
   :after (flycheck rust)
   :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
@@ -61,6 +63,15 @@
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+
+(straight-use-package
+ '(crates :type git :host github :repo "mrkatebzadeh/crates.el")
+ )
+(use-package crates
+  :ensure nil
+  :custom
+  (crates-checkmark-symbol " ")
+  (crates-warning-symbol " "))
 
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to
@@ -92,8 +103,6 @@
  "a" 'lsp-execute-code-action
  "r" 'lsp-rename
  )
-
-
 
 (provide 'mk-rust)
 ;;; mk-rust.el ends here

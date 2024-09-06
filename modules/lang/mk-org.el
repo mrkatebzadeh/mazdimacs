@@ -26,9 +26,9 @@
 ;;; Code:
 
 (use-package org
-  :ensure org-plus-contrib
+  ;; :ensure org-contrib
   :defer t
-  :pin org
+  :pin gnu
   :mode ("\\.org$" . org-mode)
   :init
   (setq org-agenda-files
@@ -51,20 +51,27 @@
 	'(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
 	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
 
-(use-package helm-org
-  :after helm
-  :defer t)
+(when (string= mk-completion "featured")
+  (use-package helm-org
+    :ensure t
+    :after helm
+    :defer t)
+  )
 
 (use-package ox-reveal
+  :ensure t
   :defer t)
 
 (use-package htmlize
+  :ensure t
   :defer t)
 
 (use-package gnuplot
+  :ensure t
   :defer t)
 
 (use-package org-ref
+  :ensure t
   :defer t
   :init
   (setq org-ref-bibliography-notes     (concat org-directory "/ref/notes.org")
@@ -76,6 +83,7 @@
 ;;; evil-org
 (use-package evil-org
   :ensure t
+  :defer t
   :init
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
@@ -93,7 +101,7 @@
   :defer t
   :hook (org-mode . org-bullets-mode)
   :custom
-  (org-bullets-bullet-list '("●" "►" "▸")))
+  (org-bullets-bullet-list '("●" "◉" "○" "✸" "✿")))
 
 (use-package org-contacts
   :ensure nil
@@ -141,6 +149,7 @@
   (org-journal-time-format ""))
 
 (use-package org-gcal
+  :ensure t
   :defer t
   :config
   (load-library "~/Dropbox/org/keys/gcal.el.gpg"))
@@ -452,14 +461,16 @@
  "lp" 'pubmed-insert-bibtex-from-pmid)
 
 (general-define-key
- :prefix "SPC l"
+ :prefix "SPC k"
  :states '(normal visual motion)
  :keymaps 'org-mode-map
- "c" '(:ignore t :which-key "org-crypt")
- "ce" 'org-encrypt-entry
- "cE" 'org-encrypt-entries
- "cd" 'org-decrypt-entry
- "cD" 'org-decrypt-entries
+ "c" 'org-todo
+ "s" 'org-schedule
+ "C" '(:ignore t :which-key "org-crypt")
+ "Ce" 'org-encrypt-entry
+ "CE" 'org-encrypt-entries
+ "Cd" 'org-decrypt-entry
+ "CD" 'org-decrypt-entries
  "'" 'org-edit-special
  "d" 'org-deadline
  "D" 'org-insert-drawer
@@ -536,7 +547,7 @@
  )
 
 (general-define-key
- :prefix "SPC l"
+ :prefix "SPC K"
  :states '(normal visual motion emacs)
  :keymaps 'org-agenda-mode-map
  "h" '(:ignore t :which-key "headings")

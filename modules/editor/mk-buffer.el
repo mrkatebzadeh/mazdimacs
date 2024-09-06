@@ -25,10 +25,19 @@
 
 ;;; Code:
 
+(use-package solaire-mode
+  :ensure t
+  :config
+  (solaire-global-mode +1))
+
 (use-package avy
-  :defer t)
+  :ensure t
+  :defer t
+  :config
+  (avy-setup-default))
 
 (use-package undo-tree
+  :ensure t
   :defer t)
 
 (use-package smart-hungry-delete
@@ -36,34 +45,36 @@
   :defer nil)
 
 (use-package expand-region
+  :ensure t
   :defer t)
 
 (use-package paren-face
+  :ensure t
   :defer t)
 
 (use-package evil-surround
+  :ensure t
   :defer t
   :config
   (global-evil-surround-mode 1))
 
-(use-package nlinum-relative
-  :defer t
-  :init
-  (nlinum-relative-setup-evil))
-
 (use-package emojify
+  :ensure t
   :defer t)
 
 (use-package google-this
+  :ensure t
   :defer t)
 
 (use-package fixmee
+  :ensure t
   :defer t
   :after button-lock
   :init
   (global-fixmee-mode 1))
 
 (use-package aggressive-indent
+  :ensure t
   :defer t
   :hook ((css-mode . aggressive-indent-mode)
          (emacs-lisp-mode . aggressive-indent-mode)
@@ -71,11 +82,13 @@
          (lisp-mode . aggressive-indent-mode)))
 
 (use-package electric-operator
+  :ensure t
   :defer t
   :delight
   :hook (python-mode . electric-operator-mode))
 
 (use-package rainbow-mode
+  :ensure t
   :defer t
   :delight
   :hook (prog-mode))
@@ -84,24 +97,23 @@
   :ensure nil
   :hook (before-save . delete-trailing-whitespace))
 
-(use-package format-all
-  :defer t)
-
 (use-package hl-todo
+  :ensure t
   :defer t
   :init
   (add-hook 'prog-mode-hook 'hl-todo-mode))
 
 (use-package rainbow-delimiters
+  :ensure t
   :defer t)
 
 (use-package highlight-indent-guides
-  :defer t
+  :ensure t
   :config
-  (set-face-background 'highlight-indent-guides-odd-face "dimgray")
-  (set-face-background 'highlight-indent-guides-even-face "dimgray")
-  (set-face-foreground 'highlight-indent-guides-character-face "dimgray"))
-
+  (setq highlight-indent-guides-responsive 'stack)
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-auto-enabled nil)
+  )
 
 ;;; config
 (defalias 'list-buffers 'ibuffer-other-window)
@@ -140,7 +152,7 @@
 (setq ibuffer-show-empty-filter-groups nil)
 (setq ibuffer-expert t)
 
-(avy-setup-default)
+
 
 (with-eval-after-load 'undo-tree
   (global-undo-tree-mode))
@@ -175,29 +187,44 @@
 ;; highlight matches
 (show-paren-mode 1)
 
-;; highlight-indent-guides
-(with-eval-after-load 'highlight-indent-guides
-  (setq highlight-indent-guides-method 'character))
-
+;; cycle through line-numbering modes
+(defun mk-toggle-line-numbers ()
+  "Cycle through absolute, relative, and no line numbers."
+  (interactive)
+  (cond
+   ;; If line numbers are off, turn on absolute line numbers
+   ((not display-line-numbers)
+    (setq display-line-numbers 't)
+    (message "Absolute line numbers"))
+   ;; If absolute line numbers are on, turn on relative line numbers
+   ((eq display-line-numbers 't)
+    (setq display-line-numbers 'relative)
+    (message "Relative line numbers"))
+   ;; If relative line numbers are on, turn them off
+   ((eq display-line-numbers 'relative)
+    (setq display-line-numbers nil)
+    (message "Line numbers off"))))
 
 ;;; bindings
-(general-define-key
- :prefix "SPC b"
- :states '(normal visual motion)
- :keymaps 'override
- "d" 'kill-current-buffer
- "D" 'kill-buffer
- "b" 'helm-buffers-list
- "B" 'ibuffer
- "w" 'evil-write
- "u" 'undo-tree-visualize)
+(leader
+  "bd" 'kill-current-buffer
+  "bD" 'kill-buffer
+  "bB" 'ibuffer
+  "bw" 'evil-write
+  "bu" 'undo-tree-visualize)
 
-(general-define-key
- :prefix "SPC /"
- :states '(normal visual motion)
- :keymaps 'override
- "e" 'er/expand-region
- "a" 'avy-goto-char)
+(when (string= mk-completion "light")
+  (leader
+    "bb" 'consult-buffer
+    ))
+(when (string= mk-completion "featured")
+  (leader
+    "bb" 'helm-buffers-list
+    ))
+
+(leader
+  "se" 'er/expand-region
+  "sa" 'avy-goto-char)
 
 (with-eval-after-load 'smart-hungry-delete
   (general-define-key
@@ -206,23 +233,20 @@
    :keymaps 'override
    "" 'smart-hungry-delete-backward-char))
 
-(general-define-key
- :prefix "SPC h"
- :states '(normal visual motion)
- :keymaps 'override
- "g" 'google-this
- "G" 'google-this-search
- "m" 'mk-man)
+(leader
+  "hg" 'google-this
+  "hG" 'google-this-search
+  "hm" 'mk-man)
 
-(general-define-key
- :prefix "SPC t"
- :states '(normal visual motion)
- :keymaps 'override
- "h" 'highlight-indent-guides-mode
- "p" 'smartparens-mode
- "n" 'nlinum-relative-toggle
- "r" 'rainbow-delimiters-mode)
+(leader
+  "tb" 'tool-bar-mode
+  "th" 'highlight-indent-guides-mode
+  "tp" 'smartparens-mode
+  "tn" 'mk-toggle-line-numbers
+  "tr" 'rainbow-delimiters-mode)
 
+(leader
+  "/" 'comment-line)
 
 (provide 'mk-buffer)
 ;;; mk-buffer.el ends here
