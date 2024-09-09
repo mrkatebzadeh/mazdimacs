@@ -115,6 +115,12 @@
   (setq highlight-indent-guides-auto-enabled nil)
   )
 
+(use-package tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
 ;;; config
 (defalias 'list-buffers 'ibuffer-other-window)
 
