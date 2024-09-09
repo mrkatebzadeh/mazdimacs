@@ -115,10 +115,18 @@
   (setq highlight-indent-guides-auto-enabled nil)
   )
 
+
+(use-package tree-sitter-langs
+  :ensure t
+  :defer t
+  )
+
 (use-package tree-sitter
   :config
   (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
+  (add-hook 'rust-mode-hook #'tree-sitter-mode)
+  (add-hook 'clang-mode-hook #'tree-sitter-mode)
+  (add-hook 'nix-mode-hook #'tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;;; config
