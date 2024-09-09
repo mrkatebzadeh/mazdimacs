@@ -48,5 +48,7 @@
 
 (setq native-comp-async-report-warnings-errors 'silent)
 
+(customize-set-variable 'mac-option-modifier 'none)
+
 (provide 'early-init)
 ;;; early-init.el ends here

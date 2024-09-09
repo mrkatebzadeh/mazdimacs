@@ -62,6 +62,12 @@
   :ensure t
   :defer t)
 
+(use-package org-modern
+  :ensure t
+  :defer t
+  :init (add-hook 'org-mode-hook #'org-modern-mode)
+  )
+
 (use-package htmlize
   :ensure t
   :defer t)
@@ -98,6 +104,8 @@
   (setq org-agenda-window-setup 'current-window))
 
 (use-package org-bullets
+  :disabled t
+  :ensure t
   :defer t
   :hook (org-mode . org-bullets-mode)
   :custom
