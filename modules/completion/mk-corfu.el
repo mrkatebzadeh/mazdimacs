@@ -49,7 +49,7 @@
     (tab-always-indent 'complete)
     (completion-cycle-threshold nil)      ; Always show candidates in menu
 
-    (corfu-auto nil)
+    (corfu-auto t)
     (corfu-auto-prefix 2)
     (corfu-auto-delay 0.25)
 
@@ -57,7 +57,7 @@
     (corfu-max-width corfu-min-width)     ; Always have the same width
     (corfu-count 14)
     (corfu-scroll-margin 4)
-    (corfu-cycle nil)
+    (corfu-cycle t)
 
     ;; `nil' means to ignore `corfu-separator' behavior, that is, use the older
     ;; `corfu-quit-at-boundary' = nil behavior. Set this to separator if using

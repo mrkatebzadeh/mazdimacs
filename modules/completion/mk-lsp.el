@@ -70,6 +70,7 @@
 	     lsp-ui-peek-find-references)
   :config
   (setq lsp-prefer-flymake nil
+	lsp-headerline-breadcrumb-enable-diagnostics nil
         lsp-ui-doc-max-height 15
 	lsp-ui-doc-max-width 150
         lsp-ui-sideline-ignore-duplicate t
@@ -128,7 +129,6 @@
   :config
   (setq-default format-all-formatters
                 '(("C"     (astyle "--mode=c"))
-		  ("Rust"     (rustfmt))
 		  ("Nix"     (nixpkgs-fmt))
                   ("Shell" (shfmt "-i" "4" "-ci")))))
 
