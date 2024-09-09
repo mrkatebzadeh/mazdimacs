@@ -48,6 +48,7 @@
   (auto-insert-mode 1)
 
   :config
+  (define-auto-insert "\\.rs?$" ["default-rs" autoinsert-yas-expand])
   (define-auto-insert "\\.c?$" ["default-c" autoinsert-yas-expand])
   (define-auto-insert "\\.el?$" ["default-el" autoinsert-yas-expand])
   (define-auto-insert "\\.h?$" ["default-h" autoinsert-yas-expand])
