@@ -101,8 +101,8 @@
   :ensure t
   :general
   (:keymaps 'vertico-map
-	    "<left>" #'vertico-directory-delete-char
-	    "DEL" #'vertico-directory-delete-char)
+			"<left>" #'vertico-directory-delete-char
+			"DEL" #'vertico-directory-delete-char)
   :custom
   ;; (vertico-scroll-margin 0) ;; Different scroll margin
   (vertico-count 10) ;; Show more candidates
@@ -110,6 +110,14 @@
   ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
   (vertico-mode))
+
+(use-package vertico-posframe
+  :ensure t
+  :config
+  (vertico-posframe-mode 1)
+  (setq vertico-posframe-parameters
+		'((left-fringe . 8)
+          (right-fringe . 8))))
 
 ;; `orderless' completion style.
 (use-package orderless
@@ -185,7 +193,7 @@
   :hook (after-init . vertico-multiform-mode)
   :init
   (setq vertico-multiform-commands
-	'()))
+		'()))
 
 (use-package spacious-padding
   :ensure t
@@ -193,7 +201,7 @@
   :hook
   (after-init .  spacious-padding-mode)
   :init
-  (setq spacious-padding-subtle-mode-line t))
+  (setq spacious-padding-subtle-mode-line nil))
 
 ;; SVG tags, progress bars & icons
 (use-package svg-lib
