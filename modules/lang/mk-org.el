@@ -219,9 +219,11 @@
 				      "TESTING"
 				      "ALMOST" "|" "DONE(x)")))
 
+  (require 'ob-python)
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((gnuplot . t)))
+   '((gnuplot . t)
+     (python . t)))
 
   ;; org-beamer
   (unless (boundp 'org-export-latex-classes)
