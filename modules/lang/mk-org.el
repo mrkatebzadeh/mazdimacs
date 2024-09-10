@@ -220,6 +220,8 @@
 				      "ALMOST" "|" "DONE(x)")))
 
   (setq org-confirm-babel-evaluate nil)
+  (setq python-indent-offset 0)
+  (setq org-edit-src-content-indentation 0)
   (require 'ob-python)
   (setq python-version-checked t)
   (setq py-python-command "python3")
@@ -420,6 +422,13 @@
   (interactive)
   (find-file org-ref-bibliography-notes))
 
+(defun mk-eval-and-next-block ()
+  "Evaluate the current Org mode source block and move to the next one."
+  (interactive)
+  (save-buffer)
+  (org-babel-execute-src-block)
+  (org-babel-next-src-block))
+
 ;;; bindings
 (general-define-key
  :prefix "SPC o"
@@ -480,6 +489,7 @@
  :keymaps 'org-mode-map
  "c" 'org-todo
  "s" 'org-schedule
+ "n" 'mk-eval-and-next-block
  "C" '(:ignore t :which-key "org-crypt")
  "Ce" 'org-encrypt-entry
  "CE" 'org-encrypt-entries
