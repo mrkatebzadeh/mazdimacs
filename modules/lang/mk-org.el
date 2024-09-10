@@ -219,7 +219,11 @@
 				      "TESTING"
 				      "ALMOST" "|" "DONE(x)")))
 
+  (setq org-confirm-babel-evaluate nil)
   (require 'ob-python)
+  (setq python-version-checked t)
+  (setq py-python-command "python3")
+  (setq python-shell-interpreter "python3")
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)

@@ -47,7 +47,7 @@
       scroll-bar-mode nil)
 
 (setq native-comp-async-report-warnings-errors 'silent)
-
+(setq org-startup-with-inline-images t)
 (customize-set-variable 'mac-option-modifier 'none)
 
 (provide 'early-init)
