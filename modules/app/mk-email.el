@@ -351,6 +351,12 @@
   )
 
 (with-eval-after-load 'mu4e
+  (leader
+    :mode 'mu4e-compose-mode
+    "kk" 'message-kill-buffer
+    "kw" 'message-send
+    "ks" 'mu4e-choose-signature
+    )
   (evil-collection-init 'mu4e)
   (when (string= mk-completion "featured")
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'helm-mu)
@@ -369,12 +375,7 @@
   "am" 'mk-mu4e
   "an" 'notmuch)
 
-(leader
-  :mode 'mu4e-compose-mode
-  "kk" 'message-kill-buffer
-  "kw" 'message-send
-  "ks" 'mu4e-choose-signature
-  )
+
 
 (provide 'mk-email)
 ;;; mk-email.el ends here

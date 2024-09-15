@@ -28,7 +28,7 @@
 (use-package org
   ;; :ensure org-contrib
   :defer t
-  :pin gnu
+  :straight (:type built-in)
   :mode ("\\.org$" . org-mode)
   :init
   (setq org-agenda-files
@@ -188,6 +188,15 @@
   :defer t
   :ensure nil
   :load-path (lambda () (concat mk-lisp-dir "/org-cv/")))
+
+(straight-use-package
+ '(org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+ )
+
+(use-package org-modern-indent
+  :ensure nil
+  :config
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 (defun mk-org-export()
   "Load required packages for exporting org file"
