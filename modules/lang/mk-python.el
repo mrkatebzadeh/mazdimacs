@@ -29,6 +29,10 @@
   :ensure t
   :defer t)
 
+(use-package jupyter
+  :ensure t
+  :defer t)
+
 
 (provide 'mk-python)
 ;;; mk-python.el ends here
