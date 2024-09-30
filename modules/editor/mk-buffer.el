@@ -253,6 +253,7 @@
   "hm" 'mk-man)
 
 (leader
+  "tR" 'auto-revert-mode
   "tb" 'tool-bar-mode
   "th" 'highlight-indent-guides-mode
   "tp" 'smartparens-mode

@@ -52,6 +52,11 @@
   (lsp-rust-analyzer-display-closure-return-type-hints t)
   (lsp-rust-analyzer-display-parameter-hints nil)
   (lsp-rust-analyzer-display-reborrow-hints nil)
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (LaTeX-mode . lsp-deferred)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred)
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   (add-hook 'rustic-mode-hook #'lsp)
