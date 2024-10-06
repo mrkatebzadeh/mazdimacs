@@ -29,13 +29,14 @@
   (use-package corfu
     :defer t
     :ensure t
-    :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
+    ;; :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
     :general
     (:keymaps 'corfu-map
 	      :states 'insert
 	      "C-n" #'corfu-next
 	      "<tab>" #'corfu-next
 	      "C-p" #'corfu-previous
+	      "S-<tab>" #'corfu-previous
 	      "<escape>" #'corfu-quit
 	      "<return>" #'corfu-insert
 	      "H-SPC" #'corfu-insert-separator

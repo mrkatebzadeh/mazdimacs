@@ -34,6 +34,7 @@
   (setq lsp-keep-workspace-alive nil)
   (setq read-process-output-max (* 1024 1024))
   :custom
+  (lsp-completion-provider :none)
   (lsp-prefer-flymake nil)
   (lsp-session-file (concat mk-backup-dir "lsp-session-v1"))
   ;; what to use when checking on-save. "check" is default, I prefer clippy
