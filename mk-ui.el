@@ -112,11 +112,12 @@
   (vertico-mode))
 
 (use-package vertico-posframe
+  :disabled t
   :ensure t
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-parameters
-		'((left-fringe . 8)
+	'((left-fringe . 8)
           (right-fringe . 8))))
 
 ;; `orderless' completion style.
