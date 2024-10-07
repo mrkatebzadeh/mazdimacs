@@ -49,14 +49,26 @@
 	org-default-notes-file (concat org-directory "/agenda/notes.org")
 	org-capture-templates
 	'(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
-	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
+	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+	  ("j" "Journal" entry (file+headline org-default-notes-file "Journal")
+           "* %?\nEntered on %U\n  %i\n  %a")
+	  ("n" "Note" entry (file+headline org-default-notes-file "Note")
+           "* %?\nEntered on %U\n  %i")
+	  ("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmark")
+           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
+	  )))
 
 (when (string= mk-completion "featured")
-  (use-package helm-org
-    :ensure t
-    :after helm
-    :defer t)
-  )
+(use-package helm-org
+  :ensure t
+  :after helm
+  :defer t)
+)
+
+(use-package org-cliplink
+  :ensure t
+  :defer t
+  :commands org-cliplink-capture)
 
 (use-package ox-reveal
   :ensure t
