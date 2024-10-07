@@ -90,6 +90,13 @@
 (straight-use-package 'use-package)
 
 (setq use-package-compute-statistics t)
+(require 'auth-source)
+(setq auth-sources '("~/.netrc"))
+(defun mk-lookup-password (&rest keys)
+  (let ((result (apply #'auth-source-search keys)))
+    (if result
+        (funcall (plist-get (car result) :secret))
+      nil)))
 
 ;; gcmh
 (use-package gcmh

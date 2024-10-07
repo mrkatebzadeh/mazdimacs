@@ -81,7 +81,16 @@
 (use-package org-modern
   :ensure t
   :defer t
-  :init (add-hook 'org-mode-hook #'org-modern-mode)
+  :custom
+  (org-modern-fold-stars
+   '(
+     ("⬢" . "⬡")
+     (" ⦿" . " ⭘")
+     ("  ✦" . "  ✧")
+     ("    ➤" . "    ➢")
+     ("     ☀" . "     ☼")))
+  :init
+  (add-hook 'org-mode-hook #'org-modern-mode)
   )
 
 (use-package htmlize
@@ -316,9 +325,6 @@
 		("" "parskip" t)
 		("" "tikz" t)))))
 
-(with-eval-after-load 'org-bullets
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 (with-eval-after-load 'ox-reveal
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"
 	org-reveal-mathjax t))
@@ -458,6 +464,27 @@
   (org-babel-execute-src-block)
   (org-babel-next-src-block))
 
+(defun mk-org-link-copy (&optional arg)
+  "Extract URL from org-mode link and add it to kill ring."
+  (interactive "P")
+  (let* ((link (org-element-lineage (org-element-context) '(link) t))
+         (type (org-element-property :type link))
+         (url (org-element-property :path link))
+         (url (concat type ":" url)))
+    (kill-new url)
+    (message (concat "Copied URL: " url))))
+
+(defun mk-org-link-open-eww ()
+  "Open the Org mode link under the cursor directly in EWW."
+  (interactive)
+  (let* ((element (org-element-context))
+         (type (org-element-property :type element))
+         (path (org-element-property :path element))
+         (link (concat type ":" path)))
+    (if (and type path)
+        (eww link)
+      (message "No valid link found at point."))))
+
 ;;; bindings
 (leader
   "oa" 'org-agenda
@@ -533,7 +560,9 @@
 
  "b" 'org-tree-to-indirect-buffer
  "A" 'org-archive-subtree
- "l" 'org-open-at-point
+ "l" '(:ignore t :which-key "link")
+ "ly" 'mk-org-link-copy
+ "le" 'mk-org-link-open-eww
  "T" 'org-show-todo-tree
 
  "." 'org-time-stamp
