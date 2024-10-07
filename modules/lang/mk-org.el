@@ -56,6 +56,10 @@
            "* %?\nEntered on %U\n  %i")
 	  ("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmark")
            "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
+	  ("r" "Research" entry (file+headline org-default-notes-file "Research")
+           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
+	  ("p" "Programming" entry (file+headline org-default-notes-file "Programming")
+           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
 	  )))
 
 (when (string= mk-completion "featured")
@@ -443,6 +447,10 @@
   (interactive)
   (find-file org-ref-bibliography-notes))
 
+(defun mk-open-agenda-note-file()
+  (interactive)
+  (find-file org-default-notes-file))
+
 (defun mk-eval-and-next-block ()
   "Evaluate the current Org mode source block and move to the next one."
   (interactive)
@@ -451,25 +459,23 @@
   (org-babel-next-src-block))
 
 ;;; bindings
-(general-define-key
- :prefix "SPC o"
- :states '(normal visual motion)
- :keymaps 'override
- "a" 'org-agenda
- "e" 'mk-org-export
- "o" 'org-mode
- "c" 'org-capture
- "r" '(:ignore t :which-key "org-ref")
- "rs" 'mk-helm-ref
- "ri" 'org-ref-helm-insert-cite-link
- "rl" 'helm-bibtex
- "rd" 'doi-utils-add-bibtex-entry-from-doi
- "rn" 'mk-open-note-file
- "ro" 'mk-open-bib-file
- "j" '(:ignore t :which-key "org-journal")
- "jt" 'org-journal-new-entry
- "jy" 'journal-file-yesterday
- "l" 'org-store-link)
+(leader
+  "oa" 'org-agenda
+  "oe" 'mk-org-export
+  "oo" 'org-mode
+  "oc" 'org-capture
+  "on" 'mk-open-agenda-note-file
+  "or" '(:ignore t :which-key "org-ref")
+  "ors" 'mk-helm-ref
+  "ori" 'org-ref-helm-insert-cite-link
+  "orl" 'helm-bibtex
+  "ord" 'doi-utils-add-bibtex-entry-from-doi
+  "orn" 'mk-open-note-file
+  "oro" 'mk-open-bib-file
+  "oj" '(:ignore t :which-key "org-journal")
+  "ojt" 'org-journal-new-entry
+  "ojy" 'journal-file-yesterday
+  "ol" 'org-store-link)
 
 
 (evil-define-key 'normal bibtex-mode-map
