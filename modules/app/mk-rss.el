@@ -26,6 +26,7 @@
 ;;; Code:
 
 (use-package elfeed
+  :ensure t
   :defer t
   :config
   ;; face for starred articles
@@ -38,6 +39,7 @@
   )
 
 (use-package elfeed-org
+  :ensure t
   :after elfeed
   :defer t
   :init (elfeed-org)
@@ -106,15 +108,12 @@
   (elfeed-db-save)
   (quit-window))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "e" 'elfeed)
+(leader
+  "ae" 'elfeed)
 
 (with-eval-after-load 'elfeed
   (general-define-key
-   :prefix "SPC l"
+   :prefix "SPC k"
    :states 'normal
    :keymaps 'elfeed-search-mode-map
    "a" 'elfeed-show-all
