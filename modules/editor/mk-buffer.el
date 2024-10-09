@@ -25,6 +25,10 @@
 
 ;;; Code:
 
+;; solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers
+;; (i.e. file-visiting code buffers where you do most of your work) from "unreal" buffers
+;;(like popups, sidebars, log buffers, terminals, etc) by giving the latter a slightly
+;; different -- often darker -- background
 (use-package solaire-mode
   :ensure t
   :config
@@ -184,7 +188,7 @@
 (with-eval-after-load 'emojify
   (add-hook 'after-init-hook #'global-emojify-mode))
 
-(setq browse-url-browser-function 'browse-url-generic
+(setq browse-url-browser-function 'eww-browse-url
       browse-url-generic-program "firefox")
 
 (setq kill-buffer-query-functions
