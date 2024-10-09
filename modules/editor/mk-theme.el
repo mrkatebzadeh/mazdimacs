@@ -32,54 +32,65 @@
   :ensure t
   )
 
-(defcustom mk-theme-var nil
-  "Variable which sets the default startup theme as light or dark.
-Also allows for toggling of the themes. Is set to 'light' by
-'mk-theme-light' and 'dark' by 'mk-theme-dark'.
-Defaults to nil."
-  :group 'mk
-  :type 'string)
-
-
 (defun mk-refresh-theme ()
   "Function to load catppuccin theme"
   (interactive)
   (load-theme 'catppuccin :no-confirm)
   )
-
-(defun mk-toggle-theme ()
-  "Function to interactively toggle between light and dark mk themes.
-Requires both to be loaded in order to work."
-  (interactive)
-  (cond ((string= mk-theme-var "light")
-         (mk-theme-set-dark))
-        ((string= mk-theme-var "dark")
-         (mk-theme-set-light))
-        (t nil))
-  (mk-refresh-theme))
-
-
-(defun mk-theme-set-dark ()
-  "Apply dark Mk theme base."
-  (setq catppuccin-flavor 'frappe)
-  ;; to allow for toggling of the themes.
-  (setq mk-theme-var "dark")
-  )
-
-(defun mk-theme-set-light ()
-  "Apply light Mk theme base."
-
-  (setq catppuccin-flavor 'latte)
-  ;; to allow for toggling of the themes.
-  (setq mk-theme-var "light")
-  )
-
-(mk-theme-set-dark)
 (call-interactively 'mk-refresh-theme)
 
+(defvar doom-flavor '((rosewater . "#d4c4b4")
+		      (flamingo . "#6b757f")
+		      (pink . "#7c9f85")
+		      (mauve . "#c4865e")
+		      (red . "#c67f79")
+		      (maroon . "#9b7575")
+		      (peach . "#c5a47b")
+		      (yellow . "#c3c0a2")
+		      (green . "#359b75")
+		      (teal . "#5e8a83")
+		      (sky . "#5c6d7a")
+		      (sapphire . "#51797a")
+		      (blue . "#c69f99")
+		      (lavender . "#7c9dab")
+		      (text . "#cee2cd")
+		      (subtext1 . "#c1c7c6")
+		      (subtext0 . "#b1b8b7")
+		      (overlay2 . "#777d7e")
+		      (overlay1 . "#484e4f")
+		      (overlay0 . "#767676")
+		      (surface2 . "#3b4242")
+		      (surface1 . "#454e4e")
+		      (surface0 . "#292f2f")
+		      (base . "#23282b")
+		      (mantle . "#1d2124")
+		      (crust . "#17191b")))
 
+(let ((existing-flavor (assoc 'doom catppuccin-flavor-alist)))
+  (if existing-flavor
+      (setcdr existing-flavor doom-flavor)
+    (add-to-list 'catppuccin-flavor-alist (cons 'doom doom-flavor))))
+
+(let ((flavor #'(lambda (sym) (alist-get sym catppuccin-flavor-alist))))
+  (define-catppuccin-flavor 'doom (funcall flavor 'doom)))
+
+
+(setq catppuccin-flavor-list '(frappe mocha macchiato latte doom))
+
+(defun mk-list-themes ()
+  "List available Catppuccin flavors and apply the selected one."
+  (interactive)
+  (let* ((selected-flavor (completing-read "Select a flavor: " (mapcar 'symbol-name catppuccin-flavor-list))))
+    (setq catppuccin-flavor (intern selected-flavor))
+    (mk-refresh-theme)
+    (message "Applied Catppuccin flavor: %s" selected-flavor)))
+
+(setq catppuccin-flavor 'doom)
+
+(mk-refresh-theme)
 (leader
-  "tT" 'mk-toggle-theme)
+  "tT" 'mk-list-themes)
+
 
 (provide 'mk-theme)
 ;;; mk-theme.el ends here

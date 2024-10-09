@@ -26,17 +26,15 @@
 ;;; Code:
 
 (use-package xkcd
+  :ensure t
   :defer t
   :config
   (setq xkcd-cache-dir (concat mk-emacs-dir ".xkcd/"))
   (setq xkcd-cache-latest (concat xkcd-cache-dir "latest"))
   (make-directory xkcd-cache-dir t))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "x" 'xkcd)
+(leader
+  "ax" 'xkcd)
 
 (provide 'mk-xkcd)
 ;;; mk-xkcd.el ends here

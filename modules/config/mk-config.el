@@ -26,6 +26,7 @@
 ;;; Code:
 
 (use-package try
+  :ensure t
   :defer t)
 
 (defun mk-init-file ()
