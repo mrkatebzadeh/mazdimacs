@@ -188,8 +188,7 @@
     (kbd "<tab>") 'treemacs-RET-action
     (kbd "<RET>") #'treemacs-RET-action
     (kbd "r") 'treemacs-rename-file)
-  (treemacs-project-follow-mode 1)
-  )
+  (treemacs-project-follow-mode 1))
 
 (use-package treemacs-nerd-icons
   :ensure t

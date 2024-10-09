@@ -108,6 +108,22 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
+(defun mk-kill-emacs ()
+  "Check for unsaved file buffers before exiting Emacs."
+  (interactive)
+  (let ((unsaved-buffers
+         (cl-loop for buf in (buffer-list)
+                  for filename = (buffer-file-name buf)
+                  when (and filename (buffer-modified-p buf))
+                  collect buf)))
+    (if unsaved-buffers
+        (if (y-or-n-p (format "There are %d unsaved file buffers. Save them before exiting? " (length unsaved-buffers)))
+            (progn
+              (save-some-buffers t)  ;; Save all unsaved buffers
+              (kill-emacs))          ;; Then exit Emacs
+          (message "Exit aborted."))
+      (kill-emacs))))
+
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
 (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
@@ -138,7 +154,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; Exit/restart/reboot/shutdown
 (leader
-  "qq" 'kill-emacs
+  "qq" 'mk-kill-emacs
   "qQ" 'delete-frame)
 
 

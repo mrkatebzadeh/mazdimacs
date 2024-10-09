@@ -76,16 +76,55 @@
 
 
 (setq catppuccin-flavor-list '(frappe mocha macchiato latte doom))
+(defun update-telephone-line-theme (selected-flavor)
+  (set-face-attribute 'telephone-line-evil nil
+		      :foreground (catppuccin-get-color 'text (intern selected-flavor))
+		      :weight 'bold
+		      :inherit 'mode-line)
 
+  (set-face-attribute 'telephone-line-evil-insert nil
+		      :background (catppuccin-get-color 'green (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-normal nil
+		      :background (catppuccin-get-color 'red (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-visual nil
+		      :background (catppuccin-get-color 'peach (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-replace nil
+		      :background (catppuccin-get-color 'base (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-motion nil
+		      :background (catppuccin-get-color 'blue (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-operator nil
+		      :background (catppuccin-get-color 'mauve (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-emacs nil
+		      :background (catppuccin-get-color 'lavender (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-god nil
+		      :background (catppuccin-get-color 'sky (intern selected-flavor))
+		      :inherit 'telephone-line-evil)
+  )
 (defun mk-list-themes ()
   "List available Catppuccin flavors and apply the selected one."
   (interactive)
   (let* ((selected-flavor (completing-read "Select a flavor: " (mapcar 'symbol-name catppuccin-flavor-list))))
     (setq catppuccin-flavor (intern selected-flavor))
+    (update-telephone-line-theme selected-flavor)
     (mk-refresh-theme)
     (message "Applied Catppuccin flavor: %s" selected-flavor)))
 
 (setq catppuccin-flavor 'doom)
+(update-telephone-line-theme "doom")
 
 (mk-refresh-theme)
 (leader
