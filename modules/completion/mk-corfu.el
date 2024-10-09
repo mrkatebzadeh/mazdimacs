@@ -52,7 +52,7 @@
 
     (corfu-auto t)
     (corfu-auto-prefix 2)
-    (corfu-auto-delay 0.25)
+    (corfu-auto-delay 0.1)
 
     (corfu-min-width 80)
     (corfu-max-width corfu-min-width)     ; Always have the same width
@@ -91,6 +91,10 @@
 	(setq-local corfu-auto nil)       ; Ensure auto completion is disabled
 	(corfu-mode 1)))
     (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+
+    (setq corfu-auto t
+          corfu-quit-no-match t
+          corfu-quit-at-boundary 'separator)
 
     ;; Setup lsp to use corfu for lsp completion
     (defun kb/corfu-setup-lsp ()

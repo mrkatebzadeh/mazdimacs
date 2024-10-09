@@ -226,7 +226,52 @@
 (use-package telephone-line
   :ensure t
   :init
-  (telephone-line-mode t))
+  (telephone-line-mode t)
+  :config
+  (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+		telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+		telephone-line-primary-right-separator 'telephone-line-cubed-right
+		telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+  (setq telephone-line-height 18
+		telephone-line-evil-use-short-tag t)
+  (set-face-attribute 'telephone-line-evil nil
+                      :foreground (catppuccin-get-color 'text 'doom)
+                      :weight 'bold
+                      :inherit 'mode-line)
+
+  (set-face-attribute 'telephone-line-evil-insert nil
+                      :background (catppuccin-get-color 'green 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-normal nil
+                      :background (catppuccin-get-color 'red 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-visual nil
+                      :background (catppuccin-get-color 'peach 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-replace nil
+                      :background (catppuccin-get-color 'base 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-motion nil
+                      :background (catppuccin-get-color 'blue 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-operator nil
+                      :background (catppuccin-get-color 'mauve 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-emacs nil
+                      :background (catppuccin-get-color 'lavender 'doom)
+                      :inherit 'telephone-line-evil)
+
+  (set-face-attribute 'telephone-line-evil-god nil
+                      :background (catppuccin-get-color 'sky 'doom)
+                      :inherit 'telephone-line-evil)
+
+  )
 
 
 (provide 'mk-ui)
