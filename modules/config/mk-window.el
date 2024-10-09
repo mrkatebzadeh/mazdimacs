@@ -54,19 +54,6 @@
   :ensure t
   :defer t)
 
-;; transparency
-(defun mk-toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-		    ((numberp (cdr alpha)) (cdr alpha))
-		    ((numberp (cadr alpha)) (cadr alpha)))
-	      100)
-	 '(85 . 50) '(100 . 100)))))
-
-
 ;;; config
 
 (windmove-default-keybindings)
@@ -87,7 +74,6 @@
   "ti" 'imenu-list
   "tI" 'helm-imenu
   "td" 'darkroom-mode
-  "tt" 'mk-toggle-transparency
   "tz" 'zoom-mode)
 
 (provide 'mk-window)

@@ -126,8 +126,22 @@
 (setq catppuccin-flavor 'doom)
 (update-telephone-line-theme "doom")
 
+;; transparency
+(defun mk-toggle-transparency ()
+  "Toggle background transparency"
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+		    ((numberp (cdr alpha)) (cdr alpha))
+		    ((numberp (cadr alpha)) (cadr alpha)))
+	      100)
+	 '(95 . 50) '(100 . 100)))))
+
 (mk-refresh-theme)
 (leader
+  "tt" 'mk-toggle-transparency
   "tT" 'mk-list-themes)
 
 
