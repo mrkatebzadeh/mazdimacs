@@ -31,7 +31,7 @@
   (progn
     (add-hook 'bibtex-mode-hook 'lsp)
     )
-  (setq lsp-latex-build-on-save t)
+  ;; (setq lsp-latex-build-on-save t)
   (setq tex-command "platex --synctex=1")
 
   ;; Setting for pdf-tools
@@ -47,6 +47,7 @@
   :init
   (setq TeX-auto-save t
 	TeX-parse-self t)
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
   (add-hook 'LaTeX-mode-hook
             (lambda ()
 	      (TeX-source-correlate-mode)
