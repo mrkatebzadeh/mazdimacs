@@ -148,12 +148,14 @@
 (add-to-list 'exec-path "/Library/TeX/texbin/")
 (add-to-list 'exec-path "/run/current-system/sw/bin")
 (add-to-list 'exec-path "~/.nix-profile/bin/")
+(add-to-list 'exec-path "/opt/homebrew/bin/")
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/texlive/2019basic/bin/x86_64-darwin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/run/current-system/sw/bin"))
 (setenv "PATH" (concat (getenv "PATH") ":~/.nix-profile/bin/"))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin/"))
 
 
 ;; after started up, reset GC threshold to normal.
