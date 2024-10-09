@@ -26,20 +26,24 @@
 ;;; Code:
 
 (use-package ace-window
+  :ensure t
   :defer t
   :init
   (global-set-key [remap other-window] 'ace-window))
 
 (use-package imenu
+  :ensure t
   :defer t)
 
 (use-package imenu-list
+  :ensure t
   :defer t
   :init
   (setq imenu-list-focus-after-activation t
 	imenu-list-auto-resize t))
 
 (use-package zoom
+  :ensure t
   :defer t
   :init
 					;  (zoom-mode t)
@@ -47,6 +51,7 @@
    '(zoom-size '(0.618 . 0.618))))
 
 (use-package darkroom
+  :ensure t
   :defer t)
 
 ;; transparency
