@@ -43,6 +43,7 @@
 (use-package auctex
   :ensure t
   :defer t
+  :hook ((latex-mode . flyspell-mode))
   :mode ("\\.tex\\'" . latex-mode)
   :init
   (setq TeX-auto-save t

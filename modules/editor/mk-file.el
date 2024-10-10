@@ -587,6 +587,13 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (message "No words.")))
     words))
 
+(defun mk-project-switch-project ()
+  "Switch to a project and open its root directory in `dired`."
+  (interactive)
+  (let ((project (project-prompt-project-dir))) ; Prompt for the project directory
+    (when project
+      (dired project))))
+
 ;;; bindings
 (leader
   "p" '(:ignore t :which-key "Projects"))
@@ -602,7 +609,7 @@ Compare them on count first,and in case of tie sort them alphabetically."
     "pF" 'consult-project-extra-find
     "pb" 'project-switch-to-buffer
     "pd" 'project-find-dir
-    "pp" 'project-switch-project
+    "pp" 'mk-project-switch-project
     "ps" 'project-x-window-state-save
     "pl" 'project-x-window-state-load
     )
