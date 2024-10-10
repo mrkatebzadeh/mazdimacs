@@ -141,7 +141,8 @@
 (leader
   "ld" 'lsp-ui-peek-find-definitions
   "lD" 'lsp-ui-peek-find-implementation
-  "lr" 'lsp-ui-peek-find-references
+  "lR" 'lsp-ui-peek-find-references
+  "lr" 'lsp-rename
   "lf" 'format-all-mode
   "lk" 'lsp-ui-doc-glance)
 
