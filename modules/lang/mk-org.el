@@ -254,12 +254,12 @@
 				      "ALMOST" "|" "DONE(x)")))
 
   (setq org-confirm-babel-evaluate nil)
-  (setq python-indent-offset 0)
-  (setq org-edit-src-content-indentation 0)
+  (setq python-indent-offset 4)
+  (setq org-edit-src-content-indentation 4)
   (require 'ob-python)
   (setq python-version-checked t)
-  (setq py-python-command "python3")
-  (setq python-shell-interpreter "python3")
+  (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i --simple-prompt")
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)

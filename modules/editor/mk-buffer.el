@@ -84,6 +84,7 @@
        (string-prefix-p "*straight" name)
        (string-prefix-p " *temp" name)
        (string-prefix-p "*Help" name)
+       (string-prefix-p "*which-key" name)
        (string-prefix-p "*mybuf" name)
 
        ;; Is not magit buffer.
