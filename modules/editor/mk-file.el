@@ -114,8 +114,7 @@
   :config
   (setq dired-kill-when-opening-new-dired-buffer t)
   (evil-collection-init 'dired)
-  (let ((args (list "-aBhl" "--group-directories-first")))
-    (setq dired-listing-switches (string-join args " ")))
+  (setq dired-listing-switches "-alh --group-directories-first")
   (evil-define-key 'normal dired-mode-map (kbd "/") 'dired-narrow
     (kbd "P") 'peep-dired
     (kbd "t") 'dired-subtree-insert
@@ -140,6 +139,18 @@
 	image-dired-gallery-dir (concat image-dired-dir "gallery/")
 	image-dired-temp-image-file (concat image-dired-dir "temp-image")
 	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
+(use-package dired-git-info
+  :ensure t
+  :config
+  ;; (setq dgi-auto-hide-details-p nil)
+  )
+
+(use-package dired-rsync
+  :ensure t
+  )
+(use-package dired-rsync-transient
+  :ensure t
+  )
 
 (use-package diredfl
   :ensure t
@@ -595,6 +606,16 @@ Compare them on count first,and in case of tie sort them alphabetically."
       (dired project))))
 
 ;;; bindings
+
+(general-define-key
+ :prefix "SPC k"
+ :states '(normal visual motion)
+ :keymaps 'dired-mode-map
+ "g" 'dired-git-info-mode
+ "r" 'dired-rsync
+ "R" 'dired-rsync-transient
+ )
+
 (leader
   "p" '(:ignore t :which-key "Projects"))
 

@@ -43,13 +43,23 @@
     :defer t
     :commands (consult-tramp))
 
+  (use-package consult-flyspell
+    :ensure t
+    :bind ("M-g s" . consult-flyspell))
+
+  (use-package consult-yasnippet
+    :ensure t
+    :bind ("M-g y" . consult-yasnippet))
+
 ;;; Files
   (leader
     "fK" 'consult-yank-kill-ring
     "fr" 'consult-recent-file
     "ft" 'consult-tramp
     "ff" 'find-file)
-
+;;; Insert
+  (leader
+    "is" 'consult-yasnippet)
   )
 (provide 'mk-consult)
 ;;; mk-consult.el ends here
