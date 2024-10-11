@@ -62,12 +62,34 @@
            "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
 	  )))
 
-(when (string= mk-completion "featured")
-(use-package helm-org
+(use-package org-roam
   :ensure t
-  :after helm
-  :defer t)
-)
+  :custom
+  (org-roam-directory (concat org-directory "/roam"))
+  (org-roam-db-location (concat org-roam-directory "/org-roam.db"))
+  (org-roam-completion-everywhere t)
+  :config
+  (unless (file-exists-p org-roam-directory)
+    (make-directory org-roam-directory))
+  (add-to-list 'org-agenda-files org-roam-directory)
+  (org-roam-setup))
+
+(use-package org-roam-ui
+  :after org-roam
+  :ensure t
+  :config
+  (setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t
+	org-roam-ui-open-on-start t)
+  )
+
+(when (string= mk-completion "featured")
+  (use-package helm-org
+    :ensure t
+    :after helm
+    :defer t)
+  )
 
 (use-package org-cliplink
   :ensure t
@@ -222,6 +244,11 @@
   :ensure nil
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+
+;; Add graphical view of agenda
+(use-package org-timeline
+  :ensure t
+  :hook (org-agenda-finalize . org-timeline-insert-timeline))
 
 (defun mk-org-export()
   "Load required packages for exporting org file"
@@ -502,24 +529,33 @@
   "oo" 'org-mode
   "oc" 'org-capture
   "on" 'mk-open-agenda-note-file
-  "or" '(:ignore t :which-key "org-ref")
-  "ors" 'mk-helm-ref
-  "ori" 'org-ref-helm-insert-cite-link
-  "orl" 'helm-bibtex
-  "ord" 'doi-utils-add-bibtex-entry-from-doi
-  "orn" 'mk-open-note-file
-  "oro" 'mk-open-bib-file
+  "oR" '(:ignore t :which-key "org-ref")
+  "oRs" 'mk-helm-ref
+  "oRi" 'org-ref-helm-insert-cite-link
+  "oRl" 'helm-bibtex
+  "oRd" 'doi-utils-add-bibtex-entry-from-doi
+  "oRn" 'mk-open-note-file
+  "oRo" 'mk-open-bib-file
+  "or" '(:ignore t :which-key "roam")
+  "ort" 'org-roam-buffer-toggle
+  "orf" 'org-roam-node-find
+  "ori" 'org-roam-node-insert
+  "oru" 'org-roam-ui-mode
+  "org" 'org-roam-graph
+  "orc" 'org-roam-capture
+  "orj" 'org-roam-dailies-capture-today
   "oj" '(:ignore t :which-key "org-journal")
   "ojt" 'org-journal-new-entry
   "ojy" 'journal-file-yesterday
-  "ol" 'org-store-link)
+  "ol" 'org-store-link
+  )
 
 
-(evil-define-key 'normal bibtex-mode-map
-  (kbd "C-j") 'org-ref-bibtex-next-entry
-  (kbd "C-k") 'org-ref-bibtex-previous-entry
-  "gj" 'org-ref-bibtex-next-entry
-  "gk" 'org-ref-bibtex-previous-entry)
+  (evil-define-key 'normal bibtex-mode-map
+    (kbd "C-j") 'org-ref-bibtex-next-entry
+    (kbd "C-k") 'org-ref-bibtex-previous-entry
+    "gj" 'org-ref-bibtex-next-entry
+    "gk" 'org-ref-bibtex-previous-entry)
 
 (general-define-key
  :prefix "SPC l"
