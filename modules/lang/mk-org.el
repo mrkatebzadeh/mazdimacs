@@ -71,7 +71,9 @@
   :config
   (unless (file-exists-p org-roam-directory)
     (make-directory org-roam-directory))
-  (add-to-list 'org-agenda-files org-roam-directory)
+  (setq org-agenda-files
+	(append org-agenda-files
+		(file-expand-wildcards (concat org-roam-directory "/*.org"))))
   (org-roam-setup))
 
 (use-package org-roam-ui
@@ -635,6 +637,7 @@
  "l" '(:ignore t :which-key "link")
  "ly" 'mk-org-link-copy
  "le" 'mk-org-link-open-eww
+ "lo" 'org-open-at-point
  "T" 'org-show-todo-tree
 
  "." 'org-time-stamp
