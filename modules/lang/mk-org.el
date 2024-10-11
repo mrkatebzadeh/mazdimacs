@@ -231,6 +231,8 @@
 
 ;;; config
 (with-eval-after-load 'org
+  (setq org-startup-with-inline-images t)
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (require 'org-id)
   (setq org-ref-open-pdf-function
 	(lambda (fpath)
@@ -485,6 +487,14 @@
         (eww link)
       (message "No valid link found at point."))))
 
+
+(defun mk-org-code-execute ()
+  "Execute the current code block, jump to the next code block, and center it in the buffer."
+  (interactive)
+  (org-babel-execute-maybe)
+  (org-babel-next-src-block)
+  (recenter))
+
 ;;; bindings
 (leader
   "oa" 'org-agenda
@@ -541,6 +551,32 @@
  :prefix "SPC k"
  :states '(normal visual motion)
  :keymaps 'org-mode-map
+ ;; Source blocks / org-babel
+ "b" '(:ignore t :which-key "blocks")
+ "bp" 'org-babel-previous-src-block
+ "bn"     'org-babel-next-src-block
+ "be"     'mk-org-code-execute
+ "bE"     'org-babel-execute-maybe
+ "bo"     'org-babel-open-src-block-result
+ "bv"     'org-babel-expand-src-block
+ "bu"     'org-babel-goto-src-block-head
+ "bg"     'org-babel-goto-named-src-block
+ "br"     'org-babel-goto-named-result
+ "bb"     'org-babel-execute-buffer
+ "bs"     'org-babel-execute-subtree
+ "bd"     'org-babel-demarcate-block
+ "bt"     'org-babel-tangle
+ "bf"     'org-babel-tangle-file
+ "bc"     'org-babel-check-src-block
+ "bj"     'org-babel-insert-header-arg
+ "bl"     'org-babel-load-in-session
+ "bi"     'org-babel-lob-ingest
+ "bI"     'org-babel-view-src-block-info
+ "bz"     'org-babel-switch-to-session
+ "bZ"     'org-babel-switch-to-session-with-code
+ "ba"     'org-babel-sha1-hash
+ "bx"     'org-babel-do-key-sequence-in-edit-buffer
+
  "c" 'org-todo
  "s" 'org-schedule
  "n" 'mk-eval-and-next-block
@@ -558,7 +594,7 @@
  "P" 'org-set-property
  ":" 'org-set-tags
 
- "b" 'org-tree-to-indirect-buffer
+ ;; "b" 'org-tree-to-indirect-buffer
  "A" 'org-archive-subtree
  "l" '(:ignore t :which-key "link")
  "ly" 'mk-org-link-copy
@@ -594,36 +630,47 @@
  "Sk" 'org-move-subtree-up
 
  ;; tables
- "t" '(:ignore t :which-key "table")
- "ta" 'org-table-align
- "tb" 'org-table-blank-field
- "tc" 'org-table-convert
- "td" '(:ignore t :which-key "delete")
- "tdc" 'org-table-delete-column
- "tdr" 'org-table-kill-row
- "te" 'org-table-eval-formula
- "tE" 'org-table-export
- "th" 'org-table-previous-field
- "tH" 'org-table-move-column-left
- "ti" '(:ignore t :which-key "insert")
- "tic" 'org-table-insert-column
- "tih" 'org-table-insert-hline
- "tiH" 'org-table-hline-and-move
- "tir" 'org-table-insert-row
- "tI" 'org-table-import
- "tj" 'org-table-next-row
- "tJ" 'org-table-move-row-down
- "tK" 'org-table-move-row-up
- "tl" 'org-table-next-field
- "tL" 'org-table-move-column-right
- "tn" 'org-table-create
- "tN" 'org-table-create-with-table.el
- "tr" 'org-table-recalculate
- "ts" 'org-table-sort-lines
- "tt" '(:ignore t :which-key "toggles")
- "ttf" 'org-table-toggle-formula-debugger
- "tto" 'org-table-toggle-coordinate-overlays
- "tw" 'org-table-wrap-region
+ "T" '(:ignore t :which-key "table")
+ "Ta" 'org-table-align
+ "Tb" 'org-table-blank-field
+ "Tc" 'org-table-convert
+ "Td" '(:ignore t :which-key "delete")
+ "Tdc" 'org-table-delete-column
+ "Tdr" 'org-table-kill-row
+ "Te" 'org-table-eval-formula
+ "TE" 'org-table-export
+ "Th" 'org-table-previous-field
+ "TH" 'org-table-move-column-left
+ "Ti" '(:ignore t :which-key "insert")
+ "Tic" 'org-table-insert-column
+ "Tih" 'org-table-insert-hline
+ "TiH" 'org-table-hline-and-move
+ "Tir" 'org-table-insert-row
+ "TI" 'org-table-import
+ "Tj" 'org-table-next-row
+ "TJ" 'org-table-move-row-down
+ "TK" 'org-table-move-row-up
+ "Tl" 'org-table-next-field
+ "TL" 'org-table-move-column-right
+ "Tn" 'org-table-create
+ "TN" 'org-table-create-with-table.el
+ "Tr" 'org-table-recalculate
+ "Ts" 'org-table-sort-lines
+ "Tt" '(:ignore t :which-key "toggles")
+ "Ttf" 'org-table-toggle-formula-debugger
+ "Tto" 'org-table-toggle-coordinate-overlays
+ "Tw" 'org-table-wrap-region
+
+ "t" '(:ignore t :which-key "toggles")
+ "tc" 'org-toggle-checkbox
+ "te" 'org-toggle-pretty-entities
+ "ti" 'org-toggle-inline-images
+ "tn" 'org-num-mode
+ "tl" 'org-toggle-link-display
+ "tt" 'org-show-todo-tree
+ "tT" 'org-todo
+ "tV" 'space-doc-mode
+ "tx" 'org-latex-preview
  )
 
 (general-define-key
