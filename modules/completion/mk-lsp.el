@@ -61,10 +61,7 @@
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   (add-hook 'rustic-mode-hook #'lsp)
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "pyls")
-		    :major-modes '(python-mode)
-		    :server-id 'pyls))
+  (add-hook 'python-mode-hook #'lsp)
   )
 
 (use-package lsp-ui
