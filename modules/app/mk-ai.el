@@ -28,7 +28,6 @@
 (use-package gptel
   :ensure t
   :defer t
-  :commands gptel
   :init
   (defun get-key ()
     (mk-lookup-password :host "gemini")

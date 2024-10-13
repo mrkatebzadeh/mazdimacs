@@ -214,6 +214,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package highlight-indent-guides
   :ensure t
+  :defer t
   :config
   (setq highlight-indent-guides-responsive 'stack)
   (setq highlight-indent-guides-method 'character)
@@ -227,6 +228,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   )
 
 (use-package tree-sitter
+  :defer t
   :config
   (require 'tree-sitter-langs)
   (add-hook 'rust-mode-hook #'tree-sitter-mode)

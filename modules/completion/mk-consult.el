@@ -44,10 +44,12 @@
     :commands (consult-tramp))
 
   (use-package consult-flyspell
+    :defer t
     :ensure t
     :bind ("M-g s" . consult-flyspell))
 
   (use-package consult-yasnippet
+    :defer t
     :ensure t
     :bind ("M-g y" . consult-yasnippet))
 

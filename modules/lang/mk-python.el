@@ -34,6 +34,7 @@
   :defer t)
 
 (use-package lsp-pyright
+  :defer t
   :ensure t
   :preface
   (defun lsp-pyright-format-buffer ()

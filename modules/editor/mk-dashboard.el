@@ -34,7 +34,7 @@
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-icon-type 'nerd-icons)
-  (dashboard-items '(projects bookmarks recents))
+  (dashboard-items '(projects bookmarks ))
   (initial-scratch-message nil)
   (initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   :config

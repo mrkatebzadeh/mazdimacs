@@ -141,14 +141,20 @@
 	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
 (use-package dired-git-info
   :ensure t
+  :defer t
+  :after dired
   :config
   ;; (setq dgi-auto-hide-details-p nil)
   )
 
 (use-package dired-rsync
+  :defer t
+  :after dired
   :ensure t
   )
 (use-package dired-rsync-transient
+  :defer t
+  :after dired
   :ensure t
   )
 

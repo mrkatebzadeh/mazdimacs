@@ -47,6 +47,7 @@
 
 (use-package rustic
   :ensure t
+  :defer t
   :bind (:map rustic-mode-map
               ("M-j" . lsp-ui-imenu)
               ("M-?" . lsp-find-references)
@@ -69,6 +70,7 @@
  )
 (use-package crates
   :ensure nil
+  :defer t
   :custom
   (crates-checkmark-symbol " ")
   (crates-warning-symbol " "))

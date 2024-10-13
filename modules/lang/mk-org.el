@@ -61,9 +61,14 @@
 	  ("p" "Programming" entry (file+headline org-default-notes-file "Programming")
            "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
 	  )))
+(use-package org-inline-pdf
+  :ensure t
+  :defer t
+  :hook (org-mode . org-inline-pdf-mode))
 
 (use-package org-roam
   :ensure t
+  :defer t
   :custom
   (org-roam-directory (concat org-directory "/roam"))
   (org-roam-db-location (concat org-roam-directory "/org-roam.db"))
@@ -79,6 +84,7 @@
 (use-package org-roam-ui
   :after org-roam
   :ensure t
+  :defer t
   :config
   (setq org-roam-ui-sync-theme t
 	org-roam-ui-follow t
@@ -132,7 +138,7 @@
   (setq org-ref-bibliography-notes     (concat org-directory "/ref/notes.org")
         org-ref-default-bibliography   (list (concat org-directory "/ref/master.bib"))
         org-ref-pdf-directory          (concat org-directory "/ref/files/"))
-  (setq org-latex-pdf-process '("latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -output-directory=%o -f %f"))
+  ;; (setq org-latex-pdf-process '("latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -output-directory=%o -f %f"))
   (setq interleave-org-notes-dir-list `(,(concat org-directory "/ref/files"))))
 
 ;;; evil-org
@@ -244,6 +250,7 @@
 
 (use-package org-modern-indent
   :ensure nil
+  :defer t
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
@@ -294,7 +301,8 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)
-     (python . t)))
+     (python . t)
+     (shell . t)))
 
   ;; org-beamer
   (unless (boundp 'org-export-latex-classes)
@@ -532,10 +540,6 @@
   "oc" 'org-capture
   "on" 'mk-open-agenda-note-file
   "oR" '(:ignore t :which-key "org-ref")
-  "oRs" 'mk-helm-ref
-  "oRi" 'org-ref-helm-insert-cite-link
-  "oRl" 'helm-bibtex
-  "oRd" 'doi-utils-add-bibtex-entry-from-doi
   "oRn" 'mk-open-note-file
   "oRo" 'mk-open-bib-file
   "or" '(:ignore t :which-key "roam")
@@ -552,12 +556,28 @@
   "ol" 'org-store-link
   )
 
+(when (string= mk-completion "featured")
+  (leader
+    "oRs" 'mk-helm-ref
+    "oRi" 'org-ref-helm-insert-cite-link
+    "oRl" 'helm-bibtex
+    "oRd" 'doi-utils-add-bibtex-entry-from-doi
+    )
+  )
 
-  (evil-define-key 'normal bibtex-mode-map
-    (kbd "C-j") 'org-ref-bibtex-next-entry
-    (kbd "C-k") 'org-ref-bibtex-previous-entry
-    "gj" 'org-ref-bibtex-next-entry
-    "gk" 'org-ref-bibtex-previous-entry)
+(when (string= mk-completion "light")
+  (leader
+    "oRs" 'mk-helm-ref
+    "oRl" 'consult-bibtex
+    )
+  )
+
+
+(evil-define-key 'normal bibtex-mode-map
+  (kbd "C-j") 'org-ref-bibtex-next-entry
+  (kbd "C-k") 'org-ref-bibtex-previous-entry
+  "gj" 'org-ref-bibtex-next-entry
+  "gk" 'org-ref-bibtex-previous-entry)
 
 (general-define-key
  :prefix "SPC l"
