@@ -1,4 +1,5 @@
 .autosave
+persist
 tree-sitter
 .desktop
 .emacs.desktop

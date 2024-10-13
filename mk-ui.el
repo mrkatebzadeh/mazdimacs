@@ -62,7 +62,6 @@
                       :weight 'normal
                       :width 'normal)
 
-
   ;; highlight current line
   (global-hl-line-mode +1)
   ;; smooth scroll

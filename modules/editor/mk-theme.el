@@ -128,7 +128,7 @@
 
 ;; transparency
 (defun mk-toggle-transparency ()
-  "Toggle background transparency"
+  "Toggle background transparency between `my-alpha-variable` and 100."
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
     (set-frame-parameter
@@ -137,8 +137,10 @@
 		    ((numberp (cdr alpha)) (cdr alpha))
 		    ((numberp (cadr alpha)) (cadr alpha)))
 	      100)
-	 '(95 . 50) '(100 . 100)))))
+	 `(,mk-alpha-variable . 50) '(100 . 100)))))
 
+(mk-toggle-transparency)
+(mk-toggle-transparency)
 (mk-refresh-theme)
 (leader
   "tt" 'mk-toggle-transparency

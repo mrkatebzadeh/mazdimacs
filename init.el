@@ -69,7 +69,16 @@
 
 (setq org-directory     "~/Dropbox/org")
 
+(defvar mk-alpha-variable 90
+  "Default transparency level to toggle with 100.")
+
 (message "Starting MK")
+
+;;; Increase the CPU processing restrictions
+(when (boundp 'read-process-output-max)
+  (setq process-adaptive-read-buffering nil
+        read-process-output-max (* 24 1024 1024)))
+
 ;;; Speed up startup
 (eval-when-compile (require 'cl-lib))
 
@@ -79,7 +88,7 @@
               (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
                 (message "[Emacs initialized in %.3fs]" elapsed)))))
 
-;; increase gc threshold to speedup starting up
+;;; Increase gc threshold to speedup starting up
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
 
