@@ -27,6 +27,7 @@
 (use-package lsp-latex
   ;; this uses texlab
   :ensure t
+  :defer t
   :config
   (progn
     (add-hook 'bibtex-mode-hook 'lsp)
@@ -77,9 +78,23 @@
   :ensure t
   :defer t)
 
-(use-package helm-bibtex
-  :ensure t
-  :defer t)
+(when (string= mk-completion "featured")
+  (use-package helm-bibtex
+    :ensure t
+    :defer t)
+  )
+
+(when (string= mk-completion "light")
+  (straight-use-package '(consult-bibtex :host github
+					 :repo "mohkale/consult-bibtex"))
+  (use-package consult-bibtex
+    :ensure nil
+    :defer t
+    :config
+    (with-eval-after-load 'embark
+      (add-to-list 'embark-keymap-alist '(bibtex-completion . consult-bibtex-embark-map)))
+    )
+  )
 
 (use-package auctex-latexmk
   :ensure t
