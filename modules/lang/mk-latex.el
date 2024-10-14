@@ -134,13 +134,8 @@
 
 
 (with-eval-after-load 'helm-bibtex
-  (setq bibtex-completion-bibliography (concat org-directory "/ref/master.bib")
-        bibtex-completion-library-path (concat org-directory "/ref/files")
-        bibtex-completion-notes-path   (concat org-directory "/ref/notes.org")
-	helm-bibtex-bibliography bibtex-completion-bibliography
+  (setq helm-bibtex-bibliography bibtex-completion-bibliography
 	helm-bibtex-library-path bibtex-completion-library-path
-	;; using bibtex path reference to pdf file
-	bibtex-completion-pdf-field "File"
 	helm-bibtex-default-action 'bibtex-completion-insert-citation))
 
 (with-eval-after-load 'auctex-latexmk
@@ -154,6 +149,12 @@
   (save-buffer)
   (TeX-command "LaTeX" 'TeX-master-file))
 
+(setq bibtex-completion-bibliography (concat org-directory "/ref/master.bib")
+      bibtex-completion-library-path (concat org-directory "/ref/files")
+      bibtex-completion-notes-path   (concat org-directory "/ref/notes.org")
+      ;; using bibtex path reference to pdf file
+      bibtex-completion-pdf-field "File"
+      )
 ;;; bindings
 
 (general-define-key
