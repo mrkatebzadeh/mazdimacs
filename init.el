@@ -19,12 +19,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
-
-;; A bare-boned config template. Use "outshine-cycle-buffer" (<Tab> and <S-Tab>
-;; in org style) to navigate through sections, and "imenu" to locate individual
-;; use-package definition.
-
 ;;; Path vars
 ;;(setq user-emacs-directory (file-name-directory load-file-name))
 (defvar mk-emacs-dir

@@ -222,18 +222,28 @@
   :ensure t
   )
 
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-height 25)
+  (setq doom-modeline-hud nil)
+  (setq doom-modeline-window-width-limit 85)
+  )
+
 (use-package telephone-line
+  :disabled t
   :ensure t
   :init
   (telephone-line-mode t)
   :config
   (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-		telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-		telephone-line-primary-right-separator 'telephone-line-cubed-right
-		telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+	telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+	telephone-line-primary-right-separator 'telephone-line-cubed-right
+	telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
   (setq telephone-line-height 18
-		telephone-line-evil-use-short-tag nil)
-    )
+	telephone-line-evil-use-short-tag nil)
+  )
 
 
 (provide 'mk-ui)

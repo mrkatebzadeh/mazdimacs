@@ -291,8 +291,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (with-eval-after-load 'emojify
   (add-hook 'after-init-hook #'global-emojify-mode))
 
-(setq browse-url-browser-function 'eww-browse-url
-      browse-url-generic-program "firefox")
+;; (setq browse-url-browser-function 'eww-browse-url
+;; browse-url-generic-program "firefox")
 
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))

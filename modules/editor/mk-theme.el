@@ -119,12 +119,17 @@
   (interactive)
   (let* ((selected-flavor (completing-read "Select a flavor: " (mapcar 'symbol-name catppuccin-flavor-list))))
     (setq catppuccin-flavor (intern selected-flavor))
-    (update-telephone-line-theme selected-flavor)
+    (when (bound-and-true-p telephone-line-mode)
+      (update-telephone-line-theme selected-flavor)
+      )
     (mk-refresh-theme)
     (message "Applied Catppuccin flavor: %s" selected-flavor)))
 
 (setq catppuccin-flavor 'doom)
-(update-telephone-line-theme "doom")
+
+(when (bound-and-true-p telephone-line-mode)
+  (update-telephone-line-theme "doom")
+  )
 
 ;; transparency
 (defun mk-toggle-transparency ()
