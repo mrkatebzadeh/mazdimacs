@@ -140,8 +140,11 @@
   "lD" 'lsp-ui-peek-find-implementation
   "lR" 'lsp-ui-peek-find-references
   "lr" 'lsp-rename
-  "lf" 'format-all-mode
+  "lf" 'format-all-buffer
   "lk" 'lsp-ui-doc-glance)
+
+(leader
+  "tf" 'format-all-mode)
 
 (provide 'mk-lsp)
 ;;; mk-lsp.el ends
