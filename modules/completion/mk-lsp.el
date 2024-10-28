@@ -46,22 +46,26 @@
   (lsp-inlay-hint-enable t)
   (lsp-enable-symbol-highlighting t)
   (lsp-lens-enable t)
-  ;; These are optional configurations. See https://emacs-lsp.github.io/lsp-mode/page/lsp-rust-analyzer/#lsp-rust-analyzer-display-chaining-hints for a full list
+
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
   (lsp-rust-analyzer-display-closure-return-type-hints t)
   (lsp-rust-analyzer-display-parameter-hints nil)
   (lsp-rust-analyzer-display-reborrow-hints nil)
+  (lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (LaTeX-mode . lsp-deferred)
+	 (c-mode . lsp-deferred)
+	 (c++-mode . lsp-defered)
+	 (rustic-mode . lsp-deferred)
+	 (python-mode . lsp-deferred)
          ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
+         (lsp-mode . lsp-enable-which-key-integration)
+
+	 (lsp-mode . lsp-ui-mode)
+	 )
   :commands (lsp lsp-deferred)
-  :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (add-hook 'rustic-mode-hook #'lsp)
-  (add-hook 'python-mode-hook #'lsp)
   )
 
 (use-package lsp-ui
@@ -96,22 +100,37 @@
     (setq company-backends '(company-lsp company-yasnippet)))
   )
 
-(use-package dap-mode
+
+(when (string= mk-completion "light")
+  (use-package consult-lsp
     :ensure t
     :defer t
     :after lsp-mode
-    :config
-    (dap-mode -1)
-    (dap-ui-mode -1)
-    :bind
-    (:map dap-mode-map
-	  (("<f12>" . dap-debug)
-	   ("<f6>" . dap-breakpoint-condition)
-	   ("<f8>" . dap-continue)
-	   ("<f9>" . dap-next)
-	   ("<M-f11>" . dap-step-in)
-	   ("C-M-<f11>" . dap-step-out)
-	   ("<f7>" . dap-breakpoint-toggle))))
+    ))
+
+(use-package dap-mode
+  :ensure t
+  :defer t
+  :after lsp-mode
+  :config
+  (dap-mode -1)
+  (dap-ui-mode -1)
+  :bind
+  (:map dap-mode-map
+	(("<f12>" . dap-debug)
+	 ("<f6>" . dap-breakpoint-condition)
+	 ("<f8>" . dap-continue)
+	 ("<f9>" . dap-next)
+	 ("<M-f11>" . dap-step-in)
+	 ("C-M-<f11>" . dap-step-out)
+	 ("<f7>" . dap-breakpoint-toggle))))
+
+(when (string= mk-completion "light")
+  (leader
+    "lt" 'consult-lsp-diagnostics
+    "ls" 'consult-lsp-symbols
+    "lF" 'consult-lsp-file-symbols)
+  )
 
 (leader
   "d" '(:ignore t :which-key "Debug")
