@@ -59,6 +59,18 @@
     (setq project-switch-commands #'project-x-windows)
     )
 
+
+
+  (use-package project
+    :init
+    (defun mk-project-override (dir)
+      (let ((override (locate-dominating-file dir ".project.el")))
+	(if override
+	    (cons 'vc override)
+	  nil)))
+    :config
+    (add-hook 'project-find-functions #'mk-project-override))
+
   (defun mk-project-close ()
     "Close all buffers associated with the current project."
     (interactive)
