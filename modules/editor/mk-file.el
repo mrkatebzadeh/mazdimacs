@@ -237,19 +237,21 @@
     :after (treemacs projectile)
     :defer t))
 
-(use-package lsp-treemacs
-  :ensure t
-  :after (lsp-mode treemacs)
-  :defer t
-  :custom
-  (lsp-treemacs-theme "nerd-icons-ext"))
+(when (string= mk-language-server "lsp")
+  (use-package lsp-treemacs
+    :ensure t
+    :after (lsp-mode treemacs)
+    :defer t
+    :custom
+    (lsp-treemacs-theme "nerd-icons-ext"))
 
-(use-package lsp-treemacs-nerd-icons
-  :ensure nil
-  :defer t
-  ;; HACK: Load after the `lsp-treemacs' created default themes
-  :init (with-eval-after-load 'lsp-treemacs
-	  (require 'lsp-treemacs-nerd-icons)))
+  (use-package lsp-treemacs-nerd-icons
+    :ensure nil
+    :defer t
+    ;; HACK: Load after the `lsp-treemacs' created default themes
+    :init (with-eval-after-load 'lsp-treemacs
+	    (require 'lsp-treemacs-nerd-icons)))
+  )
 
 (use-package treemacs-icons-dired
   :ensure t
@@ -704,8 +706,10 @@ Compare them on count first,and in case of tie sort them alphabetically."
   "fc" 'mk-copy-file
   "fa" 'mk-count-words-analysis)
 
-(leader
-  "lt" 'lsp-treemacs-errors-list)
+(when (string= mk-language-server "lsp")
+  (leader
+    "lt" 'lsp-treemacs-errors-list)
+  )
 
 (provide 'mk-file)
 ;;; mk-file.el ends here

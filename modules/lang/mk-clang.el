@@ -139,13 +139,8 @@
  "gC" 'ccls/caller
  "gm" 'ccls/member
  "f" '(:ignore t :which-key "find")
- "fr" 'lsp-ui-peek-find-references
- "fd" 'lsp-ui-peek-find-implementation
- "fD" 'lsp-ui-peek-find-definitions
- "r"  'lsp-rename
  "h"  'cpp-auto-include
  "F"  'clang-format-buffer
- "i"  'lsp-ui-imenu
  "d"  'cmake-objdump
  "D"  'mk-cc-dap
  "G"  'gdb
@@ -153,8 +148,6 @@
  "b"  'cmake-build
  "M"  'cmake-make-clean
  "B"  'cmake-build-clean
- "R"  'lsp-restart-workspace
- "H"  'lsp-symbol-highlight
  "s"  'srefactor-refactor-at-point)
 
 

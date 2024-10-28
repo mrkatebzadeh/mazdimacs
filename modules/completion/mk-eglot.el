@@ -1,4 +1,4 @@
-;;; mk-python.el --- Python  -*- lexical-binding: t; -*-
+;;; mk-eglot.el --- Eglot -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,29 +25,28 @@
 
 ;;; Code:
 
-(use-package python
-  :ensure t
-  :defer t)
+;;
 
-(use-package jupyter
-  :ensure t
-  :defer t)
 
-(when (string= mk-language-server "lsp")
-  (use-package lsp-pyright
+(when (string= mk-language-server "eglot")
+  (use-package eglot
     :defer t
-    :ensure t
-    :preface
-    (defun lsp-pyright-format-buffer ()
-      (interactive)
-      (when (and (executable-find "yapf") buffer-file-name)
-	(call-process "yapf" nil nil nil "-i" buffer-file-name)))
-    :hook (((python-mode python-ts-mode) . (lambda ()
-                                             (require 'lsp-pyright)
-                                             (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t))))
-    :init (when (executable-find "python3")
-            (setq lsp-pyright-python-executable-cmd "python3")))
-  )
+    :hook ((rust-mode nix-mode c-mode python-mode latex-mode) . eglot-ensure)
+    :config (add-to-list 'eglot-server-programs
+			 `(rust-mode . ("rust-analyzer" :initializationOptions
+					( :procMacro (:enable t)
+					  :cargo ( :buildScripts (:enable t)
+                                                   :features "all"))))))
+  (leader
+    "ld" 'xref-find-definitions
+    "lD" 'xref-find-def
+    "lR" 'xref-find-references
+    "lr" 'eglot-rename
+    "la" 'eglot-code-actions
+    "lf" 'eglot-format
+    "lk" 'eldoc)
 
-(provide 'mk-python)
-;;; mk-python.el ends here
+
+  )
+(provide 'mk-eglot)
+;;; mk-eglot.el ends here

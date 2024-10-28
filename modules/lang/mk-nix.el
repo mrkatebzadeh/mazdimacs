@@ -26,13 +26,14 @@
 ;;; Code:
 
 					;<CODE>
-(use-package lsp-nix
-  :disabled t
-  :ensure lsp-mode
-  :after (lsp-mode)
-  :demand t
-  :custom
-  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+(when (string= mk-language-server "lsp")
+  (use-package lsp-nix
+    :disabled t
+    :ensure lsp-mode
+    :demand t
+    :custom
+    (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+  )
 
 (use-package nix-mode
   :mode "\\.nix\\'"

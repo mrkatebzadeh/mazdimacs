@@ -24,23 +24,27 @@
 ;;
 
 ;;; Code:
-(use-package lsp-latex
-  ;; this uses texlab
-  :ensure t
-  :defer t
-  :config
-  (progn
-    (add-hook 'bibtex-mode-hook 'lsp)
-    )
-  ;; (setq lsp-latex-build-on-save t)
-  (setq tex-command "platex --synctex=1")
 
-  ;; Setting for pdf-tools
-  (setq lsp-latex-forward-search-executable "emacsclient")
-  (setq lsp-latex-forward-search-args
-	'("--eval"
-          "(lsp-latex-forward-search-with-pdf-tools \"%f\" \"%p\" \"%l\")"))
+(when (string= mk-language-server "lsp")
+  (use-package lsp-latex
+    ;; this uses texlab
+    :ensure t
+    :defer t
+    :config
+    (progn
+      (add-hook 'bibtex-mode-hook 'lsp)
+      )
+    ;; (setq lsp-latex-build-on-save t)
+    (setq tex-command "platex --synctex=1")
+
+    ;; Setting for pdf-tools
+    (setq lsp-latex-forward-search-executable "emacsclient")
+    (setq lsp-latex-forward-search-args
+	  '("--eval"
+            "(lsp-latex-forward-search-with-pdf-tools \"%f\" \"%p\" \"%l\")"))
+    )
   )
+
 (use-package auctex
   :ensure t
   :defer t

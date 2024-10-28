@@ -62,6 +62,9 @@
 ;;; Insert
   (leader
     "is" 'consult-yasnippet)
+
+  (leader
+    "lt" 'consult-flymake)
   )
 (provide 'mk-consult)
 ;;; mk-consult.el ends here

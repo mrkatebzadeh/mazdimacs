@@ -53,15 +53,13 @@
   (setq centaur-tabs-style "bar")
   (setq centaur-tabs-gray-out-icons 'buffer)
   (setq centaur-tabs-set-icons t)
-  (setq centaur-tabs-height 22)
-  (setq centaur-tabs-set-bar 'under)
+  (setq centaur-tabs-height 20)
+  (setq centaur-tabs-set-bar 'left)
   (setq x-underline-at-descent-line t)
-  (setq centaur-tabs-set-close-button nil)
+  (setq centaur-tabs-set-close-button t)
   (setq centaur-tabs-set-modified-marker t)
   (setq centaur-tabs-modified-marker "⦿")
   (setq centaur-tabs-show-new-tab-button nil)
-
-
 
   (defun centaur-tabs-hide-tab (x)
     "Do no to show buffer X in tabs."
@@ -84,8 +82,7 @@
        (string-prefix-p "*straight" name)
        (string-prefix-p " *temp" name)
        (string-prefix-p "*Help" name)
-       (string-prefix-p "*which-key" name)
-       (string-prefix-p "*mybuf" name)
+       (string-prefix-p " *which" name)
 
        ;; Is not magit buffer.
        (and (string-prefix-p "magit" name)
@@ -131,7 +128,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
        "OrgMode")
       (t
        (centaur-tabs-get-group-name (current-buffer))))))
-
   (centaur-tabs-mode t)
   )
 
@@ -235,6 +231,19 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (add-hook 'clang-mode-hook #'tree-sitter-mode)
   (add-hook 'nix-mode-hook #'tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package format-all
+  :ensure t
+  :defer t
+  :commands format-all-mode
+  :hook (prog-mode . format-all-mode)
+  :config
+  (setq-default format-all-formatters
+                '(("C"     (astyle "--mode=c"))
+		  ("Nix"     (nixpkgs-fmt))
+                  ("Shell" (shfmt "-i" "4" "-ci")))))
+
+
 
 ;;; config
 (defalias 'list-buffers 'ibuffer-other-window)
@@ -365,10 +374,13 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   "th" 'highlight-indent-guides-mode
   "tp" 'smartparens-mode
   "tn" 'mk-toggle-line-numbers
+  "tf" 'format-all-mode
   "tr" 'rainbow-delimiters-mode)
 
 (leader
-  "/" 'comment-line)
+"/" 'comment-line)
+
+
 
 (provide 'mk-buffer)
 ;;; mk-buffer.el ends here

@@ -61,6 +61,9 @@
 (defvar mk-completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
+(defvar mk-language-server "eglot"
+  "Language server frameworks: eglot, lsp")
+
 (setq org-directory     "~/Dropbox/org")
 
 (defvar mk-alpha-variable 90

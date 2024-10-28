@@ -77,19 +77,11 @@
 	  (lambda ()
 	    (set (make-local-variable 'company-backends) '(company-elisp company-yasnippet))))
 
-(general-define-key
- :prefix "SPC"
- :states '(normal visual motion)
- :keymaps 'override
- "e" '(:ignore t :which-key "Eval")
- )
-(general-define-key
- :prefix "SPC e"
- :states '(normal visual motion)
- :keymaps 'override
- ";" 'eval-expression
- "b" 'eval-buffer
- "e" 'eval-last-sexp)
+(leader
+  "e" '(:ignore t :which-key "Eval")
+  "e;" 'eval-expression
+  "eb" 'eval-buffer
+  "ee" 'eval-last-sexp)
 
 
 

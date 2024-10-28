@@ -25,7 +25,6 @@
 
 ;;; Code:
 
-
 ;; catppuccin-theme
 (use-package catppuccin-theme
   :defer t
@@ -43,7 +42,7 @@
 		      (flamingo . "#6b757f")
 		      (pink . "#7c9f85")
 		      (mauve . "#c4865e")
-		      (red . "#c67f79")
+		      (red . "#c97f79")
 		      (maroon . "#9b7575")
 		      (peach . "#c5a47b")
 		      (yellow . "#c3c0a2")
@@ -51,7 +50,7 @@
 		      (teal . "#5e8a83")
 		      (sky . "#5c6d7a")
 		      (sapphire . "#51797a")
-		      (blue . "#c69f99")
+		      (blue . "#009f99")
 		      (lavender . "#7c9dab")
 		      (text . "#cee2cd")
 		      (subtext1 . "#c1c7c6")
