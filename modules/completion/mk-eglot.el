@@ -36,7 +36,12 @@
 			 `(rust-mode . ("rust-analyzer" :initializationOptions
 					( :procMacro (:enable t)
 					  :cargo ( :buildScripts (:enable t)
-                                                   :features "all"))))))
+                                                   :features "all")))))
+    (custom-set-faces
+     '(eglot-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
+    (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
+
+    )
   (leader
     "ld" 'xref-find-definitions
     "lD" 'xref-find-def

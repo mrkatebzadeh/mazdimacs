@@ -51,6 +51,8 @@
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
   (setq inhibit-startup-message t)
+  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
 
   ;; linenumber
   (global-display-line-numbers-mode 1)

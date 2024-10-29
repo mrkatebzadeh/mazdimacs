@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-completion "light")
+(when (and (string= mk-completion "light") (not (string= mk-language-server "bridge")))
   (use-package corfu
     :defer t
     :ensure t
