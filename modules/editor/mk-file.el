@@ -25,6 +25,11 @@
 
 ;;; Code:
 
+(use-package envrc
+  :ensure t
+  :defer t
+  :hook (after-init . envrc-global-mode))
+
 (when (string= mk-completion "featured")
   (use-package projectile
     :ensure t

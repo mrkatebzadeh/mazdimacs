@@ -33,6 +33,10 @@
 			   :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
 			   :build (:not compile))
     :init
+    (setq lsp-bridge-enable-inlay-hint t)
+
+    (custom-set-faces
+     '(lsp-bridge-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
     (global-lsp-bridge-mode))
 
 

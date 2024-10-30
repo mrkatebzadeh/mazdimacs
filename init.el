@@ -61,7 +61,7 @@
 (defvar mk-completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
-(defvar mk-language-server "bridge"
+(defvar mk-language-server "eglot"
   "Language server frameworks: eglot, lsp, or bridge")
 
 (setq org-directory     "~/Dropbox/org")
