@@ -225,6 +225,23 @@
   (add-hook 'org-ref-clean-bibtex-entry-hook 'my-orcb-key)
   )
 
+;;; links
+(defun mk-org-clicky()
+  "Open link at point if there is one, otherwise insert newline."
+  (interactive)
+  (if (org-in-regexp org-link-any-re)
+      (org-open-at-point)
+    (org-return)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (evil-define-key 'normal org-mode-map (kbd "RET") 'mk-org-clicky)))
+(advice-add 'org-open-at-point :before #'org-mark-ring-push)
+(setq org-link-frame-setup '((file . find-file)))
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c b") 'org-mark-ring-goto)
+  (define-key org-mode-map (kbd "C-c f") 'org-mark-ring-push))
+
 ;;; evil-org
 (use-package evil-org
   :ensure t
@@ -681,8 +698,10 @@
  "ly" 'mk-org-link-copy
  "le" 'mk-org-link-open-eww
  "lo" 'org-open-at-point
- "T" 'org-show-todo-tree
+ "lb" 'org-mark-ring-goto
+ "lf" 'org-mark-ring-push
 
+ "T" 'org-show-todo-tree
  "." 'org-time-stamp
  "!" 'org-time-stamp-inactive
 
