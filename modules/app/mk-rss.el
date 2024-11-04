@@ -28,6 +28,8 @@
 (use-package elfeed
   :ensure t
   :defer t
+  :init
+  (setq elfeed-search-filter "@all")
   :config
   ;; face for starred articles
   (defface elfeed-search-starred-title-face
