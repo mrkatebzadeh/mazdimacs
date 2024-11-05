@@ -131,7 +131,13 @@
   :config
   (setq dired-kill-when-opening-new-dired-buffer t)
   (evil-collection-init 'dired)
-  (setq dired-listing-switches "-alh --group-directories-first")
+  (if (string-equal system-type "darwin")
+      ;; For macOS, compatible setting without --group-directories-first
+      (setq dired-listing-switches "-alh")
+    ;; For Linux or systems with GNU ls
+    (setq dired-listing-switches "-alh --group-directories-first"))
+  (setq insert-directory-program "ls")
+  (setq dired-use-ls-dired nil)
   (evil-define-key 'normal dired-mode-map (kbd "/") 'dired-narrow
     (kbd "P") 'peep-dired
     (kbd "t") 'dired-subtree-insert
