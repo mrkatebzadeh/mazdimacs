@@ -49,8 +49,15 @@
 
 (use-package clang-format
   :ensure t
+  :defer t)
+
+(use-package clang-format+
+  :ensure nil
   :defer t
-  :hook ((c-mode cc-mode c-common-mode c++-mode) . clang-format-buffer-smart-on-save))
+  :commands (clang-format+-mode)
+  :init
+  (add-hook 'c-mode-common-hook #'clang-format+-mode)
+  )
 
 (use-package disaster
   :ensure t

@@ -71,6 +71,11 @@
 	scroll-conservatively 10000
 	auto-window-vscroll nil)
   (setq tab-width 4)
+  (defun mk-text-mode-setup ()
+    "Enable visual line mode when editing text files."
+    (visual-line-mode t))
+
+  (add-hook 'text-mode-hook 'mk-text-mode-setup)
   )
 
 (use-package ligature

@@ -29,21 +29,39 @@
 
 
 (when (string= mk-language-server "eglot")
+  (use-package eldoc-box
+    :ensure t
+    :defer t
+    :init
+    (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
+    :config
+    (custom-set-faces
+     '(eldoc-box-body
+       ((t (:background "#1e1e1e" :foreground "#ffffff")))))
+    (custom-set-faces
+     '(eldoc-box-border
+       ((((background dark))  (:background "white"))
+	(((background light)) (:background "black")))))
+    )
   (use-package eglot
     :defer t
-    :hook ((rust-mode nix-mode c-mode python-mode latex-mode) . eglot-ensure)
-    :config (add-to-list 'eglot-server-programs
-			 `(rust-mode . ("rust-analyzer" :initializationOptions
-					( :procMacro (:enable t)
-					  :cargo ( :buildScripts (:enable t)
-                                                   :features "all")))))
-    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+    :init
+    (add-hook 'rust-mode-hook 'eglot-ensure)
+    (add-hook 'nix-mode-hook 'eglot-ensure)
+    (add-hook 'python-mode-hook 'eglot-ensure)
+    (add-hook 'latex-mode-hook 'eglot-ensure)
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
+    (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
+    :config
+    (add-to-list 'eglot-server-programs
+		 `(rust-mode . ("rust-analyzer" :initializationOptions
+				( :procMacro (:enable t)
+				  :cargo ( :buildScripts (:enable t)
+                                           :features "all")))))
+    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (custom-set-faces
      '(eglot-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
-    (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
-
     )
   (leader
     "ld" 'xref-find-definitions
@@ -52,7 +70,7 @@
     "lr" 'eglot-rename
     "la" 'eglot-code-actions
     "lf" 'eglot-format
-    "lk" 'eldoc)
+    "lk" 'eldoc-box-help-at-point)
 
 
   )

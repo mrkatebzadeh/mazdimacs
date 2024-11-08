@@ -50,8 +50,11 @@
   :config
   (define-auto-insert "\\.rs?$" ["default-rs" autoinsert-yas-expand])
   (define-auto-insert "\\.c?$" ["default-c" autoinsert-yas-expand])
+  (define-auto-insert "\\.cc?$" ["default-cpp" autoinsert-yas-expand])
+  (define-auto-insert "\\.cpp?$" ["default-cpp" autoinsert-yas-expand])
   (define-auto-insert "\\.el?$" ["default-el" autoinsert-yas-expand])
   (define-auto-insert "\\.h?$" ["default-h" autoinsert-yas-expand])
+  (define-auto-insert "\\.hpp?$" ["default-hpp" autoinsert-yas-expand])
   (define-auto-insert "\\.html?$" "default-html"))
 
 (use-package abbrev
