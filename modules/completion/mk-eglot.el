@@ -29,22 +29,13 @@
 
 
 (when (string= mk-language-server "eglot")
-  (use-package eldoc-box
-    :ensure t
-    :defer t
-    :init
-    (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
-    :config
-    (custom-set-faces
-     '(eldoc-box-body
-       ((t (:background "#1e1e1e" :foreground "#ffffff")))))
-    (custom-set-faces
-     '(eldoc-box-border
-       ((((background dark))  (:background "white"))
-	(((background light)) (:background "black")))))
-    )
   (use-package eglot
     :defer t
+    :preface
+    (defun mk-eglot-eldoc ()
+      (setq eldoc-documentation-strategy
+            'eldoc-documentation-compose-eagerly))
+    :hook ((eglot-managed-mode . mk-eglot-eldoc))
     :init
     (add-hook 'rust-mode-hook 'eglot-ensure)
     (add-hook 'nix-mode-hook 'eglot-ensure)
@@ -52,7 +43,7 @@
     (add-hook 'latex-mode-hook 'eglot-ensure)
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
-    (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
+    ;; (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
     :config
     (add-to-list 'eglot-server-programs
 		 `(rust-mode . ("rust-analyzer" :initializationOptions

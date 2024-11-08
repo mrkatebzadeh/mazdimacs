@@ -86,6 +86,22 @@
   :delight
   :hook (emacs-lisp-mode . eldoc-mode))
 
+(use-package eldoc-box
+  :disabled t
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
+  :config
+  (custom-set-faces
+   '(eldoc-box-body
+     ((t (:background "#1e1e1e" :foreground "#ffffff")))))
+  (custom-set-faces
+   '(eldoc-box-border
+     ((((background dark))  (:background "white"))
+      (((background light)) (:background "black")))))
+  )
+
 (use-package toml-mode
   :ensure t
   :defer t)
