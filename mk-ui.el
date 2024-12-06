@@ -63,7 +63,11 @@
                       :height 120
                       :weight 'normal
                       :width 'normal)
+  (defun mk-evil-word-syntax-setup ()
+    "Treat underscores as part of a word in Evil mode."
+    (modify-syntax-entry ?_ "w"))
 
+  (add-hook 'after-change-major-mode-hook #'mk-evil-word-syntax-setup)
   ;; highlight current line
   (global-hl-line-mode +1)
   ;; smooth scroll

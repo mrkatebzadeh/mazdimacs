@@ -86,7 +86,8 @@
 
 (use-package ox-reveal
   :ensure t
-  :defer t)
+  :after org
+  )
 
 (use-package org-modern
   :ensure t
