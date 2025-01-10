@@ -51,6 +51,13 @@
 				  :cargo ( :buildScripts (:enable t)
                                            :features "all")))))
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+    (add-to-list 'eglot-server-programs
+		 `(python-mode
+                   . ,(eglot-alternatives '(
+					    ("pyright-langserver" "--stdio")
+					    "pylsp"
+                                            "jedi-language-server"
+					    ))))
     (custom-set-faces
      '(eglot-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
     )

@@ -29,6 +29,16 @@
 ;; (i.e. file-visiting code buffers where you do most of your work) from "unreal" buffers
 ;;(like popups, sidebars, log buffers, terminals, etc) by giving the latter a slightly
 ;; different -- often darker -- background
+
+(straight-use-package
+ '(ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll"))
+(use-package ultra-scroll
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
+
 (use-package solaire-mode
   :ensure t
   :config
