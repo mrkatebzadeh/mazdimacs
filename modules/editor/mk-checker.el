@@ -83,18 +83,36 @@
   :config
   (global-flycheck-eglot-mode 1))
 
+
+(setq ispell-dictionary "en")
+(setq ispell-program-name "aspell")
+(setq ispell-extra-args '("--encoding=utf-8"))
+
+
 (use-package flyspell
   :defer t
   :custom
   (flyspell-abbrev-p t)
   (flyspell-default-dictionary "en_US")
   (flyspell-issue-message-flag nil)
-  (flyspell-issue-welcome-flag nil))
+  (flyspell-issue-welcome-flag nil)
+  :init
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+  )
 
-(use-package flyspell-correct-helm
-  :after (flyspell helm)
+(use-package flyspell-correct
+  :ensure t
+  :after (flyspell)
   :defer t
-  :init (setq flyspell-correct-interface #'flyspell-correct-helm))
+  :init
+  (setq flyspell-correct-interface #'flyspell-correct)
+  :config
+  (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+  (define-key flyspell-mouse-map [mouse-3] #'undefined)
+  )
 
 (use-package langtool
   :defer t

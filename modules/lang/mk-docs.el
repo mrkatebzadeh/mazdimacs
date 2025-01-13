@@ -92,7 +92,7 @@
   :defer t
   :init
   (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
-  :config
+  ;; :config
   (custom-set-faces
    '(eldoc-box-body
      ((t (:background "#1e1e1e" :foreground "#ffffff")))))

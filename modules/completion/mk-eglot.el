@@ -40,6 +40,7 @@
     (add-hook 'rust-mode-hook 'eglot-ensure)
     (add-hook 'nix-mode-hook 'eglot-ensure)
     (add-hook 'python-mode-hook 'eglot-ensure)
+    (add-hook 'python-ts-mode-hook 'eglot-ensure)
     (add-hook 'latex-mode-hook 'eglot-ensure)
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
