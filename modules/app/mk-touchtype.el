@@ -1,4 +1,4 @@
-;;; mk-touchtype.el --- Touch Typing -*- lexical-binding: t; -*-
+;;; mazd//touchtype.el --- Touch Typing -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,9 +29,9 @@
   :defer t
   :ensure nil
   :commands (speed-type-text)
-  :load-path (lambda () (concat mk-lisp-dir ""))
+  :load-path (lambda () (concat mazd//lisp-dir ""))
   :config
-  (setq speed-type-dir (concat mk-cache-dir "/speed-test")))
+  (setq speed-type-dir (concat mazd//cache-dir "/speed-test")))
 
 (general-define-key
  :prefix "SPC a"
@@ -42,5 +42,5 @@
 
 
 
-(provide 'mk-touchtype)
-;;; mk-touchtype.el ends here
+(provide 'mazd//touchtype)
+;;; mazd//touchtype.el ends here

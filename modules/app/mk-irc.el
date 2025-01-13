@@ -1,4 +1,4 @@
-;;; mk-irc.el --- IRC -*- lexical-binding: t; -*-
+;;; mazd//irc.el --- IRC -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -26,7 +26,7 @@
 ;;; Code:
 
 ;;;###autoload
-(defun mk-erc-browse-last-url ()
+(defun mazd//erc-browse-last-url ()
   "Searchs backwards through an ERC buffer, looking for a URL. When a URL is
      found, it prompts you to open it."
   (interactive)
@@ -35,7 +35,7 @@
       (ffap-next-url t t))))
 
 ;;;###autoload
-(defun mk-erc-count-users ()
+(defun mazd//erc-count-users ()
   "Displays the number of users and ops connected on the current channel."
   (interactive)
   (if (get-buffer "irc.freenode.net:6667")
@@ -57,7 +57,7 @@
     (user-error "You must first be connected on IRC")))
 
 ;;;###autoload
-(defun mk-erc-get-ops ()
+(defun mazd//erc-get-ops ()
   "Displays the names of ops users on the current channel."
   (interactive)
   (if (get-buffer "irc.freenode.net:6667")
@@ -76,7 +76,7 @@
     (user-error "You must first be connected on IRC")))
 
 ;;;###autoload
-(defun mk-erc-notify (nickname message)
+(defun mazd//erc-notify (nickname message)
   "Displays a notification message for ERC."
   (let* ((channel (buffer-name))
 	 (nick (erc-hl-nicks-trim-irc-nick nickname))
@@ -87,12 +87,12 @@
     (alert (concat nick ": " msg) :title title)))
 
 ;;;###autoload
-(defun mk-erc-preprocess (string)
+(defun mazd//erc-preprocess (string)
   "Avoids channel flooding."
   (setq str (string-trim (replace-regexp-in-string "\n+" " " str))))
 
 ;;;###autoload
-(defun mk-erc-reset-track-mode ()
+(defun mazd//erc-reset-track-mode ()
   "Resets ERC track mode."
   (interactive)
   (setq erc-modified-channels-alist nil)
@@ -101,7 +101,7 @@
   (force-mode-line-update))
 
 ;;;###autoload
-(defun mk-erc-start-or-switch ()
+(defun mazd//erc-start-or-switch ()
   "Connects to ERC, or switch to last active buffer."
   (interactive)
   (if (get-buffer "irc.freenode.net:6667")
@@ -110,8 +110,8 @@
 
 (use-package erc
   :defer t
-  :hook (;(ercn-notify . mk-erc-notify)
-         (erc-send-pre . mk-erc-preprocess))
+  :hook (;(ercn-notify . mazd//erc-notify)
+         (erc-send-pre . mazd//erc-preprocess))
   :custom-face
   (erc-action-face ((t (:foreground "#8fbcbb"))))
   (erc-error-face ((t (:foreground "#bf616a"))))
@@ -155,7 +155,7 @@
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "i" 'mk-erc-start-or-switch)
+ "i" 'mazd//erc-start-or-switch)
 
-(provide 'mk-irc)
-;;; mk-irc.el ends here
+(provide 'mazd//irc)
+;;; mazd//irc.el ends here

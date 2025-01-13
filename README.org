@@ -1,4 +1,4 @@
-* Siarch Emacs
+* Mazdimacs
 
 This repository contains all my GNU Emacs configuration.
 

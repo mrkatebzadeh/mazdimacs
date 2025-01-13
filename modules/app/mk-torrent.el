@@ -1,4 +1,4 @@
-;;; mk-torrent.el --- Torrent  -*- lexical-binding: t; -*-
+;;; mazd//torrent.el --- Torrent  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -66,5 +66,5 @@
    "U" 'transmission-unmark-all))
 
 
-  (provide 'mk-torrent)
-;;; mk-torrent.el ends here
+  (provide 'mazd//torrent)
+;;; mazd//torrent.el ends here

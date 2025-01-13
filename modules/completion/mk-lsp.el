@@ -1,4 +1,4 @@
-;;; mk-lsp.el --- LSP -*- lexical-binding: t; -*-
+;;; mazd//lsp.el --- LSP -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -27,7 +27,7 @@
 
 ;;; lsp-mode
 
-(when (string= mk-language-server "lsp")
+(when (string= mazd//language-server "lsp")
   (use-package lsp-mode
     :ensure t
     :defer t
@@ -38,7 +38,7 @@
     :custom
     (lsp-completion-provider :none)
     (lsp-prefer-flymake nil)
-    (lsp-session-file (concat mk-backup-dir "lsp-session-v1"))
+    (lsp-session-file (concat mazd//backup-dir "lsp-session-v1"))
     ;; what to use when checking on-save. "check" is default, I prefer clippy
     (lsp-rust-analyzer-cargo-watch-command "clippy")
     (lsp-eldoc-enable-hover nil)
@@ -90,7 +90,7 @@
 	  lsp-ui-sideline-show-hover nil)
     )
 
-  (when (string= mk-completion "featured")
+  (when (string= mazd//completion "featured")
     (use-package company-lsp
       :ensure t
       :defer t
@@ -103,7 +103,7 @@
     )
 
 
-  (when (string= mk-completion "light")
+  (when (string= mazd//completion "light")
     (use-package consult-lsp
       :ensure t
       :defer t
@@ -127,7 +127,7 @@
 	   ("C-M-<f11>" . dap-step-out)
 	   ("<f7>" . dap-breakpoint-toggle))))
 
-  (when (string= mk-completion "light")
+  (when (string= mazd//completion "light")
     (leader
       "lt" 'consult-lsp-diagnostics
       "ls" 'consult-lsp-symbols
@@ -157,5 +157,5 @@
 
   )
 
-(provide 'mk-lsp)
-;;; mk-lsp.el ends
+(provide 'mazd//lsp)
+;;; mazd//lsp.el ends

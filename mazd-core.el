@@ -1,4 +1,4 @@
-;;; mk-core.el --- Core  -*- lexical-binding: t; -*-
+;;; mazd//core.el --- Core  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -57,8 +57,8 @@
       select-enable-clipboard t
       user-full-name "M.R. Siavash Katebzadeh"
       user-mail-address "mr.katebzadeh@gmail.com"
-      package-user-dir (expand-file-name "elpa" mk-packages-dir)
-      package-gnupghome-dir (expand-file-name "gpg" mk-packages-dir)
+      package-user-dir (expand-file-name "elpa" mazd//packages-dir)
+      package-gnupghome-dir (expand-file-name "gpg" mazd//packages-dir)
       help-window-select t
       package-archives
       `(("gnu"          . "https://elpa.gnu.org/packages/")
@@ -92,7 +92,7 @@
 (setq use-package-compute-statistics t)
 (require 'auth-source)
 (setq auth-sources '("~/.netrc"))
-(defun mk-lookup-password (&rest keys)
+(defun mazd//lookup-password (&rest keys)
   (let ((result (apply #'auth-source-search keys)))
     (if result
         (funcall (plist-get (car result) :secret))
@@ -115,5 +115,5 @@
   :ensure t
   :defer t)
 
-(provide 'mk-core)
-;;; mk-core.el ends here
+(provide 'mazd//core)
+;;; mazd//core.el ends here

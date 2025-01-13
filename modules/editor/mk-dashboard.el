@@ -1,4 +1,4 @@
-;;; mk-dashboard.el --- Dashboard -*- lexical-binding: t; -*-
+;;; mazd//dashboard.el --- Dashboard -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,7 +29,7 @@
   :ensure t
   :custom
   (dashboard-banner-logo-title "[-< True happiness can be found when two contrary powers cooperate together >-]")
-  (dashboard-startup-banner (concat mk-emacs-dir "logo.txt"))
+  (dashboard-startup-banner (concat mazd//emacs-dir "logo.txt"))
   (dashboard-center-content t)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
@@ -41,17 +41,17 @@
   (dashboard-setup-startup-hook)
   )
 
-(defcustom mk-dashboard-homepage-footer-url
+(defcustom mazd//dashboard-homepage-footer-url
   "https://github.com/emacs-dashboard/emacs-dashboard"
   "URL to use for `dashboard-insert-homepage-footer'."
   :type '(string)
   :group 'dashboard)
-(defcustom mk-dashboard-set-widget-binding t
+(defcustom mazd//dashboard-set-widget-binding t
   "If non-nil show keybindings in shortmenu widgets."
   :type 'boolean
   :group 'dashboard)
 
-(defcustom mk-dashboard-shortmenu-functions
+(defcustom mazd//dashboard-shortmenu-functions
   `((recents   . recentf)
     (bookmarks . bookmark-jump)
     (projects
@@ -69,7 +69,7 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
 ;; Faces
 ;;
 
-(defface mk-dashboard-bindings-face
+(defface mazd//dashboard-bindings-face
   '((t (:inherit font-lock-constant-face)))
   "Face used for shortmenu widgets bindings."
   :group 'dashboard)
@@ -78,13 +78,13 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
 ;; Widget functions
 ;;
 
-(defun mk-dashboard-insert-homepage-footer ()
-  "Insert a homepage footer to go `mk-dashboard-homepage-footer-url'."
+(defun mazd//dashboard-insert-homepage-footer ()
+  "Insert a homepage footer to go `mazd//dashboard-homepage-footer-url'."
   (widget-create 'item
                  :tag dashboard-footer-icon
                  :action
                  (lambda (&rest _)
-                   (browse-url mk-dashboard-homepage-footer-url))
+                   (browse-url mazd//dashboard-homepage-footer-url))
                  :mouse-face 'highlight
                  :button-prefix ""
                  :button-suffix ""
@@ -92,9 +92,9 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
   (dashboard-center-text (- (point) 1) (point))
   (insert "\n"))
 
-(defun mk-dashboard-insert-project-shortmenu (&rest _)
+(defun mazd//dashboard-insert-project-shortmenu (&rest _)
   "Insert project shortmenu widget."
-  (let* ((fn (alist-get 'projects mk-dashboard-shortmenu-functions))
+  (let* ((fn (alist-get 'projects mazd//dashboard-shortmenu-functions))
          (fn-keymap (format "\\[%s]" fn))
          (icon-name (alist-get 'projects dashboard-heading-icons))
          (icon (nerd-icons-octicon icon-name :face 'dashboard-heading))
@@ -105,20 +105,20 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
                    :tag (format "%-30s" "Open project")
                    :action (lambda (&rest _)
                              (call-interactively
-			      (alist-get 'projects mk-dashboard-shortmenu-functions)))
+			      (alist-get 'projects mazd//dashboard-shortmenu-functions)))
                    :mouse-face 'highlight
                    :button-face 'dashboard-heading
                    :button-prefix ""
                    :button-suffix ""
                    :format "%[%t%]")
-    (if mk-dashboard-set-widget-binding
+    (if mazd//dashboard-set-widget-binding
         (insert (propertize (substitute-command-keys fn-keymap)
                             'face
-                            'mk-dashboard-bindings-face)))))
+                            'mazd//dashboard-bindings-face)))))
 
-(defun mk-dashboard-insert-org-agenda-shortmenu (&rest _)
+(defun mazd//dashboard-insert-org-agenda-shortmenu (&rest _)
   "Insert `org-agenda' shortmenu widget."
-  (let* ((fn (alist-get 'agenda mk-dashboard-shortmenu-functions))
+  (let* ((fn (alist-get 'agenda mazd//dashboard-shortmenu-functions))
          (fn-keymap (format "\\[%s]" fn))
          (icon-name (alist-get 'agenda dashboard-heading-icons))
          (icon (nerd-icons-octicon icon-name :face 'dashboard-heading))
@@ -129,20 +129,20 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
                    :tag (format "%-30s" "Open org-agenda")
                    :action (lambda (&rest _)
                              (call-interactively
-			      (alist-get 'agenda mk-dashboard-shortmenu-functions)))
+			      (alist-get 'agenda mazd//dashboard-shortmenu-functions)))
                    :mouse-face 'highlight
                    :button-face 'dashboard-heading
                    :button-prefix ""
                    :button-suffix ""
                    :format "%[%t%]")
-    (if mk-dashboard-set-widget-binding
+    (if mazd//dashboard-set-widget-binding
         (insert (propertize (substitute-command-keys fn-keymap)
                             'face
-                            'mk-dashboard-bindings-face)))))
+                            'mazd//dashboard-bindings-face)))))
 
-(defun mk-dashboard-insert-bookmark-shortmenu (&rest _)
+(defun mazd//dashboard-insert-bookmark-shortmenu (&rest _)
   "Insert bookmark shortmenu widget."
-  (let* ((fn (alist-get 'bookmarks mk-dashboard-shortmenu-functions))
+  (let* ((fn (alist-get 'bookmarks mazd//dashboard-shortmenu-functions))
          (fn-keymap (format "\\[%s]" fn))
          (icon-name (alist-get 'bookmarks dashboard-heading-icons))
          (icon (nerd-icons-octicon icon-name :face 'dashboard-heading))
@@ -153,20 +153,20 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
                    :tag (format "%-30s" "Jump to bookmark")
                    :action (lambda (&rest _)
                              (call-interactively
-			      (alist-get 'bookmarks mk-dashboard-shortmenu-functions)))
+			      (alist-get 'bookmarks mazd//dashboard-shortmenu-functions)))
                    :mouse-face 'highlight
                    :button-face 'dashboard-heading
                    :button-prefix ""
                    :button-suffix ""
                    :format "%[%t%]")
-    (if mk-dashboard-set-widget-binding
+    (if mazd//dashboard-set-widget-binding
         (insert (propertize (substitute-command-keys fn-keymap)
                             'face
-                            'mk-dashboard-bindings-face)))))
+                            'mazd//dashboard-bindings-face)))))
 
-(defun mk-dashboard-insert-recents-shortmenu (&rest _)
+(defun mazd//dashboard-insert-recents-shortmenu (&rest _)
   "Insert recent files short menu widget."
-  (let* ((fn (alist-get 'recents mk-dashboard-shortmenu-functions))
+  (let* ((fn (alist-get 'recents mazd//dashboard-shortmenu-functions))
          (fn-keymap (format "\\[%s]" fn))
          (icon-name (alist-get 'recents dashboard-heading-icons))
          (icon (nerd-icons-octicon icon-name :face 'dashboard-heading))
@@ -177,15 +177,15 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
                    :tag (format "%-30s" "Recently opened files")
                    :action (lambda (&rest _)
                              (call-interactively
-			      (alist-get 'recents mk-dashboard-shortmenu-functions)))
+			      (alist-get 'recents mazd//dashboard-shortmenu-functions)))
                    :mouse-face 'highlight
                    :button-face 'dashboard-heading
                    :button-prefix ""
                    :button-suffix ""
                    :format "%[%t%]")
-    (if mk-dashboard-set-widget-binding
+    (if mazd//dashboard-set-widget-binding
 	(insert (propertize (substitute-command-keys fn-keymap)
                             'face
-                            'mk-dashboard-bindings-face)))))
-(provide 'mk-dashboard)
-;;; mk-dashboard.el ends here
+                            'mazd//dashboard-bindings-face)))))
+(provide 'mazd//dashboard)
+;;; mazd//dashboard.el ends here

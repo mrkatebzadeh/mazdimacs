@@ -1,4 +1,4 @@
-;;; mk-pacman.el --- PACMAN -*- lexical-binding: t; -*-
+;;; mazd//pacman.el --- PACMAN -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
 (use-package pacman
   :defer t
   :ensure nil
@@ -46,7 +46,7 @@
 	(action . (lambda (candidate)
 		    (funcall-interactively (cdr (assoc candidate commands)))))))
 
-(defun mk-helm-pacman ()
+(defun mazd//helm-pacman ()
   "Pacman interface"
   (interactive)
   (require 'pacman)
@@ -55,7 +55,7 @@
 ;;; bindings
 
 (leader
-  "ap" 'mk-helm-pacman
+  "ap" 'mazd//helm-pacman
   )
 
 (general-define-key
@@ -72,5 +72,5 @@
  "q" 'pacman-mode-kill-buffer)
 )
 
-(provide 'mk-pacman)
-;;; mk-pacman.el ends here
+(provide 'mazd//pacman)
+;;; mazd//pacman.el ends here

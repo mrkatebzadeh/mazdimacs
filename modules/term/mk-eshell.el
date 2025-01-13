@@ -1,4 +1,4 @@
-;;; mk-eshell.el --- Eshell  -*- lexical-binding: t; -*-
+;;; mazd//eshell.el --- Eshell  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -33,13 +33,13 @@
 (use-package aweshell
   :ensure nil
   :defer t
-  :load-path (lambda () (concat mk-lisp-dir "/aweshell/"))
+  :load-path (lambda () (concat mazd//lisp-dir "/aweshell/"))
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   :bind
   (("C-\\" . aweshell-dedicated-toggle)))
 
 
-(defun mk-update-ticket()
+(defun mazd//update-ticket()
   (interactive)
   (let ((command (format
 		  "echo %s | kinit %s@%s && cd %s && pssh -h %s -l %s 'echo %s | kinit; aklog -force'"
@@ -52,7 +52,7 @@
 		  staff-password)))
     (shell-command command)))
 
-(defun mk-scp-project ()
+(defun mazd//scp-project ()
   (interactive)
   (let*
       ((dir
@@ -84,10 +84,10 @@
  "n" 'aweshell-new
  "a" 'aweshell-dedicated-toggle
  "t" 'eshell-toggle
- "u" 'mk-update-ticket
- "c" 'mk-scp-project)
+ "u" 'mazd//update-ticket
+ "c" 'mazd//scp-project)
 
 
 
-(provide 'mk-eshell)
-;;; mk-eshell.el ends here
+(provide 'mazd//eshell)
+;;; mazd//eshell.el ends here

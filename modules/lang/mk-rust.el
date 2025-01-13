@@ -1,4 +1,4 @@
-;;; mk-rust.el --- Rust  -*- lexical-binding: t; -*-
+;;; mazd//rust.el --- Rust  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -50,15 +50,15 @@
   :defer t
   :init
 
-  (when (string= mk-language-server "eglot")
+  (when (string= mazd//language-server "eglot")
     (setq rustic-lsp-client 'eglot)
     )
 
-  (when (string= mk-language-server "lsp")
+  (when (string= mazd//language-server "lsp")
     (setq rustic-lsp-client 'lsp)
     )
   :config
-  (when (string= mk-language-server "lsp")
+  (when (string= mazd//language-server "lsp")
     (setq lsp-eldoc-hook nil)
     (setq lsp-signature-auto-activate nil))
   ;; comment to disable rustfmt on save
@@ -83,15 +83,15 @@
   (when buffer-file-name
     (setq-local buffer-save-without-query t)
 
-    (when (string= mk-language-server "lsp")
+    (when (string= mazd//language-server "lsp")
       (setq-local lsp-inlay-hint-enable t)
       )
     )
 
-  (when (string= mk-language-server "lsp")
+  (when (string= mazd//language-server "lsp")
     (add-hook 'before-save-hook 'lsp-format-buffer nil t))
 
-  (when (string= mk-language-server "eglot")
+  (when (string= mazd//language-server "eglot")
     (add-hook 'rust-mode-hook 'eglot-ensure)
     )
   )
@@ -107,5 +107,5 @@
  "cn" 'cargo-process-new
  "cr" 'cargo-process-run)
 
-(provide 'mk-rust)
-;;; mk-rust.el ends here
+(provide 'mazd//rust)
+;;; mazd//rust.el ends here

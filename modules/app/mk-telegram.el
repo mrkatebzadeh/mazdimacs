@@ -1,4 +1,4 @@
-;;; mk-telegram.el --- Telegram -*- lexical-binding: t; -*-
+;;; mazd//telegram.el --- Telegram -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -27,7 +27,7 @@
 
 (use-package telega
   :commands (telega)
-  :custom (semanticdb-default-save-directory (concat mk-cache-dir "/semanticdb"))
+  :custom (semanticdb-default-save-directory (concat mazd//cache-dir "/semanticdb"))
   :defer t)
 
 (with-eval-after-load 'telega
@@ -61,5 +61,5 @@
  :keymaps 'telega-root-mode-map
  "q"  'telega-kill)
 
-(provide 'mk-telegram)
-;;; mk-telegram.el ends here
+(provide 'mazd//telegram)
+;;; mazd//telegram.el ends here

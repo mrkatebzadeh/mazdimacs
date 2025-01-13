@@ -1,4 +1,4 @@
-;;; mk-youtube.el --- Youtube  -*- lexical-binding: t; -*-
+;;; mazd//youtube.el --- Youtube  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -32,7 +32,7 @@
 
 
 (with-eval-after-load 'helm-youtube
-  (load-library (concat mk-secret-dir "youtube.gpg")))
+  (load-library (concat mazd//secret-dir "youtube.gpg")))
 
 (general-define-key
  :prefix "SPC a"
@@ -41,5 +41,5 @@
  "y" 'helm-youtube)
 
 
-(provide 'mk-youtube)
-;;; mk-youtube.el ends here
+(provide 'mazd//youtube)
+;;; mazd//youtube.el ends here

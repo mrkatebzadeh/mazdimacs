@@ -1,4 +1,4 @@
-;;; mk-config.el --- Config  -*- lexical-binding: t; -*-
+;;; mazd//config.el --- Config  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,16 +29,16 @@
   :ensure t
   :defer t)
 
-(defun mk-init-file ()
+(defun mazd//init-file ()
   "Open init.el file."
   (interactive)
-  (find-file (concat mk-emacs-dir "init.el")))
+  (find-file (concat mazd//emacs-dir "init.el")))
 
 ;;; bindigs
 (leader
-  "cc" 'mk-init-file
+  "cc" 'mazd//init-file
   "ct" 'try)
 
 
-(provide 'mk-config)
-;;; mk-config.el ends here
+(provide 'mazd//config)
+;;; mazd//config.el ends here

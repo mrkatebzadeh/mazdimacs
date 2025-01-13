@@ -1,4 +1,4 @@
-;;; mk-snippet.el --- Snippet  -*- lexical-binding: t; -*-
+;;; mazd//snippet.el --- Snippet  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -61,7 +61,7 @@
   :ensure nil
   :delight
   :hook (text-mode . abbrev-mode)
-  :custom (abbrev-file-name (concat mk-emacs-dir "abbrev_defs"))
+  :custom (abbrev-file-name (concat mazd//emacs-dir "abbrev_defs"))
   :config
   (if (file-exists-p abbrev-file-name)
       (quietly-read-abbrev-file)))
@@ -70,5 +70,5 @@
   "ty" 'yas-global-mode)
 
 
-(provide 'mk-snippet)
-;;; mk-snippet.el ends here
+(provide 'mazd//snippet)
+;;; mazd//snippet.el ends here

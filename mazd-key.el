@@ -1,4 +1,4 @@
-;;; mk-key.el --- Key -*- lexical-binding: t; -*-
+;;; mazd//key.el --- Key -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -108,7 +108,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
-(defun mk-kill-emacs ()
+(defun mazd//kill-emacs ()
   "Check for unsaved file buffers before exiting Emacs."
   (interactive)
   (let ((unsaved-buffers
@@ -154,9 +154,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; Exit/restart/reboot/shutdown
 (leader
-  "qq" 'mk-kill-emacs
+  "qq" 'mazd//kill-emacs
   "qQ" 'delete-frame)
 
 
-(provide 'mk-key)
-;;; mk-key.el ends here
+(provide 'mazd//key)
+;;; mazd//key.el ends here

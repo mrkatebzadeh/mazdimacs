@@ -1,4 +1,4 @@
-;;; mk-org.el --- Org -*- lexical-binding: t; -*-
+;;; mazd//org.el --- Org -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -32,9 +32,9 @@
   :mode ("\\.org$" . org-mode)
   :hook
   (
-   (org-mode . mk-org-babel-setup)
-   (org-mode . mk-org-beamer-setup)
-   (org-mode . mk-org-agenda-setup)
+   (org-mode . mazd//org-babel-setup)
+   (org-mode . mazd//org-beamer-setup)
+   (org-mode . mazd//org-agenda-setup)
    )
   :init
   (setq org-startup-with-inline-images t)
@@ -72,7 +72,7 @@
 	org-roam-ui-open-on-start t)
   )
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (use-package helm-org
     :ensure t
     :after helm
@@ -124,7 +124,7 @@
   (setq org-ref-open-pdf-function
 	(lambda (fpath)
 	  (start-process "zathura" "*helm-bibtex-zathura*" "/usr/bin/zathura" fpath)))
-  (defun mk-set-libraries (library)
+  (defun mazd//set-libraries (library)
     "Set paths according to the selected library."
     (cond
      ((equal candidate "Research")
@@ -155,11 +155,11 @@
 	    helm-bibtex-bibliography bibtex-completion-bibliography
 	    helm-bibtex-library-path bibtex-completion-library-path))
      (t (message "Invalid!"))))
-  (setq mk-helm-libraries-source
+  (setq mazd//helm-libraries-source
 	'((name . "Select a library.")
 	  (candidates . ("Research" "Ebooks" "PDFs"))
 	  (action . (lambda (candidate)
-		      (mk-set-libraries candidate)))))
+		      (mazd//set-libraries candidate)))))
   :config
   (defun my-orcb-key ()
     "Replace the key in the entry, also change the pdf file name if it exites."
@@ -227,7 +227,7 @@
   )
 
 ;;; links
-(defun mk-org-clicky()
+(defun mazd//org-clicky()
   "Open link at point if there is one, otherwise insert newline."
   (interactive)
   (if (org-in-regexp org-link-any-re)
@@ -236,7 +236,7 @@
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (evil-define-key 'normal org-mode-map (kbd "RET") 'mk-org-clicky)))
+            (evil-define-key 'normal org-mode-map (kbd "RET") 'mazd//org-clicky)))
 (advice-add 'org-open-at-point :before #'org-mark-ring-push)
 (setq org-link-frame-setup '((file . find-file)))
 (with-eval-after-load 'org
@@ -323,7 +323,7 @@
   :defer t
   :ensure nil)
 
-(defun mk-org-drill ()
+(defun mazd//org-drill ()
   "Load and run org-drill"
   (interactive)
   (require 'org-drill))
@@ -344,7 +344,7 @@
 (use-package ox-moderncv
   :defer t
   :ensure nil
-  :load-path (lambda () (concat mk-lisp-dir "/org-cv/")))
+  :load-path (lambda () (concat mazd//lisp-dir "/org-cv/")))
 
 (straight-use-package
  '(org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
@@ -361,14 +361,14 @@
   :ensure t
   :hook (org-agenda-finalize . org-timeline-insert-timeline))
 
-(defun mk-org-export()
+(defun mazd//org-export()
   "Load required packages for exporting org file"
   (interactive)
   (require 'ox-moderncv)
   (require 'ox-reveal))
 
 ;;; config
-(defun mk-org-agenda-setup ()
+(defun mazd//org-agenda-setup ()
   (setq org-agenda-files
 	(append
 	 (file-expand-wildcards (concat org-directory "/agenda/*.org")))
@@ -402,7 +402,7 @@
   )
 
 
-(defun mk-org-babel-setup ()
+(defun mazd//org-babel-setup ()
   "Setup org-babel languages and other configurations for org-mode."
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (setq org-confirm-babel-evaluate nil)
@@ -423,7 +423,7 @@
      )))
 
 
-(defun mk-org-beamer-setup ()
+(defun mazd//org-beamer-setup ()
   "Setup org-beamer"
   (unless (boundp 'org-export-latex-classes)
     (setq org-export-latex-classes nil))
@@ -489,7 +489,7 @@
 (with-eval-after-load 'org
 
 
-  (setq mk-secret-dir (concat org-directory "/keys/"))
+  (setq mazd//secret-dir (concat org-directory "/keys/"))
   (setq org-todo-keywords '((sequence "TODO(t)"
 				      "STARTED(s)"
 				      "WAITING(w@/!)"
@@ -518,33 +518,33 @@
 	   (end (+ start (nth 1 (insert-file-contents filename)))))
       (org-table-convert-region start end)))
 
-  (defun mk-helm-ref ()
+  (defun mazd//helm-ref ()
     "Prompt for switching libraries."
     (interactive)
     (require 'org-ref)
-    (helm :sources '(mk-helm-libraries-source)))
+    (helm :sources '(mazd//helm-libraries-source)))
   )
 
-(defun mk-open-bib-file()
+(defun mazd//open-bib-file()
   (interactive)
   (find-file (car org-ref-default-bibliography)))
 
-(defun mk-open-note-file()
+(defun mazd//open-note-file()
   (interactive)
   (find-file org-ref-bibliography-notes))
 
-(defun mk-open-agenda-note-file()
+(defun mazd//open-agenda-note-file()
   (interactive)
   (find-file org-default-notes-file))
 
-(defun mk-eval-and-next-block ()
+(defun mazd//eval-and-next-block ()
   "Evaluate the current Org mode source block and move to the next one."
   (interactive)
   (save-buffer)
   (org-babel-execute-src-block)
   (org-babel-next-src-block))
 
-(defun mk-org-link-copy (&optional arg)
+(defun mazd//org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
   (interactive "P")
   (let* ((link (org-element-lineage (org-element-context) '(link) t))
@@ -554,7 +554,7 @@
     (kill-new url)
     (message (concat "Copied URL: " url))))
 
-(defun mk-org-link-open-eww ()
+(defun mazd//org-link-open-eww ()
   "Open the Org mode link under the cursor directly in EWW."
   (interactive)
   (let* ((element (org-element-context))
@@ -566,7 +566,7 @@
       (message "No valid link found at point."))))
 
 
-(defun mk-org-code-execute ()
+(defun mazd//org-code-execute ()
   "Execute the current code block, jump to the next code block, and center it in the buffer."
   (interactive)
   (org-babel-execute-maybe)
@@ -576,13 +576,13 @@
 ;;; bindings
 (leader
   "oa" 'org-agenda
-  "oe" 'mk-org-export
+  "oe" 'mazd//org-export
   "oo" 'org-mode
   "oc" 'org-capture
-  "on" 'mk-open-agenda-note-file
+  "on" 'mazd//open-agenda-note-file
   "oR" '(:ignore t :which-key "org-ref")
-  "oRn" 'mk-open-note-file
-  "oRo" 'mk-open-bib-file
+  "oRn" 'mazd//open-note-file
+  "oRo" 'mazd//open-bib-file
   "or" '(:ignore t :which-key "roam")
   "ort" 'org-roam-buffer-toggle
   "orf" 'org-roam-node-find
@@ -597,18 +597,18 @@
   "ol" 'org-store-link
   )
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (leader
-    "oRs" 'mk-helm-ref
+    "oRs" 'mazd//helm-ref
     "oRi" 'org-ref-helm-insert-cite-link
     "oRl" 'helm-bibtex
     "oRd" 'doi-utils-add-bibtex-entry-from-doi
     )
   )
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
   (leader
-    "oRs" 'mk-helm-ref
+    "oRs" 'mazd//helm-ref
     "oRl" 'consult-bibtex
     )
   )
@@ -654,7 +654,7 @@
  "b" '(:ignore t :which-key "blocks")
  "bp" 'org-babel-previous-src-block
  "bn"     'org-babel-next-src-block
- "be"     'mk-org-code-execute
+ "be"     'mazd//org-code-execute
  "bE"     'org-babel-execute-maybe
  "bo"     'org-babel-open-src-block-result
  "bv"     'org-babel-expand-src-block
@@ -678,7 +678,7 @@
 
  "c" 'org-todo
  "s" 'org-schedule
- "n" 'mk-eval-and-next-block
+ "n" 'mazd//eval-and-next-block
  "C" '(:ignore t :which-key "org-crypt")
  "Ce" 'org-encrypt-entry
  "CE" 'org-encrypt-entries
@@ -696,8 +696,8 @@
  ;; "b" 'org-tree-to-indirect-buffer
  "A" 'org-archive-subtree
  "l" '(:ignore t :which-key "link")
- "ly" 'mk-org-link-copy
- "le" 'mk-org-link-open-eww
+ "ly" 'mazd//org-link-copy
+ "le" 'mazd//org-link-open-eww
  "lo" 'org-open-at-point
  "lb" 'org-mark-ring-goto
  "lf" 'org-mark-ring-push
@@ -909,5 +909,5 @@
        "[" 'org-agenda-manipulate-query-add
        "g\\" 'org-agenda-filter-by-tag-refine
        "]" 'org-agenda-manipulate-query-subtract)))
-(provide 'mk-org)
-;;; mk-org.el ends here
+(provide 'mazd//org)
+;;; mazd//org.el ends here

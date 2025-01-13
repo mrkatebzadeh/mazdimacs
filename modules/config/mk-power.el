@@ -1,4 +1,4 @@
-;;; mk-power.el --- Power  -*- lexical-binding: t; -*-
+;;; mazd//power.el --- Power  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -45,5 +45,5 @@
 (leader
   "qz" 'helm-power)
 
-(provide 'mk-power)
-;;; mk-power.el ends here
+(provide 'mazd//power)
+;;; mazd//power.el ends here

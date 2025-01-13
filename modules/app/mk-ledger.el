@@ -1,4 +1,4 @@
-;;; mk-ledger.el --- LEDGER -*- lexical-binding: t; -*-
+;;; mazd//ledger.el --- LEDGER -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -70,5 +70,5 @@
  "t" 'ledger-reconcile-change-target
  "RET" 'ledger-reconcile-finish)
 
-(provide 'mk-ledger)
-;;; mk-ledger.el ends here
+(provide 'mazd//ledger)
+;;; mazd//ledger.el ends here

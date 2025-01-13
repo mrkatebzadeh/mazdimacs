@@ -1,4 +1,4 @@
-;;; mk-theme.el --- Theme -*- lexical-binding: t; -*-
+;;; mazd//theme.el --- Theme -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -31,12 +31,12 @@
   :ensure t
   )
 
-(defun mk-refresh-theme ()
+(defun mazd//refresh-theme ()
   "Function to load catppuccin theme"
   (interactive)
   (load-theme 'catppuccin :no-confirm)
   )
-(call-interactively 'mk-refresh-theme)
+(call-interactively 'mazd//refresh-theme)
 
 (defvar doom-flavor '((rosewater . "#d4c4b4")
 		      (flamingo . "#6b757f")
@@ -114,106 +114,106 @@
 		      :inherit 'telephone-line-evil)
   )
 
-(defgroup mk-code-faces nil
+(defgroup mazd//code-faces nil
   "Faces for highlighting code.")
 
 ;;;###autoload
-(defface mk-font-lock-constructor-face
+(defface mazd//font-lock-constructor-face
   '((default :inherit font-lock-type-face :slant oblique))
   "Face for creating new instances."
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-global-var-face
+(defface mazd//font-lock-global-var-face
   '((default :inherit font-lock-constant-face :weight bold))
   "Face for constants."
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-function-call-face
+(defface mazd//font-lock-function-call-face
   '((default :foreground "#000080" :weight semi-bold))
   "Face for function call"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-method-call-face
-  '((default :inherit mk-font-lock-function-call-face :weight semi-bold))
+(defface mazd//font-lock-method-call-face
+  '((default :inherit mazd//font-lock-function-call-face :weight semi-bold))
   "Face for method call"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-command-face
+(defface mazd//font-lock-command-face
   '((default :foreground "#000080"))
   "Face for method call"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-special-var-face
+(defface mazd//font-lock-special-var-face
   '((default :inherit font-lock-variable-name-face :weight bold))
   "Face for special var"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-argument-face
+(defface mazd//font-lock-argument-face
   '((default :foreground "#8b7765"))
   "Face for argument"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-argument-keyword-face
+(defface mazd//font-lock-argument-keyword-face
   '((default :foreground "#8b7765"))
   "Face for keyword"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 ;;;###autoload
-(defface mk-font-lock-parameter-face
+(defface mazd//font-lock-parameter-face
   ;; #8b7765
   '((default :foreground "#8b7765"))
   "Face for parameter"
-  :group 'mk-code-faces)
+  :group 'mazd//code-faces)
 
 
 ;;;###autoload
-(defun mk-setup-code-faces (selected-flavor)
+(defun mazd//setup-code-faces (selected-flavor)
   (set-face-attribute 'font-lock-property-use-face nil :slant 'oblique)
   (set-face-attribute 'font-lock-misc-punctuation-face nil :foreground "#b03060" :weight 'semi-bold)
 
-  (set-face-attribute 'mk-font-lock-constructor-face nil
+  (set-face-attribute 'mazd//font-lock-constructor-face nil
                       :foreground (catppuccin-get-color 'blue (intern selected-flavor))
                       :slant 'oblique)
 
-  (set-face-attribute 'mk-font-lock-global-var-face nil
+  (set-face-attribute 'mazd//font-lock-global-var-face nil
                       :foreground (catppuccin-get-color 'teal (intern selected-flavor))
                       :weight 'bold)
 
-  (set-face-attribute 'mk-font-lock-function-call-face nil
+  (set-face-attribute 'mazd//font-lock-function-call-face nil
                       :foreground (catppuccin-get-color 'lavender (intern selected-flavor))
                       :weight 'semi-bold)
 
-  (set-face-attribute 'mk-font-lock-method-call-face nil
+  (set-face-attribute 'mazd//font-lock-method-call-face nil
                       :foreground (catppuccin-get-color 'lavender (intern selected-flavor))
                       :weight 'semi-bold)
 
-  (set-face-attribute 'mk-font-lock-command-face nil
+  (set-face-attribute 'mazd//font-lock-command-face nil
                       :foreground (catppuccin-get-color 'blue (intern selected-flavor)))
 
-  (set-face-attribute 'mk-font-lock-special-var-face nil
+  (set-face-attribute 'mazd//font-lock-special-var-face nil
                       :foreground (catppuccin-get-color 'mauve (intern selected-flavor))
                       :weight 'bold)
 
-  (set-face-attribute 'mk-font-lock-argument-face nil
+  (set-face-attribute 'mazd//font-lock-argument-face nil
                       :foreground (catppuccin-get-color 'rosewater (intern selected-flavor)))
 
-  (set-face-attribute 'mk-font-lock-argument-keyword-face nil
+  (set-face-attribute 'mazd//font-lock-argument-keyword-face nil
                       :foreground (catppuccin-get-color 'rosewater (intern selected-flavor)))
 
-  (set-face-attribute 'mk-font-lock-parameter-face nil
+  (set-face-attribute 'mazd//font-lock-parameter-face nil
                       :foreground (catppuccin-get-color 'rosewater (intern selected-flavor)))
   )
 
 
 
-(defun mk-list-themes ()
+(defun mazd//list-themes ()
   "List available Catppuccin flavors and apply the selected one."
   (interactive)
   (let* ((selected-flavor (completing-read "Select a flavor: " (mapcar 'symbol-name catppuccin-flavor-list))))
@@ -221,8 +221,8 @@
     (when (bound-and-true-p telephone-line-mode)
       (update-telephone-line-theme selected-flavor)
       )
-    (mk-refresh-theme)
-    (mk-setup-code-faces selected-flavor)
+    (mazd//refresh-theme)
+    (mazd//setup-code-faces selected-flavor)
     (message "Applied Catppuccin flavor: %s" selected-flavor)))
 
 (setq catppuccin-flavor 'doom)
@@ -231,10 +231,10 @@
   (update-telephone-line-theme "doom")
   )
 
-(mk-setup-code-faces "doom")
+(mazd//setup-code-faces "doom")
 ;; transparency
-(defun mk-toggle-transparency ()
-  "Toggle background transparency between `mk-alpha-variable` and 100."
+(defun mazd//toggle-transparency ()
+  "Toggle background transparency between `mazd//alpha-variable` and 100."
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
     (set-frame-parameter
@@ -243,15 +243,15 @@
 		    ((numberp (cdr alpha)) (cdr alpha))
 		    ((numberp (cadr alpha)) (cadr alpha)))
 	      100)
-	 `(,mk-alpha-variable . 50) '(100 . 100)))))
+	 `(,mazd//alpha-variable . 50) '(100 . 100)))))
 
-(mk-toggle-transparency)
-(mk-toggle-transparency)
-(mk-refresh-theme)
+(mazd//toggle-transparency)
+(mazd//toggle-transparency)
+(mazd//refresh-theme)
 (leader
-  "tt" 'mk-toggle-transparency
-  "tT" 'mk-list-themes)
+  "tt" 'mazd//toggle-transparency
+  "tT" 'mazd//list-themes)
 
 
-(provide 'mk-theme)
-;;; mk-theme.el ends here
+(provide 'mazd//theme)
+;;; mazd//theme.el ends here

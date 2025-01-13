@@ -1,4 +1,4 @@
-;;; mk-eglot.el --- Eglot -*- lexical-binding: t; -*-
+;;; mazd//eglot.el --- Eglot -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -28,14 +28,14 @@
 ;;
 
 
-(when (string= mk-language-server "eglot")
+(when (string= mazd//language-server "eglot")
   (use-package eglot
     :defer t
     :preface
-    (defun mk-eglot-eldoc ()
+    (defun mazd//eglot-eldoc ()
       (setq eldoc-documentation-strategy
             'eldoc-documentation-compose-eagerly))
-    :hook ((eglot-managed-mode . mk-eglot-eldoc))
+    :hook ((eglot-managed-mode . mazd//eglot-eldoc))
     :init
     (add-hook 'rust-mode-hook 'eglot-ensure)
     (add-hook 'nix-mode-hook 'eglot-ensure)
@@ -73,5 +73,5 @@
 
 
   )
-(provide 'mk-eglot)
-;;; mk-eglot.el ends here
+(provide 'mazd//eglot)
+;;; mazd//eglot.el ends here

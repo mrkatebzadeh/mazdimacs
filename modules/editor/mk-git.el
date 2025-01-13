@@ -1,4 +1,4 @@
-;;; mk-git.el --- GIT  -*- lexical-binding: t; -*-
+;;; mazd//git.el --- GIT  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -60,5 +60,5 @@
   "tg" 'git-gutter-mode)
 
 
-(provide 'mk-git)
-;;; mk-git.el ends here
+(provide 'mazd//git)
+;;; mazd//git.el ends here

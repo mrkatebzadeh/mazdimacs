@@ -1,4 +1,4 @@
-;;; mk-search.el --- Search -*- lexical-binding: t; -*-
+;;; mazd//search.el --- Search -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -75,5 +75,5 @@
 
 
 
-(provide 'mk-search)
-;;; mk-search.el ends here
+(provide 'mazd//search)
+;;; mazd//search.el ends here

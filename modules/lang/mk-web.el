@@ -1,4 +1,4 @@
-;;; mk-web.el --- Web -*- lexical-binding: t; -*-
+;;; mazd//web.el --- Web -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -53,5 +53,5 @@
 	      (company-mode t))))
 
 
-(provide 'mk-web)
-;;; mk-web.el ends here
+(provide 'mazd//web)
+;;; mazd//web.el ends here

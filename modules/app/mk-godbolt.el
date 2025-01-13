@@ -1,4 +1,4 @@
-;;; mk-godbolt.el --- Godbold -*- lexical-binding: t; -*-
+;;; mazd//godbolt.el --- Godbold -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -41,5 +41,5 @@
 
 
 
-(provide 'mk-godbolt)
-;;; mk-godbolt.el ends here
+(provide 'mazd//godbolt)
+;;; mazd//godbolt.el ends here

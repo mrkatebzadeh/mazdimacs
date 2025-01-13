@@ -1,4 +1,4 @@
-;;; mk-docs.el --- Docs  -*- lexical-binding: t; -*-
+;;; mazd//docs.el --- Docs  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -227,5 +227,5 @@
 
 
 
-(provide 'mk-docs)
-;;; mk-docs.el ends here
+(provide 'mazd//docs)
+;;; mazd//docs.el ends here

@@ -1,4 +1,4 @@
-;;; mk-latex.el --- LaTeX  -*- lexical-binding: t; -*-
+;;; mazd//latex.el --- LaTeX  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-language-server "lsp")
+(when (string= mazd//language-server "lsp")
   (use-package lsp-latex
     ;; this uses texlab
     :ensure t
@@ -82,13 +82,13 @@
   :ensure t
   :defer t)
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (use-package helm-bibtex
     :ensure t
     :defer t)
   )
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
   (straight-use-package '(consult-bibtex :host github
 					 :repo "mohkale/consult-bibtex"))
   (use-package consult-bibtex
@@ -104,7 +104,7 @@
   :ensure t
   :defer t
   :init
-  (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+  (setq auctex-latexmazd//inherit-TeX-PDF-mode t))
 
 (use-package company-auctex
   :ensure t
@@ -143,7 +143,7 @@
 	helm-bibtex-default-action 'bibtex-completion-insert-citation))
 
 (with-eval-after-load 'auctex-latexmk
-  (auctex-latexmk-setup))
+  (auctex-latexmazd//setup))
 
 (with-eval-after-load 'company-auctex
   (company-auctex-init))
@@ -214,5 +214,5 @@
  "rv" 'reftex-view-crossref
  "rb" 'helm-bibtex)
 
-(provide 'mk-latex)
-;;; mk-latex.el ends here
+(provide 'mazd//latex)
+;;; mazd//latex.el ends here

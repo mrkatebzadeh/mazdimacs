@@ -1,4 +1,4 @@
-;;; mk-help.el --- Help -*- lexical-binding: t; -*-
+;;; mazd//help.el --- Help -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -32,5 +32,5 @@
   "hk" 'describe-key)
 
 
-(provide 'mk-help)
-;;; mk-help.el ends here
+(provide 'mazd//help)
+;;; mazd//help.el ends here

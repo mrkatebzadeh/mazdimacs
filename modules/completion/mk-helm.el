@@ -1,4 +1,4 @@
-;;; mk-helm.el --- Helm  -*- lexical-binding: t; -*-
+;;; mazd//helm.el --- Helm  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (use-package helm
     :disabled
     :defer t
@@ -68,5 +68,5 @@
 
 )
 
-(provide 'mk-helm)
-;;; mk-helm.el ends here
+(provide 'mazd//helm)
+;;; mazd//helm.el ends here

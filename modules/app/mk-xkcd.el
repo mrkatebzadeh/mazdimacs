@@ -1,4 +1,4 @@
-;;; mk-xkcd.el --- XKCD  -*- lexical-binding: t; -*-
+;;; mazd//xkcd.el --- XKCD  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,12 +29,12 @@
   :ensure t
   :defer t
   :config
-  (setq xkcd-cache-dir (concat mk-emacs-dir ".xkcd/"))
+  (setq xkcd-cache-dir (concat mazd//emacs-dir ".xkcd/"))
   (setq xkcd-cache-latest (concat xkcd-cache-dir "latest"))
   (make-directory xkcd-cache-dir t))
 
 (leader
   "ax" 'xkcd)
 
-(provide 'mk-xkcd)
-;;; mk-xkcd.el ends here
+(provide 'mazd//xkcd)
+;;; mazd//xkcd.el ends here

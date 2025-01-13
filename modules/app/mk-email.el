@@ -1,4 +1,4 @@
-;;; mk-email.el --- Email  -*- lexical-binding: t; -*-
+;;; mazd//email.el --- Email  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -46,7 +46,7 @@
   :ensure t
   :defer t)
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
 ;;; helm-mu
   (use-package helm-mu
     :ensure t
@@ -55,10 +55,10 @@
   )
 
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
 
-  (add-to-list 'load-path (concat mk-lisp-dir "consult-mu"))
-  (add-to-list 'load-path (concat mk-lisp-dir "consult-mu/extras"))
+  (add-to-list 'load-path (concat mazd//lisp-dir "consult-mu"))
+  (add-to-list 'load-path (concat mazd//lisp-dir "consult-mu/extras"))
   (use-package consult-mu
     :ensure nil
     :after (consult mu4e)
@@ -120,7 +120,7 @@
   :after notmuch)
 
 ;;;###autoload
-(defun mk-mu4e()
+(defun mazd//mu4e()
   (interactive)
   (require 'mu4e)
   (mu4e))
@@ -293,7 +293,7 @@
   (setq gnus-dired-mail-mode 'mu4e-user-agent)
   (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 
-(defun mk-notmuch-show-expand-only-unread-h ()
+(defun mazd//notmuch-show-expand-only-unread-h ()
   (interactive)
   (let ((unread nil)
         (open (notmuch-show-get-message-ids-for-open-messages)))
@@ -301,10 +301,10 @@
                          (when (member "unread" (notmuch-show-get-tags))
                            (setq unread t))))
     (when unread
-      (let ((notmuch-show-hook (remove 'mk-notmuch-show-expand-only-unread-h notmuch-show-hook)))
+      (let ((notmuch-show-hook (remove 'mazd//notmuch-show-expand-only-unread-h notmuch-show-hook)))
         (notmuch-show-filter-thread "tag:unread")))))
 
-(defun mk-notmuch-dont-confirm-on-kill-process-a (orig-fn &rest args)
+(defun mazd//notmuch-dont-confirm-on-kill-process-a (orig-fn &rest args)
   "Don't prompt for confirmation when killing notmuch sentinel."
   (let (confirm-kill-processes)
     (apply orig-fn args)))
@@ -343,11 +343,11 @@
           (:name "sent"    :query "tag:sent"                :key "s")
           (:name "drafts"  :query "tag:draft"               :key "d"))
         notmuch-archive-tags '("-inbox" "-unread"))
-  (add-hook 'notmuch-show-hook #'mk-notmuch-show-expand-only-unread-h)
+  (add-hook 'notmuch-show-hook #'mazd//notmuch-show-expand-only-unread-h)
 
   (add-hook 'doom-real-buffer-functions #'notmuch-interesting-buffer)
 
-  (advice-add #'notmuch-start-notmuch-sentinel :around #'mk-notmuch-dont-confirm-on-kill-process-a)
+  (advice-add #'notmuch-start-notmuch-sentinel :around #'mazd//notmuch-dont-confirm-on-kill-process-a)
   )
 
 (with-eval-after-load 'mu4e
@@ -358,11 +358,11 @@
     "ks" 'mu4e-choose-signature
     )
   (evil-collection-init 'mu4e)
-  (when (string= mk-completion "featured")
+  (when (string= mazd//completion "featured")
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'helm-mu)
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'helm-mu-contacts))
 
-  (when (string= mk-completion "light")
+  (when (string= mazd//completion "light")
     (leader
       :mode 'mu4e-compose-mode
       "kc" 'consult-mu-contacts
@@ -372,10 +372,10 @@
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'consult-mu))
   )
 (leader
-  "am" 'mk-mu4e
+  "am" 'mazd//mu4e
   "an" 'notmuch)
 
 
 
-(provide 'mk-email)
-;;; mk-email.el ends here
+(provide 'mazd//email)
+;;; mazd//email.el ends here

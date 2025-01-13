@@ -1,4 +1,4 @@
-;;; mk-ai.el --- AI -*- lexical-binding: t; -*-
+;;; mazd//ai.el --- AI -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -30,7 +30,7 @@
   :defer t
   :init
   (defun get-key ()
-    (mk-lookup-password :host "gemini")
+    (mazd//lookup-password :host "gemini")
     )
   (setq
    gptel-default-mode 'org-mode
@@ -42,5 +42,5 @@
 (leader
   "ag" 'gptel)
 
-(provide 'mk-ai)
-;;; mk-ai.el ends here
+(provide 'mazd//ai)
+;;; mazd//ai.el ends here

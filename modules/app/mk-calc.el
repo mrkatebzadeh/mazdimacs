@@ -1,4 +1,4 @@
-;;; mk-calc.el --- Calc  -*- lexical-binding: t; -*-
+;;; mazd//calc.el --- Calc  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -47,5 +47,5 @@
 
 
 
-(provide 'mk-calc)
-;;; mk-calc.el ends here
+(provide 'mazd//calc)
+;;; mazd//calc.el ends here

@@ -1,4 +1,4 @@
-;;; mk-file.el --- File  -*- lexical-binding: t; -*-
+;;; mazd//file.el --- File  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -30,7 +30,7 @@
   :defer t
   :hook (after-init . envrc-global-mode))
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (use-package projectile
     :ensure t
     :defer t
@@ -50,7 +50,7 @@
     (setq projectile-use-git-grep t))
   )
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
   (use-package consult-project-extra
     :defer t
     :ensure t)
@@ -68,15 +68,15 @@
 
   (use-package project
     :init
-    (defun mk-project-override (dir)
+    (defun mazd//project-override (dir)
       (let ((override (locate-dominating-file dir ".project.el")))
 	(if override
 	    (cons 'vc override)
 	  nil)))
     :config
-    (add-hook 'project-find-functions #'mk-project-override))
+    (add-hook 'project-find-functions #'mazd//project-override))
 
-  (defun mk-project-close ()
+  (defun mazd//project-close ()
     "Close all buffers associated with the current project."
     (interactive)
     (let ((project (project-current t)))
@@ -102,23 +102,23 @@
   (recentf-exclude (list "COMMIT_EDITMSG"
                          "~$"
                          "/scp:"
-                         (expand-file-name mk-backup-dir)
-                         (expand-file-name mk-local-dir)
+                         (expand-file-name mazd//backup-dir)
+                         (expand-file-name mazd//local-dir)
                          (expand-file-name org-directory)
-                         (expand-file-name (concat mk-emacs-dir "emms/"))
+                         (expand-file-name (concat mazd//emacs-dir "emms/"))
                          "/ssh:"
                          "/sudo:"
                          "/tmp/"))
   (recentf-max-menu-items 15)
   (recentf-max-saved-items 15)
-  (recentf-save-file (concat mk-backup-dir "recentf"))
+  (recentf-save-file (concat mazd//backup-dir "recentf"))
   :config (run-at-time nil (* 5 60) 'recentf-save-list))
 
 (use-package docker-tramp
   :ensure t
   :defer t)
 
-(defun mk-kill-dired-buffers ()
+(defun mazd//kill-dired-buffers ()
   (interactive)
   (mapc (lambda (buffer)
 	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
@@ -142,7 +142,7 @@
     (kbd "P") 'peep-dired
     (kbd "t") 'dired-subtree-insert
     (kbd "T") 'dired-subtree-remove
-    (kbd "q") 'mk-kill-dired-buffers)
+    (kbd "q") 'mazd//kill-dired-buffers)
   (evil-define-key 'normal peep-dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down
     (kbd "C-<SPC>") 'peep-dired-scroll-page-up
     (kbd "<backspace>") 'peep-dired-scroll-page-up
@@ -157,7 +157,7 @@
 	dired-recursive-copies  'always
 	dired-recursive-deletes 'top
 	;; Where to store image caches
-	image-dired-dir (concat mk-cache-dir "image-dired/")
+	image-dired-dir (concat mazd//cache-dir "image-dired/")
 	image-dired-db-file (concat image-dired-dir "db.el")
 	image-dired-gallery-dir (concat image-dired-dir "gallery/")
 	image-dired-temp-image-file (concat image-dired-dir "temp-image")
@@ -243,12 +243,12 @@
   :defer t
   )
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (use-package treemacs-projectile
     :after (treemacs projectile)
     :defer t))
 
-(when (string= mk-language-server "lsp")
+(when (string= mazd//language-server "lsp")
   (use-package lsp-treemacs
     :ensure t
     :after (lsp-mode treemacs)
@@ -318,11 +318,11 @@
   (projectile-global-mode))
 
 (with-eval-after-load 'treemacs
-  (defun mk-treemacs-disable-line-numbers ()
+  (defun mazd//treemacs-disable-line-numbers ()
     "Disable line numbers in Treemacs mode."
     (display-line-numbers-mode -1))
 
-  (add-hook 'treemacs-mode-hook 'mk-treemacs-disable-line-numbers)
+  (add-hook 'treemacs-mode-hook 'mazd//treemacs-disable-line-numbers)
   (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
 	treemacs-deferred-git-apply-delay      0.5
 	treemacs-display-in-side-window        t
@@ -369,7 +369,7 @@
      (treemacs-git-mode 'simple))))
 
 
-(defun mk-rename-file (filename &optional new-filename)
+(defun mazd//rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
 When NEW-FILENAME is not specified, asks user for a new name.
 Also renames associated buffer (if any exists), invalidates
@@ -397,7 +397,7 @@ projectile cache when it's possible and update recentf list."
              (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
 ;; from magnars
-(defun mk-rename-current-buffer-file ()
+(defun mazd//rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
   (let* ((name (buffer-name))
@@ -421,7 +421,7 @@ projectile cache when it's possible and update recentf list."
 		 (recentf-remove-if-non-kept filename))
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
-(defun mk-delete-file (filename &optional ask-user)
+(defun mazd//delete-file (filename &optional ask-user)
   "Remove specified file or directory.
 Also kills associated buffer (if any exists) and invalidates
 projectile cache when it's possible.
@@ -436,14 +436,14 @@ removal."
               (yes-or-no-p "Are you sure you want to delete this file? "))
       (delete-file filename))))
 
-(defun mk-delete-file-confirm (filename)
+(defun mazd//delete-file-confirm (filename)
   "Remove specified file or directory after users approval.
-FILENAME is deleted using `mk-delete-file' function.."
+FILENAME is deleted using `mazd//delete-file' function.."
   (interactive "f")
-  (funcall-interactively #'mk-delete-file filename t))
+  (funcall-interactively #'mazd//delete-file filename t))
 
 ;; from magnars
-(defun mk-delete-current-buffer-file ()
+(defun mazd//delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."
   (interactive)
   (let ((filename (buffer-file-name))
@@ -457,7 +457,7 @@ FILENAME is deleted using `mk-delete-file' function.."
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
-(defun mk-sudo-edit (&optional arg)
+(defun mazd//sudo-edit (&optional arg)
   (interactive "P")
   (let ((fname (if (or arg (not buffer-file-name))
                    (read-file-name "File: ")
@@ -478,7 +478,7 @@ FILENAME is deleted using `mk-delete-file' function.."
            (t (concat "/sudo:root@localhost:" fname))))))
 
 
-(defun mk-delete-window (&optional arg)
+(defun mazd//delete-window (&optional arg)
   "Delete the current window.
 If the universal prefix argument is used then kill the buffer too."
   (interactive "P")
@@ -486,7 +486,7 @@ If the universal prefix argument is used then kill the buffer too."
       (kill-buffer-and-window)
     (delete-window)))
 
-(defun mk-ace-delete-window (&optional arg)
+(defun mazd//ace-delete-window (&optional arg)
   "Ace delete window.
 If the universal prefix argument is used then kill the buffer too."
   (interactive "P")
@@ -496,11 +496,11 @@ If the universal prefix argument is used then kill the buffer too."
    (lambda (window)
      (when (equal '(4) arg)
        (with-selected-window window
-         (mk-kill-this-buffer arg)))
+         (mazd//kill-this-buffer arg)))
      (aw-delete-window window))))
 
 ;; our own implementation of kill-this-buffer from menu-bar.el
-(defun mk-kill-this-buffer (&optional arg)
+(defun mazd//kill-this-buffer (&optional arg)
   "Kill the current buffer.
 If the universal prefix argument is used then kill also the window."
   (interactive "P")
@@ -510,7 +510,7 @@ If the universal prefix argument is used then kill also the window."
         (kill-buffer-and-window)
       (kill-buffer))))
 
-(defun mk-ace-kill-this-buffer (&optional arg)
+(defun mazd//ace-kill-this-buffer (&optional arg)
   "Ace kill visible buffer in a window.
 If the universal prefix argument is used then kill also the window."
   (interactive "P")
@@ -520,10 +520,10 @@ If the universal prefix argument is used then kill also the window."
      " Ace - Kill buffer in Window"
      (lambda (window)
        (with-selected-window window
-         (mk-kill-this-buffer arg))))))
+         (mazd//kill-this-buffer arg))))))
 
 ;; found at http://emacswiki.org/emacs/KillingBuffers
-(defun mk-kill-other-buffers (&optional arg)
+(defun mazd//kill-other-buffers (&optional arg)
   "Kill all other buffers.
 If the universal prefix argument is used then will the windows too."
   (interactive "P")
@@ -534,7 +534,7 @@ If the universal prefix argument is used then will the windows too."
     (message "Buffers deleted!")))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
-(defun mk-toggle-current-window-dedication ()
+(defun mazd//toggle-current-window-dedication ()
   "Toggle dedication state of a window."
   (interactive)
   (let* ((window    (selected-window))
@@ -545,7 +545,7 @@ If the universal prefix argument is used then will the windows too."
 	     (buffer-name))))
 
 ;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
-(defun mk-show-and-copy-buffer-filename ()
+(defun mazd//show-and-copy-buffer-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
   ;; list-buffers-directory is the variable set in dired buffers
@@ -554,42 +554,42 @@ If the universal prefix argument is used then will the windows too."
         (message (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
-(defun mk-new-empty-buffer ()
+(defun mazd//new-empty-buffer ()
   "Create a new buffer called untitled(<n>)"
   (interactive)
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
 ;; http://stackoverflow.com/a/10216338/4869
-(defun mk-copy-whole-buffer-to-clipboard ()
+(defun mazd//copy-whole-buffer-to-clipboard ()
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
 
-(defun mk-copy-clipboard-to-whole-buffer ()
+(defun mazd//copy-clipboard-to-whole-buffer ()
   "Copy clipboard and replace buffer"
   (interactive)
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
 
-(defun mk-dos2unix ()
+(defun mazd//dos2unix ()
   "Converts the current buffer to UNIX file format."
   (interactive)
   (set-buffer-file-coding-system 'undecided-unix nil))
 
-(defun mk-unix2dos ()
+(defun mazd//unix2dos ()
   "Converts the current buffer to DOS file format."
   (interactive)
   (set-buffer-file-coding-system 'undecided-dos nil))
 
-(defun mk-copy-file ()
+(defun mazd//copy-file ()
   "Write the file under new name."
   (interactive)
   (call-interactively 'write-file))
 
 ;; from http://www.emacswiki.org/emacs/WordCount
-(defun mk-count-words-analysis (start end)
+(defun mazd//count-words-analysis (start end)
   "Count how many times each word is used in the region.
  Punctuation is ignored."
   (interactive "r")
@@ -629,7 +629,7 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (message "No words.")))
     words))
 
-(defun mk-project-switch-project ()
+(defun mazd//project-switch-project ()
   "Switch to a project and open its root directory in `dired`."
   (interactive)
   (let ((project (project-prompt-project-dir))) ; Prompt for the project directory
@@ -650,24 +650,24 @@ Compare them on count first,and in case of tie sort them alphabetically."
 (leader
   "p" '(:ignore t :which-key "Projects"))
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
   (leader
     "fg" 'consult-git-grep
     )
   (leader
     "pa" 'consult-project-extra-find-other-window
-    "pc" 'mk-project-close
+    "pc" 'mazd//project-close
     "pf" 'project-find-file
     "pF" 'consult-project-extra-find
     "pb" 'project-switch-to-buffer
     "pd" 'project-find-dir
-    "pp" 'mk-project-switch-project
+    "pp" 'mazd//project-switch-project
     "ps" 'project-x-window-state-save
     "pl" 'project-x-window-state-load
     )
   )
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (leader
     "fg" 'helm-projectile-grep
     )
@@ -694,33 +694,33 @@ Compare them on count first,and in case of tie sort them alphabetically."
   "fb" 'bookmark-jump
   "fe" 'treemacs
   "fR" '(:ignore t :which-key "rename")
-  "fRf" 'mk-rename-file
-  "fRb" 'mk-rename-current-buffer-file
+  "fRf" 'mazd//rename-file
+  "fRb" 'mazd//rename-current-buffer-file
   "fd" '(:ignore t :which-key "delete")
-  "fdf" 'mk-delete-file-confirm
-  "fdb" 'mk-delete-current-buffer-file
-  "fdw" 'mk-delete-window
-  "fda" 'mk-ace-delete-window
+  "fdf" 'mazd//delete-file-confirm
+  "fdb" 'mazd//delete-current-buffer-file
+  "fdw" 'mazd//delete-window
+  "fda" 'mazd//ace-delete-window
   "fk" '(:ignore t :which-key "kill")
-  "fkb" 'mk-kill-this-buffer
-  "fka" 'mk-ace-kill-this-buffer
-  "fko" 'mk-kill-other-buffers
-  "fD" 'mk-toggle-current-window-dedication
-  "fs" 'mk-sudo-edit
-  "fF" 'mk-show-and-copy-buffer-filename
-  "fn" 'mk-new-empty-buffer
-  "fy" 'mk-copy-whole-buffer-to-clipboard
-  "fp" 'mk-copy-clipboard-to-whole-buffer
+  "fkb" 'mazd//kill-this-buffer
+  "fka" 'mazd//ace-kill-this-buffer
+  "fko" 'mazd//kill-other-buffers
+  "fD" 'mazd//toggle-current-window-dedication
+  "fs" 'mazd//sudo-edit
+  "fF" 'mazd//show-and-copy-buffer-filename
+  "fn" 'mazd//new-empty-buffer
+  "fy" 'mazd//copy-whole-buffer-to-clipboard
+  "fp" 'mazd//copy-clipboard-to-whole-buffer
   "fC" '(:ignore t :which-key "convert")
-  "fCu" 'mk-dos2unix
-  "fCd" 'mk-unix2dos
-  "fc" 'mk-copy-file
-  "fa" 'mk-count-words-analysis)
+  "fCu" 'mazd//dos2unix
+  "fCd" 'mazd//unix2dos
+  "fc" 'mazd//copy-file
+  "fa" 'mazd//count-words-analysis)
 
-(when (string= mk-language-server "lsp")
+(when (string= mazd//language-server "lsp")
   (leader
     "lt" 'lsp-treemacs-errors-list)
   )
 
-(provide 'mk-file)
-;;; mk-file.el ends here
+(provide 'mazd//file)
+;;; mazd//file.el ends here

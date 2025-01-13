@@ -1,4 +1,4 @@
-;;; mk-consult.el --- Consult -*- lexical-binding: t; -*-
+;;; mazd//consult.el --- Consult -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
 
   (use-package consult
     :ensure t
@@ -66,5 +66,5 @@
   (leader
     "lt" 'consult-flymake)
   )
-(provide 'mk-consult)
-;;; mk-consult.el ends here
+(provide 'mazd//consult)
+;;; mazd//consult.el ends here

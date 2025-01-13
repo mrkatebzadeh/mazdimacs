@@ -1,4 +1,4 @@
-;;; mk-media.el --- Media  -*- lexical-binding: t; -*-
+;;; mazd//media.el --- Media  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -44,17 +44,17 @@
   (setq mpc-host "localhost:6600"))
 
 ;;;###autoload
-(defun mk-mpd-start-music-daemon ()
+(defun mazd//mpd-start-music-daemon ()
   "Start MPD, connects to it and syncs the metadata cache."
   (interactive)
   (shell-command "mpd")
-  (mk-mpd-update-database)
+  (mazd//mpd-update-database)
   (emms-player-mpd-connect)
   (emms-cache-set-from-mpd-all)
   (message "MPD Started!"))
 
 ;;;###autoload
-(defun mk-mpd-kill-music-daemon ()
+(defun mazd//mpd-kill-music-daemon ()
   "Stops playback and kill the music daemon."
   (interactive)
   (emms-stop)
@@ -62,17 +62,17 @@
   (message "MPD Killed!"))
 
 ;;;###autoload
-(defun mk-mpd-update-database ()
+(defun mazd//mpd-update-database ()
   "Updates the MPD database synchronously."
   (interactive)
   (call-process "mpc" nil nil nil "update")
   (message "MPD Database Updated!"))
 
 ;;;###autoload
-(defun mk-emms-start-mpd ()
+(defun mazd//emms-start-mpd ()
   "Run EMMS and MPD"
   (interactive)
-  (mk-mpd-start-music-daemon)
+  (mazd//mpd-start-music-daemon)
   (emms))
 
 ;;; volume
@@ -102,13 +102,13 @@
  :prefix "SPC m"
  :states '(normal visual motion)
  :keymaps 'override
- "a" 'mk-emms-start-mpd
+ "a" 'mazd//emms-start-mpd
  "n" 'emms-player-mpd-next
  "p" 'emms-player-mpd-previous
  "s" 'emms-player-mpd-play
  "e" 'emms-player-mpd-pause
- "u" 'mk-mpd-update-database
- "q" 'mk-mpd-kill-music-daemon)
+ "u" 'mazd//mpd-update-database
+ "q" 'mazd//mpd-kill-music-daemon)
 
 (general-define-key
  :prefix "SPC v"
@@ -121,5 +121,5 @@
 
 
 
-(provide 'mk-media)
-;;; mk-media.el ends here
+(provide 'mazd//media)
+;;; mazd//media.el ends here

@@ -1,4 +1,4 @@
-;;; mk-buffer.el --- Buffer  -*- lexical-binding: t; -*-
+;;; mazd//buffer.el --- Buffer  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -261,13 +261,13 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (defvar *protected-buffers* '("*scratch*" "*Messages*")
   "Buffers that cannot be killed.")
 
-(defun mk-protected-buffers ()
+(defun mazd//protected-buffers ()
   "Protects some buffers from being killed."
   (dolist (buffer *protected-buffers*)
     (with-current-buffer buffer
       (emacs-lock-mode 'kill))))
 
-(add-hook 'after-init-hook #'mk-protected-buffers)
+(add-hook 'after-init-hook #'mazd//protected-buffers)
 
 (setq ibuffer-saved-filter-groups
       (quote (("default"
@@ -316,7 +316,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
-(defun mk-man()
+(defun mazd//man()
   "Load and run man"
   (interactive)
   (require 'man)
@@ -328,7 +328,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (show-paren-mode 1)
 
 ;; cycle through line-numbering modes
-(defun mk-toggle-line-numbers ()
+(defun mazd//toggle-line-numbers ()
   "Cycle through absolute, relative, and no line numbers."
   (interactive)
   (cond
@@ -353,11 +353,11 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   "bw" 'evil-write
   "bu" 'undo-tree-visualize)
 
-(when (string= mk-completion "light")
+(when (string= mazd//completion "light")
   (leader
     "bb" 'consult-buffer
     ))
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
   (leader
     "bb" 'helm-buffers-list
     ))
@@ -376,14 +376,14 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (leader
   "hg" 'google-this
   "hG" 'google-this-search
-  "hm" 'mk-man)
+  "hm" 'mazd//man)
 
 (leader
   "tR" 'auto-revert-mode
   "tb" 'tool-bar-mode
   "th" 'highlight-indent-guides-mode
   "tp" 'smartparens-mode
-  "tn" 'mk-toggle-line-numbers
+  "tn" 'mazd//toggle-line-numbers
   "tf" 'format-all-mode
   "tr" 'rainbow-delimiters-mode)
 
@@ -392,5 +392,5 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 
 
-(provide 'mk-buffer)
-;;; mk-buffer.el ends here
+(provide 'mazd//buffer)
+;;; mazd//buffer.el ends here

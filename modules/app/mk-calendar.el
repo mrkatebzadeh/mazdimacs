@@ -1,4 +1,4 @@
-;;; mk-calendar.el --- Calendar -*- lexical-binding: t; -*-
+;;; mazd//calendar.el --- Calendar -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -30,13 +30,13 @@
   (setq calendar-mark-holidays-flag t))
 
 ;;;###autoload
-(defun mk-calendar ()
+(defun mazd//calendar ()
   "Load and run calendar"
   (interactive)
   (calendar))
 
 ;;;###autoload
-(defun mk-holidays ()
+(defun mazd//holidays ()
   "Load and run holidays"
   (interactive)
   (holidays))
@@ -75,8 +75,8 @@
 
 
 (leader
-  "aC" 'mk-calendar
-  "ah" 'mk-holidays)
+  "aC" 'mazd//calendar
+  "ah" 'mazd//holidays)
 
-(provide 'mk-calendar)
-;;; mk-calendar.el ends here
+(provide 'mazd//calendar)
+;;; mazd//calendar.el ends here

@@ -1,4 +1,4 @@
-;;; mk-twitter.el --- Twitter  -*- lexical-binding: t; -*-
+;;; mazd//twitter.el --- Twitter  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -45,5 +45,5 @@
  "t" 'twit)
 
 
-(provide 'mk-twitter)
-;;; mk-twitter.el ends here
+(provide 'mazd//twitter)
+;;; mazd//twitter.el ends here

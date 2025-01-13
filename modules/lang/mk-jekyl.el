@@ -1,4 +1,4 @@
-;;; mk-jekyl.el --- Jekyll -*- lexical-binding: t; -*-
+;;; mazd//jekyl.el --- Jekyll -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,7 +29,7 @@
   :ensure t
   :commands (hyde)
   :init
-  (defun mk-hyde ()
+  (defun mazd//hyde ()
     "Helper function"
     (interactive)
     (hyde)))
@@ -38,7 +38,7 @@
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "j" 'mk-hyde)
+ "j" 'mazd//hyde)
 
 (general-define-key
  :prefix "SPC l"
@@ -57,5 +57,5 @@
 
 
 
-(provide 'mk-jekyl)
-;;; mk-jekyl.el ends here
+(provide 'mazd//jekyl)
+;;; mazd//jekyl.el ends here

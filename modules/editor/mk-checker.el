@@ -1,4 +1,4 @@
-;;; mk-checker.el --- Checker  -*- lexical-binding: t; -*-
+;;; mazd//checker.el --- Checker  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -48,7 +48,7 @@
   :defer t
   :preface
 
-  (defun mk-flycheck-eldoc (callback &rest _ignored)
+  (defun mazd//flycheck-eldoc (callback &rest _ignored)
     "Print flycheck messages at point by calling CALLBACK."
     (when-let ((flycheck-errors (and flycheck-mode (flycheck-overlay-errors-at (point)))))
       (mapc
@@ -67,13 +67,13 @@
 		  :face 'font-lock-doc-face))
        flycheck-errors)))
 
-  (defun mk-flycheck-prefer-eldoc ()
-    (add-hook 'eldoc-documentation-functions #'mk-flycheck-eldoc nil t)
+  (defun mazd//flycheck-prefer-eldoc ()
+    (add-hook 'eldoc-documentation-functions #'mazd//flycheck-eldoc nil t)
     (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
     (setq flycheck-display-errors-function nil)
     (setq flycheck-help-echo-function nil))
 
-  :hook ((flycheck-mode . mk-flycheck-prefer-eldoc))
+  :hook ((flycheck-mode . mazd//flycheck-prefer-eldoc))
   )
 
 (use-package flycheck-eglot
@@ -134,5 +134,5 @@
   "tc" 'global-flycheck-mode)
 
 
-(provide 'mk-checker)
-;;; mk-checker.el ends here
+(provide 'mazd//checker)
+;;; mazd//checker.el ends here

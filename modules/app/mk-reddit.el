@@ -1,4 +1,4 @@
-;;; mk-reddit.el --- Reddit  -*- lexical-binding: t; -*-
+;;; mazd//reddit.el --- Reddit  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -39,5 +39,5 @@
 
 
 
-(provide 'mk-reddit)
-;;; mk-reddit.el ends here
+(provide 'mazd//reddit)
+;;; mazd//reddit.el ends here

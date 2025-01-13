@@ -21,55 +21,55 @@
 
 ;;; Path vars
 ;;(setq user-emacs-directory (file-name-directory load-file-name))
-(defvar mk-emacs-dir
+(defvar mazd//emacs-dir
   (eval-when-compile (file-truename user-emacs-directory))
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
-(defvar mk-vars-file (concat mk-emacs-dir "mk-vars.el")
+(defvar mazd//vars-file (concat mazd//emacs-dir "mazd-vars.el")
   "The MK's vars files. Must end with a slash.")
 
-(defvar mk-core-file (concat mk-emacs-dir "mk-core.el")
+(defvar mazd//core-file (concat mazd//emacs-dir "mazd-core.el")
   "The root directory of MK's core files. Must end with a slash.")
 
-(defvar mk-key-file (concat mk-emacs-dir "mk-key.el")
+(defvar mazd//key-file (concat mazd//emacs-dir "mazd-key.el")
   "The root directory of MK's key configs. Must end with a slash.")
 
-(defvar mk-modules-dir (concat mk-emacs-dir "modules/")
+(defvar mazd//modules-dir (concat mazd//emacs-dir "modules/")
   "The root directory for MK's modules. Must end with a slash.")
 
-(defvar mk-lisp-dir (concat mk-emacs-dir "site-lisp/")
+(defvar mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
   "The root directory of MK's external files. Must end with a slash.")
 
-(defvar mk-ui-file (concat mk-emacs-dir "mk-ui.el")
+(defvar mazd//ui-file (concat mazd//emacs-dir "mazd-ui.el")
   "The root directory of MK's UI files. Must end with a slash.")
 
-(defvar mk-backup-dir (concat mk-emacs-dir ".backups/")
+(defvar mazd//backup-dir (concat mazd//emacs-dir ".backups/")
   "The root directory of MK's backup files. Must end with a slash.")
 
-(defvar mk-cache-dir (concat mk-emacs-dir ".cache/")
+(defvar mazd//cache-dir (concat mazd//emacs-dir ".cache/")
   "The root directory of MK's cache files. Must end with a slash.")
 
-(defvar mk-autosave-dir (concat mk-emacs-dir ".autosave/")
+(defvar mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
   "The root directory of MK's autosave files. Must end with a slash.")
 
-(defvar mk-eshell-dir (concat mk-emacs-dir ".eshell/")
+(defvar mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
   "The root directory of MK's eshell files. Must end with a slash.")
 
-(defvar mk-desktop-dir (concat mk-emacs-dir ".desktop/")
+(defvar mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
   "Directory to save desktop sessions.")
 
-(defvar mk-completion "light"
+(defvar mazd//completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
-(defvar mk-language-server "eglot"
+(defvar mazd//language-server "eglot"
   "Language server frameworks: eglot, lsp, or bridge")
 
 (setq org-directory     "~/Dropbox/org")
 
-(defvar mk-alpha-variable 90
+(defvar mazd//alpha-variable 90
   "Default transparency level to toggle with 100.")
 
-(message "Starting MK")
+(message "Starting Mazdimacs")
 
 ;;; Increase the CPU processing restrictions
 (when (boundp 'read-process-output-max)
@@ -91,19 +91,19 @@
 
 ;;; Basic configs
 (setq warning-minimum-level :emergency)
-(setq eshell-directory-name mk-eshell-dir)
-(setq pcache-directory (concat mk-cache-dir "/var/pcache"))
-(setq transient-history-file (concat mk-cache-dir "/transient/history.el"))
-(setq srecode-map-save-file (concat mk-cache-dir "/srecode-map.el"))
-(setq projectile-cache-file (concat mk-cache-dir "/projectile.cache"))
+(setq eshell-directory-name mazd//eshell-dir)
+(setq pcache-directory (concat mazd//cache-dir "/var/pcache"))
+(setq transient-history-file (concat mazd//cache-dir "/transient/history.el"))
+(setq srecode-map-save-file (concat mazd//cache-dir "/srecode-map.el"))
+(setq projectile-cache-file (concat mazd//cache-dir "/projectile.cache"))
 					; stop creating backup~ files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
 (setq create-lockfiles nil)
 
-(let ((backup-dir mk-backup-dir)
-      (auto-saves-dir mk-autosave-dir))
+(let ((backup-dir mazd//backup-dir)
+      (auto-saves-dir mazd//autosave-dir))
   (dolist (dir (list backup-dir auto-saves-dir))
     (when (not (file-directory-p dir))
       (make-directory dir t)))
@@ -117,7 +117,7 @@
       version-control t
       kept-new-versions 5
       kept-old-versions 2)
-(setq custom-file (concat mk-backup-dir "custom.el"))
+(setq custom-file (concat mazd//backup-dir "custom.el"))
 (load custom-file 'noerror)
 
 ;; Load directory function
@@ -130,21 +130,21 @@
 (defun load-modules (dir)
   (mapcar 'load (directory-files-recursively dir "")))
 
-(add-to-list 'load-path mk-lisp-dir)
+(add-to-list 'load-path mazd//lisp-dir)
 
-(load mk-vars-file)
+(load mazd//vars-file)
 (message "Vars has been loaded.")
 
-(load mk-core-file)
+(load mazd//core-file)
 (message "Core has been loaded.")
 
-(load mk-key-file)
+(load mazd//key-file)
 (message "Key has been loaded.")
 
 ;;; Load Theme
-(load mk-ui-file)
+(load mazd//ui-file)
 ;;; Load modules
-(load-modules mk-modules-dir)
+(load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)
 (unless (server-running-p)

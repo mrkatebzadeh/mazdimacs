@@ -1,4 +1,4 @@
-;;; mk-rss.el --- RSS -*- lexical-binding: t; -*-
+;;; mazd//rss.el --- RSS -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -50,7 +50,7 @@
 				    (concat org-directory "/feed/research.org"))))
 
 ;; add a star
-(defun mk-elfeed-star ()
+(defun mazd//elfeed-star ()
   "Apply starred to all selected entries."
   (interactive )
   (let* ((entries (elfeed-search-selected))
@@ -60,7 +60,7 @@
     (unless (use-region-p) (forward-line))))
 
 ;; remove a start
-(defun mk-elfeed-unstar ()
+(defun mazd//elfeed-unstar ()
   "Remove starred tag from all selected entries."
   (interactive )
   (let* ((entries (elfeed-search-selected))
@@ -70,33 +70,33 @@
     (unless (use-region-p) (forward-line))))
 
 ;;shortcut to jump to starred bookmark
-(defun mk-elfeed-show-starred ()
+(defun mazd//elfeed-show-starred ()
   (interactive)
   (bookmark-jump "elfeed-starred"))
 
 ;;searches
-(defun mk-elfeed-show-all ()
+(defun mazd//elfeed-show-all ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-all"))
 
-(defun mk-elfeed-show-emacs ()
+(defun mazd//elfeed-show-emacs ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-emacs"))
 
-(defun mk-elfeed-show-daily ()
+(defun mazd//elfeed-show-daily ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-daily"))
 
-(defun mk-elfeed-show-network ()
+(defun mazd//elfeed-show-network ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-network"))
 
 ;; makes sure elfeed reads index from disk before launching
-(defun mk-elfeed-load-db-and-open ()
+(defun mazd//elfeed-load-db-and-open ()
   "Wrapper to load the elfeed db from disk before opening"
   (interactive)
   (elfeed-db-load)
@@ -104,7 +104,7 @@
   (elfeed-search-update--force))
 
 ;;write to disk when quiting
-(defun mk-elfeed-save-db-and-bury ()
+(defun mazd//elfeed-save-db-and-bury ()
   "Wrapper to save the elfeed db to disk before burying buffer"
   (interactive)
   (elfeed-db-save)
@@ -120,14 +120,14 @@
    :keymaps 'elfeed-search-mode-map
    "a" 'elfeed-show-all
    "b" '(:ignore t :which-key "bookmarks")
-   "be" 'mk-elfeed-show-emacs
-   "bd" 'mk-elfeed-show-daily
-   "bn" 'mk-elfeed-show-network
-   "bs" 'mk-elfeed-show-starred
-   "q" 'mk-elfeed-save-db-and-bury
-   "s" 'mk-elfeed-star
-   "S" 'mk-elfeed-unstar
+   "be" 'mazd//elfeed-show-emacs
+   "bd" 'mazd//elfeed-show-daily
+   "bn" 'mazd//elfeed-show-network
+   "bs" 'mazd//elfeed-show-starred
+   "q" 'mazd//elfeed-save-db-and-bury
+   "s" 'mazd//elfeed-star
+   "S" 'mazd//elfeed-unstar
    "u" 'elfeed-update))
 
-(provide 'mk-rss)
-;;; mk-rss.el ends here
+(provide 'mazd//rss)
+;;; mazd//rss.el ends here

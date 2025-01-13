@@ -1,4 +1,4 @@
-;;; mk-nix.el --- Nix mode -*- lexical-binding: t; -*-
+;;; mazd//nix.el --- Nix mode -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -26,7 +26,7 @@
 ;;; Code:
 
 					;<CODE>
-(when (string= mk-language-server "lsp")
+(when (string= mazd//language-server "lsp")
   (use-package lsp-nix
     :disabled t
     :ensure lsp-mode
@@ -40,5 +40,5 @@
   ;; :hook (nix-mode . lsp-deferred)
   :ensure t)
 
-(provide 'mk-nix)
-;;; mk-nix.el ends here
+(provide 'mazd//nix)
+;;; mazd//nix.el ends here

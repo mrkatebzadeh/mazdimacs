@@ -1,4 +1,4 @@
-;;; mk-bridge.el --- Bridge -*- lexical-binding: t; -*-
+;;; mazd//bridge.el --- Bridge -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -26,7 +26,7 @@
 ;;; Code:
 
 ;;
-(when (string= mk-language-server "bridge")
+(when (string= mazd//language-server "bridge")
   (use-package lsp-bridge
     :ensure t
     :straight '(lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge"
@@ -50,5 +50,5 @@
     "lk" 'lsp-bridge-show-documentation)
 
   )
-(provide 'mk-bridge)
-;;; mk-bridge.el ends here
+(provide 'mazd//bridge)
+;;; mazd//bridge.el ends here

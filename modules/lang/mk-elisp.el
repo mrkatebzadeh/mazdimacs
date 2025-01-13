@@ -1,4 +1,4 @@
-;;; mk-elisp.el --- Elisp -*- lexical-binding: t; -*-
+;;; mazd//elisp.el --- Elisp -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -40,12 +40,12 @@
     (define-key kmap (kbd "<backtab>") 'outshine-cycle-buffer)))
 
 
-(defun mk-byte-compile-init-dir ()
+(defun mazd//byte-compile-init-dir ()
   "Byte-compile all your dotfiles."
   (interactive)
-  (byte-recompile-directory mk-emacs-dir 0))
+  (byte-recompile-directory mazd//emacs-dir 0))
 
-(defun mk-remove-elc-on-save ()
+(defun mazd//remove-elc-on-save ()
   "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
   (add-hook 'after-save-hook
             (lambda ()
@@ -54,7 +54,7 @@
             nil
             t))
 
-(add-hook 'emacs-lisp-mode-hook 'mk-remove-elc-on-save)
+(add-hook 'emacs-lisp-mode-hook 'mazd//remove-elc-on-save)
 (defun head (string)
   (substring string 0 1))
 
@@ -85,5 +85,5 @@
 
 
 
-(provide 'mk-elisp)
-;;; mk-elisp.el ends here
+(provide 'mazd//elisp)
+;;; mazd//elisp.el ends here

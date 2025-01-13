@@ -1,4 +1,4 @@
-;;; mk-ui.el --- UI -*- lexical-binding: t; -*-
+;;; mazd//ui.el --- UI -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -63,11 +63,11 @@
                       :height 120
                       :weight 'normal
                       :width 'normal)
-  (defun mk-evil-word-syntax-setup ()
+  (defun mazd//evil-word-syntax-setup ()
     "Treat underscores as part of a word in Evil mode."
     (modify-syntax-entry ?_ "w"))
 
-  (add-hook 'after-change-major-mode-hook #'mk-evil-word-syntax-setup)
+  (add-hook 'after-change-major-mode-hook #'mazd//evil-word-syntax-setup)
   ;; highlight current line
   (global-hl-line-mode +1)
   ;; smooth scroll
@@ -75,11 +75,11 @@
 	scroll-conservatively 10000
 	auto-window-vscroll nil)
   (setq tab-width 4)
-  (defun mk-text-mode-setup ()
+  (defun mazd//text-mode-setup ()
     "Enable visual line mode when editing text files."
     (visual-line-mode t))
 
-  (add-hook 'text-mode-hook 'mk-text-mode-setup)
+  (add-hook 'text-mode-hook 'mazd//text-mode-setup)
   )
 
 (use-package ligature
@@ -257,5 +257,5 @@
   )
 
 
-(provide 'mk-ui)
-;;; mk-ui.el ends here
+(provide 'mazd//ui)
+;;; mazd//ui.el ends here

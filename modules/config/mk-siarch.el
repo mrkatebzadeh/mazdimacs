@@ -1,4 +1,4 @@
-;;; mk-siarch.el --- Siarch -*- lexical-binding: t; -*-
+;;; mazd//siarch.el --- Siarch -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -30,7 +30,7 @@
 (defvar siarch-dir (expand-file-name ".siarch" (getenv "HOME"))
   "Directory where the siarch script is located.")
 
-(defun mk-siarch-nix-file ()
+(defun mazd//siarch-nix-file ()
   "Open flake.nix file."
   (interactive)
   (find-file (concat siarch-dir "/flake.nix")))
@@ -41,7 +41,7 @@
     (shiraz . "shiraz"))
   "Mapping of hostnames to parameters for ./siarch.sh.")
 
-(defun mk-siarch-rebuild ()
+(defun mazd//siarch-rebuild ()
   "Run ./siarch.sh with different arguments based on the hostname."
   (interactive)
   (let* ((hostname (string-trim (shell-command-to-string "hostname")))
@@ -69,7 +69,7 @@
               (set-window-dedicated-p win t))))
       (message "Hostname not recognized: %s" hostname))))
 
-(defun mk-siarch-cancel ()
+(defun mazd//siarch-cancel ()
   "Kill the *Siarch-output* buffer and its window."
   (interactive)
   (let ((buf "*Siarch-output*"))
@@ -82,9 +82,9 @@
       (message "Buffer *Siarch-output* does not exist."))))
 
 (leader
-  "cso" 'mk-siarch-nix-file
-  "csb" 'mk-siarch-rebuild
-  "csc" 'mk-siarch-cancel)
+  "cso" 'mazd//siarch-nix-file
+  "csb" 'mazd//siarch-rebuild
+  "csc" 'mazd//siarch-cancel)
 
-(provide 'mk-siarch)
-;;; mk-siarch.el ends here
+(provide 'mazd//siarch)
+;;; mazd//siarch.el ends here

@@ -1,4 +1,4 @@
-;;; mk-clang.el --- Clang  -*- lexical-binding: t; -*-
+;;; mazd//clang.el --- Clang  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -80,17 +80,17 @@
   :defer t
   :ensure nil
   :commands (cpp-auto-include)
-  :load-path (lambda () (concat mk-lisp-dir "/cpp-auto-include")))
+  :load-path (lambda () (concat mazd//lisp-dir "/cpp-auto-include")))
 
 ;;; config
 
 (setq-default c-default-style "linux")
 
-(setq mk-cc-dap-is-active nil)
+(setq mazd//cc-dap-is-active nil)
 
 (setq gdb-many-windows nil)
 
-(defun mk-set-gdb-layout(&optional c-buffer)
+(defun mazd//set-gdb-layout(&optional c-buffer)
   (if (not c-buffer)
       (setq c-buffer (window-buffer (selected-window)))) ;; save current buffer
 
@@ -129,7 +129,7 @@
         (c-buffer (window-buffer (selected-window))) ;; save current buffer
         )
     ad-do-it
-    (mk-set-gdb-layout c-buffer))
+    (mazd//set-gdb-layout c-buffer))
   )
 (defadvice gdb-reset (around args activate)
   "Change the way to gdb exit."
@@ -149,7 +149,7 @@
  "h"  'cpp-auto-include
  "F"  'clang-format-buffer
  "d"  'cmake-objdump
- "D"  'mk-cc-dap
+ "D"  'mazd//cc-dap
  "G"  'gdb
  "m"  'cmake-make
  "b"  'cmake-build
@@ -158,5 +158,5 @@
  "s"  'srefactor-refactor-at-point)
 
 
-(provide 'mk-clang)
-;;; mk-clang.el ends here
+(provide 'mazd//clang)
+;;; mazd//clang.el ends here

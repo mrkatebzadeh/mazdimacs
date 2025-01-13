@@ -1,4 +1,4 @@
-;;; mk-corfu.el --- Corfu -*- lexical-binding: t; -*-
+;;; mazd//corfu.el --- Corfu -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (and (string= mk-completion "light") (not (string= mk-language-server "bridge")))
+(when (and (string= mazd//completion "light") (not (string= mazd//language-server "bridge")))
   (use-package corfu
     :defer t
     :ensure t
@@ -146,5 +146,5 @@ default lsp-passthrough."
     "ta" 'global-corfu-mode)
   )
 
-(provide 'mk-corfu)
-;;; mk-corfu.el ends here
+(provide 'mazd//corfu)
+;;; mazd//corfu.el ends here

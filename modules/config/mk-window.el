@@ -1,4 +1,4 @@
-;;; mk-window.el --- Window  -*- lexical-binding: t; -*-
+;;; mazd//window.el --- Window  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -76,5 +76,5 @@
   "td" 'darkroom-mode
   "tz" 'zoom-mode)
 
-(provide 'mk-window)
-;;; mk-window.el ends here
+(provide 'mazd//window)
+;;; mazd//window.el ends here

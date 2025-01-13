@@ -1,4 +1,4 @@
-;;; mk-http.el --- HTTP -*- lexical-binding: t; -*-
+;;; mazd//http.el --- HTTP -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -30,5 +30,5 @@
   :defer t
   )
 
-(provide 'mk-http)
-;;; mk-http.el ends here
+(provide 'mazd//http)
+;;; mazd//http.el ends here

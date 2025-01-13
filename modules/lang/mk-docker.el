@@ -1,4 +1,4 @@
-;;; mk-docker.el --- Docker -*- lexical-binding: t; -*-
+;;; mazd//docker.el --- Docker -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -108,5 +108,5 @@
 
 
 
-(provide 'mk-docker)
-;;; mk-docker.el ends here
+(provide 'mazd//docker)
+;;; mazd//docker.el ends here

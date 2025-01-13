@@ -1,4 +1,4 @@
-;;; mk-music.el --- Music -*- lexical-binding: t; -*-
+;;; mazd//music.el --- Music -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -38,5 +38,5 @@
   "ma" 'listen-queue-add-files
   "ml" 'listen-queue-list
   )
-(provide 'mk-music)
-;;; mk-music.el ends here
+(provide 'mazd//music)
+;;; mazd//music.el ends here

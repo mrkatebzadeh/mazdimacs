@@ -1,4 +1,4 @@
-;;; mk-hdl.el --- HDL -*- lexical-binding: t; -*-
+;;; mazd//hdl.el --- HDL -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -40,5 +40,5 @@
 			  (flycheck-mode t)
 			  (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog")))))
 
-(provide 'mk-hdl)
-;;; mk-hdl.el ends here
+(provide 'mazd//hdl)
+;;; mazd//hdl.el ends here

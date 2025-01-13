@@ -1,4 +1,4 @@
-;;; mk-company.el --- Company  -*- lexical-binding: t; -*-
+;;; mazd//company.el --- Company  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(when (string= mk-completion "featured")
+(when (string= mazd//completion "featured")
 (use-package company
   :defer t
   :config
@@ -123,5 +123,5 @@
 )
 
 
-(provide 'mk-company)
-;;; mk-company.el ends here
+(provide 'mazd//company)
+;;; mazd//company.el ends here

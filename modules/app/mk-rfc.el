@@ -1,4 +1,4 @@
-;;; mk-rfc.el --- RFC -*- lexical-binding: t; -*-
+;;; mazd//rfc.el --- RFC -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -29,7 +29,7 @@
   :defer t)
 
 ;;;###autoload
-(defun mk-rfc()
+(defun mazd//rfc()
   (interactive)
   (require 'rfc-mode)
   (rfc-mode-browse))
@@ -48,7 +48,7 @@
  :prefix "SPC a"
  :states '(normal visual motion)
  :keymaps 'override
- "R" 'mk-rfc)
+ "R" 'mazd//rfc)
 
 (general-define-key
  :prefix "SPC l"
@@ -64,5 +64,5 @@
 
 
 
-(provide 'mk-rfc)
-;;; mk-rfc.el ends here
+(provide 'mazd//rfc)
+;;; mazd//rfc.el ends here

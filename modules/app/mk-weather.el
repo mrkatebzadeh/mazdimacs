@@ -1,4 +1,4 @@
-;;; mk-weather.el --- Weather  -*- lexical-binding: t; -*-
+;;; mazd//weather.el --- Weather  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -39,5 +39,5 @@
  "w" 'wttrin
  "W" 'wttrin-exit)
 
-(provide 'mk-weather)
-;;; mk-weather.el ends here
+(provide 'mazd//weather)
+;;; mazd//weather.el ends here
