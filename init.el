@@ -21,54 +21,6 @@
 
 ;;; Path vars
 ;;(setq user-emacs-directory (file-name-directory load-file-name))
-(defvar mazd//emacs-dir
-  (eval-when-compile (file-truename user-emacs-directory))
-  "The path to the currently loaded .emacs.d directory. Must end with a slash.")
-
-(defvar mazd//vars-file (concat mazd//emacs-dir "mazd-vars.el")
-  "The Mazdimacs' vars files. Must end with a slash.")
-
-(defvar mazd//core-file (concat mazd//emacs-dir "mazd-core.el")
-  "The root directory of Mazdimacs' core files. Must end with a slash.")
-
-(defvar mazd//key-file (concat mazd//emacs-dir "mazd-key.el")
-  "The root directory of Mazdimacs' key configs. Must end with a slash.")
-
-(defvar mazd//modules-dir (concat mazd//emacs-dir "modules/")
-  "The root directory for Mazdimacs' modules. Must end with a slash.")
-
-(defvar mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
-  "The root directory of Mazdimacs' external files. Must end with a slash.")
-
-(defvar mazd//ui-file (concat mazd//emacs-dir "mazd-ui.el")
-  "The root directory of Mazdimacs' UI files. Must end with a slash.")
-
-(defvar mazd//backup-dir (concat mazd//emacs-dir ".backups/")
-  "The root directory of Mazdimacs' backup files. Must end with a slash.")
-
-(defvar mazd//cache-dir (concat mazd//emacs-dir ".cache/")
-  "The root directory of Mazdimacs' cache files. Must end with a slash.")
-
-(defvar mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
-  "The root directory of Mazdimacs' autosave files. Must end with a slash.")
-
-(defvar mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
-  "The root directory of Mazdimacs' eshell files. Must end with a slash.")
-
-(defvar mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
-  "Directory to save desktop sessions.")
-
-(defvar mazd//completion "light"
-  "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
-
-(defvar mazd//language-server "eglot"
-  "Language server frameworks: eglot, lsp, or bridge")
-
-(setq org-directory     "~/Dropbox/org")
-
-(defvar mazd//alpha-variable 90
-  "Default transparency level to toggle with 100.")
-
 (message "Starting Mazdimacs")
 
 ;;; Increase the CPU processing restrictions
@@ -89,37 +41,6 @@
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
 
-;;; Basic configs
-(setq warning-minimum-level :emergency)
-(setq eshell-directory-name mazd//eshell-dir)
-(setq pcache-directory (concat mazd//cache-dir "/var/pcache"))
-(setq transient-history-file (concat mazd//cache-dir "/transient/history.el"))
-(setq srecode-map-save-file (concat mazd//cache-dir "/srecode-map.el"))
-(setq projectile-cache-file (concat mazd//cache-dir "/projectile.cache"))
-					; stop creating backup~ files
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq auto-save-list-file-prefix nil)
-(setq create-lockfiles nil)
-
-(let ((backup-dir mazd//backup-dir)
-      (auto-saves-dir mazd//autosave-dir))
-  (dolist (dir (list backup-dir auto-saves-dir))
-    (when (not (file-directory-p dir))
-      (make-directory dir t)))
-  (setq backup-directory-alist `(("." . ,backup-dir))
-        auto-save-file-name-transforms `((".*" ,auto-saves-dir t))
-        auto-save-list-file-prefix (concat auto-saves-dir ".saves-")
-        tramp-backup-directory-alist `((".*" . ,backup-dir))
-        tramp-auto-save-directory auto-saves-dir))
-(setq backup-by-copying t
-      delete-old-versions t
-      version-control t
-      kept-new-versions 5
-      kept-old-versions 2)
-(setq custom-file (concat mazd//backup-dir "custom.el"))
-(load custom-file 'noerror)
-
 ;; Load directory function
 (defun load-directory (dir)
   (let ((load-it (lambda (f)
@@ -130,21 +51,131 @@
 (defun load-modules (dir)
   (mapcar 'load (directory-files-recursively dir "")))
 
-(add-to-list 'load-path mazd//lisp-dir)
+(eval-and-compile
+  (add-to-list 'load-path (locate-user-emacs-file "modules/"))
+  )
 
-(load mazd//vars-file)
-(message "Vars has been loaded.")
+(defun mazd//require-config-module-maybe-byte-compile (feature)
+  (let* ((gc-cons-threshold 800000)
+	 (modules-dir (locate-user-emacs-file "modules/"))
+         (basename (symbol-name feature))
+         (source (expand-file-name (concat basename ".el") modules-dir))
+         (dest (expand-file-name (concat basename ".elc") modules-dir)))
+    (when (or (not (file-exists-p dest))
+              (file-newer-than-file-p source dest))
+      (message "Byte-compiling %s..." basename)
+      (if (if (and nil (require 'async nil t))
+              (async-get
+               (async-start
+                `(lambda ()
+                   (add-to-list 'load-path
+                                (locate-user-emacs-file "modules/"))
+                   (setq load-prefer-newer t)
+                   (require 'config-core)
+                   (require 'config-package)
+                   (byte-compile-file ,source))))
+            (require feature)
+            (byte-compile-file source))
+          (message "Byte-compiling %s...done" basename)
+        (message "Byte-compiling %s...failed" basename))))
+  (require feature))
 
-(load mazd//core-file)
-(message "Core has been loaded.")
+(defun mazd//maybe-byte-compile-init-el ()
+  (let ((init-elc (concat (file-name-sans-extension user-init-file)
+                          ".elc")))
+    (when (and (file-newer-than-file-p user-init-file init-elc)
+               (not (equal (file-name-extension user-init-file) "eln")))
+      (byte-compile-file user-init-file)
+      (when (and (fboundp 'restart-emacs)
+                 (y-or-n-p (format "%s was newer than %s. Restart?"
+                                   user-init-file
+                                   init-elc)))
+        (restart-emacs)))))
 
-(load mazd//key-file)
-(message "Key has been loaded.")
+(defmacro mazd//require-config-module (feature)
+  `(if (fboundp 'mazd//require-config-module-maybe-byte-compile)
+       (mazd//require-config-module-maybe-byte-compile ,feature)
+     (require ,feature)))
 
-;;; Load Theme
-(load mazd//ui-file)
-;;; Load modules
-(load-modules mazd//modules-dir)
+(add-hook 'after-init-hook #'mazd//maybe-byte-compile-init-el)
+
+(message "[=             ] vars")
+(mazd//require-config-module 'mazd-vars)
+;; (load mazd//vars-file)
+
+(message "[==             ] core")
+(mazd//require-config-module 'mazd-core)
+;; (load mazd//core-file)
+
+(message "[===            ] keys")
+(mazd//require-config-module 'mazd-key)
+;; (load mazd//key-file)
+
+(message "[====           ] ui")
+(mazd//require-config-module 'mazd-ui)
+;; (load mazd//ui-file)
+
+(message "[====           ] config")
+(mazd//require-config-module 'mazd-config)
+
+(message "[=====          ] buffer")
+(mazd//require-config-module 'mazd-buffer)
+
+(message "[=====          ] theme")
+(mazd//require-config-module 'mazd-theme)
+
+(message "[======         ] file")
+(mazd//require-config-module 'mazd-file)
+
+(message "[=======        ] window")
+(mazd//require-config-module 'mazd-window)
+
+(message "[========       ] dashboard")
+(mazd//require-config-module 'mazd-dashboard)
+
+(message "[=========      ] corfu")
+(mazd//require-config-module 'mazd-corfu)
+
+(message "[==========     ] elisp")
+(mazd//require-config-module 'mazd-elisp)
+
+(message "[===========    ] consult")
+(mazd//require-config-module 'mazd-consult)
+
+(message "[============   ] git")
+(mazd//require-config-module 'mazd-git)
+
+(message "[=============  ] eglot")
+(mazd//require-config-module 'mazd-eglot)
+
+(message "[============= ] eshell")
+(mazd//require-config-module 'mazd-eshell)
+
+(message "[============= ] checker: help")
+(mazd//require-config-module 'mazd-help)
+
+(message "[============= ] checker: checker")
+(mazd//require-config-module 'mazd-checker)
+
+(message "[============== ] org")
+(mazd//require-config-module 'mazd-org)
+
+(message "[===============] lang: python")
+(mazd//require-config-module 'mazd-python)
+
+(message "[===============] lang: latex")
+(mazd//require-config-module 'mazd-latex)
+
+(message "[===============] lang: c/c++")
+(mazd//require-config-module 'mazd-clang)
+
+(message "[===============] lang: rust")
+(mazd//require-config-module 'mazd-rust)
+
+(message "[===============] lang: nix")
+(mazd//require-config-module 'mazd-nix)
+
+;; (load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)
 (unless (server-running-p)
