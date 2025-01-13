@@ -1,4 +1,5 @@
 .autosave
+.org-generic-id-locations
 persist
 tree-sitter
 .desktop

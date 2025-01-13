@@ -26,34 +26,34 @@
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
 (defvar mazd//vars-file (concat mazd//emacs-dir "mazd-vars.el")
-  "The MK's vars files. Must end with a slash.")
+  "The Mazdimacs' vars files. Must end with a slash.")
 
 (defvar mazd//core-file (concat mazd//emacs-dir "mazd-core.el")
-  "The root directory of MK's core files. Must end with a slash.")
+  "The root directory of Mazdimacs' core files. Must end with a slash.")
 
 (defvar mazd//key-file (concat mazd//emacs-dir "mazd-key.el")
-  "The root directory of MK's key configs. Must end with a slash.")
+  "The root directory of Mazdimacs' key configs. Must end with a slash.")
 
 (defvar mazd//modules-dir (concat mazd//emacs-dir "modules/")
-  "The root directory for MK's modules. Must end with a slash.")
+  "The root directory for Mazdimacs' modules. Must end with a slash.")
 
 (defvar mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
-  "The root directory of MK's external files. Must end with a slash.")
+  "The root directory of Mazdimacs' external files. Must end with a slash.")
 
 (defvar mazd//ui-file (concat mazd//emacs-dir "mazd-ui.el")
-  "The root directory of MK's UI files. Must end with a slash.")
+  "The root directory of Mazdimacs' UI files. Must end with a slash.")
 
 (defvar mazd//backup-dir (concat mazd//emacs-dir ".backups/")
-  "The root directory of MK's backup files. Must end with a slash.")
+  "The root directory of Mazdimacs' backup files. Must end with a slash.")
 
 (defvar mazd//cache-dir (concat mazd//emacs-dir ".cache/")
-  "The root directory of MK's cache files. Must end with a slash.")
+  "The root directory of Mazdimacs' cache files. Must end with a slash.")
 
 (defvar mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
-  "The root directory of MK's autosave files. Must end with a slash.")
+  "The root directory of Mazdimacs' autosave files. Must end with a slash.")
 
 (defvar mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
-  "The root directory of MK's eshell files. Must end with a slash.")
+  "The root directory of Mazdimacs' eshell files. Must end with a slash.")
 
 (defvar mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
   "Directory to save desktop sessions.")
