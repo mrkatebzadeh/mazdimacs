@@ -25,6 +25,11 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'mazd-vars)
+  (require 'mazd-key)
+  (require 'mazd-core))
+
 ;;; emms
 (use-package emms
   :defer  t)

@@ -53,7 +53,8 @@
       ;; setting this option.
       debug-on-error nil)
 
-(setq package--init-file-ensured t
+(setq
+  ;; package--init-file-ensured t
       ad-redefinition-action 'accept
       cursor-type 'box
       create-lockfiles nil
@@ -185,28 +186,28 @@ files with (apparently) up to date bytecodes."
 
 
 
-(package-initialize)
+ (package-initialize)
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-(setq package-enable-at-startup nil)
+;; (defvar bootstrap-version)
+;; (let ((bootstrap-file
+;;        (expand-file-name
+;;         "straight/repos/straight.el/bootstrap.el"
+;;         (or (bound-and-true-p straight-base-dir)
+;;             user-emacs-directory)))
+;;       (bootstrap-version 7))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (load bootstrap-file nil 'nomessage))
+;; (setq package-enable-at-startup nil)
 
-(straight-use-package 'use-package)
+;; ;; (straight-use-package 'use-package)
 
-;(setq use-package-compute-statistics t)
+					;(setq use-package-compute-statistics t)
 (require 'auth-source)
 (setq auth-sources '("~/.netrc"))
 (defun mazd//lookup-password (&rest keys)
@@ -215,22 +216,22 @@ files with (apparently) up to date bytecodes."
         (funcall (plist-get (car result) :secret))
       nil)))
 
-;; gcmh
-(use-package gcmh
-  :ensure t
-  :init
-  (setq gcmh-verbose             t
-        gcmh-lows-cons-threshold #x800000
-        gcmh-high-cons-threshold #x800000
-        gcmh-idle-delay          300)
-  :config
-  (gcmh-mode))
+;; ;; gcmh
+;; (use-package gcmh
+;;   :ensure t
+;;   :init
+;;   (setq gcmh-verbose             t
+;;         gcmh-lows-cons-threshold #x800000
+;;         gcmh-high-cons-threshold #x800000
+;;         gcmh-idle-delay          300)
+;;   :config
+;;   (gcmh-mode))
 
-;; esup
-(use-package esup
-  :defer t
-  :ensure t
-  :defer t)
+;; ;; esup
+;; (use-package esup
+;;   :defer t
+;;   :ensure t
+;;   :defer t)
 
 (provide 'mazd-core)
 ;;; mazd//core.el ends here

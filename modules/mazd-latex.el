@@ -56,6 +56,12 @@
   :hook ((latex-mode . flyspell-mode))
   :mode ("\\.tex\\'" . latex-mode)
   :init
+  (defun mazd//enable-auto-revert-for-pdf ()
+    "Enable `global-auto-revert-mode` when opening a PDF file."
+    (when (eq major-mode 'pdf-view-mode)
+      (global-auto-revert-mode 1)))
+
+  (add-hook 'pdf-view-mode-hook #'mazd//enable-auto-revert-for-pdf)
   (setq TeX-auto-save t
 	TeX-parse-self t)
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)

@@ -24,6 +24,10 @@
 ;;
 
 ;;; Code:
+(eval-when-compile
+  (require 'mazd-vars)
+  (require 'mazd-key)
+  (require 'mazd-core))
 
 (use-package gptel
   :ensure t

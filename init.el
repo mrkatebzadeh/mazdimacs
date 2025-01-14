@@ -99,81 +99,132 @@
 
 (add-hook 'after-init-hook #'mazd//maybe-byte-compile-init-el)
 
-(message "[=             ] vars")
+(message "[               ] vars")
 (mazd//require-config-module 'mazd-vars)
 ;; (load mazd//vars-file)
 
-(message "[==             ] core")
+(message "[               ] core")
 (mazd//require-config-module 'mazd-core)
 ;; (load mazd//core-file)
 
-(message "[===            ] keys")
+(message "[               ] functions")
+(mazd//require-config-module 'mazd-func)
+
+(message "[               ] packages")
+(mazd//require-config-module 'mazd-package)
+
+(message "[=              ] keys")
 (mazd//require-config-module 'mazd-key)
 ;; (load mazd//key-file)
 
-(message "[====           ] ui")
+(message "[=              ] ui")
 (mazd//require-config-module 'mazd-ui)
 ;; (load mazd//ui-file)
 
-(message "[====           ] config")
+(message "[==             ] config")
 (mazd//require-config-module 'mazd-config)
 
-(message "[=====          ] buffer")
+(message "[==             ] buffer")
 (mazd//require-config-module 'mazd-buffer)
 
-(message "[=====          ] theme")
+(message "[===            ] theme")
 (mazd//require-config-module 'mazd-theme)
 
-(message "[======         ] file")
+(message "[===            ] file")
 (mazd//require-config-module 'mazd-file)
 
-(message "[=======        ] window")
+(message "[====           ] window")
 (mazd//require-config-module 'mazd-window)
 
-(message "[========       ] dashboard")
+(message "[====           ] dashboard")
 (mazd//require-config-module 'mazd-dashboard)
 
-(message "[=========      ] corfu")
+(message "[=====          ] corfu")
 (mazd//require-config-module 'mazd-corfu)
 
-(message "[==========     ] elisp")
+(message "[======         ] elisp")
 (mazd//require-config-module 'mazd-elisp)
 
-(message "[===========    ] consult")
+(message "[======         ] consult")
 (mazd//require-config-module 'mazd-consult)
 
-(message "[============   ] git")
+(message "[=======        ] git")
 (mazd//require-config-module 'mazd-git)
 
-(message "[=============  ] eglot")
+(message "[========       ] eglot")
 (mazd//require-config-module 'mazd-eglot)
 
-(message "[============= ] eshell")
+(message "[========       ] eshell")
 (mazd//require-config-module 'mazd-eshell)
 
-(message "[============= ] checker: help")
+(message "[=========      ] checker: help")
 (mazd//require-config-module 'mazd-help)
 
-(message "[============= ] checker: checker")
+(message "[=========      ] checker: checker")
 (mazd//require-config-module 'mazd-checker)
 
-(message "[============== ] org")
+(message "[==========     ] org")
 (mazd//require-config-module 'mazd-org)
 
-(message "[===============] lang: python")
+(message "[===========    ] lang: python")
 (mazd//require-config-module 'mazd-python)
 
-(message "[===============] lang: latex")
+(message "[===========    ] lang: latex")
 (mazd//require-config-module 'mazd-latex)
 
-(message "[===============] lang: c/c++")
+(message "[===========    ] lang: c/c++")
 (mazd//require-config-module 'mazd-clang)
 
-(message "[===============] lang: rust")
+(message "[===========    ] lang: rust")
 (mazd//require-config-module 'mazd-rust)
 
-(message "[===============] lang: nix")
+(message "[===========    ] lang: nix")
 (mazd//require-config-module 'mazd-nix)
+
+(message "[============   ] app: ai")
+(mazd//require-config-module 'mazd-ai)
+
+(message "[============   ] app: calc")
+(mazd//require-config-module 'mazd-calc)
+
+(message "[============   ] app: calendar")
+(mazd//require-config-module 'mazd-calendar)
+
+(message "[============   ] app: company")
+(mazd//require-config-module 'mazd-company)
+
+(message "[============   ] app: docker")
+(mazd//require-config-module 'mazd-docker)
+
+(message "[============   ] app: docs")
+(mazd//require-config-module 'mazd-docs)
+
+(message "[============   ] app: email")
+(mazd//require-config-module 'mazd-email)
+
+(message "[============   ] app: irc")
+(mazd//require-config-module 'mazd-irc)
+
+(message "[============   ] app: ledger")
+(mazd//require-config-module 'mazd-ledger)
+
+(message "[============   ] app: media")
+(mazd//require-config-module 'mazd-media)
+
+(message "[============   ] app: music")
+(mazd//require-config-module 'mazd-music)
+
+(message "[============   ] app: power")
+(mazd//require-config-module 'mazd-power)
+
+(message "[============   ] app: rfc")
+(mazd//require-config-module 'mazd-rfc)
+
+(message "[============   ] app: search")
+(mazd//require-config-module 'mazd-search)
+
+(message "[============   ] app: snippet")
+(mazd//require-config-module 'mazd-snippet)
 
 ;; (load-modules mazd//modules-dir)
 ;;; run server

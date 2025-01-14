@@ -25,6 +25,11 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'mazd-vars)
+  (require 'mazd-key)
+  (require 'mazd-core))
+
 (setq helm-power-source
       '((name . "Managing power in Emacs.")
         (candidates . ("Cancel" "Shutdown" "Reboot" "Lock"))
