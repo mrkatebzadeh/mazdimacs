@@ -47,7 +47,46 @@
   (use-package evil-leader
     :ensure t
     :init (global-evil-leader-mode))
-  (evil-mode 1))
+  (evil-mode 1)
+  (use-package evil-tex
+    :ensure t
+    :commands (evil-tex-mode)
+    :config
+    (defun mazd//evil-tex-toggle-math ()
+      "Toggle surrounding math between \\(foo\\) and \\=\\[foo\\]."
+      (interactive)
+      (let* ((outer (evil-tex-a-math)) (inner (evil-tex-inner-math))
+             (left-over (make-overlay (car outer) (car inner)))
+             (right-over (make-overlay (cadr inner) (cadr outer))))
+        (save-excursion
+          (goto-char (overlay-start left-over))
+          (cond
+           ((looking-at (regexp-quote "\\("))
+            (evil-tex--overlay-replace left-over  "\\[")
+            (evil-tex--overlay-replace right-over "\\]" )
+            (goto-char (overlay-end right-over))
+            (when (looking-at (rx punct))
+              (let ((match (match-string 0)))
+                (delete-char 1)
+                (goto-char (overlay-start right-over))
+                (insert match))))
+           ((looking-at (regexp-quote "\\["))
+            (evil-tex--overlay-replace left-over  "\\(")
+            (evil-tex--overlay-replace right-over "\\)" )
+            (goto-char (overlay-start right-over))
+            (when (looking-back (rx punct) 1)
+              (let ((match (match-string 0)))
+                (delete-char -1)
+                (goto-char (overlay-end right-over))
+                (insert match))))))
+        (delete-overlay left-over) (delete-overlay right-over)))
+
+    (define-key evil-tex-toggle-map (kbd "m") #'mazd//evil-tex-toggle-math))
+
+  (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
+  (evil-set-initial-state 'TeX-error-overview-mode 'insert)
+
+  )
 
 ;; evil-collection
 (use-package evil-collection
@@ -91,6 +130,138 @@
   :init
   (setq which-key-idle-delay 0.1)
   (which-key-mode))
+
+(use-package multiple-cursors
+  :ensure t
+  :commands (mc/mark-lines
+             mc/mark-next-lines
+             mc/mark-previous-lines
+             mc/unmark-next-like-this
+             mc/unmark-previous-like-this
+             mc/skip-to-previous-like-this
+             mc/mark-all-like-this
+             mc/mark-all-words-like-this
+             mc/mark-all-symbols-like-this
+             mc/mark-all-in-region
+             mc/mark-all-in-region-regexp
+             mc/mark-more-like-this-extended
+             mc/mmlte--up
+             mc/mmlte--down
+             mc/mmlte--left
+             mc/mmlte--right
+             mc/mark-all-like-this-dwim
+             mc/mark-all-dwim
+             mc/mark-all-like-this-in-defun
+             mc/mark-all-words-like-this-in-defun
+             mc/mark-all-symbols-like-this-in-defun
+             mc/add-cursor-on-click
+             mc/mark-sgml-tag-pair
+             mc/mark-pop
+             set-rectangular-region-anchor
+             rrm/switch-to-multiple-cursors
+             mc/insert-numbers
+             mc/reverse-regions
+             mc/sort-regions
+             hum/keyboard-quit
+             mc-hide-unmatched-lines-mode)
+  :config
+  (setq mc/list-file (locate-user-emacs-file ".cache/.mc-lists.el"))
+
+  ;; This is required to load the save file, due to a poor design
+  ;; decision in multiple-cursors.el
+  (load mc/list-file t)
+
+  (define-key mc/keymap (kbd "<return>") nil)
+  (define-key mc/keymap (kbd "C-c <return>") 'multiple-cursors-mode))
+
+(use-package evil-mc
+  :ensure t
+  :defer t
+  :commands (evil-mc-make-all-cursors
+             evil-mc-undo-last-added-cursor
+             evil-mc-undo-all-cursors
+             evil-mc-pause-cursors
+             evil-mc-resume-cursors
+             evil-mc-make-and-goto-first-cursor
+             evil-mc-make-and-goto-last-cursor
+             evil-mc-make-cursor-here
+             evil-mc-make-cursor-move-next-line
+             evil-mc-make-cursor-move-prev-line
+             evil-mc-skip-and-goto-next-cursor
+             evil-mc-skip-and-goto-prev-cursor
+             evil-mc-skip-and-goto-next-match
+             evil-mc-skip-and-goto-prev-match
+             evil-mc-make-cursor-in-visual-selection-beg
+             evil-mc-make-cursor-in-visual-selection-end)
+  :init
+  (el-patch-feature evil-mc)
+
+  (el-patch-defvar evil-mc-cursors-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "m") #'evil-mc-make-all-cursors)
+      (define-key map (kbd "u") #'evil-mc-undo-last-added-cursor)
+      (define-key map (kbd "q") #'evil-mc-undo-all-cursors)
+      (define-key map (kbd "s") #'evil-mc-pause-cursors)
+      (define-key map (kbd "r") #'evil-mc-resume-cursors)
+      (define-key map (kbd "f") #'evil-mc-make-and-goto-first-cursor)
+      (define-key map (kbd "l") #'evil-mc-make-and-goto-last-cursor)
+      (define-key map (kbd "h") #'evil-mc-make-cursor-here)
+      (define-key map (kbd "j") #'evil-mc-make-cursor-move-next-line)
+      (define-key map (kbd "k") #'evil-mc-make-cursor-move-prev-line)
+      (define-key map (kbd "N") #'evil-mc-skip-and-goto-next-cursor)
+      (define-key map (kbd "P") #'evil-mc-skip-and-goto-prev-cursor)
+      (define-key map (kbd "n") #'evil-mc-skip-and-goto-next-match)
+      (define-key map (kbd "p") #'evil-mc-skip-and-goto-prev-match)
+      (define-key map (kbd "I") #'evil-mc-make-cursor-in-visual-selection-beg)
+      (define-key map (kbd "A") #'evil-mc-make-cursor-in-visual-selection-end)
+      map))
+
+  (el-patch-defvar evil-mc-key-map
+    (let ((map (make-sparse-keymap)))
+      (evil-define-key* '(normal visual) map
+        (kbd "gr") evil-mc-cursors-map
+        (el-patch-remove
+          (kbd "M-n") 'evil-mc-make-and-goto-next-cursor
+          (kbd "M-p") 'evil-mc-make-and-goto-prev-cursor
+          (kbd "C-n") 'evil-mc-make-and-goto-next-match
+          (kbd "C-t") 'evil-mc-skip-and-goto-next-match
+          (kbd "C-p") 'evil-mc-make-and-goto-prev-match))
+      map))
+
+  (global-set-key (kbd "C->") #'evil-mc-make-cursor-move-next-line)
+  (global-set-key (kbd "C-<") #'evil-mc-make-cursor-move-prev-line)
+  (define-key evil-normal-state-map (kbd "gr") evil-mc-cursors-map)
+
+  :config
+  (global-evil-mc-mode +1)
+
+  (setq evil-mc-custom-known-commands
+        '((evil-delete-backward-word-smart
+           .
+           ((:default . evil-mc-execute-default-call)))
+          (end-of-visual-line-or-end
+           .
+           ((:default . evil-mc-execute-default-call)))
+          (back-to-indentation-visual-or-beginning
+           .
+           ((:default . evil-mc-execute-default-call))))
+        evil-mc-mode-line
+        `(:eval
+          (if (> (length evil-mc-cursor-list) 0)
+              (evil-mc-active-mode-line (concat " " evil-mc-mode-line-prefix))
+            "")))
+
+  (el-patch-defun evil-mc-make-cursor-move-by-line (dir count)
+    "Create COUNT cursors one for each line moving in the direction DIR.
+DIR should be 1 or -1 and COUNT should be a positive integer or nil."
+    (evil-force-normal-state)
+    (setq count (max 0 (or count 1)))
+    (dotimes (i count)
+      (evil-mc-run-cursors-before)
+      (evil-mc-make-cursor-at-pos (point))
+      (let ((line-move-visual (el-patch-swap t nil)))
+        (evil-line-move dir)))))
+
 
 (general-create-definer leader
   :states '(normal visual emacs)
@@ -161,6 +332,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   "qq" 'mazd//kill-emacs
   "qQ" 'delete-frame)
 
+(leader
+  "te" 'global-evil-mc-mode)
 
 (provide 'mazd-key)
 ;;; mazd//key.el ends here
