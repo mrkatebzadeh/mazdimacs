@@ -67,6 +67,10 @@
 (setq srecode-map-save-file (concat mazd//cache-dir "/srecode-map.el"))
 (setq projectile-cache-file (concat mazd//cache-dir "/projectile.cache"))
 					; stop creating backup~ files
+(make-directory (concat mazd//cache-dir "/undo-tree") t)
+(setq undo-tree-history-directory-alist
+      `(("." . ,(concat mazd//cache-dir "/undo-tree"))))
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
