@@ -86,3 +86,7 @@
 
 (provide 'mazd-calendar)
 ;;; mazd//calendar.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-calendar) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

@@ -166,3 +166,7 @@
 
 (provide 'mazd-clang)
 ;;; mazd//clang.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-clang) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

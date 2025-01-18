@@ -130,3 +130,7 @@
 
 (provide 'mazd-company)
 ;;; mazd//company.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-company) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

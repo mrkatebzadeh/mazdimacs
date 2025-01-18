@@ -1,4 +1,4 @@
-;;; mazd//calc.el --- Calc  -*- lexical-binding: t; -*-
+;;; byte-recompile-config.el --- <TITLE> -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -25,36 +25,14 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
 
-(use-package calc
-  :commands calc
-  :defer  t)
+(add-to-list 'load-path (locate-user-emacs-file "modules/"))
+(setq load-prefer-newer t
+      gc-cons-threshold 402653184)
+(require 'config-core)
+(let ((mazd//inhibit-async-byte-recompile-config t))
+  (require 'config-package))
+(byte-recompile-config)
 
-;;; calc
-(with-eval-after-load 'calc
-  (setq math-additional-units '((GiB "1024 * MiB" "Giga Byte")
-				(MiB "1024 * KiB" "Mega Byte")
-				(KiB "1024 * B" "Kilo Byte")
-				(B nil "Byte")
-				(Gib "1024 * Mib" "Giga Bit")
-				(Mib "1024 * Kib" "Mega Bit")
-				(Kib "1024 * b" "Kilo Bit")
-				(b "B / 8" "Bit"))
-	math-units-table nil))
-
-(leader
-  "ac" 'calc)
-
-
-
-
-(provide 'mazd-calc)
-;;; mazd//calc.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-calc) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:
+(provide 'byte-recompile-config)
+;;; byte-recompile-config.el ends here

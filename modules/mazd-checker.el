@@ -141,3 +141,7 @@
 
 (provide 'mazd-checker)
 ;;; mazd//checker.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-checker) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

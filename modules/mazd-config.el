@@ -47,3 +47,7 @@
 
 (provide 'mazd-config)
 ;;; mazd//config.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-config) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

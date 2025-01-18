@@ -80,6 +80,21 @@
         (message "Byte-compiling %s...failed" basename))))
   (require feature))
 
+(defun mazd//require-config-module-force-byte-compile (feature)
+  "Force recompilation of FEATURE before loading it."
+  (let* ((gc-cons-threshold 800000)
+         (modules-dir (locate-user-emacs-file "modules/"))
+         (basename (symbol-name feature))
+         (source (expand-file-name (concat basename ".el") modules-dir)))
+    (if (file-exists-p source)
+        (progn
+          (message "Forcing byte-compilation of %s..." basename)
+          (if (byte-compile-file source)
+              (message "Byte-compiling %s...done" basename)
+            (message "Byte-compiling %s...failed" basename)))
+      (message "Source file %s.el not found in modules directory!" basename)))
+  (require feature))
+
 (defun mazd//maybe-byte-compile-init-el ()
   (let ((init-elc (concat (file-name-sans-extension user-init-file)
                           ".elc")))
@@ -91,6 +106,55 @@
                                    user-init-file
                                    init-elc)))
         (restart-emacs)))))
+
+(defun mazd//force-byte-compile ()
+  (interactive)
+  (dolist (feature '(
+		     mazd-vars
+		     mazd-core
+		     mazd-func
+		     mazd-package
+		     mazd-key
+		     mazd-ui
+		     mazd-config
+		     mazd-buffer
+		     mazd-theme
+		     mazd-file
+		     mazd-window
+		     mazd-dashboard
+		     mazd-corfu
+		     mazd-elisp
+		     mazd-consult
+		     mazd-git
+		     mazd-eglot
+		     mazd-eshell
+		     mazd-help
+		     mazd-checker
+		     mazd-org
+		     mazd-python
+		     mazd-latex
+		     mazd-clang
+		     mazd-rust
+		     mazd-nix
+		     mazd-ai
+		     mazd-calc
+		     mazd-calendar
+		     mazd-company
+		     mazd-docker
+		     mazd-docs
+		     mazd-email
+		     mazd-irc
+		     mazd-ledger
+		     mazd-media
+		     mazd-music
+		     mazd-power
+		     mazd-rfc
+		     mazd-search
+		     mazd-snippet
+		     ))
+    (mazd//require-config-module-force-byte-compile feature)))
+
+(global-set-key (kbd "C-c b") #'mazd//force-byte-compile)
 
 (defmacro mazd//require-config-module (feature)
   `(if (fboundp 'mazd//require-config-module-maybe-byte-compile)

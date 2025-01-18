@@ -52,3 +52,7 @@
   )
 (provide 'mazd-bridge)
 ;;; mazd//bridge.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-bridge) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

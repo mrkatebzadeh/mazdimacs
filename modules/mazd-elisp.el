@@ -59,7 +59,7 @@
             nil
             t))
 
-(add-hook 'emacs-lisp-mode-hook 'mazd//remove-elc-on-save)
+;; (add-hook 'emacs-lisp-mode-hook 'mazd//remove-elc-on-save)
 (defun head (string)
   (substring string 0 1))
 
