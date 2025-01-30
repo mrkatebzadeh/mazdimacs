@@ -49,6 +49,18 @@
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
+(use-package git-modes
+  :ensure t)
+
+
+(straight-use-package
+ '(magit-pretty-graph :type git :host github :repo "georgek/magit-pretty-graph")
+ )
+
+
+(use-package magit-pretty-graph
+  :ensure nil)
+
 ;;; config
 (with-eval-after-load 'magit
   (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
@@ -59,7 +71,8 @@
   (evil-collection-init 'magit))
 
 (leader
-  "gs" 'magit-status)
+  "gs" 'magit-status
+  "gl" 'magit-pg-repo)
 
 (leader
   "tg" 'git-gutter-mode)
