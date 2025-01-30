@@ -122,6 +122,11 @@
 (setq custom-file (concat mazd//backup-dir "custom.el"))
 (load custom-file 'noerror)
 
+(make-directory (concat mazd//cache-dir "/undo-tree") t)
+(setq undo-tree-history-directory-alist
+      `(("." . ,(concat mazd//cache-dir "/undo-tree"))))
+
+
 (add-to-list 'load-path mazd//lisp-dir)
 
 (defun byte-recompile-config (&optional arg)

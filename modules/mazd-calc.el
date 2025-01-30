@@ -49,11 +49,9 @@
 (leader
   "ac" 'calc)
 
-
-
-
 (provide 'mazd-calc)
 ;;; mazd//calc.el ends here
+
 
 ;; Local Variables:
 ;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-calc) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
