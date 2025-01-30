@@ -44,6 +44,13 @@
   :config
   (ultra-scroll-mode 1))
 
+(use-package save-place
+  :ensure nil
+  :hook (after-init . save-place-mode)
+  :init
+  (setq save-place-file (concat mazd//cache-dir "/places"))
+  )
+
 (use-package solaire-mode
   :ensure t
   :config
@@ -154,6 +161,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package undo-tree
   :ensure t
+  :disabled t
   :defer t)
 
 (use-package smart-hungry-delete
@@ -393,9 +401,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   "tr" 'rainbow-delimiters-mode)
 
 (leader
-"/" 'comment-line)
-
-
+  "/" 'comment-line)
 
 (provide 'mazd-buffer)
 ;;; mazd//buffer.el ends here
