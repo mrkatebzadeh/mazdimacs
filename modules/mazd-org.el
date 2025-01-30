@@ -319,6 +319,7 @@
   (org-journal-time-format ""))
 
 (use-package org-gcal
+  :disabled t
   :ensure t
   :defer t
   :config
@@ -334,6 +335,7 @@
   (require 'org-drill))
 
 (use-package org-tvdb
+  :disabled t
   :defer t
   :ensure nil ; remove this if available through melpa
   :config
@@ -375,36 +377,33 @@
 ;;; config
 (defun mazd//org-agenda-setup ()
   (setq org-agenda-files
-	(append
-	 (file-expand-wildcards (concat org-directory "/agenda/*.org")))
-	org-agenda-window-setup (quote current-window)
-	org-deadline-warning-days 7
-	org-agenda-span (quote fortnight)
-	org-agenda-skip-scheduled-if-deadline-is-shown t
-	org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
-	org-agenda-todo-ignore-deadlines (quote all)
-	org-agenda-todo-ignore-scheduled (quote all)
-	org-agenda-sorting-strategy (quote
-				     ((agenda deadline-up priority-down)
-				      (todo priority-down category-keep)
-				      (tags priority-down category-keep)
-				      (search category-keep)))
-	org-default-notes-file (concat org-directory "/agenda/notes.org")
-	org-capture-templates
-	'(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
-	   "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-	  ("j" "Journal" entry (file+headline org-default-notes-file "Journal")
+        (append
+         (file-expand-wildcards (concat org-directory "/agenda/*.org")))
+        org-agenda-window-setup 'current-window
+        org-deadline-warning-days 7
+        org-agenda-span 'fortnight
+        org-agenda-skip-scheduled-if-deadline-is-shown t
+        org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+        org-agenda-todo-ignore-deadlines 'all
+        org-agenda-todo-ignore-scheduled 'all
+        org-agenda-sorting-strategy '((agenda deadline-up priority-down)
+                                      (todo priority-down category-keep)
+                                      (tags priority-down category-keep)
+                                      (search category-keep))
+        org-default-notes-file (concat org-directory "/agenda/notes.org")
+        org-capture-templates
+        '(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+          ("j" "Journal" entry (file+headline org-default-notes-file "Journal")
            "* %?\nEntered on %U\n  %i\n  %a")
-	  ("n" "Note" entry (file+headline org-default-notes-file "Note")
+          ("n" "Note" entry (file+headline org-default-notes-file "Note")
            "* %?\nEntered on %U\n  %i")
-	  ("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmark")
+          ("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmark")
            "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
-	  ("r" "Research" entry (file+headline org-default-notes-file "Research")
+          ("r" "Research" entry (file+headline org-default-notes-file "Research")
            "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
-	  ("p" "Programming" entry (file+headline org-default-notes-file "Programming")
-           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
-	  ))
-  )
+          ("p" "Programming" entry (file+headline org-default-notes-file "Programming")
+           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t))))
 
 
 (defun mazd//org-babel-setup ()
@@ -484,12 +483,10 @@
 
   (setq org-latex-create-formula-image-program 'imagemagick)
   (setq org-latex-packages-alist
-	(quote (("" "color" t)
-		("" "minted" t)
-		("" "parskip" t)
-		("" "tikz" t))))
-  )
-
+	'(("" "color" t)
+          ("" "minted" t)
+          ("" "parskip" t)
+          ("" "tikz" t))))
 
 (with-eval-after-load 'org
 
@@ -914,5 +911,10 @@
        "[" 'org-agenda-manipulate-query-add
        "g\\" 'org-agenda-filter-by-tag-refine
        "]" 'org-agenda-manipulate-query-subtract)))
+
 (provide 'mazd-org)
 ;;; mazd//org.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-org) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:
