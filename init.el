@@ -290,6 +290,9 @@
 (message "[============   ] app: snippet")
 (mazd//require-config-module 'mazd-snippet)
 
+(message "[=============  ] tramp")
+(mazd//require-config-module 'mazd-tramp)
+
 ;; (load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)

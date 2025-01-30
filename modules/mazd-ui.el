@@ -133,7 +133,11 @@
   (vertico-posframe-mode 1)
   (setq vertico-posframe-parameters
 	'((left-fringe . 8)
-          (right-fringe . 8))))
+          (right-fringe . 8))
+	)
+  (setq vertico-posframe-border-width 3)
+  (setq vertico-posframe-border '((t (:background "#323445"))))
+  )
 
 ;; `orderless' completion style.
 (use-package orderless
@@ -261,6 +265,9 @@
 	telephone-line-evil-use-short-tag nil)
   )
 
-
 (provide 'mazd-ui)
 ;;; mazd//ui.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-ui) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

@@ -91,6 +91,11 @@ Must end with a slash.")
 (defvar mazd//language-server "eglot"
   "Language server frameworks: eglot, lsp, or bridge")
 
+(defvar mazd//tramp-backup-directory
+  (concat mazd//cache-dir "tramp-backups/"))
+
+(defvar mazd//tramp
+  (concat mazd//cache-dir "tramp"))
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here
