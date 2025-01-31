@@ -92,5 +92,16 @@
                  (add-hook ,after-hook #',setup-func-name)))
            `((add-hook ,hook #',func-name))))))
 
+
+(defun mazd//icons-displayable ()
+  "Return non-nil if icons are displayable."
+  (and mazd//icon
+       (or (featurep 'nerd-icons)
+	   (require 'nerd-icons nil t))))
+
 (provide 'mazd-func)
 ;;; mazd//func.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-func) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:
