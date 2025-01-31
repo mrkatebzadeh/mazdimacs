@@ -55,7 +55,6 @@
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-  (setq inhibit-startup-message t)
   (setq tab-width 4)
   (setq indent-tabs-mode nil)
 
@@ -80,6 +79,13 @@
 	scroll-conservatively 10000
 	auto-window-vscroll nil)
   (setq tab-width 4)
+  (setq use-file-dialog nil
+	use-dialog-box nil
+	inhibit-startup-screen t
+	inhibit-startup-echo-area-message user-login-name
+	inhibit-default-init t
+	initial-scratch-message nil)
+
   (defun mazd//text-mode-setup ()
     "Enable visual line mode when editing text files."
     (visual-line-mode t))
