@@ -44,6 +44,11 @@
   :config
   (ultra-scroll-mode 1))
 
+(use-package nerd-icons-ibuffer
+  :ensure t
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+  :init (setq nerd-icons-ibuffer-icon t))
+
 (use-package save-place
   :ensure nil
   :hook (after-init . save-place-mode)
