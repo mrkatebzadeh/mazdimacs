@@ -47,7 +47,7 @@
 (use-package nerd-icons-ibuffer
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-  :init (setq nerd-icons-ibuffer-icon mazd//icon))
+  :init (setq nerd-icons-ibuffer-icon 'mazd//icon))
 
 (use-package ibuffer-project
   :ensure t

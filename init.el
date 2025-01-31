@@ -293,6 +293,9 @@
 (message "[=============  ] tramp")
 (mazd//require-config-module 'mazd-tramp)
 
+(message "[==============] eshell")
+(mazd//require-config-module 'mazd-tramp)
+
 ;; (load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)

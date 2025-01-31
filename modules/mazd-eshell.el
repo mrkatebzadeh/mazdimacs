@@ -74,6 +74,23 @@
 	 dir)))
     (shell-command command)))
 
+(use-package eshell-info-banner
+  :after (eshell)
+  :defer t
+  :straight (eshell-info-banner :build t
+                                :type git
+                                :host github
+                                :protocol ssh
+                                :repo "phundrak/eshell-info-banner.el")
+  :hook (eshell-banner-load . eshell-info-banner-update-banner)
+  :custom-face
+  (eshell-info-banner-normal-face ((t :foreground "#A3BE8C")))
+  (eshell-info-banner-background-face ((t :foreground "#E5E9F0")))
+  (eshell-info-banner-warning-face ((t :foreround "#D08770")))
+  (eshell-info-banner-critical-face ((t :foreground "#BF616A")))
+  :custom
+  (eshell-info-banner-partition-prefixes (list "/dev" "zroot" "tank")))
+
 ;;; bindings
 (general-define-key
  :prefix "SPC"

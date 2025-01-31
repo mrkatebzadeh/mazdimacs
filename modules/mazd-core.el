@@ -191,28 +191,30 @@ files with (apparently) up to date bytecodes."
 
 
 
- (package-initialize)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-;; (defvar bootstrap-version)
-;; (let ((bootstrap-file
-;;        (expand-file-name
-;;         "straight/repos/straight.el/bootstrap.el"
-;;         (or (bound-and-true-p straight-base-dir)
-;;             user-emacs-directory)))
-;;       (bootstrap-version 7))
-;;   (unless (file-exists-p bootstrap-file)
-;;     (with-current-buffer
-;;         (url-retrieve-synchronously
-;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-;;          'silent 'inhibit-cookies)
-;;       (goto-char (point-max))
-;;       (eval-print-last-sexp)))
-;;   (load bootstrap-file nil 'nomessage))
-;; (setq package-enable-at-startup nil)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(setq package-enable-at-startup nil)
+(setq straight-use-package-by-default t)
+(straight-use-package-mode 1)
+(setq use-package-compute-statistics t)
 
-;; ;; (straight-use-package 'use-package)
-
-					;(setq use-package-compute-statistics t)
 (require 'auth-source)
 (setq auth-sources '("~/.netrc"))
 (defun mazd//lookup-password (&rest keys)
@@ -240,3 +242,7 @@ files with (apparently) up to date bytecodes."
 
 (provide 'mazd-core)
 ;;; mazd//core.el ends here
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-core) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
+;; End:

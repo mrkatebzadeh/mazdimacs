@@ -85,6 +85,20 @@
 	inhibit-startup-echo-area-message user-login-name
 	inhibit-default-init t
 	initial-scratch-message nil)
+  (setq default-frame-alist
+	(append (list
+	         '(min-height . 1)
+		 '(height     . 45)
+	         '(min-width  . 1)
+		 '(width      . 81)
+		 '(horizontal-scroll-bars)
+		 '(vertical-scroll-bars)
+		 '(internal-border-width . 12)
+		 '(left-fringe    . 1)
+		 '(right-fringe   . 1)
+		 '(tool-bar-lines . 0)
+		 '(menu-bar-lines . 0))))
+  (add-to-list 'default-frame-alist '(undecorated-round . t))
 
   (defun mazd//text-mode-setup ()
     "Enable visual line mode when editing text files."
