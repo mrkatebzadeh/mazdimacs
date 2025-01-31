@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package hyde
   :ensure t
   :commands (hyde)

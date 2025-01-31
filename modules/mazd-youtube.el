@@ -23,9 +23,6 @@
 
 ;;
 
-;;; Code:
-
-
 (use-package helm-youtube
   :after helm
   :defer t)

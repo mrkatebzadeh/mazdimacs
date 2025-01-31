@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
-;; catppuccin-theme
 (use-package catppuccin-theme
   :defer t
   :ensure t

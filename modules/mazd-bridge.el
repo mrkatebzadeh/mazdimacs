@@ -25,13 +25,11 @@
 
 ;;; Code:
 
-;;
 (when (string= mazd//language-server "bridge")
+
   (use-package lsp-bridge
     :ensure t
-    :straight '(lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge"
-			   :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
-			   :build (:not compile))
+    :quelpa (lsp-bridge :fetcher github :repo "manateelazycat/lsp-bridge" :no-update t)
     :init
     (setq lsp-bridge-enable-inlay-hint t)
 
@@ -52,7 +50,3 @@
   )
 (provide 'mazd-bridge)
 ;;; mazd//bridge.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-bridge) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

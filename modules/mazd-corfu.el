@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (when (and (string= mazd//completion "light") (not (string= mazd//language-server "bridge")))
   (use-package corfu
     :defer t

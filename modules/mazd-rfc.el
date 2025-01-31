@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package rfc-mode
   :defer t)
 
@@ -65,9 +58,6 @@
  "q" 'rfc-mode-quit
  "n" 'rfc-mode-forward-page
  "p" 'rfc-mode-backward-page)
-
-
-
 
 (provide 'mazd-rfc)
 ;;; mazd//rfc.el ends here

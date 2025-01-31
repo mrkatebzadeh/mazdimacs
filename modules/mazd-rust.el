@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
-
 ;; (use-package rust-mode
 ;;   :defer t
 ;;   :init
@@ -71,10 +63,8 @@
   (setq rustic-format-on-save t)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
-(straight-use-package
- '(crates :type git :host github :repo "mrkatebzadeh/crates.el")
- )
 (use-package crates
+  :quelpa (crates :fetcher github :repo "mrkatebzadeh/crates.el")
   :ensure nil
   :defer t
   :custom

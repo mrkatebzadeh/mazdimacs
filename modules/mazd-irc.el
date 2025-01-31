@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 ;;;###autoload
 (defun mazd//erc-browse-last-url ()
   "Searchs backwards through an ERC buffer, looking for a URL. When a URL is

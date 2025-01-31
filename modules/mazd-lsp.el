@@ -23,10 +23,6 @@
 
 ;;
 
-;;; Code:
-
-;;; lsp-mode
-
 (when (string= mazd//language-server "lsp")
   (use-package lsp-mode
     :ensure t

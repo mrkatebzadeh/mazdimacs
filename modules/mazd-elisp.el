@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package outshine
   :ensure t
   ;; Easier navigation for source files, especially this one.
@@ -87,8 +80,6 @@
   "e;" 'eval-expression
   "eb" 'eval-buffer
   "ee" 'eval-last-sexp)
-
-
 
 (provide 'mazd-elisp)
 ;;; mazd//elisp.el ends here

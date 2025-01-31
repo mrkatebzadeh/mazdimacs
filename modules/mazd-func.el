@@ -23,12 +23,7 @@
 
 ;;
 
-;;; Code:
-
-;; -*- lexical-binding: t -*-
-(eval-when-compile
-  (require 'cl-lib)
-  (require 'nadvice))
+(require 'nadvice)
 
 (defmacro mazd//require-config-module (feature)
   `(if (fboundp 'mazd//require-config-module-maybe-byte-compile)
@@ -101,7 +96,3 @@
 
 (provide 'mazd-func)
 ;;; mazd//func.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-func) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

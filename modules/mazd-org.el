@@ -23,17 +23,9 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package org
-  ;; :ensure org-contrib
+  :ensure nil
   :defer t
-  :straight (:type built-in)
   :mode ("\\.org$" . org-mode)
   :hook
   (
@@ -353,11 +345,8 @@
   :ensure nil
   :load-path (lambda () (concat mazd//lisp-dir "/org-cv/")))
 
-(straight-use-package
- '(org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
- )
-
 (use-package org-modern-indent
+  :quelpa (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
   :ensure nil
   :defer t
   :config
@@ -914,7 +903,3 @@
 
 (provide 'mazd-org)
 ;;; mazd//org.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-org) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package envrc
   :ensure t
   :defer t
@@ -61,6 +54,8 @@
     :ensure t)
 
   (use-package project-x
+    :ensure t
+    :quelpa (project-x :fetcher github :repo "karthink/project-x" :no-update t)
     :defer t
     :after project
     :config
@@ -68,8 +63,6 @@
     (add-hook 'kill-emacs-hook 'project-x--window-state-write)
     (setq project-switch-commands #'project-x-windows)
     )
-
-
 
   (use-package project
     :init

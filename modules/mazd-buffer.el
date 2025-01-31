@@ -30,14 +30,8 @@
 ;;(like popups, sidebars, log buffers, terminals, etc) by giving the latter a slightly
 ;; different -- often darker -- background
 
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
-(straight-use-package
- '(ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll"))
 (use-package ultra-scroll
+  :quelpa (ultra-scroll :fetcher github :repo "jdtsmith/ultra-scroll" :no-update t)
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
@@ -436,7 +430,3 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (provide 'mazd-buffer)
 ;;; mazd//buffer.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-buffer) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

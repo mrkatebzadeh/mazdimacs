@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package telega
   :commands (telega)
   :custom (semanticdb-default-save-directory (concat mazd//cache-dir "/semanticdb"))

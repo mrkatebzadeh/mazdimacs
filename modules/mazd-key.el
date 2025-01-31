@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-core))
-
-;; evil
 (use-package evil
   :ensure t
   :init
@@ -242,7 +235,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (leader
   "qq" 'mazd//kill-emacs
   "qQ" 'delete-frame)
-
 
 (provide 'mazd-key)
 ;;; mazd//key.el ends here

@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package magit
   :ensure t
   :defer t
@@ -52,13 +45,8 @@
 (use-package git-modes
   :ensure t)
 
-
-(straight-use-package
- '(magit-pretty-graph :type git :host github :repo "georgek/magit-pretty-graph")
- )
-
-
 (use-package magit-pretty-graph
+  :quelpa (magit-pretty-graph :fetcher github :repo "georgek/magit-pretty-graph" :no-update t)
   :ensure nil)
 
 ;;; config
@@ -80,7 +68,3 @@
 
 (provide 'mazd-git)
 ;;; mazd//git.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-git) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package md4rd
   :defer t
   :config
@@ -35,9 +33,6 @@
  :states '(normal visual motion)
  :keymaps 'override
  "r" 'md4rd)
-
-
-
 
 (provide 'mazd-reddit)
 ;;; mazd//reddit.el ends here

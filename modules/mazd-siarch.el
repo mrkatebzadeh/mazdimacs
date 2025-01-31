@@ -23,10 +23,6 @@
 
 ;;
 
-;;; Code:
-
-;;
-
 (defvar siarch-dir (expand-file-name ".siarch" (getenv "HOME"))
   "Directory where the siarch script is located.")
 

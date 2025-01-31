@@ -23,15 +23,6 @@
 
 ;;
 
-;;; Code:
-
-;;
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (when (string= mazd//language-server "eglot")
   (use-package eglot
     :defer t
@@ -74,8 +65,6 @@
     "la" 'eglot-code-actions
     "lf" 'eglot-format
     "lk" 'eldoc-box-help-at-point)
-
-
   )
 (provide 'mazd-eglot)
 ;;; mazd//eglot.el ends here

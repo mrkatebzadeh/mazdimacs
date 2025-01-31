@@ -23,22 +23,15 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package sh-script
   :ensure t
   :defer t
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 
 (use-package aweshell
+  :quelpa (aweshell :fetcher github :repo "manateelazycat/aweshell" :no-update t)
   :ensure nil
   :defer t
-  :load-path (lambda () (concat mazd//lisp-dir "/aweshell/"))
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   :bind
   (("C-\\" . aweshell-dedicated-toggle)))
@@ -74,23 +67,6 @@
 	 dir)))
     (shell-command command)))
 
-(use-package eshell-info-banner
-  :after (eshell)
-  :defer t
-  :straight (eshell-info-banner :build t
-                                :type git
-                                :host github
-                                :protocol ssh
-                                :repo "phundrak/eshell-info-banner.el")
-  :hook (eshell-banner-load . eshell-info-banner-update-banner)
-  :custom-face
-  (eshell-info-banner-normal-face ((t :foreground "#A3BE8C")))
-  (eshell-info-banner-background-face ((t :foreground "#E5E9F0")))
-  (eshell-info-banner-warning-face ((t :foreround "#D08770")))
-  (eshell-info-banner-critical-face ((t :foreground "#BF616A")))
-  :custom
-  (eshell-info-banner-partition-prefixes (list "/dev" "zroot" "tank")))
-
 ;;; bindings
 (general-define-key
  :prefix "SPC"
@@ -108,8 +84,6 @@
  "t" 'eshell-toggle
  "u" 'mazd//update-ticket
  "c" 'mazd//scp-project)
-
-
 
 (provide 'mazd-eshell)
 ;;; mazd//eshell.el ends here

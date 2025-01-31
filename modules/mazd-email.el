@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
-;; mu4e general settings
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (use-package mu4e
   :ensure nil
@@ -379,8 +371,6 @@
 (leader
   "am" 'mazd//mu4e
   "an" 'notmuch)
-
-
 
 (provide 'mazd-email)
 ;;; mazd//email.el ends here

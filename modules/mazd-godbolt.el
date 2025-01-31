@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package rmsbolt
   :ensure t
   :defer t)
@@ -38,8 +36,6 @@
  :keymaps 'rmsbolt-mode-map
  "c" 'rmsbolt-compile
  )
-
-
 
 (provide 'mazd-godbolt)
 ;;; mazd//godbolt.el ends here

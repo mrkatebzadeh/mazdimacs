@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package simple-httpd
   :ensure t
   :defer t

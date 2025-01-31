@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package transmission
   :defer t)
 

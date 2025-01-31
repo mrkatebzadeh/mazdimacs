@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package twittering-mode
   :commands twit
   :defer t
@@ -43,7 +41,6 @@
  :states '(normal visual motion)
  :keymaps 'override
  "t" 'twit)
-
 
 (provide 'mazd-twitter)
 ;;; mazd//twitter.el ends here

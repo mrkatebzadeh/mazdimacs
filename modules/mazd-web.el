@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package web-mode
   :ensure t
   :defer t)

@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package elfeed
   :ensure t
   :defer t

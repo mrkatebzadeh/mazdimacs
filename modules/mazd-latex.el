@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (when (string= mazd//language-server "lsp")
   (use-package lsp-latex
     ;; this uses texlab
@@ -100,9 +93,8 @@
   )
 
 (when (string= mazd//completion "light")
-  (straight-use-package '(consult-bibtex :host github
-					 :repo "mohkale/consult-bibtex"))
   (use-package consult-bibtex
+    :quelpa (consult-bibtex :fetcher github :repo "mohkale/consult-bibtex")
     :ensure nil
     :defer t
     :config

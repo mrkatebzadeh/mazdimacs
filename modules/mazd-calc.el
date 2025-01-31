@@ -25,11 +25,6 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package calc
   :commands calc
   :defer  t)
@@ -51,8 +46,3 @@
 
 (provide 'mazd-calc)
 ;;; mazd//calc.el ends here
-
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-calc) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

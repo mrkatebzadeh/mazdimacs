@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package verilog-mode
   :ensure t
   :defer t

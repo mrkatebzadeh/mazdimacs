@@ -23,17 +23,11 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-key))
-
 (leader
   "hv" 'describe-variable
   "hm" 'describe-mode
   "hf" 'describe-function
   "hk" 'describe-key)
-
 
 (provide 'mazd-help)
 ;;; mazd//help.el ends here

@@ -101,7 +101,3 @@ Must end with a slash.")
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-vars) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package markdown-mode
   :ensure t
   :defer t
@@ -229,8 +222,6 @@
    "p" 'pdf-misc-print-document
    "O" 'pdf-outline
    "n" 'pdf-view-midnight-minor-mode))
-
-
 
 (provide 'mazd-docs)
 ;;; mazd//docs.el ends here

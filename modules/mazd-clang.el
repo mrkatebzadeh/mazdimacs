@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
-
 (use-package srefactor
   :ensure t
   :defer t
@@ -166,7 +158,3 @@
 
 (provide 'mazd-clang)
 ;;; mazd//clang.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-clang) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

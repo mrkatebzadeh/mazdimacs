@@ -25,11 +25,6 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package flymake
   :defer t
   :ensure nil
@@ -141,7 +136,3 @@
 
 (provide 'mazd-checker)
 ;;; mazd//checker.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-checker) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:

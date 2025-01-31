@@ -44,258 +44,146 @@
 ;; Load directory function
 (defun load-directory (dir)
   (let ((load-it (lambda (f)
-		   (load-file (concat (file-name-as-directory dir) f)))
-		 ))
+                   (let ((file-path (concat (file-name-as-directory dir) f)))
+                     (message "Loading: %s" file-path)
+                     (load-file file-path)
+                     (message "Finished loading: %s" file-path)))))
     (mapc load-it (directory-files dir nil "\\.el$"))))
 
-(defun load-modules (dir)
-  (mapcar 'load (directory-files-recursively dir "")))
-
-(eval-and-compile
-  (add-to-list 'load-path (locate-user-emacs-file "modules/"))
-  )
-
-(defun mazd//require-config-module-maybe-byte-compile (feature)
-  (let* ((gc-cons-threshold 800000)
-	 (modules-dir (locate-user-emacs-file "modules/"))
-         (basename (symbol-name feature))
-         (source (expand-file-name (concat basename ".el") modules-dir))
-         (dest (expand-file-name (concat basename ".elc") modules-dir)))
-    (when (or (not (file-exists-p dest))
-              (file-newer-than-file-p source dest))
-      (message "Byte-compiling %s..." basename)
-      (if (if (and nil (require 'async nil t))
-              (async-get
-               (async-start
-                `(lambda ()
-                   (add-to-list 'load-path
-                                (locate-user-emacs-file "modules/"))
-                   (setq load-prefer-newer t)
-                   (require 'config-core)
-                   (require 'config-package)
-                   (byte-compile-file ,source))))
-            (require feature)
-            (byte-compile-file source))
-          (message "Byte-compiling %s...done" basename)
-        (message "Byte-compiling %s...failed" basename))))
-  (require feature))
-
-(defun mazd//require-config-module-force-byte-compile (feature)
-  "Force recompilation of FEATURE before loading it."
-  (let* ((gc-cons-threshold 800000)
-         (modules-dir (locate-user-emacs-file "modules/"))
-         (basename (symbol-name feature))
-         (source (expand-file-name (concat basename ".el") modules-dir)))
-    (if (file-exists-p source)
-        (progn
-          (message "Forcing byte-compilation of %s..." basename)
-          (if (byte-compile-file source)
-              (message "Byte-compiling %s...done" basename)
-            (message "Byte-compiling %s...failed" basename)))
-      (message "Source file %s.el not found in modules directory!" basename)))
-  (require feature))
-
-(defun mazd//maybe-byte-compile-init-el ()
-  (let ((init-elc (concat (file-name-sans-extension user-init-file)
-                          ".elc")))
-    (when (and (file-newer-than-file-p user-init-file init-elc)
-               (not (equal (file-name-extension user-init-file) "eln")))
-      (byte-compile-file user-init-file)
-      (when (and (fboundp 'restart-emacs)
-                 (y-or-n-p (format "%s was newer than %s. Restart?"
-                                   user-init-file
-                                   init-elc)))
-        (restart-emacs)))))
-
-(defun mazd//force-byte-compile ()
-  (interactive)
-  (dolist (feature '(
-		     mazd-vars
-		     mazd-core
-		     mazd-func
-		     mazd-package
-		     mazd-key
-		     mazd-ui
-		     mazd-config
-		     mazd-buffer
-		     mazd-theme
-		     mazd-file
-		     mazd-window
-		     mazd-dashboard
-		     mazd-corfu
-		     mazd-elisp
-		     mazd-consult
-		     mazd-git
-		     mazd-eglot
-		     mazd-eshell
-		     mazd-help
-		     mazd-checker
-		     mazd-org
-		     mazd-python
-		     mazd-latex
-		     mazd-clang
-		     mazd-rust
-		     mazd-nix
-		     mazd-ai
-		     mazd-calc
-		     mazd-calendar
-		     mazd-company
-		     mazd-docker
-		     mazd-docs
-		     mazd-email
-		     mazd-irc
-		     mazd-ledger
-		     mazd-media
-		     mazd-music
-		     mazd-power
-		     mazd-rfc
-		     mazd-search
-		     mazd-snippet
-		     ))
-    (mazd//require-config-module-force-byte-compile feature)))
-
-(global-set-key (kbd "C-c b") #'mazd//force-byte-compile)
-
-(defmacro mazd//require-config-module (feature)
-  `(if (fboundp 'mazd//require-config-module-maybe-byte-compile)
-       (mazd//require-config-module-maybe-byte-compile ,feature)
-     (require ,feature)))
-
-(add-hook 'after-init-hook #'mazd//maybe-byte-compile-init-el)
+(add-to-list 'load-path (locate-user-emacs-file "modules/"))
 
 (message "[               ] vars")
-(mazd//require-config-module 'mazd-vars)
+(require 'mazd-vars)
 ;; (load mazd//vars-file)
 
 (message "[               ] core")
-(mazd//require-config-module 'mazd-core)
+(require 'mazd-core)
 ;; (load mazd//core-file)
 
 (message "[               ] functions")
-(mazd//require-config-module 'mazd-func)
+(require 'mazd-func)
 
 (message "[               ] packages")
-(mazd//require-config-module 'mazd-package)
+(require 'mazd-package)
 
 (message "[=              ] keys")
-(mazd//require-config-module 'mazd-key)
+(require 'mazd-key)
 ;; (load mazd//key-file)
 
 (message "[=              ] ui")
-(mazd//require-config-module 'mazd-ui)
+(require 'mazd-ui)
 ;; (load mazd//ui-file)
 
 (message "[==             ] config")
-(mazd//require-config-module 'mazd-config)
+(require 'mazd-config)
 
 (message "[==             ] buffer")
-(mazd//require-config-module 'mazd-buffer)
+(require 'mazd-buffer)
 
 (message "[===            ] theme")
-(mazd//require-config-module 'mazd-theme)
+(require 'mazd-theme)
 
 (message "[===            ] file")
-(mazd//require-config-module 'mazd-file)
+(require 'mazd-file)
 
 (message "[====           ] window")
-(mazd//require-config-module 'mazd-window)
+(require 'mazd-window)
 
 (message "[====           ] dashboard")
-(mazd//require-config-module 'mazd-dashboard)
+(require 'mazd-dashboard)
 
 (message "[=====          ] corfu")
-(mazd//require-config-module 'mazd-corfu)
+(require 'mazd-corfu)
 
 (message "[======         ] elisp")
-(mazd//require-config-module 'mazd-elisp)
+(require 'mazd-elisp)
 
 (message "[======         ] consult")
-(mazd//require-config-module 'mazd-consult)
+(require 'mazd-consult)
 
 (message "[=======        ] git")
-(mazd//require-config-module 'mazd-git)
+(require 'mazd-git)
 
 (message "[========       ] eglot")
-(mazd//require-config-module 'mazd-eglot)
+(require 'mazd-eglot)
 
 (message "[========       ] eshell")
-(mazd//require-config-module 'mazd-eshell)
+(require 'mazd-eshell)
 
 (message "[=========      ] checker: help")
-(mazd//require-config-module 'mazd-help)
+(require 'mazd-help)
 
 (message "[=========      ] checker: checker")
-(mazd//require-config-module 'mazd-checker)
+(require 'mazd-checker)
 
 (message "[==========     ] org")
-(mazd//require-config-module 'mazd-org)
+(require 'mazd-org)
 
 (message "[===========    ] lang: python")
-(mazd//require-config-module 'mazd-python)
+(require 'mazd-python)
 
 (message "[===========    ] lang: latex")
-(mazd//require-config-module 'mazd-latex)
+(require 'mazd-latex)
 
 (message "[===========    ] lang: c/c++")
-(mazd//require-config-module 'mazd-clang)
+(require 'mazd-clang)
 
 (message "[===========    ] lang: rust")
-(mazd//require-config-module 'mazd-rust)
+(require 'mazd-rust)
 
 (message "[===========    ] lang: nix")
-(mazd//require-config-module 'mazd-nix)
+(require 'mazd-nix)
 
 (message "[============   ] app: ai")
-(mazd//require-config-module 'mazd-ai)
+(require 'mazd-ai)
 
 (message "[============   ] app: calc")
-(mazd//require-config-module 'mazd-calc)
+(require 'mazd-calc)
 
 (message "[============   ] app: calendar")
-(mazd//require-config-module 'mazd-calendar)
+(require 'mazd-calendar)
 
 (message "[============   ] app: company")
-(mazd//require-config-module 'mazd-company)
+(require 'mazd-company)
 
 (message "[============   ] app: docker")
-(mazd//require-config-module 'mazd-docker)
+(require 'mazd-docker)
 
 (message "[============   ] app: docs")
-(mazd//require-config-module 'mazd-docs)
+(require 'mazd-docs)
 
 (message "[============   ] app: email")
-(mazd//require-config-module 'mazd-email)
+(require 'mazd-email)
 
 (message "[============   ] app: irc")
-(mazd//require-config-module 'mazd-irc)
+(require 'mazd-irc)
 
 (message "[============   ] app: ledger")
-(mazd//require-config-module 'mazd-ledger)
+(require 'mazd-ledger)
 
 (message "[============   ] app: media")
-(mazd//require-config-module 'mazd-media)
+(require 'mazd-media)
 
 (message "[============   ] app: music")
-(mazd//require-config-module 'mazd-music)
+(require 'mazd-music)
 
 (message "[============   ] app: power")
-(mazd//require-config-module 'mazd-power)
+(require 'mazd-power)
 
 (message "[============   ] app: rfc")
-(mazd//require-config-module 'mazd-rfc)
+(require 'mazd-rfc)
 
 (message "[============   ] app: search")
-(mazd//require-config-module 'mazd-search)
+(require 'mazd-search)
 
 (message "[============   ] app: snippet")
-(mazd//require-config-module 'mazd-snippet)
+(require 'mazd-snippet)
 
 (message "[=============  ] tramp")
-(mazd//require-config-module 'mazd-tramp)
+(require 'mazd-tramp)
 
 (message "[==============] eshell")
-(mazd//require-config-module 'mazd-tramp)
-
+(require 'mazd-tramp)
 ;; (load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)

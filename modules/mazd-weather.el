@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package wttrin
   :defer t
   :commands (wttrin)

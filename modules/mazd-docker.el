@@ -23,13 +23,6 @@
 
 ;;
 
-;;; Code:
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package dockerfile-mode
   :ensure t
   :defer t
@@ -110,8 +103,6 @@
  "s" 'docker-compose-start
  "S" 'docker-compose-stop
  "u" 'docker-compose-up)
-
-
 
 (provide 'mazd-docker)
 ;;; mazd//docker.el ends here

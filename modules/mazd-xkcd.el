@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (use-package xkcd
   :ensure t
   :defer t

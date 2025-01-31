@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 (when (string= mazd//completion "featured")
   (use-package helm
     :disabled

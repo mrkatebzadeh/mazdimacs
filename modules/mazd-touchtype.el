@@ -39,8 +39,5 @@
  :keymaps 'override
  "s" 'speed-type-text)
 
-
-
-
 (provide 'mazd-touchtype)
 ;;; mazd//touchtype.el ends here

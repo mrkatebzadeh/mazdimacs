@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package engine-mode
   :defer t)
 
@@ -77,8 +69,6 @@
   "sw" 'engine/search-wikipedia
   "sd" 'engine/search-duckduckgo
   "sh" 'engine/search-github)
-
-
 
 (provide 'mazd-search)
 ;;; mazd//search.el ends here

@@ -23,14 +23,6 @@
 
 ;;
 
-;;; Code:
-
-
-(eval-when-compile
-  (require 'mazd-vars)
-  (require 'mazd-key)
-  (require 'mazd-core))
-
 (use-package emacs
   :custom
   ;; Support opening new minibuffers from inside existing minibuffers.
@@ -287,7 +279,3 @@
 
 (provide 'mazd-ui)
 ;;; mazd//ui.el ends here
-
-;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda () (mazd//require-config-module 'mazd-ui) (message "Byte compilation completed for %s" buffer-file-name) ) nil t)
-;; End:
