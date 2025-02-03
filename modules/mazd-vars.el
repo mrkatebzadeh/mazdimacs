@@ -84,7 +84,6 @@ Must end with a slash.")
 (defvar mazd//alpha-variable 90
   "Default transparency level to toggle with 100.")
 
-
 (defvar mazd//completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
@@ -98,6 +97,9 @@ Must end with a slash.")
   (concat mazd//cache-dir "tramp"))
 
 (defvar mazd//icon t)
+
+(defvar mazd//font-default-size 120
+  "Default font size for resetting.")
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here

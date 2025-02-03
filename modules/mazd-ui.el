@@ -56,7 +56,7 @@
   ;; Font
   (set-face-attribute 'default nil
                       :family "FiraCode Nerd Font"
-                      :height 120
+                      :height mazd//font-default-size
                       :weight 'normal
                       :width 'normal)
   (defun mazd//evil-word-syntax-setup ()
@@ -68,28 +68,28 @@
   (global-hl-line-mode +1)
   ;; smooth scroll
   (setq scroll-step 1
-	scroll-conservatively 10000
-	auto-window-vscroll nil)
+	    scroll-conservatively 10000
+	    auto-window-vscroll nil)
   (setq tab-width 4)
   (setq use-file-dialog nil
-	use-dialog-box nil
-	inhibit-startup-screen t
-	inhibit-startup-echo-area-message user-login-name
-	inhibit-default-init t
-	initial-scratch-message nil)
+	    use-dialog-box nil
+	    inhibit-startup-screen t
+	    inhibit-startup-echo-area-message user-login-name
+	    inhibit-default-init t
+	    initial-scratch-message nil)
   (setq default-frame-alist
-	(append (list
-	         '(min-height . 1)
-		 '(height     . 45)
-	         '(min-width  . 1)
-		 '(width      . 81)
-		 '(horizontal-scroll-bars)
-		 '(vertical-scroll-bars)
-		 '(internal-border-width . 12)
-		 '(left-fringe    . 1)
-		 '(right-fringe   . 1)
-		 '(tool-bar-lines . 0)
-		 '(menu-bar-lines . 0))))
+	    (append (list
+	             '(min-height . 1)
+		         '(height     . 45)
+	             '(min-width  . 1)
+		         '(width      . 81)
+		         '(horizontal-scroll-bars)
+		         '(vertical-scroll-bars)
+		         '(internal-border-width . 12)
+		         '(left-fringe    . 1)
+		         '(right-fringe   . 1)
+		         '(tool-bar-lines . 0)
+		         '(menu-bar-lines . 0))))
   (add-to-list 'default-frame-alist '(undecorated-round . t))
 
   (defun mazd//text-mode-setup ()
@@ -275,6 +275,30 @@
 	telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
   (setq telephone-line-height 18
 	telephone-line-evil-use-short-tag nil)
+  )
+
+
+(defun mazd//increase-font-size ()
+  "Increase font size by 1."
+  (interactive)
+  (set-face-attribute 'default nil :height (+ (face-attribute 'default :height) 10)))
+
+(defun mazd//decrease-font-size ()
+  "Decrease font size by 1."
+  (interactive)
+  (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10)))
+
+(defun mazd//reset-font-size ()
+  "Reset font size to default."
+  (interactive)
+  (set-face-attribute 'default nil :height 100)) ;; Change 100 to your default font size
+
+(leader
+  "u" '(:ignore t :which-key "UI")
+  "uf" '(:ignore t :which-key "Font")
+  "ufi" 'mazd//increase-font-size
+  "ufd" 'mazd//decrease-font-size
+  "ufr" 'mazd//reset-font-size
   )
 
 (provide 'mazd-ui)
