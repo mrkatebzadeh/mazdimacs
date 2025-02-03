@@ -131,6 +131,9 @@
 (message "[===========    ] lang: rust")
 (require 'mazd-rust)
 
+(message "[===========    ] lang: zig")
+(require 'mazd-zig)
+
 (message "[===========    ] lang: nix")
 (require 'mazd-nix)
 

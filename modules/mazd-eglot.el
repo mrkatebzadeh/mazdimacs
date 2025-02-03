@@ -32,6 +32,7 @@
             'eldoc-documentation-compose-eagerly))
     :hook ((eglot-managed-mode . mazd//eglot-eldoc))
     :init
+    (add-hook 'zig-mode-hook  'eglot-ensure)
     (add-hook 'rust-mode-hook 'eglot-ensure)
     (add-hook 'nix-mode-hook 'eglot-ensure)
     (add-hook 'python-mode-hook 'eglot-ensure)
