@@ -55,7 +55,7 @@
   (setq display-line-numbers 'relative)
   ;; Font
   (set-face-attribute 'default nil
-                      :family "FiraCode Nerd Font"
+                      :family mazd//font-default-family
                       :height mazd//font-default-size
                       :weight 'normal
                       :width 'normal)
@@ -288,17 +288,30 @@
   (interactive)
   (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10)))
 
-(defun mazd//reset-font-size ()
-  "Reset font size to default."
+(defun mazd//reset-font ()
+  "Reset font size and font family to default values."
   (interactive)
-  (set-face-attribute 'default nil :height 100)) ;; Change 100 to your default font size
+  (set-face-attribute 'default nil
+                      :family mazd//font-default-family
+                      :height mazd//font-default-size
+                      :weight 'normal
+                      :width 'normal)
+  (message "Font reset to %s with size %d" mazd//font-default-family mazd//font-default-size))
+
+(defun mazd//choose-font ()
+  "Prompt user to select a font from available system fonts and apply it."
+  (interactive)
+  (let ((font (completing-read "Choose font: " (font-family-list))))
+    (set-frame-font font t t)
+    (message "Font set to: %s" font)))
 
 (leader
   "u" '(:ignore t :which-key "UI")
   "uf" '(:ignore t :which-key "Font")
   "ufi" 'mazd//increase-font-size
   "ufd" 'mazd//decrease-font-size
-  "ufr" 'mazd//reset-font-size
+  "ufr" 'mazd//reset-font
+  "uff" 'mazd//choose-font
   )
 
 (provide 'mazd-ui)
