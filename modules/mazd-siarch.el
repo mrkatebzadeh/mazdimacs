@@ -34,13 +34,15 @@
 
 (defvar siarch-hostname-params
   '((SiAir . "macbookair")
+    (SiAir.local . "macbookair")
     (shiraz . "shiraz"))
   "Mapping of hostnames to parameters for ./siarch.sh.")
 
 (defun mazd//siarch-rebuild ()
-  "Run ./siarch.sh with different arguments based on the hostname."
+  "Run ./siarch.sh with different arguments based on the selected hostname."
   (interactive)
-  (let* ((hostname (string-trim (shell-command-to-string "hostname")))
+  (let* ((hostnames (mapcar 'car siarch-hostname-params)) ; List of hostnames
+         (hostname (completing-read "Select hostname: " hostnames nil t)) ; Prompt user to select
          (param (cdr (assoc (intern hostname) siarch-hostname-params)))
          (command (when param
                     (concat "cd " siarch-dir " && ./siarch.sh " param)))
@@ -55,9 +57,8 @@
 
           (let ((win (get-buffer-window buf)))
             (unless win
-              (setq win (split-window (selected-window) nil 'below))
+              (setq win (split-window (selected-window) nil 'below)))
 
-	      )
             (set-window-buffer win buf)
             (with-selected-window win
               (setq mode-line-format nil)
@@ -78,6 +79,7 @@
       (message "Buffer *Siarch-output* does not exist."))))
 
 (leader
+  "cs" '(:ignore t :which-key "Siarch")
   "cso" 'mazd//siarch-nix-file
   "csb" 'mazd//siarch-rebuild
   "csc" 'mazd//siarch-cancel)
