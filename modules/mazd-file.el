@@ -227,7 +227,62 @@
     (kbd "<tab>") 'treemacs-RET-action
     (kbd "<RET>") #'treemacs-RET-action
     (kbd "r") 'treemacs-rename-file)
-  (treemacs-project-follow-mode 1))
+  (treemacs-project-follow-mode 1)
+
+  (defun mazd//treemacs-disable-line-numbers ()
+    "Disable line numbers in Treemacs mode."
+    (display-line-numbers-mode -1))
+
+  (add-hook 'treemacs-mode-hook 'mazd//treemacs-disable-line-numbers)
+  (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
+	treemacs-deferred-git-apply-delay      0.1
+	treemacs-display-in-side-window        t
+	treemacs-eldoc-display                 t
+	treemacs-file-event-delay              5
+	treemacs-file-follow-delay             0.01
+	treemacs-follow-after-init             t
+	treemacs-git-command-pipe              ""
+	treemacs-goto-tag-strategy             'refetch-index
+	treemacs-indentation                   1
+	treemacs-indentation-string            " "
+	treemacs-is-never-other-window         nil
+	treemacs-max-git-entries               5000
+	treemacs-missing-project-action        'ask
+	treemacs-no-png-images                 nil
+	treemacs-no-delete-other-windows       t
+	treemacs-project-follow-cleanup        nil
+	treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+	treemacs-recenter-distance             0.1
+	treemacs-recenter-after-file-follow    nil
+	treemacs-recenter-after-tag-follow     nil
+	treemacs-recenter-after-project-jump   'always
+	treemacs-recenter-after-project-expand 'on-distance
+	treemacs-show-cursor                   nil
+	treemacs-show-hidden-files             nil
+	treemacs-silent-filewatch              nil
+	treemacs-silent-refresh                nil
+	treemacs-sorting                       'alphabetic-asc
+	treemacs-space-between-root-nodes      t
+	treemacs-tag-follow-cleanup            nil
+	treemacs-tag-follow-delay              0.05
+	treemacs-width                         30)
+
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode t)
+  (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
+  (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-in-most-recently-used-window)
+  (pcase (cons (not (null (executable-find "git")))
+	       (not (null (executable-find "python3"))))
+    (`(t . t)
+     (treemacs-git-mode 'deferred))
+    (`(t . _)
+     (treemacs-git-mode 'simple)))
+  )
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
 
 (use-package treemacs-nerd-icons
   :ensure t
@@ -315,58 +370,6 @@
 	projectile-enable-caching t
 	projectile-switch-project-action 'helm-projectile-find-file)
   (projectile-global-mode))
-
-(with-eval-after-load 'treemacs
-  (defun mazd//treemacs-disable-line-numbers ()
-    "Disable line numbers in Treemacs mode."
-    (display-line-numbers-mode -1))
-
-  (add-hook 'treemacs-mode-hook 'mazd//treemacs-disable-line-numbers)
-  (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
-	treemacs-deferred-git-apply-delay      0.5
-	treemacs-display-in-side-window        t
-	treemacs-eldoc-display                 t
-	treemacs-file-event-delay              5000
-	treemacs-file-follow-delay             0.01
-	treemacs-follow-after-init             t
-	treemacs-git-command-pipe              ""
-	treemacs-goto-tag-strategy             'refetch-index
-	treemacs-indentation                   1
-	treemacs-indentation-string            " "
-	treemacs-is-never-other-window         nil
-	treemacs-max-git-entries               5000
-	treemacs-missing-project-action        'ask
-	treemacs-no-png-images                 nil
-	treemacs-no-delete-other-windows       t
-	treemacs-project-follow-cleanup        nil
-	treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-	treemacs-recenter-distance             0.1
-	treemacs-recenter-after-file-follow    nil
-	treemacs-recenter-after-tag-follow     nil
-	treemacs-recenter-after-project-jump   'always
-	treemacs-recenter-after-project-expand 'on-distance
-	treemacs-show-cursor                   nil
-	treemacs-show-hidden-files             nil
-	treemacs-silent-filewatch              nil
-	treemacs-silent-refresh                nil
-	treemacs-sorting                       'alphabetic-asc
-	treemacs-space-between-root-nodes      t
-	treemacs-tag-follow-cleanup            nil
-	treemacs-tag-follow-delay              0.05
-	treemacs-width                         28)
-
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode t)
-  (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
-  (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-in-most-recently-used-window)
-  (pcase (cons (not (null (executable-find "git")))
-	       (not (null (executable-find "python3"))))
-    (`(t . t)
-     (treemacs-git-mode 'deferred))
-    (`(t . _)
-     (treemacs-git-mode 'simple))))
-
 
 (defun mazd//rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
