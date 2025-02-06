@@ -29,17 +29,11 @@
         read-process-output-max (* 24 1024 1024)))
 
 ;;; Speed up startup
-(eval-when-compile (require 'cl-lib))
-
 (let ((emacs-start-time (current-time)))
   (add-hook 'emacs-startup-hook
             (lambda ()
               (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
                 (message "[Emacs initialized in %.3fs]" elapsed)))))
-
-;;; Increase gc threshold to speedup starting up
-(setq gc-cons-percentage 0.6)
-(setq gc-cons-threshold most-positive-fixnum)
 
 ;; Load directory function
 (defun load-directory (dir)
@@ -193,10 +187,10 @@
 
 (message "[===============] siarch")
 (require 'mazd-siarch)
-;; (load-modules mazd//modules-dir)
+
 ;;; run server
-(require 'server)
 (unless (server-running-p)
+  (require 'server)
   (server-start))
 (add-to-list 'exec-path "/usr/local/bin/")
 (add-to-list 'exec-path "/usr/local/texlive/2019basic/bin/x86_64-darwin/")
