@@ -27,10 +27,15 @@
   :ensure t
   :defer t
   :init
-  (add-hook 'with-editor-mode-hook 'evil-insert-state))
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  :config
+  (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+  (evil-collection-init 'magit)
+  )
 
 (use-package git-gutter
   :ensure t
+  :defer t
   :hook (prog-mode . git-gutter-mode)
   :config
   (setq git-gutter:update-interval 0.02))
@@ -43,26 +48,19 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 (use-package git-modes
+  :defer t
   :ensure t)
 
 (use-package magit-pretty-graph
+  :defer t
   :quelpa (magit-pretty-graph :fetcher github :repo "georgek/magit-pretty-graph" :no-update t)
   :ensure nil)
 
-;;; config
-(with-eval-after-load 'magit
-  (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
-;; (evil-magit-init))
-
 ;;; bindings
-(with-eval-after-load 'magit
-  (evil-collection-init 'magit))
 
 (leader
   "gs" 'magit-status
-  "gl" 'magit-pg-repo)
-
-(leader
+  "gl" 'magit-pg-repo
   "tg" 'git-gutter-mode)
 
 

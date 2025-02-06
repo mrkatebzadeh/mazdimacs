@@ -40,11 +40,13 @@
 
 (use-package nerd-icons-ibuffer
   :ensure t
+  :defer t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
   :init (setq nerd-icons-ibuffer-icon 'mazd//icon))
 
 (use-package ibuffer-project
   :ensure t
+  :defer t
   :hook (ibuffer . (lambda ()
                      "Group ibuffer's list by project."
                      (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
@@ -86,6 +88,7 @@
   )
 
 (use-package centaur-tabs
+  :disabled t
   :ensure t
   :demand
   :custom

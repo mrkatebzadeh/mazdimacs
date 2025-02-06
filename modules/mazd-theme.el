@@ -222,13 +222,13 @@
     (mazd//setup-code-faces selected-flavor)
     (message "Applied Catppuccin flavor: %s" selected-flavor)))
 
-(setq catppuccin-flavor 'doom)
+(setq catppuccin-flavor 'frappe)
 
 (when (bound-and-true-p telephone-line-mode)
-  (update-telephone-line-theme "doom")
+  (update-telephone-line-theme "frappe")
   )
 
-(mazd//setup-code-faces "doom")
+(mazd//setup-code-faces "frappe")
 ;; transparency
 (defun mazd//toggle-transparency ()
   "Toggle background transparency between `mazd//alpha-variable` and 100."
@@ -242,8 +242,8 @@
 	      100)
 	 `(,mazd//alpha-variable . 50) '(100 . 100)))))
 
-(mazd//toggle-transparency)
-(mazd//toggle-transparency)
+;; (mazd//toggle-transparency)
+;; (mazd//toggle-transparency)
 (mazd//refresh-theme)
 (leader
   "tt" 'mazd//toggle-transparency

@@ -36,6 +36,7 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+(setq use-package-compute-statistics t)
 
 (use-package quelpa
   :ensure t
@@ -48,35 +49,34 @@
 (setq quelpa-update-melpa-p nil)
 
 
-(use-package hydra
-  :ensure t
-  :init
-  (autoload 'hydra-default-pre "hydra"))
-
 (use-package s
-             :ensure t)
+  :defer t
+  :ensure t)
 (use-package f
-             :ensure t)
+  :defer t
+  :ensure t)
 (use-package restart-emacs
-             :ensure t)
+  :defer t
+  :ensure t)
 
 (use-package exec-path-from-shell
-             :ensure t
-:config
-(setq exec-path-from-shell-check-startup-files nil)
+  :defer t
+  :ensure t
+  :config
+  (setq exec-path-from-shell-check-startup-files nil)
 
-:init
-(eval-when-compile
-  (with-demoted-errors "Load error: %s"
-    (require 'exec-path-from-shell)))
+  :init
+  (eval-when-compile
+    (with-demoted-errors "Load error: %s"
+      (require 'exec-path-from-shell)))
 
-(when (memq window-system '(mac ns))
-  (setq exec-path
-        (or (eval-when-compile
-              (require 'cl-lib)
-              (exec-path-from-shell-initialize)
-              (cl-remove-duplicates exec-path :test #'string=))
-            exec-path))))
+  (when (memq window-system '(mac ns))
+    (setq exec-path
+          (or (eval-when-compile
+		(require 'cl-lib)
+		(exec-path-from-shell-initialize)
+		(cl-remove-duplicates exec-path :test #'string=))
+              exec-path))))
 
 (provide 'mazd-package)
 ;;; mazd//package.el ends here

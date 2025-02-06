@@ -185,8 +185,14 @@
 (message "[=============  ] tramp")
 (require 'mazd-tramp)
 
-(message "[==============] eshell")
-(require 'mazd-tramp)
+(message "[============== ] eshell")
+(require 'mazd-eshell)
+
+(message "[============== ] docs")
+(require 'mazd-docs)
+
+(message "[===============] siarch")
+(require 'mazd-siarch)
 ;; (load-modules mazd//modules-dir)
 ;;; run server
 (require 'server)
