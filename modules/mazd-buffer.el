@@ -194,6 +194,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package smart-hungry-delete
   :ensure t
+  :config
+  (smart-hungry-delete-add-default-hooks)
   )
 
 (use-package expand-region
@@ -212,7 +214,10 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package emojify
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-hook 'after-init-hook #'global-emojify-mode)
+  )
 
 (use-package google-this
   :ensure t
@@ -335,21 +340,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 
 
-(with-eval-after-load 'undo-tree
-  (global-undo-tree-mode))
-
-(with-eval-after-load 'smart-hungry-delete
-  (smart-hungry-delete-add-default-hooks))
-
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(with-eval-after-load 'nlinum-relative
-  (setq nlinum-relative-redisplay-delay 0
-	nlinum-relative-current-symbol ""
-	nlinum-relative-offset 1))
-
-(with-eval-after-load 'emojify
-  (add-hook 'after-init-hook #'global-emojify-mode))
 
 ;; (setq browse-url-browser-function 'eww-browse-url
 ;; browse-url-generic-program "firefox")
@@ -368,20 +360,16 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 ;; highlight matches
 (show-paren-mode 1)
 
-;; cycle through line-numbering modes
 (defun mazd//toggle-line-numbers ()
   "Cycle through absolute, relative, and no line numbers."
   (interactive)
   (cond
-   ;; If line numbers are off, turn on absolute line numbers
    ((not display-line-numbers)
     (setq display-line-numbers 't)
     (message "Absolute line numbers"))
-   ;; If absolute line numbers are on, turn on relative line numbers
    ((eq display-line-numbers 't)
     (setq display-line-numbers 'relative)
     (message "Relative line numbers"))
-   ;; If relative line numbers are on, turn them off
    ((eq display-line-numbers 'relative)
     (setq display-line-numbers nil)
     (message "Line numbers off"))))
