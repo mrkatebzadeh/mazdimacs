@@ -24,7 +24,9 @@
 ;;
 
 (use-package evil
+  :defer t
   :ensure t
+  :hook(text-mode . evil-mode)
   :init
   (setq evil-search-module 'evil-search
 	evil-ex-complete-emacs-commands nil
@@ -37,49 +39,51 @@
 	evil-want-keybinding nil)
   ;; This has to be before we invoke evil-mode due to:
   ;; https://github.com/cofi/evil-leader/issues/10
-  (use-package evil-leader
-    :ensure t
-    :init (global-evil-leader-mode))
+  ;; (use-package evil-leader
+  ;; :ensure t
+  ;; :init (global-evil-leader-mode))
   (evil-mode 1)
-  (use-package evil-tex
-    :ensure t
-    :commands (evil-tex-mode)
-    :config
-    (defun mazd//evil-tex-toggle-math ()
-      "Toggle surrounding math between \\(foo\\) and \\=\\[foo\\]."
-      (interactive)
-      (let* ((outer (evil-tex-a-math)) (inner (evil-tex-inner-math))
-             (left-over (make-overlay (car outer) (car inner)))
-             (right-over (make-overlay (cadr inner) (cadr outer))))
-        (save-excursion
-          (goto-char (overlay-start left-over))
-          (cond
-           ((looking-at (regexp-quote "\\("))
-            (evil-tex--overlay-replace left-over  "\\[")
-            (evil-tex--overlay-replace right-over "\\]" )
-            (goto-char (overlay-end right-over))
-            (when (looking-at (rx punct))
-              (let ((match (match-string 0)))
-                (delete-char 1)
-                (goto-char (overlay-start right-over))
-                (insert match))))
-           ((looking-at (regexp-quote "\\["))
-            (evil-tex--overlay-replace left-over  "\\(")
-            (evil-tex--overlay-replace right-over "\\)" )
-            (goto-char (overlay-start right-over))
-            (when (looking-back (rx punct) 1)
-              (let ((match (match-string 0)))
-                (delete-char -1)
-                (goto-char (overlay-end right-over))
-                (insert match))))))
-        (delete-overlay left-over) (delete-overlay right-over)))
+(use-package evil-tex
+  :ensure t
+  :defer t
+  :after(evil latex-mode)
+  :commands (evil-tex-mode)
+  :config
+  (defun mazd//evil-tex-toggle-math ()
+    "Toggle surrounding math between \\(foo\\) and \\=\\[foo\\]."
+    (interactive)
+    (let* ((outer (evil-tex-a-math)) (inner (evil-tex-inner-math))
+           (left-over (make-overlay (car outer) (car inner)))
+           (right-over (make-overlay (cadr inner) (cadr outer))))
+      (save-excursion
+        (goto-char (overlay-start left-over))
+        (cond
+         ((looking-at (regexp-quote "\\("))
+          (evil-tex--overlay-replace left-over  "\\[")
+          (evil-tex--overlay-replace right-over "\\]" )
+          (goto-char (overlay-end right-over))
+          (when (looking-at (rx punct))
+            (let ((match (match-string 0)))
+              (delete-char 1)
+              (goto-char (overlay-start right-over))
+              (insert match))))
+         ((looking-at (regexp-quote "\\["))
+          (evil-tex--overlay-replace left-over  "\\(")
+          (evil-tex--overlay-replace right-over "\\)" )
+          (goto-char (overlay-start right-over))
+          (when (looking-back (rx punct) 1)
+            (let ((match (match-string 0)))
+              (delete-char -1)
+              (goto-char (overlay-end right-over))
+              (insert match))))))
+      (delete-overlay left-over) (delete-overlay right-over)))
 
-    (define-key evil-tex-toggle-map (kbd "m") #'mazd//evil-tex-toggle-math))
+  (define-key evil-tex-toggle-map (kbd "m") #'mazd//evil-tex-toggle-math))
 
-  (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
-  (evil-set-initial-state 'TeX-error-overview-mode 'insert)
+(add-hook 'LaTeX-mode-hook #'evil-tex-mode)
+(evil-set-initial-state 'TeX-error-overview-mode 'insert)
 
-  )
+)
 
 ;; evil-collection
 (use-package evil-collection
@@ -90,6 +94,9 @@
 ;; Display visual hint on evil edit operations
 (use-package evil-goggles
   :ensure t
+  :defer
+  :after(evil)
+  :hook(text-mode . evil-goggles-mode)
   :config
   (evil-goggles-mode)
 
@@ -126,6 +133,7 @@
 
 (use-package multiple-cursors
   :ensure t
+  :defer t
   :commands (mc/mark-lines
              mc/mark-next-lines
              mc/mark-previous-lines

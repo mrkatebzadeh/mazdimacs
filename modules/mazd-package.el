@@ -38,17 +38,6 @@
 (setq use-package-always-ensure t)
 (setq use-package-compute-statistics t)
 
-(use-package quelpa
-  :ensure t
-  )
-
-(use-package quelpa-use-package
-  :ensure t)
-(setq quelpa-checkout-melpa-p nil)
-(setq quelpa-checkout-recipe-archive t)
-(setq quelpa-update-melpa-p nil)
-
-
 (use-package s
   :defer t
   :ensure t)
@@ -64,19 +53,7 @@
   :ensure t
   :config
   (setq exec-path-from-shell-check-startup-files nil)
-
-  :init
-  (eval-when-compile
-    (with-demoted-errors "Load error: %s"
-      (require 'exec-path-from-shell)))
-
-  (when (memq window-system '(mac ns))
-    (setq exec-path
-          (or (eval-when-compile
-		(require 'cl-lib)
-		(exec-path-from-shell-initialize)
-		(cl-remove-duplicates exec-path :test #'string=))
-              exec-path))))
+  )
 
 (provide 'mazd-package)
 ;;; mazd//package.el ends here

@@ -94,7 +94,7 @@
 
 (when (string= mazd//completion "light")
   (use-package consult-bibtex
-    :quelpa (consult-bibtex :fetcher github :repo "mohkale/consult-bibtex")
+    :vc (:fetcher github :repo "mohkale/consult-bibtex")
     :ensure nil
     :defer t
     :config

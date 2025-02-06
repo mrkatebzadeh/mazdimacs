@@ -24,14 +24,9 @@
 ;;
 
 (use-package engine-mode
-  :defer t)
-
-(use-package google-translate
+  :disabled t
   :defer t
-  :commands (google-translate-at-point)
-  :custom (google-translate-default-target-language "fa"))
-
-(with-eval-after-load 'engine-mode
+  :config
   (defengine amazon
     "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
 
@@ -56,7 +51,13 @@
 
   (defengine wikipedia
     "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-    :docstring "Searchin' the wikis."))
+    :docstring "Searchin' the wikis.")
+  )
+
+(use-package google-translate
+  :defer t
+  :commands (google-translate-at-point)
+  :custom (google-translate-default-target-language "fa"))
 
 (leader
   "s" '(:ignore t :which-key "Search")

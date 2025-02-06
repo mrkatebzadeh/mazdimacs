@@ -31,7 +31,7 @@
 ;; different -- often darker -- background
 
 (use-package ultra-scroll
-  :quelpa (ultra-scroll :fetcher github :repo "jdtsmith/ultra-scroll" :no-update t)
+  :vc ( :fetcher github :repo "jdtsmith/ultra-scroll" :no-update t)
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
@@ -88,7 +88,7 @@
   )
 
 (use-package centaur-tabs
-  :disabled t
+  :disabled nil
   :ensure t
   :demand
   :custom
@@ -194,7 +194,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package smart-hungry-delete
   :ensure t
-  :defer nil)
+  )
 
 (use-package expand-region
   :ensure t

@@ -346,7 +346,7 @@
   :load-path (lambda () (concat mazd//lisp-dir "/org-cv/")))
 
 (use-package org-modern-indent
-  :quelpa (org-modern-indent :fetcher github :repo "jdtsmith/org-modern-indent")
+  :vc (:fetcher github :repo "jdtsmith/org-modern-indent")
   :ensure nil
   :defer t
   :config

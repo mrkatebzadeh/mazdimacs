@@ -29,7 +29,7 @@
 
   (use-package lsp-bridge
     :ensure t
-    :quelpa (lsp-bridge :fetcher github :repo "manateelazycat/lsp-bridge" :no-update t)
+    :vc (:fetcher github :repo "manateelazycat/lsp-bridge" :no-update t)
     :init
     (setq lsp-bridge-enable-inlay-hint t)
 

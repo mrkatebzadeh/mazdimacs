@@ -40,7 +40,7 @@
   :custom
   (flymake-indicator-type 'margins)
   (flymake-margin-indicators-string
-   `((error ,(nerd-icons-faicon "nf-fa-remove_sign") compilation-error)
+   `((error ,(nerd-icons-codicon "nf-cod-warning") compilation-error)
      (warning ,(nerd-icons-faicon "nf-fa-warning") compilation-warning)
      (note ,(nerd-icons-faicon "nf-fa-circle_info") compilation-info))))
 

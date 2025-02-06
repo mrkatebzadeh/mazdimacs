@@ -36,11 +36,13 @@
 (use-package git-gutter
   :ensure t
   :defer t
+  :after (git-gutter-fringe)
   :hook (prog-mode . git-gutter-mode)
   :config
-  (setq git-gutter:update-interval 0.02))
+  (setq git-gutter:update-interval 1))
 
 (use-package git-gutter-fringe
+  :defer t
   :ensure t
   :config
   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
@@ -51,16 +53,11 @@
   :defer t
   :ensure t)
 
-(use-package magit-pretty-graph
-  :defer t
-  :quelpa (magit-pretty-graph :fetcher github :repo "georgek/magit-pretty-graph" :no-update t)
-  :ensure nil)
-
 ;;; bindings
 
 (leader
   "gs" 'magit-status
-  "gl" 'magit-pg-repo
+  "gl" 'magit-log-current
   "tg" 'git-gutter-mode)
 
 

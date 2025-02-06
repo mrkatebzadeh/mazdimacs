@@ -68,28 +68,27 @@
   (global-hl-line-mode +1)
   ;; smooth scroll
   (setq scroll-step 1
-	    scroll-conservatively 10000
-	    auto-window-vscroll nil)
-  (setq tab-width 4)
+	scroll-conservatively 10000
+	auto-window-vscroll nil)
   (setq use-file-dialog nil
-	    use-dialog-box nil
-	    inhibit-startup-screen t
-	    inhibit-startup-echo-area-message user-login-name
-	    inhibit-default-init t
-	    initial-scratch-message nil)
+	use-dialog-box nil
+	inhibit-startup-screen t
+	inhibit-startup-echo-area-message user-login-name
+	inhibit-default-init t
+	initial-scratch-message nil)
   (setq default-frame-alist
-	    (append (list
-	             '(min-height . 1)
-		         '(height     . 45)
-	             '(min-width  . 1)
-		         '(width      . 81)
-		         '(horizontal-scroll-bars)
-		         '(vertical-scroll-bars)
-		         '(internal-border-width . 12)
-		         '(left-fringe    . 1)
-		         '(right-fringe   . 1)
-		         '(tool-bar-lines . 0)
-		         '(menu-bar-lines . 0))))
+	(append (list
+	         '(min-height . 1)
+		 '(height     . 45)
+	         '(min-width  . 1)
+		 '(width      . 81)
+		 '(horizontal-scroll-bars)
+		 '(vertical-scroll-bars)
+		 '(internal-border-width . 12)
+		 '(left-fringe    . 1)
+		 '(right-fringe   . 1)
+		 '(tool-bar-lines . 0)
+		 '(menu-bar-lines . 0))))
   (add-to-list 'default-frame-alist '(undecorated-round . t))
 
   (defun mazd//text-mode-setup ()
@@ -205,6 +204,7 @@
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
+
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :defer t
@@ -246,9 +246,10 @@
   :ensure nil)
 
 (use-package page-break-lines
-  :ensure t)
+  :defer t
+  :ensure t
+  :hook (prog-mode . page-break-lines-mode))
 
-;; nerd-icons
 (use-package nerd-icons
   :defer t
   :ensure t

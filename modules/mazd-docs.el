@@ -82,7 +82,7 @@
   :ensure t
   :defer t
   :delight
-  :hook (emacs-lisp-mode . eldoc-mode))
+  :hook (prog-mode . eldoc-mode))
 
 (use-package eldoc-box
   :disabled t

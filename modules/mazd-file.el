@@ -55,7 +55,7 @@
 
   (use-package project-x
     :ensure t
-    :quelpa (project-x :fetcher github :repo "karthink/project-x" :no-update t)
+    :vc (:fetcher github :repo "karthink/project-x" :no-update t)
     :defer t
     :after project
     :config
