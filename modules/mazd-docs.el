@@ -85,12 +85,12 @@
   :hook (prog-mode . eldoc-mode))
 
 (use-package eldoc-box
-  :disabled t
+  ;; :disabled t
   :ensure t
   :defer t
   :init
-  (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
-  ;; :config
+  ;; (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
+  :config
   (custom-set-faces
    '(eldoc-box-body
      ((t (:background "#1e1e1e" :foreground "#ffffff")))))

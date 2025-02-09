@@ -242,8 +242,8 @@
 	      100)
 	 `(,mazd//alpha-variable . 50) '(100 . 100)))))
 
-;; (mazd//toggle-transparency)
-;; (mazd//toggle-transparency)
+(mazd//toggle-transparency)
+(mazd//toggle-transparency)
 (mazd//refresh-theme)
 (leader
   "tt" 'mazd//toggle-transparency

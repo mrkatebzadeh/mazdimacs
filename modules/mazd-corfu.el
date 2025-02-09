@@ -42,6 +42,9 @@
 	      "M-d" #'corfu-show-documentation
 	      "C-g" #'corfu-quit
 	      "M-l" #'corfu-show-location)
+    :hook ((prog-mode . corfu-mode)
+	   (shell-mode . corfu-mode)
+	   (eshell-mode . corfu-mode))
     :custom
     ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
     ;; want to perform completion
@@ -76,9 +79,12 @@
     (corfu-echo-documentation t)        ; Already use corfu-doc
     (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
     :init
-    (global-corfu-mode)
-    (corfu-popupinfo-mode)
+    ;; (global-corfu-mode)
     :config
+    (corfu-popupinfo-mode)
+    (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 2)
+    (custom-set-faces
+     '(corfu-border ((t :background "#8caaee"))))
     ;; Enable Corfu more generally for every minibuffer, as long as no other
     ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
     ;; completion UI. From

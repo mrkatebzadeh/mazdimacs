@@ -188,10 +188,7 @@
 (message "[===============] siarch")
 (require 'mazd-siarch)
 
-;;; run server
-(unless (server-running-p)
-  (require 'server)
-  (server-start))
+
 (add-to-list 'exec-path "/usr/local/bin/")
 (add-to-list 'exec-path "/usr/local/texlive/2019basic/bin/x86_64-darwin/")
 (add-to-list 'exec-path "/Library/TeX/texbin/")

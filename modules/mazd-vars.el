@@ -101,7 +101,7 @@ Must end with a slash.")
 (defvar mazd//font-default-size 120
   "Default font size for resetting.")
 
-(defvar mazd//font-default-family "FiraCode Nerd Font"
+(defvar mazd//font-default-family "FiraCode Nerd Font Propo"
   "Default font family for resetting.")
 
 (provide 'mazd-vars)

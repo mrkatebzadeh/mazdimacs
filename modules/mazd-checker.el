@@ -36,7 +36,8 @@
                         (propertize " "
                                     'face 'default
                                     'display `((margin left-margin)
-                                               (space :width 5))))))
+                                               (space :width 3))))))
+  (setq-default left-margin-width 2 right-margin-width 0)
   :custom
   (flymake-indicator-type 'margins)
   (flymake-margin-indicators-string
