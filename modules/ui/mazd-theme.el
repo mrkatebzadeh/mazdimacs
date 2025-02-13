@@ -229,25 +229,9 @@
   )
 
 (mazd//setup-code-faces "frappe")
-;; transparency
-(defun mazd//toggle-transparency ()
-  "Toggle background transparency between `mazd//alpha-variable` and 100."
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-		    ((numberp (cdr alpha)) (cdr alpha))
-		    ((numberp (cadr alpha)) (cadr alpha)))
-	      100)
-	 `(,mazd//alpha-variable . 50) '(100 . 100)))))
-
-(mazd//toggle-transparency)
-(mazd//toggle-transparency)
 (mazd//refresh-theme)
 (leader
-  "tt" 'mazd//toggle-transparency
-  "tT" 'mazd//list-themes)
+  "uT" 'mazd//list-themes)
 
 
 (provide 'mazd-theme)

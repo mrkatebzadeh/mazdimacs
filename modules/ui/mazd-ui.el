@@ -306,9 +306,19 @@
     (set-frame-font font t t)
     (message "Font set to: %s" font)))
 
+(defun mazd//toggle-transparency ()
+  "Toggle background transparency between `mazd//alpha-variable` and 100."
+  (interactive)
+  (if (and (not (eq (frame-parameter nil 'alpha) 100))
+	   (not (eq (frame-parameter nil 'alpha) nil)))
+      (set-frame-parameter (selected-frame) 'alpha 100)
+    (set-frame-parameter (selected-frame) 'alpha
+			 mazd//alpha-variable)))
+
 (leader
   "u" '(:ignore t :which-key "UI")
   "uf" '(:ignore t :which-key "Font")
+  "ut" 'mazd//toggle-transparency
   "ufi" 'mazd//increase-font-size
   "ufd" 'mazd//decrease-font-size
   "ufr" 'mazd//reset-font
