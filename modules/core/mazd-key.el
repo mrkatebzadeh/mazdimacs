@@ -245,8 +245,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; Exit/restart/reboot/shutdown
 (leader
-  "qQ" 'mazd//kill-emacs
-  "qq" 'delete-frame)
+  "qq" 'mazd//kill-emacs
+  "qQ" 'delete-frame)
 
 (provide 'mazd-key)
 ;;; mazd//key.el ends here

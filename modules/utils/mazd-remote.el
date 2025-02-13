@@ -25,6 +25,7 @@
 
 (use-package ssh-deploy
   :ensure t
+  :defer-incrementally (ssh-deploy)
   :init
   (setq ssh-deploy-revision-folder (concat mazd//cache-dir "ssh-revisions/")
         ssh-deploy-on-explicit-save 1

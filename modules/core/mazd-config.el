@@ -30,7 +30,9 @@
 (defun mazd//init-file ()
   "Open init.el file."
   (interactive)
-  (find-file (concat mazd//emacs-dir "init.el")))
+  ;; (find-file (concat mazd//emacs-dir "init.el"))
+  (find-file "~/.config/emacs/init.el")
+  )
 
 ;;; bindigs
 (leader

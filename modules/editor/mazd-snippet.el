@@ -29,6 +29,7 @@
   :config (yas-reload-all))
 
 (use-package yasnippet-snippets
+  :defer-incrementally (yasnippet-snippets)
   :defer t)
 
 (defun autoinsert-yas-expand()
@@ -37,6 +38,7 @@
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
 (use-package autoinsert
+  :defer-incrementally (autoinsert)
   :defer t
   :init
   (setq auto-insert-query nil)

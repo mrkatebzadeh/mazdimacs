@@ -26,6 +26,7 @@
 (when (string= mazd//language-server "eglot")
   (use-package eglot
     :defer t
+    :defer-incrementally (eglot)
     :preface
     (defun mazd//eglot-eldoc ()
       (setq eldoc-documentation-strategy

@@ -26,6 +26,7 @@
 (when (and (string= mazd//completion "light") (not (string= mazd//language-server "bridge")))
   (use-package corfu
     :defer t
+    :defer-incrementally (corfu)
     :ensure t
     ;; :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
     :general
@@ -123,6 +124,7 @@ default lsp-passthrough."
 
   (use-package cape
     :defer t
+    :defer-incrementally (cape)
     :ensure t
     ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
     ;; Press C-c p ? to for help.

@@ -127,8 +127,8 @@
   :ensure t
   :general
   (:keymaps 'vertico-map
-			"<left>" #'vertico-directory-delete-char
-			"DEL" #'vertico-directory-delete-char)
+	    "<left>" #'vertico-directory-delete-char
+	    "DEL" #'vertico-directory-delete-char)
   :custom
   ;; (vertico-scroll-margin 0) ;; Different scroll margin
   (vertico-count 10) ;; Show more candidates
@@ -226,7 +226,7 @@
   :hook (after-init . vertico-multiform-mode)
   :init
   (setq vertico-multiform-commands
-		'()))
+	'()))
 
 (use-package spacious-padding
   :ensure t
@@ -260,17 +260,28 @@
   :ensure t
   :init
   (doom-modeline-mode 1)
-  (defun mazd//doom-modeline-update ()
-    "Function to add the incremental load progress indicator to doom-modeline."
-    (setq doom-modeline-buffer-file-name
-          (concat (doom-modeline-buffer-file-name)
-                  (mazd//incremental-load-mode-line))))
 
-  (add-hook 'doom-modeline-refresh-hook #'mazd//doom-modeline-update)
   :config
   (setq doom-modeline-height 25)
   (setq doom-modeline-hud nil)
   (setq doom-modeline-window-width-limit 85)
+
+  (doom-modeline-def-segment mazd-incremental-load
+    "A segment displaying the incremental package loading progress."
+    (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
+	(propertize " [✔]" 'face 'success)  ;; Show checkmark when done
+      (propertize (format " %s [%d/%d]"
+			  (or mazd//current-loading-package "")
+                          mazd//incremental-load-progress
+                          mazd//incremental-load-total
+                          )
+                  'face 'warning)))
+  (doom-modeline-def-modeline 'mazd-custom-line
+    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+    '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check
+			    ))  ;; Append the progress indicator
+
+  (doom-modeline-set-modeline 'mazd-custom-line 'default)
   )
 
 (use-package telephone-line

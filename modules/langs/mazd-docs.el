@@ -79,6 +79,7 @@
   :delight "ξ ")
 
 (use-package eldoc
+  :defer-incrementally (eldoc)
   :ensure t
   :defer t
   :delight
@@ -86,6 +87,7 @@
 
 (use-package eldoc-box
   ;; :disabled t
+  :defer-incrementally (eldoc-box)
   :ensure t
   :defer t
   :init
