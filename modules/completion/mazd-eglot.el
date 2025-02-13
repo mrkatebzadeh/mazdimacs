@@ -59,6 +59,12 @@
     (custom-set-faces
      '(eglot-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
     )
+  (use-package eglot-booster
+    :vc (:url "https://github.com/jdtsmith/eglot-booster")
+    :ensure nil
+    :after eglot
+    :config	(eglot-booster-mode))
+
   (leader
     "ld" 'xref-find-definitions
     "lD" 'xref-find-def
