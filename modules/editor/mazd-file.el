@@ -212,145 +212,6 @@
   :hook (dired-mode . nerd-icons-dired-mode))
 
 
-(use-package treemacs
-  :ensure t
-  :defer 5
-  :config
-  (evil-define-key 'normal treemacs-mode-map
-    (kbd "d") 'treemacs-delete-file
-    (kbd "a") 'treemacs-create-file
-    (kbd "A") 'treemacs-create-dir
-    (kbd "R") 'treemacs-refresh
-    (kbd "U") 'treemacs-root-up
-    (kbd "<") 'treemacs-decrease-width
-    (kbd ">") 'treemacs-increase-width
-    (kbd "H") 'treemacs-toggle-show-dotfiles
-    (kbd "<tab>") 'treemacs-RET-action
-    (kbd "<RET>") #'treemacs-RET-action
-    (kbd "r") 'treemacs-rename-file)
-  (treemacs-project-follow-mode 1)
-
-  (defun mazd//treemacs-disable-line-numbers ()
-    "Disable line numbers in Treemacs mode."
-    (display-line-numbers-mode -1))
-
-  (add-hook 'treemacs-mode-hook 'mazd//treemacs-disable-line-numbers)
-  (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
-	treemacs-deferred-git-apply-delay      0.1
-	treemacs-display-in-side-window        t
-	treemacs-eldoc-display                 t
-	treemacs-file-event-delay              5
-	treemacs-file-follow-delay             0.01
-	treemacs-follow-after-init             t
-	treemacs-git-command-pipe              ""
-	treemacs-goto-tag-strategy             'refetch-index
-	treemacs-indentation                   1
-	treemacs-indentation-string            " "
-	treemacs-is-never-other-window         nil
-	treemacs-max-git-entries               5000
-	treemacs-missing-project-action        'ask
-	treemacs-no-png-images                 nil
-	treemacs-no-delete-other-windows       t
-	treemacs-project-follow-cleanup        nil
-	treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-	treemacs-recenter-distance             0.1
-	treemacs-recenter-after-file-follow    nil
-	treemacs-recenter-after-tag-follow     nil
-	treemacs-recenter-after-project-jump   'always
-	treemacs-recenter-after-project-expand 'on-distance
-	treemacs-show-cursor                   nil
-	treemacs-show-hidden-files             nil
-	treemacs-silent-filewatch              nil
-	treemacs-silent-refresh                nil
-	treemacs-sorting                       'alphabetic-asc
-	treemacs-space-between-root-nodes      t
-	treemacs-tag-follow-cleanup            nil
-	treemacs-tag-follow-delay              0.05
-	treemacs-width                         30)
-
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode t)
-  (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
-  (treemacs-define-RET-action 'file-node-open #'treemacs-visit-node-in-most-recently-used-window)
-  (pcase (cons (not (null (executable-find "git")))
-	       (not (null (executable-find "python3"))))
-    (`(t . t)
-     (treemacs-git-mode 'deferred))
-    (`(t . _)
-     (treemacs-git-mode 'simple)))
-  )
-
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
-
-(use-package treemacs-nerd-icons
-  :defer t
-  :ensure t
-  :init
-  (with-eval-after-load (if (string= mazd//language-server "lsp") 'lsp-treemacs 'treemacs)
-    (require 'treemacs-nerd-icons))
-  :config
-  (treemacs-load-theme "nerd-icons")
-  )
-
-(use-package treemacs-evil
-  :ensure t
-  :after (treemacs evil)
-  :defer t
-  )
-
-(when (string= mazd//completion "featured")
-  (use-package treemacs-projectile
-    :after (treemacs projectile)
-    :defer t))
-
-(when (string= mazd//language-server "lsp")
-  (use-package lsp-treemacs
-    :ensure t
-    :after (treemacs)
-    ;; :defer t
-    :custom
-    (lsp-treemacs-theme "nerd-icons-ext"))
-
-  (use-package lsp-treemacs-nerd-icons
-    :ensure nil
-    :defer t
-    :init (with-eval-after-load 'lsp-treemacs
-	    (require 'lsp-treemacs-nerd-icons)))
-  )
-
-;;;###autoload
-(defun mazd//treemacs-toggle ()
-  "Initialize or toggle treemacs.
-
-Ensures that only the current project is present and all other projects have
-been removed.
-
-Use `treemacs' command for old functionality."
-  (interactive)
-  (require 'treemacs)
-  (pcase (treemacs-current-visibility)
-    (`visible (delete-window (treemacs-get-local-window)))
-    (_ (let ((project (treemacs--find-current-user-project)))
-         (if (and project (not (file-equal-p project "~")))
-             (treemacs-add-and-display-current-project-exclusively)
-           (message "No valid project in current buffer; opening last treemacs session")
-           (treemacs))))))
-
-
-(use-package treemacs-icons-dired
-  :ensure t
-  :after (treemacs dired)
-  :defer t
-  :config (treemacs-icons-dired-mode))
-
-(use-package treemacs-magit
-  :ensure t
-  :after (treemacs magit)
-  :defer t)
-
 (use-package direnv
   :defer t
   :ensure t
@@ -735,11 +596,7 @@ Signals an error if there is no current project."
   "ad" 'dired)
 
 (leader
-  "tf" 'treemacs)
-
-(leader
   "fb" 'bookmark-jump
-  "fe" 'mazd//treemacs-toggle
   "fR" '(:ignore t :which-key "rename")
   "fRf" 'mazd//rename-file
   "fRb" 'mazd//rename-current-buffer-file
@@ -765,10 +622,6 @@ Signals an error if there is no current project."
   "fa" 'mazd//count-words-analysis
   "pv" 'mazd//reload-dir-locals)
 
-(when (string= mazd//language-server "lsp")
-  (leader
-    "lt" 'lsp-treemacs-errors-list)
-  )
 
 (provide 'mazd-file)
 ;;; mazd//file.el ends here

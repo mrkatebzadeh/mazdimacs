@@ -31,6 +31,7 @@
 (require 'mazd-search)
 (require 'mazd-snippet)
 (require 'mazd-help)
+(require 'mazd-treemacs)
 
 (provide 'editor)
 ;;; editor.el ends here
