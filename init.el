@@ -45,152 +45,31 @@
     (mapc load-it (directory-files dir nil "\\.el$"))))
 
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
+(defun mazd//load-modules-with-progress ()
+  "Load specified modules in order, displaying a progress bar."
+  (let ((modules '("core" "ui" "editor" "langs" "utils" "completion"))
+        (total 6)
+        (count 0))
+    (dolist (mod modules)
+      (setq count (1+ count))
+      (let* ((dir (expand-file-name mod (locate-user-emacs-file "modules/")))
+             (entry-file (expand-file-name "init.el" dir)))
+        (when (file-directory-p dir)
+          (add-to-list 'load-path dir)
+          (when (file-exists-p entry-file)
+            (message "[%s] Loading %s..." (mazd//generate-progress-bar count total) mod)
+            (load entry-file))))))
+  (message "All modules loaded!"))
 
-(message "[               ] vars")
-(require 'mazd-vars)
-;; (load mazd//vars-file)
+(defun mazd//generate-progress-bar (current total)
+  "Generate a simple text-based progress bar."
+  (let* ((width 20)
+         (progress (floor (* (/ (float current) total) width)))
+         (bar (concat (make-string progress ?█)
+                      (make-string (- width progress) ?-))))
+    (format "%s %d/%d" bar current total)))
 
-(message "[               ] core")
-(require 'mazd-core)
-;; (load mazd//core-file)
-
-(message "[               ] functions")
-(require 'mazd-func)
-
-(message "[               ] packages")
-(require 'mazd-package)
-
-(message "[=              ] keys")
-(require 'mazd-key)
-;; (load mazd//key-file)
-
-(message "[=              ] ui")
-(require 'mazd-ui)
-;; (load mazd//ui-file)
-
-(message "[==             ] config")
-(require 'mazd-config)
-
-(message "[==             ] buffer")
-(require 'mazd-buffer)
-
-(message "[===            ] theme")
-(require 'mazd-theme)
-
-(message "[===            ] file")
-(require 'mazd-file)
-
-(message "[====           ] window")
-(require 'mazd-window)
-
-(message "[====           ] dashboard")
-(require 'mazd-dashboard)
-
-(message "[=====          ] corfu")
-(require 'mazd-corfu)
-
-(message "[======         ] elisp")
-(require 'mazd-elisp)
-
-(message "[======         ] consult")
-(require 'mazd-consult)
-
-(message "[=======        ] git")
-(require 'mazd-git)
-
-(message "[========       ] eglot")
-(require 'mazd-eglot)
-
-(message "[========       ] lsp")
-(require 'mazd-lsp)
-
-(message "[========       ] eshell")
-(require 'mazd-eshell)
-
-(message "[=========      ] checker: help")
-(require 'mazd-help)
-
-(message "[=========      ] checker: checker")
-(require 'mazd-checker)
-
-(message "[==========     ] org")
-(require 'mazd-org)
-
-(message "[===========    ] lang: python")
-(require 'mazd-python)
-
-(message "[===========    ] lang: latex")
-(require 'mazd-latex)
-
-(message "[===========    ] lang: c/c++")
-(require 'mazd-clang)
-
-(message "[===========    ] lang: rust")
-(require 'mazd-rust)
-
-(message "[===========    ] lang: zig")
-(require 'mazd-zig)
-
-(message "[===========    ] lang: nix")
-(require 'mazd-nix)
-
-(message "[============   ] app: ai")
-(require 'mazd-ai)
-
-(message "[============   ] app: calc")
-(require 'mazd-calc)
-
-(message "[============   ] app: calendar")
-(require 'mazd-calendar)
-
-(message "[============   ] app: company")
-(require 'mazd-company)
-
-(message "[============   ] app: docker")
-(require 'mazd-docker)
-
-(message "[============   ] app: docs")
-(require 'mazd-docs)
-
-(message "[============   ] app: email")
-(require 'mazd-email)
-
-(message "[============   ] app: irc")
-(require 'mazd-irc)
-
-(message "[============   ] app: ledger")
-(require 'mazd-ledger)
-
-(message "[============   ] app: media")
-(require 'mazd-media)
-
-(message "[============   ] app: music")
-(require 'mazd-music)
-
-(message "[============   ] app: power")
-(require 'mazd-power)
-
-(message "[============   ] app: rfc")
-(require 'mazd-rfc)
-
-(message "[============   ] app: search")
-(require 'mazd-search)
-
-(message "[============   ] app: snippet")
-(require 'mazd-snippet)
-
-(message "[=============  ] tramp")
-(require 'mazd-tramp)
-
-(message "[============== ] eshell")
-(require 'mazd-eshell)
-
-(message "[============== ] docs")
-(require 'mazd-docs)
-
-(message "[===============] siarch")
-(require 'mazd-siarch)
-
+(mazd//load-modules-with-progress)
 
 (add-to-list 'exec-path "/usr/local/bin/")
 (add-to-list 'exec-path "/usr/local/texlive/2019basic/bin/x86_64-darwin/")

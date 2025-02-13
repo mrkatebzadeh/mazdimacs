@@ -29,7 +29,7 @@
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 
 (use-package aweshell
-  :vc (:fetcher github :repo "manateelazycat/aweshell" :no-update t)
+  :vc (:url "https://github.com/manateelazycat/aweshell.git")
   :ensure nil
   :defer t
   :commands (aweshell-toggle aweshell-dedicated-toggle)

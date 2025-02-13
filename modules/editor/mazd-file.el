@@ -55,7 +55,7 @@
 
   (use-package project-x
     :ensure t
-    :vc (:fetcher github :repo "karthink/project-x" :no-update t)
+    :vc (:url "https://github.com/karthink/project-x.git")
     :defer t
     :after project
     :config
@@ -221,6 +221,7 @@
     (kbd "a") 'treemacs-create-file
     (kbd "A") 'treemacs-create-dir
     (kbd "R") 'treemacs-refresh
+    (kbd "U") 'treemacs-root-up
     (kbd "<") 'treemacs-decrease-width
     (kbd ">") 'treemacs-increase-width
     (kbd "H") 'treemacs-toggle-show-dotfiles
@@ -285,8 +286,11 @@
   :ensure t)
 
 (use-package treemacs-nerd-icons
+  :defer t
   :ensure t
-  :after (treemacs nerd-icons)
+  :init
+  (with-eval-after-load (if (string= mazd//language-server "lsp") 'lsp-treemacs 'treemacs)
+    (require 'treemacs-nerd-icons))
   :config
   (treemacs-load-theme "nerd-icons")
   )

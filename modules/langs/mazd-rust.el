@@ -64,7 +64,7 @@
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
 (use-package crates
-  :vc (:fetcher github :repo "mrkatebzadeh/crates.el")
+  :vc (:url "https://github.com/mrkatebzadeh/crates.el.git")
   :ensure nil
   :defer t
   :custom

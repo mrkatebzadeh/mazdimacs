@@ -94,7 +94,7 @@
 
 (when (string= mazd//completion "light")
   (use-package consult-bibtex
-    :vc (:fetcher github :repo "mohkale/consult-bibtex")
+    :vc (:url "https://github.com/mohkale/consult-bibtex.git")
     :ensure nil
     :defer t
     :config
@@ -132,9 +132,9 @@
   (add-hook 'LaTeX-mode-hook
 	    '(lambda()
 	       (define-key LaTeX-mode-map "\C-c\C-a" ; 'a' for ask
-		 (lambda (arg) (interactive "P")
-		   (let ((TeX-command-force nil))
-		     (TeX-command-master arg)))))))
+			   (lambda (arg) (interactive "P")
+			     (let ((TeX-command-force nil))
+			       (TeX-command-master arg)))))))
 
 (with-eval-after-load 'reftex
   (setq reftex-cite-prompt-optional-args t))

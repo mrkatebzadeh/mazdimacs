@@ -31,7 +31,7 @@
 ;; different -- often darker -- background
 
 (use-package ultra-scroll
-  :vc ( :fetcher github :repo "jdtsmith/ultra-scroll" :no-update t)
+  :vc ( :url "https://github.com/jdtsmith/ultra-scroll.git")
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
