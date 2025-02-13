@@ -309,18 +309,36 @@
 (when (string= mazd//language-server "lsp")
   (use-package lsp-treemacs
     :ensure t
-    :after (lsp-mode treemacs)
-    :defer t
+    :after (treemacs)
+    ;; :defer t
     :custom
     (lsp-treemacs-theme "nerd-icons-ext"))
 
   (use-package lsp-treemacs-nerd-icons
     :ensure nil
     :defer t
-    ;; HACK: Load after the `lsp-treemacs' created default themes
     :init (with-eval-after-load 'lsp-treemacs
 	    (require 'lsp-treemacs-nerd-icons)))
   )
+
+;;;###autoload
+(defun mazd//treemacs-toggle ()
+  "Initialize or toggle treemacs.
+
+Ensures that only the current project is present and all other projects have
+been removed.
+
+Use `treemacs' command for old functionality."
+  (interactive)
+  (require 'treemacs)
+  (pcase (treemacs-current-visibility)
+    (`visible (delete-window (treemacs-get-local-window)))
+    (_ (let ((project (treemacs--find-current-user-project)))
+         (if (and project (not (file-equal-p project "~")))
+             (treemacs-add-and-display-current-project-exclusively)
+           (message "No valid project in current buffer; opening last treemacs session")
+           (treemacs))))))
+
 
 (use-package treemacs-icons-dired
   :ensure t
@@ -698,7 +716,7 @@ Compare them on count first,and in case of tie sort them alphabetically."
 
 (leader
   "fb" 'bookmark-jump
-  "fe" 'treemacs
+  "fe" 'mazd//treemacs-toggle
   "fR" '(:ignore t :which-key "rename")
   "fRf" 'mazd//rename-file
   "fRb" 'mazd//rename-current-buffer-file
