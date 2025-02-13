@@ -200,6 +200,7 @@
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
+  :defer-incrementally (embark vertico orderless consult marginalia)
   :defer t
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
@@ -257,7 +258,15 @@
 
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1)
+  :init
+  (doom-modeline-mode 1)
+  (defun mazd//doom-modeline-update ()
+    "Function to add the incremental load progress indicator to doom-modeline."
+    (setq doom-modeline-buffer-file-name
+          (concat (doom-modeline-buffer-file-name)
+                  (mazd//incremental-load-mode-line))))
+
+  (add-hook 'doom-modeline-refresh-hook #'mazd//doom-modeline-update)
   :config
   (setq doom-modeline-height 25)
   (setq doom-modeline-hud nil)

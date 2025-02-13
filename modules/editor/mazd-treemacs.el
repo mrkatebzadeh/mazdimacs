@@ -97,7 +97,7 @@ Use `treemacs' command for old functionality."
   )
 
 (use-package treemacs-magit
-  :after (treemacs magit)
+  :defer-incrementally (treemacs magit)
   :ensure t)
 
 (use-package treemacs-nerd-icons

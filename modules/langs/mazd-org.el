@@ -26,6 +26,7 @@
 (use-package org
   :ensure nil
   :defer t
+  :defer-incrementally (org-roam org-agenda)
   :mode ("\\.org$" . org-mode)
   :hook
   (
@@ -348,6 +349,7 @@
 (use-package org-modern-indent
   :vc (:url "https://github.com/jdtsmith/org-modern-indent.git")
   :ensure nil
+  :defer-incrementally (org )
   :defer t
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))

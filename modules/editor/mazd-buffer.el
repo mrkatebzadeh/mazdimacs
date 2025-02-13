@@ -23,8 +23,6 @@
 
 ;;
 
-;;; Code:
-
 ;; solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers
 ;; (i.e. file-visiting code buffers where you do most of your work) from "unreal" buffers
 ;;(like popups, sidebars, log buffers, terminals, etc) by giving the latter a slightly
@@ -117,7 +115,7 @@
   (setq centaur-tabs-gray-out-icons 'buffer)
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-height 20)
-  (setq centaur-tabs-set-bar 'left)
+  ;; (setq centaur-tabs-set-bar 'left)
   (setq x-underline-at-descent-line t)
   (setq centaur-tabs-set-close-button t)
   (setq centaur-tabs-set-modified-marker t)
@@ -154,9 +152,9 @@
   (defun centaur-tabs-buffer-groups ()
     "`centaur-tabs-buffer-groups' control buffers' group rules.
 
-Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
-All buffer name start with * will group to \"Emacs\".
-Other buffer group by `centaur-tabs-get-group-name' with project name."
+  Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+  All buffer name start with * will group to \"Emacs\".
+  Other buffer group by `centaur-tabs-get-group-name' with project name."
     (list
      (cond
       ;; ((not (eq (file-remote-p (buffer-file-name)) nil))
@@ -176,18 +174,18 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
       ((derived-mode-p 'dired-mode)
        "Dired")
       ((memq major-mode '(helpful-mode
-                          help-mode))
+			  help-mode))
        "Help")
       ((memq major-mode '(org-mode
-                          org-agenda-clockreport-mode
-                          org-src-mode
-                          org-agenda-mode
-                          org-beamer-mode
-                          org-indent-mode
-                          org-bullets-mode
-                          org-cdlatex-mode
-                          org-agenda-log-mode
-                          diary-mode))
+			  org-agenda-clockreport-mode
+			  org-src-mode
+			  org-agenda-mode
+			  org-beamer-mode
+			  org-indent-mode
+			  org-bullets-mode
+			  org-cdlatex-mode
+			  org-agenda-log-mode
+			  diary-mode))
        "OrgMode")
       (t
        (centaur-tabs-get-group-name (current-buffer))))))
