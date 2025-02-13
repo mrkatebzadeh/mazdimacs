@@ -88,7 +88,6 @@
   )
 
 (use-package centaur-tabs
-  :disabled nil
   :ensure t
   :demand
   :custom

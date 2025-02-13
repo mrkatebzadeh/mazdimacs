@@ -87,7 +87,7 @@ Must end with a slash.")
 (defvar mazd//completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
-(defvar mazd//language-server "eglot"
+(defvar mazd//language-server "lsp"
   "Language server frameworks: eglot, lsp, or bridge")
 
 (defvar mazd//tramp-backup-directory

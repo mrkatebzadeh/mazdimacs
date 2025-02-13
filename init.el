@@ -101,6 +101,9 @@
 (message "[========       ] eglot")
 (require 'mazd-eglot)
 
+(message "[========       ] lsp")
+(require 'mazd-lsp)
+
 (message "[========       ] eshell")
 (require 'mazd-eshell)
 

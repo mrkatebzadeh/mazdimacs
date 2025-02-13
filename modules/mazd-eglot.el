@@ -43,10 +43,11 @@
     ;; (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
     :config
     (add-to-list 'eglot-server-programs
-		 `(rust-mode . ("rust-analyzer" :initializationOptions
-				( :procMacro (:enable t)
-				  :cargo ( :buildScripts (:enable t)
-                                           :features "all")))))
+		 `((rust-mode rust-ts-mode) . ("rust-analyzer" :initializationOptions
+					       ( :procMacro (:enable t)
+						 :cargo ( :buildScripts (:enable t)
+							  :features "all")))))
+
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (add-to-list 'eglot-server-programs
 		 `(python-mode
