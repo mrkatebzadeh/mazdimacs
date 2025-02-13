@@ -67,6 +67,14 @@
   :vc (:url "https://github.com/mrkatebzadeh/crates.el.git")
   :ensure nil
   :defer t
+  :init
+  (defun enable-crates-mode-if-cargo-toml ()
+    "Enable `crates-mode` only if the buffer is Cargo.toml."
+    (when (and (buffer-file-name)
+               (string-equal (file-name-nondirectory (buffer-file-name)) "Cargo.toml"))
+      (require 'crates)))
+
+  (add-hook 'find-file-hook #'enable-crates-mode-if-cargo-toml)
   :custom
   (crates-checkmark-symbol " ")
   (crates-warning-symbol " "))
