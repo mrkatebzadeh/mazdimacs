@@ -42,13 +42,16 @@
   (setq pulsar-pulse t)
   (setq pulsar-delay 0.055)
   (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-magenta)
+  (setq pulsar-face 'pulsar-blue)
   (setq pulsar-highlight-face 'pulsar-yellow)
   (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
   (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
   (add-hook 'next-error-hook #'pulsar-pulse-line)
   (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
-  (pulsar-global-mode 1))
+  (set-face-attribute 'pulsar-blue nil :background "#8caaee")
+
+  (pulsar-global-mode 1)
+  )
 
 (use-package nerd-icons-ibuffer
   :ensure t
