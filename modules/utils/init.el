@@ -23,7 +23,6 @@
 
 ;;
 
-
 (require 'mazd-dashboard)
 (require 'mazd-eshell)
 (require 'mazd-ai)
@@ -38,6 +37,7 @@
 (require 'mazd-rfc)
 (require 'mazd-tramp)
 (require 'mazd-siarch)
+(require 'mazd-remote)
 
 (provide 'utils)
 ;;; utils.el ends here
