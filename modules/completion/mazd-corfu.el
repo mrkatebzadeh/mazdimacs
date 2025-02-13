@@ -82,9 +82,9 @@
     ;; (global-corfu-mode)
     :config
     (corfu-popupinfo-mode)
-    (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 2)
-    (custom-set-faces
-     '(corfu-border ((t :background "#8caaee"))))
+    ;; (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 2)
+    ;; (custom-set-faces
+    ;; '(corfu-border ((t :background "#8caaee"))))
     ;; Enable Corfu more generally for every minibuffer, as long as no other
     ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
     ;; completion UI. From
@@ -111,15 +111,15 @@ default lsp-passthrough."
   (use-package nerd-icons-corfu
     :ensure t
     :after (corfu nerd-icons)
-    :defer t
+    :init
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
     :config
     (setq erd-icons-corfu-mapping
 	  '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
 	    (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
 	    ;; ...
 	    (t :style "cod" :icon "code" :face font-lock-warning-face)))
-    ;; Remember to add an entry for `t', the library uses that as default.
-    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+    )
 
   (use-package cape
     :defer t
