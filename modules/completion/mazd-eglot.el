@@ -26,7 +26,6 @@
 (when (string= mazd//language-server "eglot")
   (use-package eglot
     :defer t
-    :defer-incrementally (eglot)
     :preface
     (defun mazd//eglot-eldoc ()
       (setq eldoc-documentation-strategy
@@ -61,6 +60,7 @@
      '(eglot-inlay-hint-face ((t (:height 0.9 :inherit shadow :slant italic)))))
     )
   (use-package eglot-booster
+    :disabled t
     :vc (:url "https://github.com/jdtsmith/eglot-booster")
     :ensure nil
     :after eglot

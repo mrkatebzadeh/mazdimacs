@@ -23,7 +23,35 @@
 
 ;;
 
+;;;###autoload
+(defun +corfu/smart-sep-toggle-escape ()
+  "Insert `corfu-separator' or toggle escape if it's already there."
+  (interactive)
+  (cond ((and (char-equal (char-before) corfu-separator)
+	      (char-equal (char-before (1- (point))) ?\\))
+         (save-excursion (delete-char -2)))
+        ((char-equal (char-before) corfu-separator)
+         (save-excursion (backward-char 1)
+                         (insert-char ?\\)))
+        (t (call-interactively #'corfu-insert-separator))))
+
+;;;###autoload
+(defun mazd//toggle-auto-complete (&optional interactive)
+  "Toggle as-you-type completion in Corfu."
+  (interactive (list 'interactive))
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when corfu-mode
+        (if corfu-auto
+            (remove-hook 'post-command-hook #'corfu--auto-post-command 'local)
+          (add-hook 'post-command-hook #'corfu--auto-post-command nil 'local)))))
+  (when interactive
+    (message "Corfu auto-complete %s" (if corfu-auto "disabled" "enabled")))
+  (setq corfu-auto (not corfu-auto)))
+
 (when (and (string= mazd//completion "light") (not (string= mazd//language-server "bridge")))
+
+
   (use-package corfu
     :defer t
     :defer-incrementally (corfu)
@@ -90,6 +118,7 @@
     ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
     ;; completion UI. From
     ;; https://github.com/minad/corfu#completing-with-corfu-in-the-minibuffer
+    (add-to-list 'corfu-continue-commands #'+corfu/smart-sep-toggle-escape)
     (defun corfu-enable-always-in-minibuffer ()
       "Enable Corfu in the minibuffer if Vertico/Mct are not active."
       (unless (or (bound-and-true-p mct--active) ; Useful if I ever use MCT
@@ -124,7 +153,6 @@ default lsp-passthrough."
 
   (use-package cape
     :defer t
-    :defer-incrementally (cape)
     :ensure t
     ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
     ;; Press C-c p ? to for help.
