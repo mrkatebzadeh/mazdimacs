@@ -27,7 +27,6 @@
 
   (use-package consult
     :ensure t
-    :defer-incrementally (consult)
     :defer t
     :commands
     (consult-grep

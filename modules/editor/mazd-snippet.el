@@ -26,10 +26,11 @@
 (use-package yasnippet
   :defer t
   :commands (yas-minor-mode)
-  :config (yas-reload-all))
+  :config (yas-reload-all)
+  (yas-global-mode))
 
 (use-package yasnippet-snippets
-  :defer-incrementally (yasnippet-snippets)
+  :defer-incrementally (yasnippet)
   :defer t)
 
 (defun autoinsert-yas-expand()

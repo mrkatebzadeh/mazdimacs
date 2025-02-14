@@ -153,6 +153,7 @@
 ;; `orderless' completion style.
 (use-package orderless
   :defer t
+  :after vertico
   :ensure t
   :custom
   ;; Configure a custom style dispatcher (see the Consult wiki)
@@ -181,17 +182,7 @@
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
 
-  ;; Show the Embark target at point via Eldoc. You may adjust the
-  ;; Eldoc strategy, if you want to see the documentation from
-  ;; multiple providers. Beware that using this can be a little
-  ;; jarring since the message shown in the minibuffer can be more
-  ;; than one line, causing the modeline to move up and down:
-
-  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-
   :config
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -200,7 +191,6 @@
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :defer-incrementally (embark vertico orderless consult marginalia)
   :defer t
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
@@ -269,17 +259,25 @@
   (doom-modeline-def-segment mazd-incremental-load
     "A segment displaying the incremental package loading progress."
     (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
-	(propertize " [✔]" 'face 'success)  ;; Show checkmark when done
+	(progn
+          ;; Schedule removal after 3 seconds
+          (run-at-time 3 nil
+                       (lambda ()
+			 (doom-modeline-def-modeline 'mazd-custom-line
+                           '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+                           '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+			 (doom-modeline-set-modeline 'mazd-custom-line 'default)
+			 (force-mode-line-update)))
+          (propertize " [✔]" 'face 'success))  ;; Show checkmark when done
       (propertize (format " %s [%d/%d]"
-			  (or mazd//current-loading-package "")
+                          (or mazd//current-loading-package "")
                           mazd//incremental-load-progress
-                          mazd//incremental-load-total
-                          )
+                          mazd//incremental-load-total)
                   'face 'warning)))
+
   (doom-modeline-def-modeline 'mazd-custom-line
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-    '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check
-			    ))  ;; Append the progress indicator
+    '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
 
   (doom-modeline-set-modeline 'mazd-custom-line 'default)
   )

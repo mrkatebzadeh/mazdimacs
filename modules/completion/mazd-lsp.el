@@ -147,7 +147,6 @@
     "lD" 'lsp-ui-peek-find-implementation
     "lR" 'lsp-ui-peek-find-references
     "lr" 'lsp-rename
-    "lt" 'flycheck-list-errors
     "la" 'lsp-execute-code-action
     "lf" 'format-all-buffer
     "lk" 'lsp-ui-doc-glance)

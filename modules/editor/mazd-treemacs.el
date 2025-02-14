@@ -125,7 +125,6 @@ Use `treemacs' command for old functionality."
   (use-package lsp-treemacs
     :ensure t
     :after (treemacs)
-    ;; :defer t
     :custom
     (lsp-treemacs-theme "nerd-icons-ext"))
 
