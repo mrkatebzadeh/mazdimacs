@@ -23,11 +23,25 @@
 
 ;;
 
+(use-package helpful
+  :ensure t
+  :defer t
+  :commands (helpful-callable
+	     helpful-variable
+	     helpful-key
+	     helpful-mode
+	     helpful-macro
+	     helpful-function
+	     helpful-command))
 (leader
-  "hv" 'describe-variable
-  "hm" 'describe-mode
-  "hf" 'describe-function
-  "hk" 'describe-key)
+  "hv" 'helpful-variable
+  "hm" 'helpful-mode
+  "hf" 'helpful-function
+  "hk" 'helpful-key
+  "hc" 'helpful-command
+  "hC" 'helpful-callable
+  "hm" 'helpful-macro
+  )
 
 (provide 'mazd-help)
 ;;; mazd//help.el ends here
