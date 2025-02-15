@@ -23,6 +23,14 @@
 
 ;;
 
+(use-package auto-dim-other-buffers
+  :disabled t
+  :ensure t
+  :if (display-graphic-p)
+  :config
+  (auto-dim-other-buffers-mode t)
+  )
+
 (use-package catppuccin-theme
   :defer t
   :ensure t
