@@ -28,21 +28,16 @@
   (setq process-adaptive-read-buffering nil
         read-process-output-max (* 24 1024 1024)))
 
-;;; Speed up startup
-(let ((emacs-start-time (current-time)))
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
-                (message "[Emacs initialized in %.3fs]" elapsed)))))
+(setq mazd//emacs-started nil)
 
-;; Load directory function
-(defun load-directory (dir)
-  (let ((load-it (lambda (f)
-                   (let ((file-path (concat (file-name-as-directory dir) f)))
-                     (message "Loading: %s" file-path)
-                     (load-file file-path)
-                     (message "Finished loading: %s" file-path)))))
-    (mapc load-it (directory-files dir nil "\\.el$"))))
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (message "[Emacs loaded in %s with %d garbage collections.]"
+		     (format "%.2f seconds"
+			     (float-time
+			      (time-subtract after-init-time before-init-time)))
+		     gcs-done)
+	    (setq mazd//emacs-started t)))
 
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
 (defun mazd//load-modules-with-progress ()
@@ -86,13 +81,7 @@
 (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin/"))
 
 
-;; after started up, reset GC threshold to normal.
-(run-with-idle-timer 4 nil
-                     (lambda ()
-                       "Clean up gc."
-                       (setq gc-cons-threshold  67108864) ; 64M
-                       (setq gc-cons-percentage 0.1) ; original value
-                       (garbage-collect)))
+
 (provide 'init)
 
 ;;; init.el ends here

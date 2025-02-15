@@ -153,7 +153,15 @@ afterwards."
                              first-idle-timer)
                            nil #'mazd//load-packages-incrementally
                            packages t)
-              (setq packages nil))))))))
+              (setq packages nil)
+	      ;; after started up, reset GC threshold to normal.
+	      (run-with-idle-timer 4 nil
+				   (lambda ()
+				     "Clean up gc."
+				     (setq gc-cons-threshold  67108864) ; 64M
+				     (setq gc-cons-percentage 0.1) ; original value
+				     (garbage-collect)))
+	      )))))))
 
 (defun mazd//load-packages-incrementally-h ()
   "Begin incrementally loading packages in `mazd//incremental-packages'.
