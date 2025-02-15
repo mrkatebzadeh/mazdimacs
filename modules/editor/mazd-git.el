@@ -26,6 +26,7 @@
 (use-package magit
   :ensure t
   :defer t
+  :defer-incrementally (magit)
   :init
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
   :config
@@ -53,7 +54,6 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 (use-package git-modes
-  :defer-incrementally (magit)
   :defer t
   :ensure t)
 

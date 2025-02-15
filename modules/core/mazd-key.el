@@ -43,6 +43,31 @@
   ;; :ensure t
   ;; :init (global-evil-leader-mode))
   (evil-mode 1)
+
+
+  (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
+  (evil-set-initial-state 'TeX-error-overview-mode 'insert)
+  ;; Redo
+  (evil-set-undo-system 'undo-redo)
+  (when (fboundp #'undo-tree-undo)
+    (evil-set-undo-system 'undo-tree))
+  )
+
+;; evil-collection
+(use-package evil-collection
+  :ensure t
+  :init
+  (evil-collection-init))
+
+(use-package evil-goggles
+  :ensure t
+  :defer
+  :after(evil)
+  :hook(text-mode . evil-goggles-mode)
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
+
 (use-package evil-tex
   :ensure t
   :defer t
@@ -80,33 +105,23 @@
 
   (define-key evil-tex-toggle-map (kbd "m") #'mazd//evil-tex-toggle-math))
 
-(add-hook 'LaTeX-mode-hook #'evil-tex-mode)
-(evil-set-initial-state 'TeX-error-overview-mode 'insert)
-
-)
-
-;; evil-collection
-(use-package evil-collection
+(use-package evil-quickscope
   :ensure t
-  :init
-  (evil-collection-init))
-
-;; Display visual hint on evil edit operations
-(use-package evil-goggles
-  :ensure t
-  :defer
-  :after(evil)
-  :hook(text-mode . evil-goggles-mode)
+  :after evil
   :config
-  (evil-goggles-mode)
+  :hook ((prog-mode . turn-on-evil-quickscope-mode)
+	 (LaTeX-mode . turn-on-evil-quickscope-mode)
+	 (org-mode . turn-on-evil-quickscope-mode)))
 
-  ;; optionally use diff-mode's faces; as a result, deleted text
-  ;; will be highlighed with `diff-removed` face which is typically
-  ;; some red color (as defined by the color theme)
-  ;; other faces such as `diff-added` will be used for other actions
-  (evil-goggles-use-diff-faces))
+(use-package evil-numbers
+  :ensure t
+  :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-pt)
+  :init
+  (general-define-key
+   :states 'motion
+   "g+" 'evil-numbers/inc-at-pt
+   "g-" 'evil-numbers/dec-at-pt))
 
-;; general
 (use-package general
   :ensure t
   :config
@@ -185,8 +200,7 @@
   :prefix "SPC"
   :global-prefix "A-SPC")
 
-;; Redo
-(evil-set-undo-system 'undo-redo)
+
 ;; Esc
 ;;;(global-set-key [escape] 'keyboard-quit)
 (defun minibuffer-keyboard-quit ()
@@ -199,21 +213,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
-(defun mazd//kill-emacs ()
-  "Check for unsaved file buffers before exiting Emacs."
-  (interactive)
-  (let ((unsaved-buffers
-         (cl-loop for buf in (buffer-list)
-                  for filename = (buffer-file-name buf)
-                  when (and filename (buffer-modified-p buf))
-                  collect buf)))
-    (if unsaved-buffers
-        (if (y-or-n-p (format "There are %d unsaved file buffers. Save them before exiting? " (length unsaved-buffers)))
-            (progn
-              (save-some-buffers t)  ;; Save all unsaved buffers
-              (kill-emacs))          ;; Then exit Emacs
-          (message "Exit aborted."))
-      (kill-emacs))))
+
 
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
@@ -223,30 +223,24 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
+
 ;; leader file
 (leader
   "" '(nil :which-key "My lieutenant general prefix")
   "f" '(:ignore t :which-key "Files")
-  "c" '(:ignore t :which-key "Config Files")
   "o" '(:ignore t :which-key "Org")
   "a" '(:ignore t :which-key "Applications")
   "g" '(:ignore t :which-key "Magit")
   "m" '(:ignore t :which-key "EMMS")
-  "l" '(:ignore t :which-key "Local Bindings")
+  "k" '(:ignore t :which-key "Local Bindings")
   "b" '(:ignore t :which-key "Buffers")
   "h" '(:ignore t :which-key "Help!")
   "v" '(:ignore t :which-key "Volume")
   "w" '(:ignore t :which-key "Windows")
-  "q" '(:ignore t :which-key "Quit")
   "t" '(:ignore t :which-key "Toggles")
 
   "x" 'execute-extended-command
   )
-
-;; Exit/restart/reboot/shutdown
-(leader
-  "qq" 'mazd//kill-emacs
-  "qQ" 'delete-frame)
 
 (provide 'mazd-key)
 ;;; mazd//key.el ends here

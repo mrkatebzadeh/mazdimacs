@@ -94,5 +94,6 @@
        (or (featurep 'nerd-icons)
 	   (require 'nerd-icons nil t))))
 
+
 (provide 'mazd-func)
 ;;; mazd//func.el ends here

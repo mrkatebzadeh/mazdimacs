@@ -80,8 +80,6 @@
 (setenv "PATH" (concat (getenv "PATH") ":~/.nix-profile/bin/"))
 (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin/"))
 
-
-
 (provide 'init)
 
 ;;; init.el ends here

@@ -34,8 +34,31 @@
   (find-file "~/.config/emacs/init.el")
   )
 
+
+(defun mazd//kill-emacs ()
+  "Check for unsaved file buffers before exiting Emacs."
+  (interactive)
+  (let ((unsaved-buffers
+         (cl-loop for buf in (buffer-list)
+                  for filename = (buffer-file-name buf)
+                  when (and filename (buffer-modified-p buf))
+                  collect buf)))
+    (if unsaved-buffers
+        (if (y-or-n-p (format "There are %d unsaved file buffers. Save them before exiting? " (length unsaved-buffers)))
+            (progn
+              (save-some-buffers t)
+              (kill-emacs))
+          (message "Exit aborted."))
+      (kill-emacs))))
+
 ;;; bindigs
 (leader
+  "q" '(:ignore t :which-key "Quit")
+  "qq" 'mazd//kill-emacs
+  "qQ" 'delete-frame)
+
+(leader
+  "c" '(:ignore t :which-key "Configs")
   "cc" 'mazd//init-file
   "ct" 'try)
 
