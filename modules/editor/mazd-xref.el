@@ -1,4 +1,4 @@
-;;; editor.el --- Buffer -*- lexical-binding: t; -*-
+;;; mazd-xref.el --- Xref -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,17 +23,16 @@
 
 ;;
 
-(require 'mazd-buffer)
-(require 'mazd-file)
-(require 'mazd-window)
-(require 'mazd-git)
-(require 'mazd-checker)
-(require 'mazd-search)
-(require 'mazd-snippet)
-(require 'mazd-help)
-(require 'mazd-treemacs)
-(require 'mazd-xref)
-(require 'mazd-undo)
+(use-package xref
+  :ensure nil)
 
-(provide 'editor)
-;;; editor.el ends here
+(general-define-key
+ :states 'motion
+ "gD" 'xref-find-definitions-other-window
+ "gr" 'xref-find-references
+ "gd" 'evil-goto-definition
+ "gx" 'xref-find-apropos
+ )
+
+(provide 'mazd-xref)
+;;; mazd-xref.el ends here

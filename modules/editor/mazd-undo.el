@@ -1,4 +1,4 @@
-;;; editor.el --- Buffer -*- lexical-binding: t; -*-
+;;; mazd-undo.el --- Undo -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,17 +23,22 @@
 
 ;;
 
-(require 'mazd-buffer)
-(require 'mazd-file)
-(require 'mazd-window)
-(require 'mazd-git)
-(require 'mazd-checker)
-(require 'mazd-search)
-(require 'mazd-snippet)
-(require 'mazd-help)
-(require 'mazd-treemacs)
-(require 'mazd-xref)
-(require 'mazd-undo)
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree)
+  (setq undo-tree-visualizer-diff t)
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-auto-save-history nil)
+  (fset 'undo-auto-amalgamate 'ignore)
+  (setq undo-limit 6710886400)
+  (setq undo-strong-limit 100663296)
+  (setq undo-outer-limit 1006632960))
 
-(provide 'editor)
-;;; editor.el ends here
+
+(leader
+  "u" 'undo-tree-visualize)
+
+(provide 'mazd-undo)
+;;; mazd-undo.el ends here
