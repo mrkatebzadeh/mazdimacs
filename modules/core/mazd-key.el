@@ -23,6 +23,21 @@
 
 ;;
 
+(use-package general
+  :ensure t
+  :config
+  (setq general-override-states '(insert
+                                  emacs
+                                  hybrid
+                                  normal
+                                  visual
+                                  motion
+                                  operator
+                                  replace))
+  (general-override-mode)
+  (general-auto-unbind-keys)
+  )
+
 (use-package evil
   :defer t
   :ensure t
@@ -122,20 +137,6 @@
    "g+" 'evil-numbers/inc-at-pt
    "g-" 'evil-numbers/dec-at-pt))
 
-(use-package general
-  :ensure t
-  :config
-  (setq general-override-states '(insert
-                                  emacs
-                                  hybrid
-                                  normal
-                                  visual
-                                  motion
-                                  operator
-                                  replace))
-  (general-override-mode)
-  (general-auto-unbind-keys)
-  )
 
 (use-package kkp
   :ensure t
