@@ -38,7 +38,7 @@
 
 
 (leader
-  "u" 'undo-tree-visualize)
+  "uu" 'undo-tree-visualize)
 
 (provide 'mazd-undo)
 ;;; mazd-undo.el ends here

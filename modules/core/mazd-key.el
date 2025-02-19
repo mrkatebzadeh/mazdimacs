@@ -81,7 +81,9 @@
   :hook(text-mode . evil-goggles-mode)
   :config
   (evil-goggles-mode)
-  (evil-goggles-use-diff-faces))
+  (evil-goggles-use-diff-faces)
+  (setq evil-goggles-duration 0.200)
+  )
 
 (use-package evil-tex
   :ensure t
