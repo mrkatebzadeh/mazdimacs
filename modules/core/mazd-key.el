@@ -76,9 +76,7 @@
 
 (use-package evil-goggles
   :ensure t
-  :defer
-  :after(evil)
-  :hook(text-mode . evil-goggles-mode)
+  :after (evil)
   :config
   (evil-goggles-mode)
   (evil-goggles-use-diff-faces)
