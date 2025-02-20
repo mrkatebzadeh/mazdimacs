@@ -24,6 +24,7 @@
 ;;
 
 (require 'mazd-vars)
+(require 'mazd-settings)
 (require 'mazd-core)
 (require 'mazd-func)
 (require 'mazd-package)

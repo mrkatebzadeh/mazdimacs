@@ -218,26 +218,26 @@
 
 
 
+(defun mazd//apply-theme ()
+  "Apply the current theme stored in `mazd//theme`."
+  (setq catppuccin-flavor (intern mazd//theme))
+
+  (when (bound-and-true-p telephone-line-mode)
+    (update-telephone-line-theme mazd//theme))
+
+  (mazd//setup-code-faces mazd//theme)
+  (mazd//refresh-theme)
+  (message "Applied Catppuccin flavor: %s" mazd//theme))
+
 (defun mazd//list-themes ()
   "List available Catppuccin flavors and apply the selected one."
   (interactive)
   (let* ((selected-flavor (completing-read "Select a flavor: " (mapcar 'symbol-name catppuccin-flavor-list))))
-    (setq catppuccin-flavor (intern selected-flavor))
-    (when (bound-and-true-p telephone-line-mode)
-      (update-telephone-line-theme selected-flavor)
-      )
-    (mazd//refresh-theme)
-    (mazd//setup-code-faces selected-flavor)
-    (message "Applied Catppuccin flavor: %s" selected-flavor)))
+    (setq mazd//theme selected-flavor)
+    (mazd//apply-theme)))
 
-(setq catppuccin-flavor 'frappe)
+(mazd//apply-theme)
 
-(when (bound-and-true-p telephone-line-mode)
-  (update-telephone-line-theme "frappe")
-  )
-
-(mazd//setup-code-faces "frappe")
-(mazd//refresh-theme)
 (leader
   "uT" 'mazd//list-themes)
 

@@ -53,12 +53,7 @@
   ;; linenumber
   (global-display-line-numbers-mode 1)
   (setq display-line-numbers 'relative)
-  ;; Font
-  (set-face-attribute 'default nil
-                      :family mazd//font-default-family
-                      :height mazd//font-default-size
-                      :weight 'normal
-                      :width 'normal)
+
   (defun mazd//evil-word-syntax-setup ()
     "Treat underscores as part of a word in Evil mode."
     (modify-syntax-entry ?_ "w"))
@@ -335,29 +330,38 @@ targets."
 (defun mazd//increase-font-size ()
   "Increase font size by 1."
   (interactive)
-  (set-face-attribute 'default nil :height (+ (face-attribute 'default :height) 10)))
+  (setq mazd//font-size (+ mazd//font-size 10))
+  (mazd//apply-font-properties))
 
 (defun mazd//decrease-font-size ()
   "Decrease font size by 1."
   (interactive)
-  (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10)))
+  (setq mazd//font-size (- mazd//font-size 10))
+  (mazd//apply-font-properties))
 
 (defun mazd//reset-font ()
   "Reset font size and font family to default values."
   (interactive)
-  (set-face-attribute 'default nil
-                      :family mazd//font-default-family
-                      :height mazd//font-default-size
-                      :weight 'normal
-                      :width 'normal)
+  (setq mazd//font-family mazd//font-default-family)
+  (setq mazd//font-size mazd//font-default-size)
+  (mazd//apply-font-properties)
   (message "Font reset to %s with size %d" mazd//font-default-family mazd//font-default-size))
 
 (defun mazd//choose-font ()
   "Prompt user to select a font from available system fonts and apply it."
   (interactive)
   (let ((font (completing-read "Choose font: " (font-family-list))))
-    (set-frame-font font t t)
+    (setq mazd//font-family font)
+    (mazd//apply-font-properties)
     (message "Font set to: %s" font)))
+
+(defun mazd//apply-font-properties ()
+  "Apply the current values of font properties."
+  (set-face-attribute 'default nil
+                      :family mazd//font-family
+                      :height mazd//font-size
+                      :weight 'normal
+                      :width 'normal))
 
 (defun mazd//toggle-transparency ()
   "Toggle background transparency between `mazd//alpha-variable` and 100."
@@ -367,6 +371,8 @@ targets."
       (set-frame-parameter (selected-frame) 'alpha 100)
     (set-frame-parameter (selected-frame) 'alpha
 			 mazd//alpha-variable)))
+
+(mazd//apply-font-properties)
 
 (leader
   "u" '(:ignore t :which-key "UI")

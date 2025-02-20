@@ -79,16 +79,10 @@ Must end with a slash.")
 (defvar mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
   "Directory to save desktop sessions.")
 
+(defvar mazd//variable-storage-file (concat mazd//cache-dir "mazd-vars.el")
+      "File to store variable values." )
+
 (setq org-directory     "~/Dropbox/org")
-
-(defvar mazd//alpha-variable 90
-  "Default transparency level to toggle with 100.")
-
-(defvar mazd//completion "light"
-  "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
-
-(defvar mazd//language-server "eglot"
-  "Language server frameworks: eglot, lsp, or bridge")
 
 (defvar mazd//tramp-backup-directory
   (concat mazd//cache-dir "tramp-backups/"))
@@ -96,13 +90,6 @@ Must end with a slash.")
 (defvar mazd//tramp
   (concat mazd//cache-dir "tramp"))
 
-(defvar mazd//icon t)
-
-(defvar mazd//font-default-size 120
-  "Default font size for resetting.")
-
-(defvar mazd//font-default-family "FiraCode Nerd Font Propo"
-  "Default font family for resetting.")
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here
