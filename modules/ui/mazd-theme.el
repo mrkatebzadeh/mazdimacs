@@ -67,8 +67,8 @@
 		      (surface1 . "#454e4e")
 		      (surface0 . "#292f2f")
 		      (base . "#23282b")
-		      (mantle . "#1d2124")
-		      (crust . "#17191b")))
+		      (mantle . "#23282b")
+		      (crust . "#23282b")))
 
 (let ((existing-flavor (assoc 'doom catppuccin-flavor-alist)))
   (if existing-flavor
