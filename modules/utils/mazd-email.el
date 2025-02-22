@@ -178,7 +178,7 @@
 	message-kill-buffer-on-exit 't
 	mu4e-maildir-shortcuts
 	'(("/gmail/INBOX" . ?g)
-	  ("/staff/INBOX" . ?s)))
+	  ("/uoe/INBOX" . ?s)))
   (let ((dir "~/Downloads"))
     (when (file-directory-p dir)
       (setq mu4e-attachment-dir dir)))
@@ -211,7 +211,7 @@
        (mu4e-drafts-folder "/uoe/Drafts")
        (mu4e-trash-folder "/uoe/Trash")
        (user-mail-address "m.r.katebzadeh@ed.ac.uk")
-       (user-full-name "KATEBZADEH Siavash")
+       (user-full-name "M.R. Siavash Katebzadeh")
        )))
   ;; set account
   (defun mu4e-set-account ()
@@ -235,7 +235,7 @@
   ;; msmtp
   (setq message-send-mail-function 'message-send-mail-with-sendmail
 	sendmail-program (executable-find "msmtp")
-	user-full-name "Siavash Katebzadeh")
+	user-full-name "M.R. Siavash Katebzadeh")
   (defun choose-msmtp-account ()
     (if (message-mail-p)
 	(save-excursion
@@ -247,9 +247,9 @@
 		(cond
 		 ((string-match "mr.katebzadeh@gmail.com" from) "gmail")
 		 ((string-match "mrkatebzadeh.com" from) "gmail")
-		 ((string-match "m.r.katebzadeh@ed.ac.uk" from) "staff")
-		 ((string-match "s1691546@ed.ac.uk" from) "staff")
-		 ((string-match "s1691546@staffmail.ed.ac.uk" from) "staff"))))
+		 ((string-match "m.r.katebzadeh@ed.ac.uk" from) "uoe")
+		 ((string-match "kmohamma@ed.ac.uk" from) "staff")
+		 ((string-match "m.r.katebzadeh@ed.ac.uk" from) "uoe"))))
 	    (setq message-sendmail-extra-arguments (list '"-a" account))))))
   (setq message-sendmail-envelope-from 'header)
   (add-hook 'message-send-mail-hook 'choose-msmtp-account)
@@ -265,7 +265,7 @@
 				 "M.R. Siavash Katebzadeh\n"
 				 ))
 			       ("informal" .
-				"Best regards,\nSiavash\n")))))
+				"Best,\nSiavash\n")))))
       (message-insert-signature)))
   (add-hook 'mu4e-compose-mode-hook
 	    (lambda () (local-set-key (kbd "C-c C-w") #'mu4e-choose-signature)))
