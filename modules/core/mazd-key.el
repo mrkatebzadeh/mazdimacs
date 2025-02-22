@@ -145,6 +145,7 @@
   (global-kkp-mode +1))
 
 (use-package which-key
+  :diminish t
   :ensure t
   :defer t
   :init

@@ -165,6 +165,7 @@
   (savehist-mode))
 
 (use-package embark
+  :disabled t
   :ensure t
   :defer t
   :bind
@@ -221,6 +222,7 @@ targets."
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
+  :disabled t
   :defer t
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
@@ -287,27 +289,27 @@ targets."
   (setq doom-modeline-window-width-limit 85)
 
   (doom-modeline-def-segment mazd-incremental-load
-    "A segment displaying the incremental package loading progress."
-    (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
-	(progn
-          ;; Schedule removal after 3 seconds
-          (run-at-time 3 nil
-                       (lambda ()
-			 (doom-modeline-def-modeline 'mazd-custom-line
-                           '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-                           '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
-			 (doom-modeline-set-modeline 'mazd-custom-line 'default)
-			 (force-mode-line-update)))
-          (propertize " [✔]" 'face 'success))  ;; Show checkmark when done
-      (propertize (format " %s [%d/%d]"
-                          (or mazd//current-loading-package "")
-                          mazd//incremental-load-progress
-                          mazd//incremental-load-total)
-                  'face 'warning)))
+			     "A segment displaying the incremental package loading progress."
+			     (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
+				 (progn
+				   ;; Schedule removal after 3 seconds
+				   (run-at-time 3 nil
+						(lambda ()
+						  (doom-modeline-def-modeline 'mazd-custom-line
+									      '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+									      '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+						  (doom-modeline-set-modeline 'mazd-custom-line 'default)
+						  (force-mode-line-update)))
+				   (propertize " [✔]" 'face 'success))  ;; Show checkmark when done
+			       (propertize (format " %s [%d/%d]"
+						   (or mazd//current-loading-package "")
+						   mazd//incremental-load-progress
+						   mazd//incremental-load-total)
+					   'face 'warning)))
 
   (doom-modeline-def-modeline 'mazd-custom-line
-    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-    '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+			      '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+			      '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
 
   (doom-modeline-set-modeline 'mazd-custom-line 'default)
   )

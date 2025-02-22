@@ -24,6 +24,7 @@
 ;;
 
 (use-package yasnippet
+  :diminish t
   :defer t
   :commands (yas-minor-mode)
   :config (yas-reload-all)

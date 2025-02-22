@@ -53,7 +53,7 @@
 (defvar mazd//incremental-load-total 1
   "Total number of packages to load incrementally. Set this dynamically.")
 
-(defvar mazd//current-loading-package nil
+(defvar mazd//current-loading-package ""
   "The current package being loaded.")
 
 (defun mazd//incremental-load-update (package-name)
@@ -64,6 +64,7 @@
 
 (defun mazd//incremental-load-mode-line ()
   "Return a string displaying the incremental package loading progress."
+  (message (format "Loading: %s out of $" mazd//incremental-load-progress mazd//incremental-load-total))
   (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
       " [✔]"
     (format " [%d/%d] %s"
@@ -72,8 +73,8 @@
             mazd//current-loading-package)))
 
 ;; Add to mode-line
-(setq-default mode-line-format
-              (append mode-line-format '((:eval (mazd//incremental-load-mode-line)))))
+;; (setq-default mode-line-format
+;; (append mode-line-format '((:eval (mazd//incremental-load-mode-line)))))
 
 (defvar mazd//incremental-packages '(t)
   "A list of packages to load incrementally after startup. Any large packages
