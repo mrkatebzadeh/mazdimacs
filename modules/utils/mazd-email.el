@@ -349,23 +349,27 @@
   )
 
 (with-eval-after-load 'mu4e
-  (leader
-    :mode 'mu4e-compose-mode
-    "kk" 'message-kill-buffer
-    "kw" 'message-send
-    "ks" 'mu4e-choose-signature
-    )
+  (general-define-key
+   :prefix "SPC k"
+   :states '(normal visual motion)
+   :keymaps 'mu4e-compose-mode-map
+   "k" 'message-kill-buffer
+   "w" 'message-send
+   "s" 'mu4e-choose-signature
+   )
   (evil-collection-init 'mu4e)
   (when (string= mazd//completion "featured")
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'helm-mu)
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'helm-mu-contacts))
 
   (when (string= mazd//completion "light")
-    (leader
-      :mode 'mu4e-compose-mode
-      "kc" 'consult-mu-contacts
-      "ka" 'consult-mu-compose-attach
-      "kd" 'consult-mu-compose-detach)
+    (general-define-key
+     :prefix "SPC k"
+     :states '(normal visual motion)
+     :keymaps 'mu4e-compose-mode-map
+     "c" 'consult-mu-contacts
+     "a" 'consult-mu-compose-attach
+     "d" 'consult-mu-compose-detach)
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'consult-mu-async)
     (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'consult-mu))
   )
