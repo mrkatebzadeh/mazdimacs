@@ -94,6 +94,17 @@
        (or (featurep 'nerd-icons)
 	   (require 'nerd-icons nil t))))
 
+(defun mazd//read-encrypted-file (file)
+  "Decrypt a GPG-encrypted file and return its contents as a string."
+  (let ((full-path (expand-file-name file)))  ;; Expand `~` to absolute path
+    (message "Trying to decrypt: %s" full-path)  ;; Debugging message
+    (if (not (file-exists-p full-path))
+        (error "File does not exist: %s" full-path)
+      (with-temp-buffer
+        (let ((exit-code (call-process "gpg" nil t nil "--quiet" "--batch" "--decrypt" full-path)))
+          (if (zerop exit-code)
+              (buffer-string)
+            (error "GPG decryption failed")))))))
 
 (provide 'mazd-func)
 ;;; mazd//func.el ends here

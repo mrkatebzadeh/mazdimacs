@@ -38,6 +38,7 @@
 (require 'mazd-tramp)
 (require 'mazd-siarch)
 (require 'mazd-remote)
+(require 'mazd-slack)
 
 (provide 'utils)
 ;;; utils.el ends here
