@@ -24,6 +24,7 @@
 ;;
 
 (require 'mazd-ui)
+(require 'mazd-minibuffer)
 (require 'mazd-theme)
 
 (provide 'ui)
