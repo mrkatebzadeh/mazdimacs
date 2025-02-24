@@ -32,11 +32,11 @@
   :config
   (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
   (evil-collection-init 'magit)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-status-headers)
+  ;; (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
+  ;; (remove-hook 'magit-status-sections-hook 'magit-insert-status-headers)
   (remove-hook 'magit-status-sections-hook 'magit-insert-unpulled-from-pushremote)
   (remove-hook 'magit-status-sections-hook 'magit-insert-unpulled-from-upstream)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
+  ;; (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
   )
 
 (use-package git-gutter
