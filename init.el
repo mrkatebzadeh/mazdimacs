@@ -31,13 +31,13 @@
 (setq mazd//emacs-started nil)
 
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (message "[Emacs loaded in %s with %d garbage collections.]"
-		     (format "%.2f seconds"
-			     (float-time
-			      (time-subtract after-init-time before-init-time)))
-		     gcs-done)
-	    (setq mazd//emacs-started t)))
+          (lambda ()
+            (message "[Emacs loaded in %s with %d garbage collections.]"
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)
+            (setq mazd//emacs-started t)))
 
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
 (defun mazd//load-modules-with-progress ()

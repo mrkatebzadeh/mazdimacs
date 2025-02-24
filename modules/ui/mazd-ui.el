@@ -56,6 +56,7 @@
 
   (defun mazd//evil-word-syntax-setup ()
     "Treat underscores as part of a word in Evil mode."
+    (modify-syntax-entry ?- "w")
     (modify-syntax-entry ?_ "w"))
 
   (add-hook 'after-change-major-mode-hook #'mazd//evil-word-syntax-setup)
@@ -115,8 +116,6 @@
   (global-ligature-mode t)
   )
 
-
-
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :ensure t
@@ -150,57 +149,6 @@
   :defer t
   :ensure t
   )
-
-(use-package doom-modeline
-  :ensure t
-  :init
-  (doom-modeline-mode 1)
-
-  :config
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-hud nil)
-  (setq doom-modeline-window-width-limit 85)
-
-  (doom-modeline-def-segment mazd-incremental-load
-			     "A segment displaying the incremental package loading progress."
-			     (if (>= mazd//incremental-load-progress mazd//incremental-load-total)
-				 (progn
-				   ;; Schedule removal after 3 seconds
-				   (run-at-time 3 nil
-						(lambda ()
-						  (doom-modeline-def-modeline 'mazd-custom-line
-									      '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-									      '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
-						  (doom-modeline-set-modeline 'mazd-custom-line 'default)
-						  (force-mode-line-update)))
-				   (propertize " [✔]" 'face 'success))  ;; Show checkmark when done
-			       (propertize (format " %s [%d/%d]"
-						   (or mazd//current-loading-package "")
-						   mazd//incremental-load-progress
-						   mazd//incremental-load-total)
-					   'face 'warning)))
-
-  (doom-modeline-def-modeline 'mazd-custom-line
-			      '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-			      '(mazd-incremental-load misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
-
-  (doom-modeline-set-modeline 'mazd-custom-line 'default)
-  )
-
-(use-package telephone-line
-  :disabled t
-  :ensure t
-  :init
-  (telephone-line-mode t)
-  :config
-  (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-	telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-	telephone-line-primary-right-separator 'telephone-line-cubed-right
-	telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
-  (setq telephone-line-height 18
-	telephone-line-evil-use-short-tag nil)
-  )
-
 
 (defun mazd//increase-font-size ()
   "Increase font size by 1."
