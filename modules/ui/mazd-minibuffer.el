@@ -151,6 +151,7 @@ targets."
 
 
 (use-package mini-frame
+  :disabled t
   :ensure t
   :config
   (setq mini-frame-show-parameters
