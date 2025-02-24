@@ -1,4 +1,4 @@
-;;; langs.el --- Langs -*- lexical-binding: t; -*-
+;;; mazd-capture.el --- Capture -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,18 +23,30 @@
 
 ;;
 
-(require 'mazd-python)
-(require 'mazd-latex)
-(require 'mazd-clang)
-(require 'mazd-rust)
-(require 'mazd-zig)
-(require 'mazd-nix)
-(require 'mazd-web)
-(require 'mazd-docker)
-(require 'mazd-elisp)
-(require 'mazd-hdl)
-(require 'mazd-jekyl)
-(require 'mazd-docs)
+(use-package org-cliplink
+  :ensure t
+  :defer t
+  :commands org-cliplink-capture)
 
-(provide 'langs)
-;;; langs.el ends here
+(with-eval-after-load 'org
+
+
+  (setq org-todo-keywords '((sequence "TODO(t)"
+				      "STARTED(s)"
+				      "WAITING(w@/!)"
+				      "SOMEDAY(.)" "|" "DONE(x!)" "CANCELLED(c@)")
+			    (sequence "TOBUY"
+				      "TOSHRINK"
+				      "TOCUT"
+				      "TOSEW" "|" "DONE(x)")
+			    (sequence "TOWATCH"
+				      "UNRELEASED"
+				      "RELEASED" "|" "WATCHED(w)" "BREAK(b)")
+			    (sequence "TODO"
+				      "DOING"
+				      "TESTING"
+				      "ALMOST" "|" "DONE(x)")))
+
+  )
+(provide 'mazd-capture)
+;;; mazd-capture.el ends here

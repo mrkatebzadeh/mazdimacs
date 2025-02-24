@@ -42,8 +42,8 @@
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
 (defun mazd//load-modules-with-progress ()
   "Load specified modules in order, displaying a progress bar."
-  (let ((modules '("core" "ui" "editor" "langs" "utils" "completion"))
-        (total 6)
+  (let ((modules '("core" "ui" "editor" "langs" "utils" "completion" "org"))
+        (total 7)
         (count 0))
     (dolist (mod modules)
       (setq count (1+ count))

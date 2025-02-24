@@ -1,4 +1,4 @@
-;;; langs.el --- Langs -*- lexical-binding: t; -*-
+;;; mazd-crypt.el --- Crypt -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,18 +23,22 @@
 
 ;;
 
-(require 'mazd-python)
-(require 'mazd-latex)
-(require 'mazd-clang)
-(require 'mazd-rust)
-(require 'mazd-zig)
-(require 'mazd-nix)
-(require 'mazd-web)
-(require 'mazd-docker)
-(require 'mazd-elisp)
-(require 'mazd-hdl)
-(require 'mazd-jekyl)
-(require 'mazd-docs)
+(use-package org-crypt
+  :ensure nil
+  :after org
+  :defer t
+  :custom (org-crypt-key "mr.katebzadeh@gmail.com"))
 
-(provide 'langs)
-;;; langs.el ends here
+(general-define-key
+ :prefix "SPC k"
+ :states '(normal visual motion)
+ :keymaps 'org-mode-map
+ "C" '(:ignore t :which-key "Crypt")
+ "Ce" 'org-encrypt-entry
+ "CE" 'org-encrypt-entries
+ "Cd" 'org-decrypt-entry
+ "CD" 'org-decrypt-entries
+ )
+
+(provide 'mazd-crypt)
+;;; mazd-crypt.el ends here

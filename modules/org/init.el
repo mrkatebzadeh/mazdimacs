@@ -1,4 +1,4 @@
-;;; langs.el --- Langs -*- lexical-binding: t; -*-
+;;; init.el<org> --- Org init -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,18 +23,13 @@
 
 ;;
 
-(require 'mazd-python)
-(require 'mazd-latex)
-(require 'mazd-clang)
-(require 'mazd-rust)
-(require 'mazd-zig)
-(require 'mazd-nix)
-(require 'mazd-web)
-(require 'mazd-docker)
-(require 'mazd-elisp)
-(require 'mazd-hdl)
-(require 'mazd-jekyl)
-(require 'mazd-docs)
+(require 'mazd-org)
+(require 'mazd-agenda)
+(require 'mazd-roam)
+(require 'mazd-babel)
+(require 'mazd-crypt)
+(require 'mazd-capture)
+(require 'mazd-ref)
 
-(provide 'langs)
-;;; langs.el ends here
+(provide 'init)
+;;; init.el<org> ends here
