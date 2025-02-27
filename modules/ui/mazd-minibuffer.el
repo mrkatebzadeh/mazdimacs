@@ -64,7 +64,7 @@
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package embark
-  :disabled t
+  ;; :disabled t
   :ensure t
   :defer t
   :bind
@@ -121,7 +121,7 @@ targets."
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :disabled t
+  ;; :disabled t
   :defer t
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
