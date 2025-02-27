@@ -85,6 +85,8 @@
 	  lsp-ui-sideline-show-diagnostics t
 	  lsp-ui-sideline-update-mode "line"
 	  lsp-ui-sideline-show-hover nil)
+    (setq lsp-headerline-breadcrumb-segments '(symbols))
+    (lsp-headerline-breadcrumb-mode -1)
     )
 
   (when (string= mazd//completion "featured")

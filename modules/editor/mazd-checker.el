@@ -84,7 +84,6 @@
   :config
   (global-flycheck-eglot-mode 1))
 
-
 (setq ispell-dictionary "en")
 (setq ispell-program-name "aspell")
 (setq ispell-extra-args '("--encoding=utf-8"))

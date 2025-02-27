@@ -185,5 +185,7 @@ Possible values for list-type are: `recents', `bookmarks', `projects',
 	(insert (propertize (substitute-command-keys fn-keymap)
                             'face
                             'mazd//dashboard-bindings-face)))))
+(with-eval-after-load 'dashboard
+  (define-key dashboard-mode-map (kbd "TAB") 'widget-forward))
 (provide 'mazd-dashboard)
 ;;; mazd//dashboard.el ends here
