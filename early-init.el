@@ -39,7 +39,7 @@
 
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq org-startup-with-inline-images t)
-(customize-set-variable 'mac-option-modifier 'meta)
+(customize-set-variable 'mac-option-modifier 'nil)
 
 (provide 'early-init)
 ;;; early-init.el ends here
