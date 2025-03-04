@@ -128,7 +128,16 @@
   :hook
   (after-init .  spacious-padding-mode)
   :init
-  (setq spacious-padding-subtle-mode-line nil))
+  (setq spacious-padding-subtle-mode-line nil)
+  (setq spacious-padding-widths
+	'( :internal-border-width 10
+           :header-line-width 4
+           :mode-line-width 5
+           :tab-line-width 4
+           :right-divider-width 10
+           :scroll-bar-width 2
+           :fringe-width 2))
+  )
 
 ;; SVG tags, progress bars & icons
 (use-package svg-lib

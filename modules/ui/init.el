@@ -27,6 +27,7 @@
 (require 'mazd-minibuffer)
 (require 'mazd-theme)
 (require 'mazd-modeline)
+(require 'mazd-catppuccin)
 
 (provide 'ui)
 ;;; ui.el ends here
