@@ -57,16 +57,76 @@
 (windmove-default-keybindings)
 (winner-mode 1)
 
+
+(defun mazd//switch-to-window-left ()
+  "Switch to the window to the left and blink the buffer."
+  (interactive)
+  (evil-window-left 1)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//switch-to-window-down ()
+  "Switch to the window below and blink the buffer."
+  (interactive)
+  (evil-window-down 1)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//switch-to-window-up ()
+  "Switch to the window above and blink the buffer."
+  (interactive)
+  (evil-window-up 1)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//switch-to-window-right ()
+  "Switch to the window to the right and blink the buffer."
+  (interactive)
+  (evil-window-right 1)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//vsplit-window ()
+  "Vertically split window and blink the buffer."
+  (interactive)
+  (evil-window-vsplit)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//split-window ()
+  "Horizontally split window and blink the buffer."
+  (interactive)
+  (evil-window-split)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//delete-window ()
+  "Delete the current window and blink the buffer."
+  (interactive)
+  (evil-window-delete)
+  (mazd//blink-on-buffer-switch))
+
+(defun mazd//blink-buffer ()
+  "Subtle blink effect for the entire buffer's background to indicate a switch."
+  (let* ((theme-color (if (eq (frame-parameter nil 'background-mode) 'dark)
+                          "#45475a"
+                        "#dce0e8"))
+         (ov (make-overlay (point-min) (point-max))))
+    (overlay-put ov 'face `(:background ,theme-color))
+    (run-with-timer 0.15 nil #'delete-overlay ov)))
+
+(defun mazd//blink-on-buffer-switch ()
+  "Blink buffer when switching to a new one."
+  (when (not (minibufferp))
+    (mazd//blink-buffer)
+    ))
+
+
+
 ;;; bindings
 
 (leader
-  "wv" 'evil-window-vsplit
-  "ws" 'evil-window-split
-  "wd" 'evil-window-delete
-  "wh" 'evil-window-left
-  "wj" 'evil-window-down
-  "wk" 'evil-window-up
-  "wl" 'evil-window-right)
+  "wv" 'mazd//vsplit-window
+  "ws" 'mazd//split-window
+  "wd" 'mazd//delete-window
+  "wh" 'mazd//switch-to-window-left
+  "wj" 'mazd//switch-to-window-down
+  "wk" 'mazd//switch-to-window-up
+  "wl" 'mazd//switch-to-window-right)
 
 (leader
   "ti" 'imenu-list
