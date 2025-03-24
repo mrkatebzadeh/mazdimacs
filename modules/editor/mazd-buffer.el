@@ -311,6 +311,7 @@
   (setq-default format-all-formatters
                 '(("C"     (astyle "--mode=c"))
 		  ("Nix"     (nixpkgs-fmt))
+		  ("Rust" (rustfmt "--edition" "2021"))
                   ("Shell" (shfmt "-i" "4" "-ci")))))
 
 
