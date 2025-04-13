@@ -31,7 +31,8 @@
 (require 'mazd-search)
 (require 'mazd-snippet)
 (require 'mazd-help)
-(require 'mazd-treemacs)
+;; (require 'mazd-treemacs)
+(require 'mazd-dired)
 (require 'mazd-xref)
 (require 'mazd-undo)
 

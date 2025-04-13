@@ -116,102 +116,6 @@
   :ensure t
   :defer t)
 
-(defun mazd//kill-dired-buffers ()
-  (interactive)
-  (mapc (lambda (buffer)
-	  (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
-	    (kill-buffer buffer)))
-	(buffer-list)))
-
-(use-package dired
-  :ensure nil
-  :defer t
-  :config
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  (evil-collection-init 'dired)
-  (if (string-equal system-type "darwin")
-      ;; For macOS, compatible setting without --group-directories-first
-      (setq dired-listing-switches "-alh")
-    ;; For Linux or systems with GNU ls
-    (setq dired-listing-switches "-alh --group-directories-first"))
-  (setq insert-directory-program "ls")
-  (setq dired-use-ls-dired nil)
-  (evil-define-key 'normal dired-mode-map (kbd "/") 'dired-narrow
-    (kbd "P") 'peep-dired
-    (kbd "t") 'dired-subtree-insert
-    (kbd "T") 'dired-subtree-remove
-    (kbd "q") 'mazd//kill-dired-buffers)
-  (evil-define-key 'normal peep-dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down
-    (kbd "C-<SPC>") 'peep-dired-scroll-page-up
-    (kbd "<backspace>") 'peep-dired-scroll-page-up
-    (kbd "j") 'peep-dired-next-file
-    (kbd "k") 'peep-dired-prev-file)
-  (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
-  :init
-  (setq dired-auto-revert-buffer t
-	dired-dwim-target t
-	dired-hide-details-hide-symlink-targets nil
-	;; Always copy/delete recursively
-	dired-recursive-copies  'always
-	dired-recursive-deletes 'top
-	;; Where to store image caches
-	image-dired-dir (concat mazd//cache-dir "image-dired/")
-	image-dired-db-file (concat image-dired-dir "db.el")
-	image-dired-gallery-dir (concat image-dired-dir "gallery/")
-	image-dired-temp-image-file (concat image-dired-dir "temp-image")
-	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
-(use-package dired-git-info
-  :ensure t
-  :defer t
-  :after dired
-  :config
-  ;; (setq dgi-auto-hide-details-p nil)
-  )
-
-(use-package dired-rsync
-  :defer t
-  :after dired
-  :ensure t
-  )
-(use-package dired-rsync-transient
-  :defer t
-  :after dired
-  :ensure t
-  )
-
-(use-package diredfl
-  :ensure t
-  :defer t
-  :after dired
-  :config
-  (diredfl-global-mode))
-
-(use-package peep-dired
-  :ensure t
-  :after dired
-  :defer t
-  :init
-  (setq peep-dired-cleanup-on-disable t
-	peep-dired-cleanup-eagerly t
-	peep-dired-enable-on-directories t
-	peep-dired-ignored-extensions '("mkv" "iso" "mp4")))
-
-(use-package dired-narrow
-  :ensure t
-  :after dired
-  :defer t)
-
-(use-package dired-subtree
-  :ensure t
-  :after dired
-  :defer t)
-
-(use-package nerd-icons-dired
-  :defer t
-  :ensure t
-  :hook (dired-mode . nerd-icons-dired-mode))
-
-
 (use-package direnv
   :defer t
   :ensure t
@@ -514,14 +418,6 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (message "No words.")))
     words))
 
-(defun mazd//project-switch-project ()
-  "Switch to a project and open its root directory in `dired`."
-  (interactive)
-  (let ((project (project-prompt-project-dir))) ; Prompt for the project directory
-    (when project
-      (dired project))))
-
-
 (defun mazd//reload-dir-locals (proj)
   "Read values from the current project's .dir-locals file and
 apply them in all project file buffers as if opening those files
@@ -545,15 +441,6 @@ Signals an error if there is no current project."
           (hack-local-variables-apply))))))
 
 ;;; bindings
-
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'dired-mode-map
- "g" 'dired-git-info-mode
- "r" 'dired-rsync
- "R" 'dired-rsync-transient
- )
 
 (leader
   "p" '(:ignore t :which-key "Projects"))
@@ -591,9 +478,6 @@ Signals an error if there is no current project."
     "pp" 'helm-projectile-switch-project
     "pr" 'helm-projectile-recentf
     ))
-
-(leader
-  "ad" 'dired)
 
 (leader
   "fb" 'bookmark-jump
