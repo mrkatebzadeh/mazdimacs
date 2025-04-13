@@ -139,16 +139,6 @@
            :fringe-width 2))
   )
 
-;; SVG tags, progress bars & icons
-(use-package svg-lib
-  :defer t
-  :ensure nil)
-
-;; Replace keywords with SVG tags
-(use-package svg-tag-mode
-  :defer t
-  :ensure nil)
-
 (use-package page-break-lines
   :defer t
   :ensure t
