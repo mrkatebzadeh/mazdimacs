@@ -167,6 +167,7 @@
  "'" 'org-edit-special
  "d" 'org-deadline
  "D" 'org-insert-drawer
+ "i" 'org-insert-structure-template
  "e" '(:ignore t :which-key "export")
  "ee" 'org-export-dispatch
  "f" 'org-set-effort

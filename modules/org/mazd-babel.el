@@ -30,6 +30,7 @@
   (setq python-indent-offset 4)
   (setq org-edit-src-content-indentation 4)
   (require 'ob-python)
+  (require 'ob-C)
   (setq python-version-checked t)
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
@@ -41,6 +42,7 @@
      (ditaa . t)
      (plantuml . t)
      (dot . t)
+     (C . t)
      )))
 
 
@@ -61,7 +63,7 @@
  "b" '(:ignore t :which-key "Babel")
  "bp" 'org-babel-previous-src-block
  "bn"     'org-babel-next-src-block
- "be"     'mazd//org-code-execute
+ "be"     'org-edit-special
  "bE"     'org-babel-execute-maybe
  "bo"     'org-babel-open-src-block-result
  "bv"     'org-babel-expand-src-block
@@ -81,7 +83,7 @@
  "bz"     'org-babel-switch-to-session
  "bZ"     'org-babel-switch-to-session-with-code
  "ba"     'org-babel-sha1-hash
- "bx"     'org-babel-do-key-sequence-in-edit-buffer
+ "bx"     'mazd//org-code-execute
  )
 
 
