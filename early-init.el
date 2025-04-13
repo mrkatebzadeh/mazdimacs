@@ -36,6 +36,7 @@
 (setq menu-bar-mode nil
       tool-bar-mode nil
       scroll-bar-mode nil)
+(blink-cursor-mode -1)
 
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq org-startup-with-inline-images t)
