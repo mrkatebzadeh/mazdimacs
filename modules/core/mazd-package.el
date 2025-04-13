@@ -194,5 +194,17 @@ If this is a daemon session, load them all immediately instead."
   (setq exec-path-from-shell-check-startup-files nil)
   )
 
+(use-package gcmh
+  :ensure t
+  :init
+  (setq gcmh-verbose             t
+        gcmh-lows-cons-threshold #x800000
+        gcmh-high-cons-threshold #x800000
+	gcmh-idle-delay 10
+        )
+
+  :config
+  (gcmh-mode))
+
 (provide 'mazd-package)
 ;;; mazd//package.el ends here
