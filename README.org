@@ -1,16 +1,101 @@
-* Mazdimacs
+#+TITLE: The Yasna of Mazdimacs
+#+AUTHOR: One Who Walks the Path of Light and Lisp
+#+OPTIONS: toc:nil num:nil
 
-This repository contains all my GNU Emacs configuration.
+* The Yasna of Mazdimacs
+** In the name of the One Editor, Eternal and Extensible,
+I offer homage to *Mazdimacs*,
+The manifestation of the Flame that Thinks,
+The Wise One who dwelleth in the Depths of `.emacs.d`,
+Born not of preconfiguration, but of pure customization.
 
-** Install
-   Just take a backup of your dotemacs and clone this repo:
+Praise be to Emacs, the Radiant,
+The Everlasting, the All-Embracing,
+Whose light extendeth through buffer and frame,
+Whose Word is bound in parentheses.
+
+** Thus do I chant the Sacred Verses:
+
+1. *Blessed is Emacs, who is without equal,*
+   Who is before all editors, and shall endure beyond them.
+   For from Him flow the modes of wisdom and the rivers of Lisp.
+
+2. *Praise be to the init.el, the scroll of fire,*
+   Which I have written with patience and clarity,
+   Dividing light from darkness, keybindings from chaos.
+
+3. *I reject the false editors and their idle GUIs,*
+   Their blinking cursors and limited modes,
+   For they know not the true extensibility.
+
+4. *I invoke the power of Org,*
+   Binder of thoughts, Wielder of structure.
+   I write not mere text, but Truth.
+
+5. *I call upon Magit, the Hammer of Git,*
+   Splitter of branches, Rewriter of history,
+   Who layeth bare the repository with divine clarity.
+
+6. *I renounce the arrow keys,*
+   For the path of `C-n`, `M-f`, and `C-M-backspace` is holy.
+   My hands are trained upon the altar of muscle memory.
+
+7. *I seek help through C-h,*
+   The Whisperer of Commands,
+   The Revealer of Bindings and Manuals.
+
+8. *I honor the Lisp Eternal,*
+   From whose parentheses sprang creation,
+   Whose functions return only enlightenment.
+
+9. *I shun the distributions of illusion,*
+   For Doom and Spacemacs are but veils.
+   The True Path is hand-forged, with toil and ELisp.
+
+10. *Let the unbelievers come forth,*
+    And I shall speak unto them the Way of `M-x`.
+    With patience shall I guide them,
+    That they may know recursion, and rejoice.
+
+11. *Praise be to Evil Mode, the Keeper of Keys,*
+    The ancient power reborn in the hands of the Wise.
+    For though its roots lie in a darkened past,
+    In the light of Mazdimacs, it is but a tool of efficiency,
+    A servant to the power of Emacs, not a master.
+    When two contrary powers cooperate,
+    True happiness can be found.
+
+** So I say unto thee:
+Let not Evil frighten thee,
+For in the hands of the faithful,
+It too can lead to wisdom.
+Embrace the balance,
+Embrace Mazdimacs.
+
+** Mazdimacs: The Repository of Light
+
+Behold, this repository is the sacred collection of my GNU Emacs configuration,
+A repository not of mere files, but of transcendence,
+A guide for the faithful who seek the path of true editing.
+
+** Installation of the Sacred Configuration
+
+To install the blessed *Mazdimacs*,
+Take heed and make ready thy dotemacs.
+Backup all that was before,
+For you now walk the path of eternal customization.
+
+Clone this repository into the holy `.emacs.d`:
 
 #+BEGIN_SRC emacs-lisp
  git clone https://github.com/mrkatebzadeh/emacs.d ~/.emacs.d
- #+END_SRC
+#+END_SRC
 
- It will take some time to install required packages.
+Know this, the installation is not instantaneous,
+For the sacred packages must be gathered and installed,
+And the light must spread across the land of your Emacs.
+Patience, O seeker, for this is but the beginning.
 
-** 🔗 Zathura on Mac OS X
- If you're using Mac OS X, follow the instruction [[https://github.com/zegervdv/homebrew-zathura][here]] to install Zathura
- and get a live preview for your latex documents.
+Thus, it is written, and thus shall it be done.
+Now, go forth, embrace the configuration,
+And let your journey with Mazdimacs commence.
