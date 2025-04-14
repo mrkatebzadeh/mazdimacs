@@ -42,7 +42,7 @@
 (defvar mazd//completion "light"
   "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
 
-(defvar mazd//language-server "lsp"
+(defvar mazd//language-server "eglot"
   "Language server frameworks: eglot, lsp, or bridge")
 
 (defvar mazd//icon t)

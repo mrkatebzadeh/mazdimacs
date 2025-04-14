@@ -151,14 +151,19 @@ Embrace Mazdimacs.
 ** Mazdimacs: The Repository of Light
 
 Behold, this repository is the sacred collection of my GNU Emacs configuration,
+
 A repository not of mere files, but of transcendence,
+
 A guide for the faithful who seek the path of true editing.
 
 ** Installation of the Sacred Configuration
 
 To install the blessed *Mazdimacs*,
+
 Take heed and make ready thy dotemacs.
+
 Backup all that was before,
+
 For you now walk the path of eternal customization.
 
 Clone this repository into the holy ~.emacs.d~:
@@ -168,10 +173,15 @@ Clone this repository into the holy ~.emacs.d~:
 #+END_SRC
 
 Know this, the installation is not instantaneous,
+
 For the sacred packages must be gathered and installed,
+
 And the light must spread across the land of your Emacs.
+
 Patience, O seeker, for this is but the beginning.
 
 Thus, it is written, and thus shall it be done.
+
 Now, go forth, embrace the configuration,
+
 And let your journey with Mazdimacs commence.
