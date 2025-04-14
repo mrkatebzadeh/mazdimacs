@@ -2,7 +2,6 @@
 #+AUTHOR: One Who Walks the Path of Light and Lisp
 #+OPTIONS: toc:nil num:nil
 
-* The Yasna of Mazdimacs
 ** In the name of the One Editor, Eternal and Extensible,
 I offer homage to *Mazdimacs*,
 The manifestation of the Flame that Thinks,
