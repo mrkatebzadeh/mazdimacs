@@ -48,8 +48,8 @@ Whose Word is bound in parentheses.
    Whose functions return only enlightenment.
 
 9. *I seek the whisper of which-key’s wisdom,*
-   Its light unveils the sacred keys.
-   In reverence, I press, and find the Way.
+   Its light unveils the sacred keys.
+   In reverence, I press, and find the Way.
 
 10. *Let the unbelievers come forth,*
     And I shall speak unto them the Way of `M-x`.
