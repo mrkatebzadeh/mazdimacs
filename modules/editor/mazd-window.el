@@ -102,12 +102,14 @@
 
 (defun mazd//blink-buffer ()
   "Subtle blink effect for the entire buffer's background to indicate a switch."
-  (let* ((theme-color (if (eq (frame-parameter nil 'background-mode) 'dark)
-                          "#45475a"
-                        "#dce0e8"))
-         (ov (make-overlay (point-min) (point-max))))
-    (overlay-put ov 'face `(:background ,theme-color))
-    (run-with-timer 0.15 nil #'delete-overlay ov)))
+  ;; (let* ((theme-color (if (eq (frame-parameter nil 'background-mode) 'dark)
+  ;;                         "#45475a"
+  ;;                       "#dce0e8"))
+  ;;        (ov (make-overlay (point-min) (point-max))))
+  ;;   (overlay-put ov 'face `(:background ,theme-color))
+  ;;   (run-with-timer 0.15 nil #'delete-overlay ov))
+
+  )
 
 (defun mazd//blink-on-buffer-switch ()
   "Blink buffer when switching to a new one."

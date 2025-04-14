@@ -27,8 +27,8 @@
   :diminish t
   :defer t
   :commands (yas-minor-mode)
-  :config (yas-reload-all)
-  (yas-global-mode))
+  :hook ((prog-mode . yas-minor-mode))
+  )
 
 (use-package yasnippet-snippets
   :defer-incrementally (yasnippet)

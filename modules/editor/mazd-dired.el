@@ -207,7 +207,7 @@
  )
 
 (leader
-  "fe" 'mazd//sidebar-toggle
+  ;; "fe" 'mazd//sidebar-toggle
   "ad" 'dired)
 
 

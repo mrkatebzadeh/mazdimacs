@@ -199,9 +199,9 @@ If this is a daemon session, load them all immediately instead."
   :init
   (setq gcmh-verbose             t
         gcmh-lows-cons-threshold #x800000
-        gcmh-high-cons-threshold #x800000
+	gcmh-high-cons-threshold (* 128 1024 1024)
 	gcmh-idle-delay 10
-        )
+	)
 
   :config
   (gcmh-mode))

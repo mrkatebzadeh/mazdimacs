@@ -62,6 +62,9 @@
   (add-hook 'after-change-major-mode-hook #'mazd//evil-word-syntax-setup)
   ;; highlight current line
   (global-hl-line-mode +1)
+  (setq jit-lock-defer-time 0)
+  (setq font-lock-maximum-decoration t)
+
   ;; smooth scroll
   (setq scroll-step 1
 	scroll-conservatively 10000
@@ -74,9 +77,9 @@
 	initial-scratch-message nil)
   (setq default-frame-alist
 	(append (list
-	         '(min-height . 1)
+		 '(min-height . 1)
 		 '(height     . 45)
-	         '(min-width  . 1)
+		 '(min-width  . 1)
 		 '(width      . 81)
 		 '(horizontal-scroll-bars)
 		 '(vertical-scroll-bars)
@@ -148,6 +151,17 @@
   :defer t
   :ensure t
   )
+
+(use-package svg-lib
+  :defer t
+  :vc(:url "https://github.com/rougier/svg-lib")
+  :ensure nil)
+
+;; Replace keywords with SVG tags
+(use-package svg-tag-mode
+  :defer t
+  :vc(:url "https://github.com/rougier/svg-tag-mode")
+  :ensure nil)
 
 (defun mazd//increase-font-size ()
   "Increase font size by 1."

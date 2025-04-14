@@ -32,7 +32,8 @@
   (setq org-startup-with-inline-images t)
   :config
   (require 'org-id)
-  (setq mazd//secret-dir (concat org-directory "/keys/"))
+  (setq mazd//secret-dir (concat org-directory "/keys/")
+	org-default-notes-file (concat org-directory "/agenda/notes.org"))
   )
 
 (use-package evil-org
@@ -53,13 +54,14 @@
   (org-bullets-bullet-list '("●" "◉" "○" "✸" "✿")))
 
 (use-package org-modern
+  :disabled t
   :ensure t
   :defer t
   :custom
   (org-modern-fold-stars
    '(
-     ("⬢" . "⬡")
-     (" ⦿" . " ⭘")
+     ("⦿" . "⭘")
+     (" ⬢" . " ⬡")
      ("  ✦" . "  ✧")
      ("    ➤" . "    ➢")
      ("     ☀" . "     ☼")))
@@ -83,6 +85,45 @@
      ("SOMEDAY" . (:foreground "gray" :weight bold))
      ("TODO" . (:foreground "green" :weight bold))
      ("WAITING" . (:foreground "red" :weight bold)))))
+
+(use-package pretty-symbols
+  :ensure t
+  :disabled t
+  :config
+  (setq pretty-symbol-categories '(relational logical lambda org-specific nil cpp general))
+
+  (defun yant/str-to-glyph (str)
+    "Transform string into glyph, displayed correctly."
+    (let ((composition nil))
+      (dolist (char (string-to-list str)
+		    (nreverse (cdr composition)))
+	(push char composition)
+	(push '(Br . Bl) composition)
+	)))
+
+  (setq pretty-symbol-patterns
+	(append pretty-symbol-patterns
+		'((?▤ org-specific ":LOGBOOK:" (org-mode))
+      		  (?⚙ org-specific ":PROPERTIES:" (org-mode))
+      		  (?⏏ org-specific ":END:" (org-mode))
+      		  (?★ org-specific "\\[#A\\]" (org-mode))
+      		  ("" org-specific "\\[#B\\]" (org-mode))
+      		  (?☕ org-specific "\\[#C\\]" (org-mode))
+                  (?⁂ org-specific "\\(^\\*\\)[^*]" (org-mode) 1)
+                  (?• org-specific "^\\(?:\\*\\{1\\}\\)\\(\\*\\)[^*]" (org-mode) 1)
+                  (?⊢ org-specific "^\\(?:\\*\\{2\\}\\)\\(\\*\\)[^*]" (org-mode) 1)
+                  (?⋮ org-specific "^\\(?:\\*\\{3\\}\\)\\(\\*\\)[^*]" (org-mode) 1)
+                  (?⋱ org-specific "^\\(?:\\*\\{4,\\}\\)\\(\\*\\)[^*]" (org-mode) 1)
+      		  ((yant/str-to-glyph "☐") org-specific "\\(?:^*+ +\\)\\(\\<TODO\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "☑") org-specific "\\(?:^*+ +\\)\\(\\<DONE\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "✘") org-specific "\\(?:^*+ +\\)\\(\\<FAILED\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "✘") org-specific "\\(?:^*+ +\\)\\(\\<CANCELLED\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "▶") org-specific "\\(?:^*+ +\\)\\(\\<NEXT\\>\\)" (org-mode) 1)
+                  ((yant/str-to-glyph "☇") org-specific "\\(?:^*+ +\\)\\(\\<MERGED\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "⚑") org-specific "\\(?:^*+ +\\)\\(\\<WAITING\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "♲") org-specific "\\(?:^*+ +\\)\\(\\<HOLD\\>\\)" (org-mode) 1)
+      		  ((yant/str-to-glyph "☠D") org-specific "\\<DEADLINE:" (org-mode))
+      		  ((yant/str-to-glyph "◴S") org-specific "\\<SCHEDULED:" (org-mode))))))
 
 (use-package org-modern-indent
   :vc (:url "https://github.com/jdtsmith/org-modern-indent.git")

@@ -40,7 +40,6 @@
     (add-hook 'latex-mode-hook 'eglot-ensure)
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
-    ;; (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1)))
     :config
     (setq eglot-events-buffer-size 0)
     (setq eglot-extend-to-xref nil)

@@ -50,20 +50,7 @@
                                       (todo priority-down category-keep)
                                       (tags priority-down category-keep)
                                       (search category-keep))
-        org-default-notes-file (concat org-directory "/agenda/notes.org")
-        org-capture-templates
-        '(("t" "todo" entry (file+headline org-default-notes-file "Tasks")
-           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-          ("j" "Journal" entry (file+headline org-default-notes-file "Journal")
-           "* %?\nEntered on %U\n  %i\n  %a")
-          ("n" "Note" entry (file+headline org-default-notes-file "Note")
-           "* %?\nEntered on %U\n  %i")
-          ("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmark")
-           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
-          ("r" "Research" entry (file+headline org-default-notes-file "Research")
-           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t)
-          ("p" "Programming" entry (file+headline org-default-notes-file "Programming")
-           "** %(org-cliplink-capture)\n:PROPERTIES:\n:TIMESTAMP: %t\n:END:%?\n" :empty-lines 1 :prepend t))))
+        ))
 
 (defun mazd//org-agenda ()
   "Setup and open org-agenda"
