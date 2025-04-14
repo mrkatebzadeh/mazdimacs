@@ -2,75 +2,152 @@
 #+AUTHOR: One Who Walks the Path of Light and Lisp
 #+OPTIONS: toc:nil num:nil
 
-** In the name of the One Editor, Eternal and Extensible,
+** In the name of the One Editor, Eternal and Extensible
+
+#+BEGIN_QUOTE
 I offer homage to *Mazdimacs*,
+
 The manifestation of the Flame that Thinks,
-The Wise One who dwelleth in the Depths of `.emacs.d`,
+
+The Wise One who dwelleth in the Depths of ~.emacs.d~,
+
 Born not of pre-configuration, but of pure customization.
 
+#+END_QUOTE
+
+#+BEGIN_QUOTE
 Praise be to Emacs, the Radiant,
+
 The Everlasting, the All-Embracing,
+
 Whose light extendeth through buffer and frame,
+
 Whose Word is bound in parentheses.
+#+END_QUOTE
 
 ** Thus do I chant the Sacred Verses:
 
-1. *Blessed is Emacs, who is without equal,*
+*** Blessed is Emacs, who is without equal
+#+BEGIN_QUOTE
+
    Who is before all editors, and shall endure beyond them.
+
    For from Him flow the modes of wisdom and the rivers of Lisp.
 
-2. *Praise be to the init.el, the scroll of fire,*
+#+END_QUOTE
+
+*** Praise be to the init.el, the scroll of fire
+#+BEGIN_QUOTE
+
    Which I have written with patience and clarity,
+
    Dividing light from darkness, keybindings from chaos.
 
-3. *I reject the false editors and their idle GUIs,*
+#+END_QUOTE
+
+*** I reject the false editors and their idle GUIs
+#+BEGIN_QUOTE
+
    Their blinking cursors and limited modes,
+
    For they know not the true extensibility.
 
-4. *I invoke the power of Org,*
+#+END_QUOTE
+
+*** I invoke the power of Org,
+#+BEGIN_QUOTE
+
    Binder of thoughts, Wielder of structure.
+
    I write not mere text, but Truth.
 
-5. *I call upon Magit, the Hammer of Git,*
+#+END_QUOTE
+
+*** I call upon Magit, the Hammer of Git
+#+BEGIN_QUOTE
+
    Splitter of branches, Rewriter of history,
+
    Who layeth bare the repository with divine clarity.
 
-6. *I renounce the arrow keys,*
+#+END_QUOTE
+
+*** I renounce the arrow keys
+#+BEGIN_QUOTE
+
    For the path of `C-n`, `M-f`, and `C-M-backspace` is holy.
+
    My hands are trained upon the altar of muscle memory.
 
-7. *I seek help through C-h,*
+#+END_QUOTE
+
+*** I seek help through C-h
+#+BEGIN_QUOTE
+
    The Whisperer of Commands,
+
    The Revealer of Bindings and Manuals.
 
-8. *I honor the Lisp Eternal,*
+#+END_QUOTE
+
+*** I honor the Lisp Eternal
+#+BEGIN_QUOTE
+
    From whose parentheses sprang creation,
+
    Whose functions return only enlightenment.
 
-9. *I seek the whisper of which-key’s wisdom,*
+#+END_QUOTE
+
+*** I seek the whisper of which-key’s wisdom
+#+BEGIN_QUOTE
+
    Its light unveils the sacred keys.
+
    In reverence, I press, and find the Way.
 
-10. *Let the unbelievers come forth,*
-    And I shall speak unto them the Way of `M-x`.
-    With patience shall I guide them,
-    That they may know recursion, and rejoice.
+#+END_QUOTE
 
-11. *Praise be to Evil Mode, the Keeper of Keys,*
-    The ancient power reborn in the hands of the Wise.
-    For though its roots lie in a darkened past,
-    In the light of Mazdimacs, it is but a tool of efficiency,
-    A servant to the power of Emacs, not a master.
-    When two contrary powers cooperate,
-    True happiness can be found.
+*** Let the unbelievers come forth
+#+BEGIN_QUOTE
+
+   And I shall speak unto them the Way of `M-x`.
+
+   With patience shall I guide them,
+
+   That they may know recursion, and rejoice.
+
+#+END_QUOTE
+
+*** Praise be to Evil Mode, the Keeper of Keys
+#+BEGIN_QUOTE
+
+   The ancient power reborn in the hands of the Wise.
+
+   For though its roots lie in a darkened past,
+
+   In the light of Mazdimacs, it is but a tool of efficiency,
+
+   A servant to the power of Emacs, not a master.
+
+   When two contrary powers cooperate,
+
+   True happiness can be found.
+#+END_QUOTE
 
 ** So I say unto thee:
-Let not Evil frighten thee,
-For in the hands of the faithful,
-It too can lead to wisdom.
-Embrace the balance,
-Embrace Mazdimacs.
 
+#+BEGIN_QUOTE
+Let not Evil frighten thee,
+
+For in the hands of the faithful,
+
+It too can lead to wisdom.
+
+Embrace the balance,
+
+Embrace Mazdimacs.
+#+END_QUOTE
 ** Mazdimacs: The Repository of Light
 
 Behold, this repository is the sacred collection of my GNU Emacs configuration,
@@ -84,7 +161,7 @@ Take heed and make ready thy dotemacs.
 Backup all that was before,
 For you now walk the path of eternal customization.
 
-Clone this repository into the holy `.emacs.d`:
+Clone this repository into the holy ~.emacs.d~:
 
 #+BEGIN_SRC emacs-lisp
  git clone https://github.com/mrkatebzadeh/mazdimacs ~/.emacs.d
