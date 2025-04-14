@@ -6,7 +6,7 @@
 I offer homage to *Mazdimacs*,
 The manifestation of the Flame that Thinks,
 The Wise One who dwelleth in the Depths of `.emacs.d`,
-Born not of preconfiguration, but of pure customization.
+Born not of pre-configuration, but of pure customization.
 
 Praise be to Emacs, the Radiant,
 The Everlasting, the All-Embracing,
@@ -87,7 +87,7 @@ For you now walk the path of eternal customization.
 Clone this repository into the holy `.emacs.d`:
 
 #+BEGIN_SRC emacs-lisp
- git clone https://github.com/mrkatebzadeh/emacs.d ~/.emacs.d
+ git clone https://github.com/mrkatebzadeh/mazdimacs ~/.emacs.d
 #+END_SRC
 
 Know this, the installation is not instantaneous,
