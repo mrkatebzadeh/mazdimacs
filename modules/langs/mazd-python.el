@@ -34,10 +34,6 @@
   (mazd//python-update-highlights)
   )
 
-(use-package jupyter
-  :ensure t
-  :defer t)
-
 (when (string= mazd//language-server "lsp")
   (use-package lsp-pyright
     :defer t
