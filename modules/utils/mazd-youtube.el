@@ -23,20 +23,6 @@
 
 ;;
 
-(use-package helm-youtube
-  :after helm
-  :defer t)
-
-
-(with-eval-after-load 'helm-youtube
-  (load-library (concat mazd//secret-dir "youtube.gpg")))
-
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "y" 'helm-youtube)
-
 
 (provide 'mazd-youtube)
 ;;; mazd//youtube.el ends here

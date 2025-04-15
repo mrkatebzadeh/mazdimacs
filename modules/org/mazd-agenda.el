@@ -159,7 +159,6 @@
        "t" 'org-agenda-todo
        ":" 'org-agenda-set-tags
        ";" 'org-timer-set-timer
-       "I" 'helm-org-task-file-headings
        "i" 'org-agenda-clock-in-avy
        "O" 'org-agenda-clock-out-avy
        "u" 'org-agenda-bulk-unmark
@@ -178,7 +177,6 @@
        "gv" 'org-agenda-view-mode-dispatch
        "f" 'org-agenda-later
        "b" 'org-agenda-earlier
-       "c" 'helm-org-capture-templates
        "e" 'org-agenda-set-effort
        "n" nil  ; evil-search-next
        "{" 'org-agenda-manipulate-query-add-re

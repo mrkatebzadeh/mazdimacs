@@ -71,10 +71,6 @@
 		       0
 		     1))))))
 
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (set (make-local-variable 'company-backends) '(company-elisp company-yasnippet))))
-
 (leader
   "e" '(:ignore t :which-key "Eval")
   "e;" 'eval-expression

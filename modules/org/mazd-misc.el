@@ -28,13 +28,6 @@
   :defer t
   :hook (org-mode . org-inline-pdf-mode))
 
-(when (string= mazd//completion "featured")
-  (use-package helm-org
-    :ensure t
-    :after helm
-    :defer t)
-  )
-
 (use-package org-journal
   :defer t
   :after org

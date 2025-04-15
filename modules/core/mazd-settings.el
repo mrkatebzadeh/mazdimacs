@@ -40,7 +40,7 @@
   "Default transparency level to toggle with 100.")
 
 (defvar mazd//completion "light"
-  "Completion frameworks: light -> vertico/consult/corf, featured -> helm/company ")
+  "Completion frameworks: light -> vertico/consult/corf ")
 
 (defvar mazd//language-server "eglot"
   "Language server frameworks: eglot, lsp, or bridge")

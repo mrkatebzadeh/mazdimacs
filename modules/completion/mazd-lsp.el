@@ -89,19 +89,6 @@
     (lsp-headerline-breadcrumb-mode -1)
     )
 
-  (when (string= mazd//completion "featured")
-    (use-package company-lsp
-      :ensure t
-      :defer t
-      :after (company lsp-mode)
-      :init
-      (defvar company-lsp-enable-recompletion t)
-      (defvar company-lsp-async t)
-      :config
-      (setq company-backends '(company-lsp company-yasnippet)))
-    )
-
-
   (when (string= mazd//completion "light")
     (use-package consult-lsp
       :ensure t

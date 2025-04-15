@@ -402,10 +402,6 @@
   (leader
     "bb" 'consult-buffer
     ))
-(when (string= mazd//completion "featured")
-  (leader
-    "bb" 'helm-buffers-list
-    ))
 
 (leader
   "se" 'er/expand-region

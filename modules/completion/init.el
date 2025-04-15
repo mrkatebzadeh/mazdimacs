@@ -28,7 +28,6 @@
 (require 'mazd-consult)
 (require 'mazd-eglot)
 (require 'mazd-lsp)
-(require 'mazd-company)
 
 (defun mazd//switch-lsp ()
   "Switch between Eglot and LSP mode."

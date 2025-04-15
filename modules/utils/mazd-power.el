@@ -23,25 +23,5 @@
 
 ;;
 
-(setq helm-power-source
-      '((name . "Managing power in Emacs.")
-        (candidates . ("Cancel" "Shutdown" "Reboot" "Lock"))
-        (action . (lambda (candidate)
-		    (cond
-		     ((equal candidate "Shutdown") (shell-command "sudo shutdown now"))
-		     ((equal candidate "Reboot") (shell-command "sudo shutdown -r now"))
-		     ((equal candidate "Lock") (shell-command "slock"))
-		     ((equal candidate "Cancel") (message "Canceled!"))
-		     (t (message "Invalid!")))))))
-
-(defun helm-power ()
-  "Prompt for power management."
-  (interactive)
-  (helm :sources '(helm-power-source)))
-
-;;; bindigs
-(leader
-  "qz" 'helm-power)
-
 (provide 'mazd-power)
 ;;; mazd//power.el ends here

@@ -28,26 +28,6 @@
   :defer t
   :hook (after-init . envrc-global-mode))
 
-(when (string= mazd//completion "featured")
-  (use-package projectile
-    :ensure t
-    :defer t
-    :commands (projectile-project-root)
-    :config (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
-
-  (use-package helm-projectile
-    :ensure t
-    :defer t
-    :commands (helm-projectile-switch-project
-	       helm-projectile-find-file
-	       helm-projectile-find-file-in-known-projects
-	       helm-projectile-recentf
-	       helm-projectile-ag)
-    :config
-    (helm-projectile-on)
-    (setq projectile-use-git-grep t))
-  )
-
 (when (string= mazd//completion "light")
   (use-package consult-project-extra
     :defer t
@@ -127,36 +107,6 @@
   :ensure t
   )
 ;;; config
-(with-eval-after-load 'projectile
-  (setq projectile-globally-ignored-directories
-        '(".bzr"
-          ".ensime_cache"
-          ".eunit"
-          ".fslckout"
-          ".git"
-          ".hg"
-          ".idea"
-          ".stack-work"
-          ".svn"
-          ".tox"
-          ".clangd"
-          ".ccls-cache"
-          "READONLY"
-          "_FOSSIL_"
-          "_darcs"
-          "blaze-bin"
-          "blaze-genfiles"
-          "blaze-google3"
-          "blaze-out"
-          "blaze-testlogs"
-          "node_modules"
-          "third_party"
-	  "backup"
-          "vendor"))
-  (setq projectile-completion-system 'helm
-	projectile-enable-caching t
-	projectile-switch-project-action 'helm-projectile-find-file)
-  (projectile-global-mode))
 
 (defun mazd//rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
@@ -461,23 +411,6 @@ Signals an error if there is no current project."
     "pl" 'project-x-window-state-load
     )
   )
-
-(when (string= mazd//completion "featured")
-  (leader
-    "fg" 'helm-projectile-grep
-    )
-  (leader
-    "pi" 'projectile-invalidate-cache
-    "pz" 'projectile-cache-current-file
-    "pa" 'helm-projectile-find-other-file
-    "pb" 'helm-projectile-switch-to-buffer
-    "pd" 'helm-projectile-find-dir
-    "pf" 'helm-projectile-find-file
-    "pF" 'helm-projectile-find-file-in-known-projects
-    "pg" 'helm-projectile-find-file-dwim
-    "pp" 'helm-projectile-switch-project
-    "pr" 'helm-projectile-recentf
-    ))
 
 (leader
   "fb" 'bookmark-jump

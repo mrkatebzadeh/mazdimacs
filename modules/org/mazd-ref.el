@@ -45,8 +45,7 @@
 	    bibtex-completion-bibliography (concat org-directory "/ref/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/ref/files")
 	    bibtex-completion-notes-path   (concat org-directory "/ref/notes.org")
-	    helm-bibtex-bibliography bibtex-completion-bibliography
-	    helm-bibtex-library-path bibtex-completion-library-path))
+	    ))
      ((equal candidate "Ebooks")
       (setq org-ref-bibliography-notes     (concat org-directory "/ebooks/notes.org")
 	    org-ref-default-bibliography   (list (concat org-directory "/ebooks/master.bib"))
@@ -54,8 +53,7 @@
 	    bibtex-completion-bibliography (concat org-directory "/ebooks/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/ebooks/files")
 	    bibtex-completion-notes-path   (concat org-directory "/ebooks/notes.org")
-	    helm-bibtex-bibliography bibtex-completion-bibliography
-	    helm-bibtex-library-path bibtex-completion-library-path))
+	    ))
      ((equal candidate "PDFs")
       (setq org-ref-bibliography-notes     (concat org-directory "/pdfs/notes.org")
 	    org-ref-default-bibliography   (list (concat org-directory "/pdfs/master.bib"))
@@ -63,14 +61,9 @@
 	    bibtex-completion-bibliography (concat org-directory "/pdfs/master.bib")
 	    bibtex-completion-library-path (concat org-directory "/pdfs/files")
 	    bibtex-completion-notes-path   (concat org-directory "/pdfs/notes.org")
-	    helm-bibtex-bibliography bibtex-completion-bibliography
-	    helm-bibtex-library-path bibtex-completion-library-path))
+	    ))
      (t (message "Invalid!"))))
-  (setq mazd//helm-libraries-source
-	'((name . "Select a library.")
-	  (candidates . ("Research" "Ebooks" "PDFs"))
-	  (action . (lambda (candidate)
-		      (mazd//set-libraries candidate)))))
+
   :config
   (defun my-orcb-key ()
     "Replace the key in the entry, also change the pdf file name if it exites."
@@ -137,12 +130,6 @@
   (add-hook 'org-ref-clean-bibtex-entry-hook 'my-orcb-key)
   )
 
-(defun mazd//helm-ref ()
-  "Prompt for switching libraries."
-  (interactive)
-  (require 'org-ref)
-  (helm :sources '(mazd//helm-libraries-source)))
-
 (defun mazd//open-bib-file()
   (interactive)
   (find-file (car org-ref-default-bibliography)))
@@ -160,16 +147,12 @@
 
 (when (string= mazd//completion "featured")
   (leader
-    "oRs" 'mazd//helm-ref
-    "oRi" 'org-ref-helm-insert-cite-link
-    "oRl" 'helm-bibtex
     "oRd" 'doi-utils-add-bibtex-entry-from-doi
     )
   )
 
 (when (string= mazd//completion "light")
   (leader
-    "oRs" 'mazd//helm-ref
     "oRl" 'consult-bibtex
     )
   )

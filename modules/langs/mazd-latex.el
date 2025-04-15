@@ -86,12 +86,6 @@
   :ensure nil
   :defer t)
 
-(when (string= mazd//completion "featured")
-  (use-package helm-bibtex
-    :ensure t
-    :defer t)
-  )
-
 (when (string= mazd//completion "light")
   (use-package consult-bibtex
     :vc (:url "https://github.com/mohkale/consult-bibtex.git")
@@ -108,11 +102,6 @@
   :defer t
   :init
   (setq auctex-latexmazd//inherit-TeX-PDF-mode t))
-
-(use-package company-auctex
-  :ensure t
-  :defer t
-  :after (auctex company))
 
 ;;; config
 
@@ -140,16 +129,8 @@
   (setq reftex-cite-prompt-optional-args t))
 
 
-(with-eval-after-load 'helm-bibtex
-  (setq helm-bibtex-bibliography bibtex-completion-bibliography
-	helm-bibtex-library-path bibtex-completion-library-path
-	helm-bibtex-default-action 'bibtex-completion-insert-citation))
-
 (with-eval-after-load 'auctex-latexmk
   (auctex-latexmazd//setup))
-
-(with-eval-after-load 'company-auctex
-  (company-auctex-init))
 
 (defun latex-compile ()
   (interactive)
@@ -214,8 +195,7 @@
  "rs" 'reftex-search-document
  "rt" 'reftex-toc
  "rT" 'reftex-toc-recenter
- "rv" 'reftex-view-crossref
- "rb" 'helm-bibtex)
+ "rv" 'reftex-view-crossref)
 
 (provide 'mazd-latex)
 ;;; mazd//latex.el ends here

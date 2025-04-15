@@ -38,23 +38,7 @@
 		 ("Remove" . pacman-mode-remove)
 		 ("List" . pacman-mode-list-installed-packages)))
 
-(setq pacman-helm-source
-      `((name . "Pacman commands")
-	(candidates . ,(mapcar 'car commands))
-	(action . (lambda (candidate)
-		    (funcall-interactively (cdr (assoc candidate commands)))))))
-
-(defun mazd//helm-pacman ()
-  "Pacman interface"
-  (interactive)
-  (require 'pacman)
-  (helm :sources '(pacman-helm-source)))
-
 ;;; bindings
-
-(leader
-  "ap" 'mazd//helm-pacman
-  )
 
 (general-define-key
  :prefix "SPC l"

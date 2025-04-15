@@ -132,7 +132,6 @@
 
 (leader
   "ti" 'imenu-list
-  "tI" 'helm-imenu
   "td" 'darkroom-mode
   "tz" 'zoom-mode)
 

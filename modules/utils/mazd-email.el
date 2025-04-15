@@ -44,15 +44,6 @@
   :ensure t
   :defer t)
 
-(when (string= mazd//completion "featured")
-;;; helm-mu
-  (use-package helm-mu
-    :ensure t
-    :defer t
-    :after (helm mu4e))
-  )
-
-
 (when (string= mazd//completion "light")
 
   (add-to-list 'load-path (concat mazd//lisp-dir "consult-mu"))
@@ -109,13 +100,6 @@
   :defer t
   :after (org notmuch)
   :config (setq org-mime-library 'mml))
-
-;;; helm-notmuch
-(use-package helm-notmuch
-  :ensure t
-  :defer t
-  :commands helm-notmuch
-  :after notmuch)
 
 ;;;###autoload
 (defun mazd//mu4e()
@@ -308,14 +292,6 @@
     (apply orig-fn args)))
 
 (with-eval-after-load 'notmuch
-  (setq company-backend
-	'((
-	   notmuch-company
-	   company-ispell
-	   company-yasnippet
-	   )
-	  ))
-
   (setq notmuch-fcc-dirs nil
         notmuch-show-logo nil
         notmuch-message-headers-visible nil
@@ -358,9 +334,6 @@
    "s" 'mu4e-choose-signature
    )
   (evil-collection-init 'mu4e)
-  (when (string= mazd//completion "featured")
-    (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'helm-mu)
-    (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'helm-mu-contacts))
 
   (when (string= mazd//completion "light")
     (general-define-key

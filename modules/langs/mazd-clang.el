@@ -68,12 +68,6 @@
   :config
   (add-hook 'makefile-mode-hook 'makefile-executor-mode))
 
-(use-package company-c-headers
-  :ensure t
-  :defer t
-  :config
-  (push 'company-c-headers company-backends))
-
 (use-package cpp-auto-include
   :defer t
   :ensure nil

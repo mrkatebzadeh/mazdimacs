@@ -26,10 +26,7 @@
 (use-package ledger-mode
   :defer t
   :mode "\\.ledger$"
-  :config (setq ledger-clear-whole-transactions 1)
-  (add-hook 'ledger-mode-hook
-	    (lambda ()
-	      (set (make-local-variable 'company-backends) '(company-capf)))))
+  :config (setq ledger-clear-whole-transactions 1))
 
 (use-package evil-ledger
   :defer t

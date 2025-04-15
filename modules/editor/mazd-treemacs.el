@@ -116,11 +116,6 @@ Use `treemacs' command for old functionality."
   :defer t
   )
 
-(when (string= mazd//completion "featured")
-  (use-package treemacs-projectile
-    :after (treemacs projectile)
-    :defer t))
-
 (when (string= mazd//language-server "lsp")
   (use-package lsp-treemacs
     :ensure t

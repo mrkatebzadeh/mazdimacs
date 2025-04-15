@@ -51,22 +51,7 @@
 		  staff-password)))
     (shell-command command)))
 
-(defun mazd//scp-project ()
-  (interactive)
-  (let*
-      ((dir
-	(file-name-nondirectory
-	 (directory-file-name
-	  (file-name-directory
-	   (projectile-project-root)))))
 
-       (command
-	(format
-	 "rsync -rav -e ssh   --exclude=build --exclude='.git*' %s %s%s"
-	 (projectile-project-root)
-	 staff-project
-	 dir)))
-    (shell-command command)))
 
 ;;; bindings
 (general-define-key
@@ -84,7 +69,7 @@
  "a" 'aweshell-dedicated-toggle
  "t" 'eshell-toggle
  "u" 'mazd//update-ticket
- "c" 'mazd//scp-project)
+ )
 
 (provide 'mazd-eshell)
 ;;; mazd//eshell.el ends here
