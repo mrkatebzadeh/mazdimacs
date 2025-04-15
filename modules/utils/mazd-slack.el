@@ -24,10 +24,10 @@
 ;;
 					;
 (use-package emacs-slack
-  :ensure t
   :defer t
   :commands (slack-register-team slack-start)
   :vc (:url "https://github.com/emacs-slack/emacs-slack")
+  :ensure nil
   :bind (
          (:map slack-mode-map
                (("@" . slack-message-embed-mention)

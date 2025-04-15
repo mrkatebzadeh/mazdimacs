@@ -121,7 +121,7 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :ensure t
+  :ensure nil
   :init
   (savehist-mode))
 
@@ -155,13 +155,15 @@
 (use-package svg-lib
   :defer t
   :vc(:url "https://github.com/rougier/svg-lib")
-  :ensure nil)
+  :ensure nil
+  )
 
 ;; Replace keywords with SVG tags
 (use-package svg-tag-mode
   :defer t
   :vc(:url "https://github.com/rougier/svg-tag-mode")
-  :ensure nil)
+  :ensure nil
+  )
 
 (defun mazd//increase-font-size ()
   "Increase font size by 1."

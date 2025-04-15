@@ -33,6 +33,8 @@
 
 (use-package anisochromatic
   :vc (:url "https://github.com/isomatter-labs/anisochromatic-emacs")
+  :ensure nil
+  :defer t
   )
 
 

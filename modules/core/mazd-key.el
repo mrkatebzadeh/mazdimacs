@@ -39,7 +39,6 @@
   )
 
 (use-package evil
-  :defer t
   :ensure t
   :hook(text-mode . evil-mode)
   :init
@@ -201,7 +200,6 @@
   :keymaps 'override
   :prefix "SPC"
   :global-prefix "A-SPC")
-
 
 ;; Esc
 ;;;(global-set-key [escape] 'keyboard-quit)

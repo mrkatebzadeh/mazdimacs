@@ -22,6 +22,7 @@
 ;;; Path vars
 ;;(setq user-emacs-directory (file-name-directory load-file-name))
 (message "Starting Mazdimacs")
+(setq debug-on-error nil)
 
 ;;; Increase the CPU processing restrictions
 (when (boundp 'read-process-output-max)

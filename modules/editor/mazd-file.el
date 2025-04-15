@@ -54,8 +54,8 @@
     :ensure t)
 
   (use-package project-x
-    :ensure t
     :vc (:url "https://github.com/karthink/project-x.git")
+    :ensure nil
     :defer t
     :after project
     :config
@@ -90,7 +90,7 @@
   )
 
 (use-package recentf
-  :ensure t
+  :ensure nil
   :defer t
   :init
   (add-hook 'find-file-hook (lambda () (unless recentf-mode

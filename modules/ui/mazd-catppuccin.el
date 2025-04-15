@@ -24,7 +24,6 @@
 ;;
 
 (use-package catppuccin-theme
-  :defer t
   :ensure t
   :config
   (dolist (theme '(catppuccin-latte catppuccin-frappe catppuccin-macchiato catppuccin-mocha))

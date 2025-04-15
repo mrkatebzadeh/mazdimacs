@@ -30,7 +30,7 @@
   (global-set-key [remap other-window] 'ace-window))
 
 (use-package imenu
-  :ensure t
+  :ensure nil
   :defer t)
 
 (use-package imenu-list

@@ -24,7 +24,7 @@
 ;;
 
 (use-package sh-script
-  :ensure t
+  :ensure nil
   :defer t
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 

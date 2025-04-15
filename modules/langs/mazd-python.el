@@ -23,33 +23,6 @@
 
 ;;
 
-(use-package python
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-  :config
-  (add-hook 'python-ts-mode-hook #'mazd//python-setup 91)
-
-  (mazd//python-update-highlights)
-  )
-
-(when (string= mazd//language-server "lsp")
-  (use-package lsp-pyright
-    :defer t
-    :ensure t
-    :preface
-    (defun lsp-pyright-format-buffer ()
-      (interactive)
-      (when (and (executable-find "yapf") buffer-file-name)
-	(call-process "yapf" nil nil nil "-i" buffer-file-name)))
-    :hook (((python-mode python-ts-mode) . (lambda ()
-                                             (require 'lsp-pyright)
-                                             (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t))))
-    :init (when (executable-find "python3")
-            (setq lsp-pyright-python-executable-cmd "python3")))
-  )
-
 ;;;###autoload
 (defun mazd//py-hl-filter-self (node)
   (not (equal (treesit-node-text node) "self")))
@@ -136,6 +109,35 @@
 ;;;###autoload
 (defun mazd//python-setup ()
   (mazd//python-setup-highlight))
+
+
+
+(use-package python
+  :ensure t
+  :defer t
+  :init
+  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+  :config
+  (add-hook 'python-ts-mode-hook #'mazd//python-setup 91)
+
+  (mazd//python-update-highlights)
+  )
+
+(when (string= mazd//language-server "lsp")
+  (use-package lsp-pyright
+    :defer t
+    :ensure t
+    :preface
+    (defun lsp-pyright-format-buffer ()
+      (interactive)
+      (when (and (executable-find "yapf") buffer-file-name)
+	(call-process "yapf" nil nil nil "-i" buffer-file-name)))
+    :hook (((python-mode python-ts-mode) . (lambda ()
+                                             (require 'lsp-pyright)
+                                             (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t))))
+    :init (when (executable-find "python3")
+            (setq lsp-pyright-python-executable-cmd "python3")))
+  )
 
 
 (provide 'mazd-python)

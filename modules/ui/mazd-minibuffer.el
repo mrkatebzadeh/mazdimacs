@@ -119,21 +119,15 @@ targets."
   (push #'embark-which-key-indicator embark-indicators)
   )
 
-;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  ;; :disabled t
   :defer t
-  :ensure t ; only need to install it, embark loads it after consult if found
+  :ensure nil
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :defer t
   :ensure t
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
 

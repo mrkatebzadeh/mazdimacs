@@ -34,6 +34,9 @@
   (require 'org-id)
   (setq mazd//secret-dir (concat org-directory "/keys/")
 	org-default-notes-file (concat org-directory "/agenda/notes.org"))
+
+  (unless (file-exists-p org-directory)
+    (make-directory org-directory))
   )
 
 (use-package evil-org

@@ -109,7 +109,7 @@
 (use-package dired-rsync-transient
   :defer t
   :after dired
-  :ensure t
+  :ensure nil
   )
 
 (use-package diredfl
@@ -135,7 +135,7 @@
   :defer t)
 
 (use-package dired-subtree
-  :ensure t
+  :ensure nil
   :after dired
   :defer t)
 

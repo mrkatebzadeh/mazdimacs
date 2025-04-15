@@ -24,7 +24,7 @@
 ;;
 
 (use-package magit
-  :ensure t
+  :ensure nil
   :defer t
   :defer-incrementally (magit)
   :init

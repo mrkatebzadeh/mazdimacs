@@ -83,7 +83,7 @@
   :defer t)
 
 (use-package reftex
-  :ensure t
+  :ensure nil
   :defer t)
 
 (when (string= mazd//completion "featured")

@@ -47,6 +47,7 @@
     :bind ("M-g s" . consult-flyspell))
 
   (use-package consult-yasnippet
+    :after (yasnippet consult)
     :defer t
     :ensure t
     :bind ("M-g y" . consult-yasnippet))

@@ -25,39 +25,40 @@
 
 (require 'cl-lib)
 
-(setq use-package-expand-minimally t
-      debug-on-error nil)
+(setq use-package-expand-minimally t)
+(setq enable-local-variables :all)
+
 
 (setq
-  ;; package--init-file-ensured t
-      ad-redefinition-action 'accept
-      cursor-type 'box
-      create-lockfiles nil
-      frame-title-format "ε %b [%m]"
-      jit-lock-defer-time 0.04
-      jit-lock-stealth-nice 0.1
-      jit-lock-stealth-time 0.2
-      jit-lock-stealth-verbose nil
-      jka-compr-use-shell nil
-      left-margin-width 0
-      max-lisp-eval-depth 5000
-      max-specpdl-size 10000
-      mode-line-end-spaces nil
-      mazd//flag-debug-init (eq debug-on-error 'startup)
-      process-adaptive-read-buffering nil
-      right-margin-width 0
-      ring-bell-function 'ignore
-      initial-scratch-message ""
-      frame-inhibit-implied-resize t
-      initial-major-mode 'fundamental-mode
-      select-enable-clipboard t
-      user-full-name "M.R. Siavash Katebzadeh"
-      user-mail-address "mr.katebzadeh@gmail.com"
-      package-user-dir (expand-file-name "elpa" mazd//packages-dir)
-      package-gnupghome-dir (expand-file-name "gpg" mazd//packages-dir)
-      help-window-select t
-      x-stretch-cursor t
-      )
+ ;; package--init-file-ensured t
+ ad-redefinition-action 'accept
+ cursor-type 'box
+ create-lockfiles nil
+ frame-title-format "ε %b [%m]"
+ jit-lock-defer-time 0.04
+ jit-lock-stealth-nice 0.1
+ jit-lock-stealth-time 0.2
+ jit-lock-stealth-verbose nil
+ jka-compr-use-shell nil
+ left-margin-width 0
+ max-lisp-eval-depth 5000
+ max-specpdl-size 10000
+ mode-line-end-spaces nil
+ mazd//flag-debug-init (eq debug-on-error 'startup)
+ process-adaptive-read-buffering nil
+ right-margin-width 0
+ ring-bell-function 'ignore
+ initial-scratch-message ""
+ frame-inhibit-implied-resize t
+ initial-major-mode 'fundamental-mode
+ select-enable-clipboard t
+ user-full-name "M.R. Siavash Katebzadeh"
+ user-mail-address "mr.katebzadeh@gmail.com"
+ package-user-dir (expand-file-name "elpa" mazd//packages-dir)
+ package-gnupghome-dir (expand-file-name "gpg" mazd//packages-dir)
+ help-window-select t
+ x-stretch-cursor t
+ )
 
 ;;; Basic configs
 (setq warning-minimum-level :emergency)
