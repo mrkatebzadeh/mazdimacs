@@ -129,9 +129,10 @@
       		  ((yant/str-to-glyph "◴S") org-specific "\\<SCHEDULED:" (org-mode))))))
 
 (use-package org-modern-indent
+  :disabled t
   :vc (:url "https://github.com/jdtsmith/org-modern-indent.git")
   :ensure nil
-  :defer-incrementally (org )
+  ;; :defer-incrementally (org )
   :defer t
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
