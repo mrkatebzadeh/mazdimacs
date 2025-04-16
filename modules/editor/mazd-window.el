@@ -117,11 +117,17 @@
     (mazd//blink-buffer)
     ))
 
+(defun mazd//fullscreen ()
+  "Set to fullscreen"
+  (interactive)
+
+  (set-frame-parameter nil 'fullscreen 'fullboth))
 
 
 ;;; bindings
 
 (leader
+  "wf" 'mazd//fullscreen
   "wv" 'mazd//vsplit-window
   "ws" 'mazd//split-window
   "wd" 'mazd//delete-window
