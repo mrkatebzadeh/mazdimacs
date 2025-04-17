@@ -279,7 +279,18 @@
   :ensure t
   :defer t)
 
+(use-package indent-bars
+  :ensure t
+  :custom
+  (indent-bars-no-descend-lists t)
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+				       if_statement with_statement while_statement)))
+  :hook ((python-base-mode yaml-mode rust-mode) . indent-bars-mode))
+
 (use-package highlight-indent-guides
+  :disabled t
   :ensure t
   :defer t
   :config
@@ -422,7 +433,7 @@
 (leader
   "tR" 'auto-revert-mode
   "tb" 'tool-bar-mode
-  "th" 'highlight-indent-guides-mode
+  "th" 'indent-bars-mode
   "tp" 'smartparens-mode
   "tn" 'mazd//toggle-line-numbers
   "tf" 'format-all-mode
