@@ -69,38 +69,14 @@
 
 
   (define-advice tramp-read-passwd
-    (:around (old-fun &rest args) disable-auth-sources )
-  (let ((auth-sources))
-    (apply old-fun args)))
+      (:around (old-fun &rest args) disable-auth-sources )
+    (let ((auth-sources))
+      (apply old-fun args)))
 
   (setq tramp-backup-directory-alist `((,(rx (zero-or-more anything))
-                                      . ,mazd//tramp-backup-directory)))
+					. ,mazd//tramp-backup-directory)))
 
-)
-
-(with-eval-after-load 'tramp-sh
-  (setq tramp-use-ssh-controlmaster-options
-        (eval-when-compile
-          (not
-           (let ((config
-                  (with-output-to-string
-                    (with-current-buffer
-                        standard-output
-                      (call-process "ssh" nil '(t nil) nil
-                                    "-G"
-                                    "nonexistent-host")))))
-             (string-match-p (rx bol "controlmaster auto" eol) config)))))
-
-  (define-advice tramp-do-copy-or-rename-file-directly
-      (:filter-args (args) no-preserve-uid-gid-msdos )
-    (cl-destructuring-bind
-        (op filename newname ok-if-already-exists keep-date preserve-uid-gid)
-        args
-      (list op filename newname ok-if-already-exists keep-date
-            (unless (my/msdos-fs (if (tramp-tramp-file-p newname)
-                                     (file-remote-p newname 'localname)
-                                   newname))
-              preserve-uid-gid)))))
+  )
 
 (defun tramp-switch-method (method &optional file-name)
   (interactive (list

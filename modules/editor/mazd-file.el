@@ -28,91 +28,89 @@
   :defer t
   :hook (after-init . envrc-global-mode))
 
-(when (string= mazd//completion "light")
-  (use-package consult-project-extra
-    :defer t
-    :ensure t)
+(use-package consult-project-extra
+  :defer t
+  :ensure t)
 
-  (use-package project-x
-    :vc (:url "https://github.com/karthink/project-x.git")
-    :ensure nil
-    :defer t
-    :after project
-    :config
-    (add-hook 'project-find-functions 'project-x-try-local 90)
-    (add-hook 'kill-emacs-hook 'project-x--window-state-write)
-    (setq project-switch-commands #'project-x-windows)
-    )
-
-  (use-package project
-    :init
-    :config
-    (defgroup project-local nil
-      "Local, non-VC-backed project.el root directories."
-      :group 'project)
-
-    (defcustom project-local-identifier ".project"
-
-      "You can specify a single filename or a list of names."
-      :type '(choice (string :tag "Single file")
-                     (repeat (string :tag "Filename")))
-      :group 'project-local)
-
-    (cl-defmethod project-root ((project (head local)))
-      "Return root directory of current PROJECT."
-      (cdr project))
-
-    (defun project-local-try-local (dir)
-      "Determine if DIR is a non-VC project. DIR must include a file with the name determined by the variable `project-local-identifier' to be considered a project."
-      (if-let ((root (if (listp project-local-identifier)
-			 (seq-some (lambda (n)
-                                     (locate-dominating-file dir n))
-				   project-local-identifier)
-                       (locate-dominating-file dir project-local-identifier))))
-	  (cons 'local root)))
-
-    (customize-set-variable 'project-find-functions
-                            (list #'project-try-vc
-				  #'project-local-try-local))
-    )
-
-  (defun mazd//project-close ()
-    "Close all buffers associated with the current project."
-    (interactive)
-    (let ((project (project-current t)))
-      (if project
-          (let* ((project-root (project-root project))
-		 (buffers (project-buffers project)))
-            (dolist (buffer buffers)
-              (when (string-prefix-p project-root (or (buffer-file-name buffer) ""))
-		(kill-buffer buffer)))
-            (message "Closed all buffers for project: %s" project-root))
-	(message "No project found."))))
-
+(use-package project-x
+  :vc (:url "https://github.com/karthink/project-x.git")
+  :ensure nil
+  :defer t
+  :after project
+  :config
+  (add-hook 'project-find-functions 'project-x-try-local 90)
+  (add-hook 'kill-emacs-hook 'project-x--window-state-write)
+  (setq project-switch-commands #'project-x-windows)
   )
 
-  (use-package recentf
-    :ensure nil
-    :defer t
-    :init
-    (add-hook 'find-file-hook (lambda () (unless recentf-mode
-					   (recentf-mode)
-					   (recentf-track-opened-file))))
-    :custom
-    (recentf-exclude (list "COMMIT_EDITMSG"
-                           "~$"
-                           "/scp:"
-                           (expand-file-name mazd//backup-dir)
-                           (expand-file-name mazd//local-dir)
-                           (expand-file-name org-directory)
-                           (expand-file-name (concat mazd//emacs-dir "emms/"))
-                           "/ssh:"
-                           "/sudo:"
-                           "/tmp/"))
-    (recentf-max-menu-items 15)
-    (recentf-max-saved-items 15)
-    (recentf-save-file (concat mazd//backup-dir "recentf"))
-    :config (run-at-time nil (* 5 60) 'recentf-save-list))
+(use-package project
+  :init
+  :config
+  (defgroup project-local nil
+    "Local, non-VC-backed project.el root directories."
+    :group 'project)
+
+  (defcustom project-local-identifier ".project"
+
+    "You can specify a single filename or a list of names."
+    :type '(choice (string :tag "Single file")
+                   (repeat (string :tag "Filename")))
+    :group 'project-local)
+
+  (cl-defmethod project-root ((project (head local)))
+    "Return root directory of current PROJECT."
+    (cdr project))
+
+  (defun project-local-try-local (dir)
+    "Determine if DIR is a non-VC project. DIR must include a file with the name determined by the variable `project-local-identifier' to be considered a project."
+    (if-let ((root (if (listp project-local-identifier)
+		       (seq-some (lambda (n)
+                                   (locate-dominating-file dir n))
+				 project-local-identifier)
+                     (locate-dominating-file dir project-local-identifier))))
+	(cons 'local root)))
+
+  (customize-set-variable 'project-find-functions
+                          (list #'project-try-vc
+				#'project-local-try-local))
+  )
+
+(defun mazd//project-close ()
+  "Close all buffers associated with the current project."
+  (interactive)
+  (let ((project (project-current t)))
+    (if project
+        (let* ((project-root (project-root project))
+	       (buffers (project-buffers project)))
+          (dolist (buffer buffers)
+            (when (string-prefix-p project-root (or (buffer-file-name buffer) ""))
+	      (kill-buffer buffer)))
+          (message "Closed all buffers for project: %s" project-root))
+      (message "No project found."))))
+
+
+(use-package recentf
+  :ensure nil
+  :defer t
+  :init
+  (add-hook 'find-file-hook (lambda () (unless recentf-mode
+					 (recentf-mode)
+					 (recentf-track-opened-file))))
+  :custom
+  (recentf-exclude (list "COMMIT_EDITMSG"
+                         "~$"
+                         "/scp:"
+                         (expand-file-name mazd//backup-dir)
+                         (expand-file-name mazd//local-dir)
+                         (expand-file-name org-directory)
+                         (expand-file-name (concat mazd//emacs-dir "emms/"))
+                         "/ssh:"
+                         "/sudo:"
+                         "/tmp/"))
+  (recentf-max-menu-items 15)
+  (recentf-max-saved-items 15)
+  (recentf-save-file (concat mazd//backup-dir "recentf"))
+  :config (run-at-time nil (* 5 60) 'recentf-save-list))
 
 (use-package docker-tramp
   :ensure t
@@ -218,25 +216,16 @@ FILENAME is deleted using `mazd//delete-file' function.."
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
-(defun mazd//sudo-edit (&optional arg)
-  (interactive "P")
-  (let ((fname (if (or arg (not buffer-file-name))
-                   (read-file-name "File: ")
-                 buffer-file-name)))
-    (find-file
-     (cond ((string-match-p "^/ssh:" fname)
-            (with-temp-buffer
-              (insert fname)
-              (search-backward ":")
-              (let ((last-match-end nil)
-                    (last-ssh-hostname nil))
-                (while (string-match "@\\\([^:|]+\\\)" fname last-match-end)
-                  (setq last-ssh-hostname (or (match-string 1 fname)
-                                              last-ssh-hostname))
-                  (setq last-match-end (match-end 0)))
-                (insert (format "|sudo:%s" (or last-ssh-hostname "localhost"))))
-              (buffer-string)))
-           (t (concat "/sudo:root@localhost:" fname))))))
+(defun mazd//sudo-edit ()
+  "Edit the current file as root if it's not writable."
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (if (not file)
+        (message "This buffer is not visiting a file.")
+      (if (file-writable-p file)
+          (message "File is already writable.")
+        (let ((sudo-file (concat "/sudo::" file)))
+          (find-alternate-file sudo-file))))))
 
 
 (defun mazd//delete-window (&optional arg)
