@@ -195,6 +195,35 @@
 	 (end (+ start (nth 1 (insert-file-contents filename)))))
     (org-table-convert-region start end)))
 
+
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("mazd-plain"
+                 "\\documentclass[12pt]{extarticle}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage[english]{babel}
+\\usepackage{newpxtext}
+\\usepackage{microtype}
+\\usepackage[margin=1.1in]{geometry}
+\\usepackage{parskip}
+\\usepackage{xcolor}
+\\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=darkblue,
+    pdfborder={0 0 0}
+    ]{hyperref}
+\\definecolor{darkblue}{rgb}{0.0, 0.0, 0.5}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+(setq org-latex-default-packages-alist nil) ;; disables default packages
+(setq org-latex-packages-alist nil)         ;; disables user-added packages
+(setq org-latex-with-hyperref nil)
+
+
 (leader
   "oe" 'mazd//org-export
   "oo" 'org-mode
