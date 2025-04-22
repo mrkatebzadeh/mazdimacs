@@ -1,4 +1,4 @@
-;;; utils.el --- Utils -*- lexical-binding: t; -*-
+;;; mazd-leetcode.el --- Leetcode -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,23 +23,16 @@
 
 ;;
 
-(require 'mazd-dashboard)
-(require 'mazd-eshell)
-(require 'mazd-ai)
-(require 'mazd-calc)
-(require 'mazd-calendar)
-(require 'mazd-email)
-(require 'mazd-irc)
-(require 'mazd-ledger)
-(require 'mazd-media)
-(require 'mazd-music)
-(require 'mazd-power)
-(require 'mazd-rfc)
-(require 'mazd-tramp)
-(require 'mazd-siarch)
-(require 'mazd-remote)
-(require 'mazd-slack)
-(require 'mazd-leetcode)
+;;; Code:
 
-(provide 'utils)
-;;; utils.el ends here
+(use-package leetcode
+  :ensure t
+  :config
+  (setq leetcode-prefer-language "cpp")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/Leetcode")
+  )
+
+
+(provide 'mazd-leetcode)
+;;; mazd-leetcode.el ends here
