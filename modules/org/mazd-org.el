@@ -199,18 +199,19 @@
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
                '("mazd-plain"
-                 "\\documentclass[12pt]{extarticle}
+                 "\\documentclass[11pt]{article}
 \\usepackage[utf8]{inputenc}
 \\usepackage[T1]{fontenc}
 \\usepackage[english]{babel}
 \\usepackage{newpxtext}
 \\usepackage{microtype}
-\\usepackage[margin=1.1in]{geometry}
+\\usepackage[margin=1in]{geometry}
 \\usepackage{parskip}
 \\usepackage{xcolor}
 \\usepackage[
     colorlinks=true,
     linkcolor=blue,
+    citecolor=darkblue,
     urlcolor=darkblue,
     pdfborder={0 0 0}
     ]{hyperref}
@@ -219,8 +220,8 @@
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
-(setq org-latex-default-packages-alist nil) ;; disables default packages
-(setq org-latex-packages-alist nil)         ;; disables user-added packages
+(setq org-latex-default-packages-alist nil)
+(setq org-latex-packages-alist nil)
 (setq org-latex-with-hyperref nil)
 
 
