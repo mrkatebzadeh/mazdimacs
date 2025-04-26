@@ -34,6 +34,7 @@
 (require 'mazd-treemacs)
 (require 'mazd-dired)
 (require 'mazd-xref)
+(require 'mazd-project)
 (require 'mazd-undo)
 
 (provide 'editor)
