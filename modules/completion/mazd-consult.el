@@ -34,7 +34,17 @@
      consult-outline
      consult-line
      consult-buffer
-     ))
+     )
+    :config
+    (setq consult-buffer-sources
+	  '(consult--source-hidden-buffer
+	    consult--source-modified-buffer
+	    consult--source-buffer
+	    consult--source-recent-file
+	    consult--source-file-register
+	    consult--source-bookmark
+	    ))
+    )
 
   (use-package consult-tramp
     :ensure nil

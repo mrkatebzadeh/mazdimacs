@@ -409,10 +409,9 @@
   "bw" 'evil-write
   "bu" 'undo-tree-visualize)
 
-(when (string= mazd//completion "light")
-  (leader
-    "bb" 'consult-buffer
-    ))
+(leader
+  "bb" 'consult-buffer
+  )
 
 (leader
   "se" 'er/expand-region
