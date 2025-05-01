@@ -50,6 +50,7 @@
   :defer t)
 
 (use-package clang-format+
+  :vc (:url "https://github.com/SavchenkoValeriy/emacs-clang-format-plus")
   :ensure nil
   :defer t
   :commands (clang-format+-mode)
