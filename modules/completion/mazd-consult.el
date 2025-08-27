@@ -23,57 +23,56 @@
 
 ;;
 
-(when (string= mazd//completion "light")
 
-  (use-package consult
-    :ensure t
-    :defer t
-    :commands
-    (consult-grep
-     consult-find
-     consult-outline
-     consult-line
-     consult-buffer
-     )
-    :config
-    (setq consult-buffer-sources
-	  '(consult--source-hidden-buffer
-	    consult--source-modified-buffer
-	    consult--source-buffer
-	    consult--source-recent-file
-	    consult--source-file-register
-	    consult--source-bookmark
-	    ))
-    )
+(use-package consult
+  :ensure t
+  :defer t
+  :commands
+  (consult-grep
+   consult-find
+   consult-outline
+   consult-line
+   consult-buffer
+   )
+  :config
+  (setq consult-buffer-sources
+	'(consult--source-hidden-buffer
+	  consult--source-modified-buffer
+	  consult--source-buffer
+	  consult--source-recent-file
+	  consult--source-file-register
+	  consult--source-bookmark
+	  ))
+  )
 
-  (use-package consult-tramp
-    :ensure nil
-    :defer t
-    :commands (consult-tramp))
+(use-package consult-tramp
+  :ensure nil
+  :defer t
+  :commands (consult-tramp))
 
-  (use-package consult-flyspell
-    :defer t
-    :ensure t
-    :bind ("M-g s" . consult-flyspell))
+(use-package consult-flyspell
+  :defer t
+  :ensure t
+  :bind ("M-g s" . consult-flyspell))
 
-  (use-package consult-yasnippet
-    :after (yasnippet consult)
-    :defer t
-    :ensure t
-    :bind ("M-g y" . consult-yasnippet))
+(use-package consult-yasnippet
+  :after (yasnippet consult)
+  :defer t
+  :ensure t
+  :bind ("M-g y" . consult-yasnippet))
 
 ;;; Files
-  (leader
-    "fK" 'consult-yank-kill-ring
-    "fr" 'consult-recent-file
-    "ft" 'consult-tramp
-    "ff" 'find-file)
+(leader
+  "fK" 'consult-yank-kill-ring
+  "fr" 'consult-recent-file
+  "ft" 'consult-tramp
+  "ff" 'find-file)
 ;;; Insert
-  (leader
-    "is" 'consult-yasnippet)
+(leader
+  "is" 'consult-yasnippet)
 
-  (leader
-    "lt" 'consult-flymake)
-  )
+(leader
+  "lt" 'consult-flymake)
+
 (provide 'mazd-consult)
 ;;; mazd//consult.el ends here

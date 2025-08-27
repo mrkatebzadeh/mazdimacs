@@ -27,7 +27,6 @@
 (defvar mazd//persistent-variables
   '(
     mazd//alpha-variable
-    mazd//completion
     mazd//language-server
     mazd//icon
     mazd//font-size
@@ -38,12 +37,6 @@
 
 (defvar mazd//alpha-variable 90
   "Default transparency level to toggle with 100.")
-
-(defvar mazd//completion "light"
-  "Completion frameworks: light -> vertico/consult/corf ")
-
-(defvar mazd//language-server "eglot"
-  "Language server frameworks: eglot, lsp, or bridge")
 
 (defvar mazd//icon t)
 

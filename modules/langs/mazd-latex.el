@@ -86,15 +86,13 @@
   :ensure nil
   :defer t)
 
-(when (string= mazd//completion "light")
-  (use-package consult-bibtex
-    :vc (:url "https://github.com/mohkale/consult-bibtex.git")
-    :ensure nil
-    :defer t
-    :config
-    (with-eval-after-load 'embark
-      (add-to-list 'embark-keymap-alist '(bibtex-completion . consult-bibtex-embark-map)))
-    )
+(use-package consult-bibtex
+  :vc (:url "https://github.com/mohkale/consult-bibtex.git")
+  :ensure nil
+  :defer t
+  :config
+  (with-eval-after-load 'embark
+    (add-to-list 'embark-keymap-alist '(bibtex-completion . consult-bibtex-embark-map)))
   )
 
 (use-package auctex-latexmk

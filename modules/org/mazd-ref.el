@@ -173,16 +173,12 @@
   "oRo" 'mazd//open-bib-file
   )
 
-(when (string= mazd//completion "featured")
-  (leader
-    "oRd" 'doi-utils-add-bibtex-entry-from-doi
-    )
+(leader
+  "oRd" 'doi-utils-add-bibtex-entry-from-doi
   )
 
-(when (string= mazd//completion "light")
-  (leader
-    "oRl" 'consult-bibtex
-    )
+(leader
+  "oRl" 'consult-bibtex
   )
 
 (evil-define-key 'normal bibtex-mode-map
