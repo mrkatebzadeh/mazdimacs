@@ -26,35 +26,7 @@
 
 (require 'mazd-corfu)
 (require 'mazd-consult)
-(require 'mazd-eglot)
 (require 'mazd-lsp)
-
-(defun mazd//switch-lsp ()
-  "Switch between Eglot and LSP mode."
-  (interactive)
-  (if (string= mazd//language-server "eglot")
-      (progn
-        (when (bound-and-true-p eglot-managed-mode)
-          (eglot-shutdown-all))
-        (setq mazd//language-server "lsp")
-        (lsp)
-        (message "Switched to LSP Mode"))
-    (progn
-      (when (bound-and-true-p lsp-mode)
-        (lsp-disconnect))
-      (setq mazd//language-server "eglot")
-      (eglot-ensure)
-      (message "Switched to Eglot"))))
-
-(defun mazd//start-lsp ()
-  "Start the currently selected LSP backend."
-  (interactive)
-  (if (string= mazd//language-server "eglot")
-      (eglot-ensure)
-    (lsp)))
-
-(leader
-  "lS" 'mazd//switch-lsp)
 
 (provide 'completion)
 ;;; completion.el ends here
