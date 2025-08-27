@@ -22,122 +22,70 @@
 ;;; Commentary:
 
 ;;
-
-;;;###autoload
-(defun mazd//py-hl-filter-self (node)
-  (not (equal (treesit-node-text node) "self")))
-
-;;;###autoload
-(defun mazd//python-update-highlights ()
-  (setq python--treesit-settings
-        (append python--treesit-settings
-                (treesit-font-lock-rules
-
-                 ;; custom rules
-                 :language 'python
-                 :override 'nil
-                 :feature 'custom
-                 '((call function: (identifier) @mazd//font-lock-function-call-face))
-
-                 :language 'python
-                 :override 't
-                 :feature 'custom
-                 '((call function: (attribute attribute: (identifier) @mazd//font-lock-method-call-face)))
-
-                 :language 'python
-                 :override 't
-                 :feature 'custom
-                 '(((identifier) @mazd//font-lock-global-var-face
-                    (:match "^_?[A-Z][A-Z_0-9]*$" @mazd//font-lock-global-var-face)))
-
-                 :language 'python
-                 :override 't
-                 :feature 'custom
-                 '((call function: (identifier) @mazd//font-lock-constructor-face
-			 (:match "^_?[A-Z]" @mazd//font-lock-constructor-face))
-                   (call function: (attribute attribute: (identifier) @mazd//font-lock-constructor-face)
-                         (:match "^_?[A-Z]" @mazd//font-lock-constructor-face)))
-
-                 :language 'python
-                 :feature 'custom
-                 '((keyword_argument name: (identifier) @mazd//font-lock-argument-keyword-face))
-
-                 :language 'python
-                 :feature 'custom
-                 '(((parameters (identifier) @mazd//font-lock-parameter-face
-				(:pred mazd//py-hl-filter-self @mazd//font-lock-parameter-face)))
-
-                   (parameters (typed_parameter (identifier) @mazd//font-lock-parameter-face))
-                   (parameters (default_parameter name: (identifier) @mazd//font-lock-parameter-face))
-                   (parameters (typed_default_parameter name: (identifier) @mazd//font-lock-parameter-face))
-
-                   (parameters
-                    (list_splat_pattern ; *args
-                     (identifier) @mazd//font-lock-parameter-face))
-                   (parameters
-                    (dictionary_splat_pattern ; **kwargs
-                     (identifier) @mazd//font-lock-parameter-face))
-
-                   (lambda_parameters
-                    (identifier) @mazd//font-lock-parameter-face))
-
-                 :language 'python
-                 :feature 'custom
-                 '((argument_list (identifier) @mazd//font-lock-argument-face)
-                   (argument_list
-                    (list_splat         ; *args
-                     (identifier) @mazd//font-lock-argument-face))
-                   (argument_list
-                    (dictionary_splat   ; **kwargs
-                     (identifier) @mazd//font-lock-argument-face)))
-                 :language 'python
-                 :override 't
-                 :feature 'custom
-                 '((list_splat_pattern "*" @font-lock-misc-punctuation-face)
-                   (list_splat "*" @font-lock-misc-punctuation-face)
-                   (dictionary_splat_pattern "**" @font-lock-misc-punctuation-face)
-                   (dictionary_splat "**" @font-lock-misc-punctuation-face))))))
-
-;;;###autoload
-(defun mazd//python-setup-highlight ()
-  (unless (member 'custom (nth 2 treesit-font-lock-feature-list))
-    (push 'custom (nth 2 treesit-font-lock-feature-list))
-    (push 'font-lock-misc-punctuation-face (nth 2 treesit-font-lock-feature-list)))
-
-  (setopt treesit-font-lock-level 3))
-
-;;;###autoload
-(defun mazd//python-setup ()
-  (mazd//python-setup-highlight))
-
-
-
 (use-package python
   :ensure t
   :defer t
   :init
-  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-  :config
-  (add-hook 'python-ts-mode-hook #'mazd//python-setup 91)
+  (defun mazd//python-mode-setup ()
+    "Configure indentation for Python."
+    (setq tab-width 4
+          python-indent-offset 4
+          indent-tabs-mode nil)        ;; never insert tabs
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)
+    (add-hook 'before-save-hook #'mazd//untabify-buffer nil t))
 
-  (mazd//python-update-highlights)
-  )
+  (defun mazd//untabify-buffer ()
+    "Convert all tabs in the buffer to spaces."
+    (interactive)
+    (untabify (point-min) (point-max)))
 
-(when (string= mazd//language-server "lsp")
-  (use-package lsp-pyright
-    :defer t
-    :ensure t
-    :preface
-    (defun lsp-pyright-format-buffer ()
-      (interactive)
-      (when (and (executable-find "yapf") buffer-file-name)
-	(call-process "yapf" nil nil nil "-i" buffer-file-name)))
-    :hook (((python-mode python-ts-mode) . (lambda ()
-                                             (require 'lsp-pyright)
-                                             (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t))))
-    :init (when (executable-find "python3")
-            (setq lsp-pyright-python-executable-cmd "python3")))
-  )
+  (add-hook 'python-mode-hook #'mazd//python-mode-setup)
+  (add-hook 'python-ts-mode-hook #'mazd//python-mode-setup)
+  (add-to-list 'major-mode-remap-alist
+               '(python-mode . python-ts-mode)))
+
+(use-package lsp-pyright
+  :defer t
+  :ensure t
+  :preface
+  (defun lsp-pyright-format-buffer ()
+    (interactive)
+    (when (and (executable-find "yapf") buffer-file-name)
+      (call-process "yapf" nil nil nil "-i" buffer-file-name)))
+  :hook ((python-mode python-ts-mode) . (lambda ()
+                                          (require 'lsp-pyright)
+                                          (lsp))) ;; or (lsp-deferred)
+  :init
+  (when (executable-find "python3")
+    (setq lsp-pyright-python-executable-cmd "python3")))
+
+(use-package poetry
+  :defer t
+  :ensure t)
+
+(defun mazd//run-python-file ()
+  "Run the current Python file in a dedicated buffer."
+  (interactive)
+  (when buffer-file-name
+    (let ((command (format "%s %s"
+                           (or lsp-pyright-python-executable-cmd "python3")
+                           (shell-quote-argument buffer-file-name))))
+      (compilation-start command t
+                         (lambda (_) "*Python Run*")))))
+
+(with-eval-after-load 'python
+  (define-key python-mode-map (kbd "C-c C-r") #'mazd//run-python-file))
+(with-eval-after-load 'python-ts-mode
+  (define-key python-ts-mode-map (kbd "C-c C-r") #'mazd//run-python-file))
+
+;;; bindings
+(general-define-key
+ :prefix "SPC k"
+ :states '(normal visual motion)
+ :keymaps '(python-ts-mode-map python-map)
+ "R" 'run-python
+ "r" 'mazd//run-python-file)
+
 
 
 (provide 'mazd-python)
