@@ -29,22 +29,24 @@
   :ensure t
   :defer t
   :init
-  (defun get-key ()
-    (mazd//lookup-password :host "gemini")
-    )
-  (setq
-   gptel-default-mode 'org-mode
-   ;; gptel-model "gemini-pro"
-   ;; gptel-backend (gptel-make-gemini "Gemini"
-   ;; :key 'get-key
-   ;; :stream t)
-   )
+  (setq gptel-api-key (string-trim (shell-command-to-string "pass openai/key")))
   :config
-  (setq gptel-model "gpt-4o")
-  ;; (add-to-list 'gptel-directives '(proofreader . "I want you act as a proofreader. I will provide you texts and I would like you to review them for any spelling, grammar, or punctuation errors. Once you have finished reviewing the text, provide me with any necessary corrections or suggestions to improve the text."))
-  )
+  (setq gptel-model "gpt-5-mini")
+  (add-to-list 'gptel-directives
+	       '(proofreader . "Act as a proofreader. Review text for spelling, grammar, or punctuation errors and suggest improvements.")))
+
+(use-package aidermacs
+  :vc (:url "https://github.com/MatthewZMD/aidermacs")
+  :config
+  (defun pass-openai-key ()
+    (string-trim (shell-command-to-string "pass openai/key")))
+  (setenv "OPENAI_API_KEY" (pass-openai-key))
+  :custom
+  (aidermacs-default-chat-mode 'architect)
+  (aidermacs-default-model "openai/gpt-5"))
 
 (leader
+  "aa" 'aidermacs-transient-menu
   "ag" 'gptel)
 
 (provide 'mazd-ai)

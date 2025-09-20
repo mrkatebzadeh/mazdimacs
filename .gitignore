@@ -42,3 +42,4 @@ history
 eln-cache/
 quelpa
 .dap-breakpoints
+.aider*
