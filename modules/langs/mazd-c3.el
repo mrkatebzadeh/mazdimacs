@@ -1,4 +1,4 @@
-;;; langs.el --- Langs -*- lexical-binding: t; -*-
+;;; mazd-c3.el --- C3 -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,19 +23,17 @@
 
 ;;
 
-(require 'mazd-python)
-(require 'mazd-latex)
-(require 'mazd-clang)
-(require 'mazd-c3)
-(require 'mazd-rust)
-(require 'mazd-zig)
-(require 'mazd-nix)
-(require 'mazd-web)
-(require 'mazd-docker)
-(require 'mazd-elisp)
-(require 'mazd-hdl)
-(require 'mazd-jekyl)
-(require 'mazd-docs)
+;;; Code:
 
-(provide 'langs)
-;;; langs.el ends here
+(setq treesit-language-source-alist
+      '((c3 "https://github.com/c3lang/tree-sitter-c3")))
+
+
+(use-package c3-ts-mode
+  :vc ( :url "https://github.com/c3lang/c3-ts-mode")
+  :ensure nil
+  :mode "\\.c3\\'"
+  )
+
+(provide 'mazd-c3)
+;;; mazd-c3.el ends here
