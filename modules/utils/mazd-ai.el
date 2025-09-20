@@ -59,5 +59,8 @@
   "aa" 'aidermacs-transient-menu
   "ag" 'gptel)
 
+(leader
+  "gg" 'gptel-magit-generate-message)
+
 (provide 'mazd-ai)
 ;;; mazd//ai.el ends here
