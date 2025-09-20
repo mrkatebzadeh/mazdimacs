@@ -37,6 +37,7 @@
   (remove-hook 'magit-status-sections-hook 'magit-insert-unpulled-from-pushremote)
   (remove-hook 'magit-status-sections-hook 'magit-insert-unpulled-from-upstream)
   ;; (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
+  (add-hook 'git-commit-setup-hook 'evil-insert-state)
   )
 
 (use-package git-gutter
