@@ -216,6 +216,7 @@
   "u" '(:ignore t :which-key "UI")
   "uf" '(:ignore t :which-key "Font")
   "ut" 'mazd//toggle-transparency
+  "uT" 'consult-theme
   "ufi" 'mazd//increase-font-size
   "ufd" 'mazd//decrease-font-size
   "ufr" 'mazd//reset-font
