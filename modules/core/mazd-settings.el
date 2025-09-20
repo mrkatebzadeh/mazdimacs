@@ -43,7 +43,7 @@
 (defvar mazd//font-default-size 120
   "Default font size for resetting.")
 
-(defvar mazd//font-default-family "FiraCode Nerd Font Propo"
+(defvar mazd//font-default-family "FiraCode Nerd Font"
   "Default font family for resetting.")
 
 (defvar mazd//font-size mazd//font-default-size
