@@ -25,7 +25,6 @@
 
 (use-package lsp-mode
   :ensure t
-  :defer-incrementally (lsp-mode)
   :defer t
   :init
   (setq lsp-auto-guess-root t)

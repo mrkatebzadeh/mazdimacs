@@ -52,7 +52,6 @@
 
 (use-package corfu
   :defer t
-  :defer-incrementally (corfu)
   :ensure t
   ;; :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
   :general

@@ -32,7 +32,6 @@
   :vc (:url "https://github.com/manateelazycat/aweshell.git")
   :ensure nil
   :defer t
-  :defer-incrementally (aweshell)
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   :bind
   (("C-\\" . aweshell-dedicated-toggle)))

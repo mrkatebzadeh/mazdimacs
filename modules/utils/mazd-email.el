@@ -25,7 +25,6 @@
 
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (use-package mu4e
-  :defer-incrementally (mu4e)
   :ensure nil
   :defer t)
 
