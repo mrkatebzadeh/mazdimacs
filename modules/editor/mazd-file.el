@@ -50,7 +50,9 @@
   (recentf-max-menu-items 15)
   (recentf-max-saved-items 15)
   (recentf-save-file (concat mazd//backup-dir "recentf"))
-  :config (run-at-time nil (* 5 60) 'recentf-save-list))
+  :config (when (boundp 'recentf-auto-save-timer)
+	    (cancel-timer recentf-auto-save-timer)
+	    (setq recentf-auto-save-timer nil)))
 
 (use-package docker-tramp
   :ensure t
