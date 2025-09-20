@@ -35,6 +35,11 @@
   (add-to-list 'gptel-directives
 	       '(proofreader . "Act as a proofreader. Review text for spelling, grammar, or punctuation errors and suggest improvements.")))
 
+(use-package gptel-magit
+  :defer t
+  :ensure t
+  :hook (magit-mode . gptel-magit-install))
+
 (use-package aidermacs
   :vc (:url "https://github.com/MatthewZMD/aidermacs")
   :config
