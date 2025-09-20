@@ -1,4 +1,4 @@
-;;; mazd-catppuccin.el --- Catppuccin -*- lexical-binding: t; -*-
+;;; mazd//themes.el --- Theme -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,16 +23,24 @@
 
 ;;
 
+(use-package anisochromatic
+  :vc (:url "https://github.com/isomatter-labs/anisochromatic-emacs")
+  :disabled t
+  :ensure nil
+  :config
+  ;; Disable any other active themes
+  ;; (mapc #'disable-theme custom-enabled-themes)
+  ;; Load anisochromatic as default
+  ;; (load-theme 'anisochromatic t)
+  )
+
 (use-package catppuccin-theme
   :ensure t
+  ;; :disabled t
   :config
-  (setq catppuccin-flavor 'frappe)
+  ;; (setq catppuccin-flavor 'frappe)
   (load-theme 'catppuccin :no-confirm)
   )
 
-
-(leader
-  "uT" 'consult-themes)
-
-(provide 'mazd-catppuccin)
-;;; mazd-catppuccin.el ends here
+(provide 'mazd-themes)
+;;; mazd//themes.el ends here
