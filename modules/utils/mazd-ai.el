@@ -38,7 +38,12 @@
 (use-package gptel-magit
   :defer t
   :ensure t
-  :hook (magit-mode . gptel-magit-install))
+  :hook (magit-mode . gptel-magit-install)
+  :config
+  (customize-set-variable
+   'gptel-magit-commit-prompt
+   (concat gptel-magit-commit-prompt
+           " Please add a relevant emoji to the beginning of the commit message."))  )
 
 (use-package aidermacs
   :vc (:url "https://github.com/MatthewZMD/aidermacs")
