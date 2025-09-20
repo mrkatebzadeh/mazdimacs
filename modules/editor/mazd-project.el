@@ -50,7 +50,8 @@
   "p" '(:ignore t :which-key "Projects"))
 
 (leader
-  "fg" 'consult-git-grep
+  "fg" 'consult-grep
+  "fG" 'consult-git-grep
   )
 (leader
   "pa" 'projectile-add-known-project
