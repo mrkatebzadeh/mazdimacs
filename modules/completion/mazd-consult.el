@@ -43,6 +43,19 @@
 	  consult--source-file-register
 	  consult--source-bookmark
 	  ))
+
+  (defun mazd//consult-grep (&optional dir initial)
+    "Search in DIR using ripgrep, honoring .gitignore and excluding .git/."
+    (interactive "P")
+    (let* ((default-directory
+            (or (and dir (read-directory-name "Search directory: " nil nil t))
+                (consult--project-root)
+                default-directory))
+           (consult-ripgrep-args
+            "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --line-number -g !.git/"))
+      (consult-ripgrep default-directory initial)))
+
+  (defalias 'consult-grep #'mazd//consult-grep)
   )
 
 (use-package consult-tramp
