@@ -77,13 +77,6 @@
   :hook ((flycheck-mode . mazd//flycheck-prefer-eldoc))
   )
 
-(use-package flycheck-eglot
-  :ensure t
-  :defer t
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
-
 (setq ispell-dictionary "en_US")
 (setq ispell-program-name "aspell")
 (setq ispell-extra-args '("--encoding=utf-8"))

@@ -48,17 +48,11 @@
   :defer t
   :init
 
-  (when (string= mazd//language-server "eglot")
-    (setq rustic-lsp-client 'eglot)
-    )
 
-  (when (string= mazd//language-server "lsp")
-    (setq rustic-lsp-client 'lsp)
-    )
+  (setq rustic-lsp-client 'lsp)
   :config
-  (when (string= mazd//language-server "lsp")
-    (setq lsp-eldoc-hook nil)
-    (setq lsp-signature-auto-activate nil))
+  (setq lsp-eldoc-hook nil)
+  (setq lsp-signature-auto-activate nil)
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
@@ -92,12 +86,9 @@
       )
     )
 
-  (when (string= mazd//language-server "lsp")
-    (add-hook 'before-save-hook 'lsp-format-buffer nil t))
+  (add-hook 'before-save-hook 'lsp-format-buffer nil t)
 
-  (when (string= mazd//language-server "eglot")
-    (add-hook 'rust-mode-hook 'eglot-ensure)
-    )
+
   )
 
 ;;; bindings
