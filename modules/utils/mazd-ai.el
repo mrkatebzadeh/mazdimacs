@@ -46,6 +46,7 @@
            " Please add a relevant emoji to the beginning of the commit message."))  )
 
 (use-package aidermacs
+  :defer t
   :vc (:url "https://github.com/MatthewZMD/aidermacs")
   :config
   (defun pass-openai-key ()

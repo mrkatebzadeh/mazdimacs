@@ -26,6 +26,7 @@
 ;;; Code:
 
 (use-package leetcode
+  :defer t
   :ensure t
   :config
   (setq leetcode-prefer-language "cpp")
