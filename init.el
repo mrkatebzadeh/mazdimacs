@@ -74,7 +74,8 @@
     "/run/current-system/sw/bin"
     "~/.nix-profile/bin"
     "/opt/homebrew/bin"
-    "~/.local/bin")
+    "~/.local/bin"
+    "~/.cargo/bin")
   "Directories to add to exec-path and PATH.")
 
 (defun mazd//path-append (dir)
