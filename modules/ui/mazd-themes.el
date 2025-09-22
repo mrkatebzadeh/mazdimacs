@@ -38,7 +38,7 @@
   :ensure t
   ;; :disabled t
   :config
-  ;; (setq catppuccin-flavor 'frappe)
+  (setq catppuccin-flavor 'frappe)
   (load-theme 'catppuccin :no-confirm)
   )
 
