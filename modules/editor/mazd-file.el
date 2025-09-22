@@ -54,10 +54,6 @@
 	    (cancel-timer recentf-auto-save-timer)
 	    (setq recentf-auto-save-timer nil)))
 
-(use-package docker-tramp
-  :ensure t
-  :defer t)
-
 (use-package direnv
   :defer t
   :ensure t

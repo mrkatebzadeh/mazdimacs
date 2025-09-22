@@ -100,13 +100,15 @@
                             ":" user host
                             ":" consult-tramp-path) hosts)))))
     ;; Docker
-    (when (and (require 'docker-tramp nil t) consult-tramp-enable-docker)
-      (setq docker-tramp-use-names t)
-      (dolist (cand (docker-tramp--parse-running-containers ""))
-        (let ((user (if (not (string-empty-p (car cand)))
-                        (concat (car cand) "@")))
-              (host (car (cdr cand))))
-          (push (concat "/docker:" user host ":/") hosts))))
+    (when consult-tramp-enable-docker
+      (with-eval-after-load 'tramp-container
+	(dolist (cand (tramp-container--parse-running-containers "docker"))
+	  ;; cand is like ("container-id" "container-name")
+	  (let* ((id   (car cand))
+		 (name (cadr cand))
+		 ;; prefer name over id if available
+		 (host (if (and name (not (string-empty-p name))) name id)))
+            (push (concat "/docker:root@" host ":/") hosts)))))
     ;; Root
     (push (concat "/sudo:root@localhost:" consult-tramp-sudo-path) hosts)
     (reverse hosts)))
