@@ -37,23 +37,6 @@
   :config
   (ultra-scroll-mode 1))
 
-(use-package pulsar
-  :ensure t
-
-  :config
-  (setq pulsar-pulse t)
-  (setq pulsar-delay 0.055)
-  (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-blue)
-  (setq pulsar-highlight-face 'pulsar-yellow)
-  (add-hook 'prog-mode-hook #'pulsar-mode)
-  (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
-  (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
-  (add-hook 'next-error-hook #'pulsar-pulse-line)
-  (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
-  (set-face-attribute 'pulsar-blue nil :background "#8caaee")
-  )
-
 (use-package nerd-icons-ibuffer
   :ensure t
   :defer t
@@ -105,6 +88,7 @@
 
 (use-package centaur-tabs
   :ensure t
+  :defer t
   :demand
   :custom
   (centaur-tabs-icon-type 'nerd-icons)
@@ -221,22 +205,12 @@
   :ensure t
   :defer t)
 
-(use-package evil-surround
-  :ensure t
-  :defer t
-  :config
-  (global-evil-surround-mode 1))
-
 (use-package emojify
   :ensure t
   :defer t
   :config
   (add-hook 'after-init-hook #'global-emojify-mode)
   )
-
-(use-package google-this
-  :ensure t
-  :defer t)
 
 (use-package fixmee
   :ensure t
@@ -259,12 +233,6 @@
   :delight
   :hook (python-mode . electric-operator-mode))
 
-(use-package rainbow-mode
-  :ensure t
-  :defer t
-  :delight
-  :hook (prog-mode))
-
 (use-package simple
   :ensure nil
   :hook (before-save . delete-trailing-whitespace))
@@ -279,18 +247,7 @@
   :ensure t
   :defer t)
 
-(use-package indent-bars
-  :ensure t
-  :custom
-  (indent-bars-no-descend-lists t)
-  (indent-bars-treesit-support t)
-  (indent-bars-treesit-ignore-blank-lines-types '("module"))
-  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-				       if_statement with_statement while_statement)))
-  :hook ((python-base-mode yaml-mode rust-mode) . indent-bars-mode))
-
 (use-package highlight-indent-guides
-  :disabled t
   :ensure t
   :defer t
   :config
@@ -325,8 +282,6 @@
 		  ("Nix"     (nixpkgs-fmt))
 		  ("Rust" (rustfmt "--edition" "2021"))
                   ("Shell" (shfmt "-i" "4" "-ci")))))
-
-
 
 ;;; config
 (defalias 'list-buffers 'ibuffer-other-window)
@@ -365,24 +320,10 @@
 (setq ibuffer-show-empty-filter-groups nil)
 (setq ibuffer-expert t)
 
-
-
 (fset 'yes-or-no-p 'y-or-n-p)
-
-
-;; (setq browse-url-browser-function 'eww-browse-url
-;; browse-url-generic-program "firefox")
 
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
-
-(defun mazd//man()
-  "Load and run man"
-  (interactive)
-  (require 'man)
-  (set-face-attribute 'Man-overstrike nil :inherit font-lock-type-face :bold t)
-  (set-face-attribute 'Man-underline nil :inherit font-lock-keyword-face :underline t)
-  (man))
 
 ;; highlight matches
 (show-paren-mode 1)
@@ -426,8 +367,7 @@
 
 (leader
   "hg" 'google-this
-  "hG" 'google-this-search
-  "hm" 'mazd//man)
+  "hG" 'google-this-search)
 
 (leader
   "tR" 'auto-revert-mode
