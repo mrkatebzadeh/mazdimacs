@@ -245,7 +245,9 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :defer t)
+  :defer t
+  :hook (emacs-lisp-mode . rainbow-delimiters-mode)
+  )
 
 (use-package highlight-indent-guides
   :ensure t
@@ -255,7 +257,6 @@
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-auto-enabled nil)
   )
-
 
 (use-package tree-sitter-langs
   :ensure t
@@ -277,6 +278,7 @@
   :commands format-all-mode
   :hook (prog-mode . format-all-mode)
   :config
+  (setq format-all-show-errors 'never)
   (setq-default format-all-formatters
                 '(("C"     (astyle "--mode=c"))
 		  ("Nix"     (nixpkgs-fmt))
@@ -372,7 +374,7 @@
 (leader
   "tR" 'auto-revert-mode
   "tb" 'tool-bar-mode
-  "th" 'indent-bars-mode
+  "th" 'highlight-indent-guides-mode
   "tp" 'smartparens-mode
   "tn" 'mazd//toggle-line-numbers
   "tf" 'format-all-mode
