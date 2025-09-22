@@ -56,10 +56,22 @@
 	 ;; (rustic-mode . lsp-deferred)
 	 (python-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration)
-
 	 (lsp-mode . lsp-ui-mode)
+	 (toml-mode . lsp-deferred)
 	 )
   :commands (lsp lsp-deferred)
+  :config
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("crates-lsp"))
+    :major-modes '(toml-mode)
+    :server-id 'crates-lsp
+    :priority 1
+    :initialized-fn (lambda (workspace)
+                      ;; Put any init options here
+                      (with-lsp-workspace workspace
+                        (lsp--set-configuration
+                         `(:crates ,(make-hash-table)))))))
   )
 
 (use-package lsp-ui
