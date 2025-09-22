@@ -28,6 +28,8 @@
   :defer t
   :commands (yas-minor-mode)
   :hook ((prog-mode . yas-minor-mode))
+  :config
+  (setq yas-verbosity 0)
   )
 
 (use-package yasnippet-snippets
