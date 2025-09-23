@@ -34,6 +34,7 @@
   (setq python-version-checked t)
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
+  (add-to-list 'org-structure-template-alist '("s" . "src"))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)
