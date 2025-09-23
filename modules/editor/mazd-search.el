@@ -24,34 +24,38 @@
 ;;
 
 (use-package engine-mode
-  :disabled t
   :defer t
   :config
   (defengine amazon
-    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
+    "https://www.amazon.com/s?k=%s")
 
   (defengine duckduckgo
     "https://duckduckgo.com/?q=%s")
 
   (defengine github
-    "https://github.com/search?ref=simplesearch&q=%s")
+    "https://github.com/search?q=%s")
 
   (defengine google-images
-    "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
+    "https://www.google.com/search?tbm=isch&q=%s")
 
   (defengine google-maps
-    "http://maps.google.com/maps?q=%s"
-    :docstring "Mappin' it up.")
+    "https://www.google.com/maps/search/%s")
 
   (defengine stack-overflow
     "https://stackoverflow.com/search?q=%s")
 
   (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+    "https://www.youtube.com/results?search_query=%s")
 
   (defengine wikipedia
-    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-    :docstring "Searchin' the wikis.")
+    "https://en.wikipedia.org/w/index.php?search=%s")
+
+  (defengine google
+    "https://www.google.com/search?q=%s")
+
+  (defengine brave
+    "https://search.brave.com/search?q=%s")
+
   )
 
 (use-package google-translate
@@ -60,16 +64,18 @@
   :custom (google-translate-default-target-language "fa"))
 
 (leader
-  "s" '(:ignore t :which-key "Search")
-  "st" 'google-translate-at-point
-  "sA" 'engine/search-amazon
-  "si" 'engine/search-google-images
-  "sm" 'engine/search-google-maps
-  "ss" 'engine/search-stack-overflow
-  "sy" 'engine/search-youtube
-  "sw" 'engine/search-wikipedia
-  "sd" 'engine/search-duckduckgo
-  "sh" 'engine/search-github)
+  "S" '(:ignore t :which-key "Search")
+  "Sg" 'engine/search-google
+  "Sb" 'engine/search-brave
+  "St" 'google-translate-at-point
+  "SA" 'engine/search-amazon
+  "Si" 'engine/search-google-images
+  "Sm" 'engine/search-google-maps
+  "Ss" 'engine/search-stack-overflow
+  "Sy" 'engine/search-youtube
+  "Sw" 'engine/search-wikipedia
+  "Sd" 'engine/search-duckduckgo
+  "Sh" 'engine/search-github)
 
 (provide 'mazd-search)
 ;;; mazd//search.el ends here
