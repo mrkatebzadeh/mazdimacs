@@ -77,12 +77,13 @@
   )
 
 (leader
-  "S" '(:ignore t :which-key "Shell")
-  "Ss" 'aweshell-toggle
-  "Sn" 'aweshell-new
-  "Sa" 'aweshell-dedicated-toggle
-  "St" 'eshell-toggle
-  "Su" 'mazd//update-ticket
+  "s" '(:ignore t :which-key "Shell")
+  "ss" 'mazd//vterm-toggle
+  "sS" 'aweshell-toggle
+  "sn" 'aweshell-new
+  "sa" 'aweshell-dedicated-toggle
+  "st" 'eshell-toggle
+  "su" 'mazd//update-ticket
   )
 
 (provide 'mazd-eshell)
