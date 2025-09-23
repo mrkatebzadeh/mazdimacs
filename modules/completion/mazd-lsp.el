@@ -40,8 +40,6 @@
   (lsp-idle-delay 0.6)
   (lsp-inlay-hint-enable t)
   (lsp-enable-symbol-highlighting t)
-  (lsp-lens-enable t)
-
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
@@ -61,6 +59,13 @@
 	 )
   :commands (lsp lsp-deferred)
   :config
+  (setq lsp-diagnostics-provider :flycheck
+        lsp-completion-provider  :none)
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-lens-enable                  nil
+        lsp-modeline-code-actions-enable t
+        lsp-modeline-code-action-fallback-icon "✦"
+        lsp-signature-doc-lines 3)
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection '("crates-lsp"))
@@ -72,6 +77,12 @@
                       (with-lsp-workspace workspace
                         (lsp--set-configuration
                          `(:crates ,(make-hash-table)))))))
+
+  (with-eval-after-load 'lsp-modeline
+    (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
+                        :inherit font-lock-comment-face)
+    (set-face-attribute 'lsp-modeline-code-actions-face nil
+                        :inherit font-lock-comment-face))
   )
 
 (use-package lsp-ui
@@ -93,7 +104,6 @@
 	lsp-ui-sideline-update-mode "line"
 	lsp-ui-sideline-show-hover nil)
   (setq lsp-headerline-breadcrumb-segments '(symbols))
-  (lsp-headerline-breadcrumb-mode -1)
   )
 
 (use-package consult-lsp
