@@ -33,8 +33,7 @@
   :ensure nil
   :defer t
   :commands (aweshell-toggle aweshell-dedicated-toggle)
-  :bind
-  (("C-\\" . aweshell-dedicated-toggle)))
+  )
 
 
 (defun mazd//update-ticket()
@@ -50,25 +49,41 @@
 		  staff-password)))
     (shell-command command)))
 
+(use-package vterm
+  :ensure t
+  :defer t
+  :init
+  (defvar mazd//vterm-buffer-name "*vterm-toggle*"
+    "Name of the toggleable vterm buffer.")
 
+  (defun mazd//vterm-toggle ()
+    "Toggle a vterm window at the bottom of the frame, 25% height."
+    (interactive)
+    (require 'vterm)
+    (let* ((buf (or (get-buffer mazd//vterm-buffer-name)
+                    (with-current-buffer (generate-new-buffer mazd//vterm-buffer-name)
+                      (vterm-mode)
+                      (current-buffer))))
+           (win (get-buffer-window buf)))
+      (if (and win (window-live-p win))
+          (delete-window win)
+	(display-buffer-in-side-window
+	 buf
+	 '((side . bottom)
+           (window-height . 0.25)))
+	(select-window (get-buffer-window buf)))))
+  :bind
+  (("C-\\" . mazd//vterm-toggle))
+  )
 
-;;; bindings
-(general-define-key
- :prefix "SPC"
- :states '(normal visual motion)
- :keymaps 'override
- "S" '(:ignore t :which-key "Shell")
- )
-(general-define-key
- :prefix "SPC S"
- :states '(normal visual motion)
- :keymaps 'override
- "s" 'aweshell-toggle
- "n" 'aweshell-new
- "a" 'aweshell-dedicated-toggle
- "t" 'eshell-toggle
- "u" 'mazd//update-ticket
- )
+(leader
+  "S" '(:ignore t :which-key "Shell")
+  "Ss" 'aweshell-toggle
+  "Sn" 'aweshell-new
+  "Sa" 'aweshell-dedicated-toggle
+  "St" 'eshell-toggle
+  "Su" 'mazd//update-ticket
+  )
 
 (provide 'mazd-eshell)
 ;;; mazd//eshell.el ends here
