@@ -27,6 +27,37 @@
   :ensure t
   :defer 1
   :config
+  (defun mazd//darken-color (color amount)
+    "Return a darker variant of COLOR by AMOUNT (0–255)."
+    (when (stringp color)
+      (let ((rgb (color-name-to-rgb color)))
+	(apply #'color-rgb-to-hex
+               (mapcar (lambda (c)
+			 (max 0 (- c (/ amount 255.0))))
+                       rgb)))))
+
+
+  (defun mazd//treemacs-padding-setup ()
+    "Add top padding, header, left/right margins, and node indentation in Treemacs."
+    (interactive)
+    (when (eq major-mode 'treemacs-mode)
+      (setq left-margin-width 2
+            right-margin-width 1)
+      (set-window-buffer (selected-window) (current-buffer))
+      (setq header-line-format " Files")))
+
+  (add-hook 'treemacs-mode-hook #'mazd//treemacs-padding-setup)
+
+  (defun mazd//treemacs-darker-window-bg ()
+    "Set Treemacs window background to a slightly darker shade of the current theme."
+    (when (featurep 'treemacs)
+      (let* ((bg (face-background 'default nil t))   ;; get current theme background
+             (darker (color-darken-name bg 10)))     ;; darken 10%
+	(set-face-background 'treemacs-window-background-face darker))))
+
+  (add-hook 'treemacs-mode-hook #'mazd//treemacs-darker-window-bg)
+  (add-hook 'after-load-theme-hook #'mazd//treemacs-darker-window-bg)
+
   (evil-define-key 'normal treemacs-mode-map
     (kbd "d") 'treemacs-delete-file
     (kbd "a") 'treemacs-create-file
@@ -47,7 +78,7 @@
 
   (add-hook 'treemacs-mode-hook 'mazd//treemacs-disable-line-numbers)
 
-  (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
+  (setq treemacs-collapse-dirs                 0
 	treemacs-deferred-git-apply-delay      0.1
 	treemacs-display-in-side-window        t
 	treemacs-eldoc-display                 t
@@ -63,7 +94,7 @@
 	treemacs-show-hidden-files             nil
 	treemacs-sorting                       'alphabetic-asc
 	treemacs-space-between-root-nodes      t
-	treemacs-width                         30)
+	treemacs-width                         40)
 
   (treemacs-follow-mode t)
   (treemacs-fringe-indicator-mode t)
@@ -86,7 +117,7 @@
   :ensure t
   :init
   (with-eval-after-load 'lsp-treemacs 'treemacs
-    (require 'treemacs-nerd-icons))
+			(require 'treemacs-nerd-icons))
   :config
   (treemacs-load-theme "nerd-icons")
   )
@@ -97,11 +128,11 @@
   :defer t
   )
 
-  (use-package lsp-treemacs
-    :ensure t
-    :after (treemacs)
-    :custom
-    (lsp-treemacs-theme "nerd-icons-ext")
+(use-package lsp-treemacs
+  :ensure t
+  :after (treemacs)
+  :custom
+  (lsp-treemacs-theme "nerd-icons-ext")
 
   (use-package lsp-treemacs-nerd-icons
     :ensure nil
@@ -131,7 +162,7 @@
   "fe" 'treemacs)
 
 (leader
-    "lt" 'lsp-treemacs-errors-list)
+  "lt" 'lsp-treemacs-errors-list)
 
 (provide 'mazd-treemacs)
 ;;; mazd-treemacs.el ends here
