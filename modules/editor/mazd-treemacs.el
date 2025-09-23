@@ -85,7 +85,7 @@
   :defer t
   :ensure t
   :init
-  (with-eval-after-load (if (string= mazd//language-server "lsp") 'lsp-treemacs 'treemacs)
+  (with-eval-after-load 'lsp-treemacs 'treemacs
     (require 'treemacs-nerd-icons))
   :config
   (treemacs-load-theme "nerd-icons")
@@ -97,12 +97,11 @@
   :defer t
   )
 
-(when (string= mazd//language-server "lsp")
   (use-package lsp-treemacs
     :ensure t
     :after (treemacs)
     :custom
-    (lsp-treemacs-theme "nerd-icons-ext"))
+    (lsp-treemacs-theme "nerd-icons-ext")
 
   (use-package lsp-treemacs-nerd-icons
     :ensure nil
@@ -131,9 +130,8 @@
 (leader
   "fe" 'treemacs)
 
-(when (string= mazd//language-server "lsp")
-  (leader
+(leader
     "lt" 'lsp-treemacs-errors-list)
-  )
+
 (provide 'mazd-treemacs)
 ;;; mazd-treemacs.el ends here

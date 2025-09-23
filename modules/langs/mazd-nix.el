@@ -23,14 +23,12 @@
 
 ;;
 
-(when (string= mazd//language-server "lsp")
   (use-package lsp-nix
     :disabled t
     :ensure lsp-mode
     :demand t
     :custom
     (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
-  )
 
 (use-package nix-mode
   :mode "\\.nix\\'"

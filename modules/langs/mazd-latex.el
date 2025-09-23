@@ -23,7 +23,6 @@
 
 ;;
 
-(when (string= mazd//language-server "lsp")
   (use-package lsp-latex
     ;; this uses texlab
     :ensure t
@@ -41,7 +40,6 @@
 	  '("--eval"
             "(lsp-latex-forward-search-with-pdf-tools \"%f\" \"%p\" \"%l\")"))
     )
-  )
 
 (use-package auctex
   :ensure t
