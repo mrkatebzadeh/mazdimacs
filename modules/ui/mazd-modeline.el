@@ -81,7 +81,7 @@
 		(:propertize " " display (raise +0.4))
 		(:propertize " " display (raise -0.4))
 
-		(:propertize "ℳ " face font-lock-comment-face)
+		(:propertize "𝓜𝓪𝔃𝓭 " face font-lock-comment-face)
 		mode-line-frame-identification
 		mode-line-buffer-identification
 

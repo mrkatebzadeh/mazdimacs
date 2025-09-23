@@ -24,6 +24,7 @@
 ;;
 
 (use-package dashboard
+  :disabled t
   :ensure t
   :custom
   (dashboard-banner-logo-title "[-< True happiness can be found when two contrary powers cooperate together >-]")

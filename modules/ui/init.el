@@ -27,6 +27,7 @@
 (require 'mazd-minibuffer)
 (require 'mazd-themes)
 (require 'mazd-modeline)
+(require 'mazd-splash)
 
 (provide 'ui)
 ;;; ui.el ends here
