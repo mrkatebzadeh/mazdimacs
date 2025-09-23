@@ -254,7 +254,7 @@
   :ensure t
   :defer t
   :config
-  (setq highlight-indent-guides-responsive 'stack)
+  (setq highlight-indent-guides-responsive 'nil)
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-auto-enabled nil)
   )
