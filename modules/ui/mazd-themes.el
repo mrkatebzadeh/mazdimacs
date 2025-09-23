@@ -40,6 +40,15 @@
   :config
   (setq catppuccin-flavor 'frappe)
   (load-theme 'catppuccin :no-confirm)
+  (setq window-divider-default-right-width 1)
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 1)
+  (set-face-foreground 'window-divider "black")
+  (set-face-background 'window-divider "black")
+  (set-face-foreground 'window-divider-first-pixel "black")
+  (set-face-background 'window-divider-first-pixel "black")
+  (set-face-foreground 'window-divider-last-pixel "black")
+  (set-face-background 'window-divider-last-pixel "black")
   )
 
 (provide 'mazd-themes)

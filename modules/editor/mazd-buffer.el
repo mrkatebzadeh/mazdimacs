@@ -78,6 +78,7 @@
   )
 
 (use-package solaire-mode
+  :disabled nil
   :ensure t
   :config
   (solaire-global-mode +1))

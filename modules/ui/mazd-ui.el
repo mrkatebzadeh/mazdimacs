@@ -126,6 +126,7 @@
   (savehist-mode))
 
 (use-package spacious-padding
+  :disabled t
   :ensure t
   :defer t
   :hook
