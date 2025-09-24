@@ -41,8 +41,8 @@
   (defun mazd//treemacs-darker-window-bg ()
     "Set Treemacs window background to a slightly darker shade of the current theme."
     (when (featurep 'treemacs)
-      (let* ((bg (face-background 'default nil t))   ;; get current theme background
-             (darker (color-darken-name bg 10)))     ;; darken 10%
+      (let* ((bg (face-background 'default nil t))
+             (darker (color-darken-name bg 10)))
 	(set-face-background 'treemacs-window-background-face darker))))
 
   (add-hook 'treemacs-mode-hook #'mazd//treemacs-darker-window-bg)

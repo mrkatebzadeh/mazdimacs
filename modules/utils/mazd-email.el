@@ -73,12 +73,14 @@
   (setq consult-mu-compose-use-dired-attachment 'in-dired)
   )
 
-;;; notmuch
 (use-package notmuch
   :ensure t
   :defer t)
 
-;;; org-mime
+(use-package mu4e-column-faces
+  :defer t
+  :config (mu4e-column-faces-mode))
+
 (use-package org-mime
   :ensure t
   :defer t
@@ -89,6 +91,7 @@
 (defun mazd//mu4e()
   (interactive)
   (require 'mu4e)
+  (mu4e-column-faces-mode)
   (mu4e))
 
 (with-eval-after-load 'mu4e
