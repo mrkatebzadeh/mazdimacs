@@ -40,6 +40,31 @@
                      gcs-done)
             (setq mazd//emacs-started t)))
 
+(defvar mazd//extra-paths
+  '("/usr/local/bin"
+    "/usr/local/texlive/2019basic/bin/x86_64-darwin"
+    "/Library/TeX/texbin"
+    "/run/current-system/sw/bin"
+    "~/.nix-profile/bin"
+    "/opt/homebrew/bin"
+    "~/.local/bin"
+    "~/.cargo/bin")
+  "Directories to add to exec-path and PATH.")
+
+(defun mazd//path-append (dir)
+  "Add DIR to exec-path and append to PATH if DIR exists and is not already present."
+  (let* ((dir (directory-file-name (expand-file-name dir)))
+         (path (getenv "PATH"))
+         (paths (and path (split-string path path-separator t))))
+    (when (file-directory-p dir)
+      (add-to-list 'exec-path dir)
+      (unless (member dir paths)
+        (setenv "PATH" (if path (concat path path-separator dir) dir))))))
+
+(dolist (d mazd//extra-paths)
+  (mazd//path-append d))
+
+
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
 (defun mazd//load-modules-with-progress ()
   "Load specified modules in order, displaying a progress bar."
@@ -66,30 +91,6 @@
     (format "%s %d/%d" bar current total)))
 
 (mazd//load-modules-with-progress)
-
-(defvar mazd//extra-paths
-  '("/usr/local/bin"
-    "/usr/local/texlive/2019basic/bin/x86_64-darwin"
-    "/Library/TeX/texbin"
-    "/run/current-system/sw/bin"
-    "~/.nix-profile/bin"
-    "/opt/homebrew/bin"
-    "~/.local/bin"
-    "~/.cargo/bin")
-  "Directories to add to exec-path and PATH.")
-
-(defun mazd//path-append (dir)
-  "Add DIR to exec-path and append to PATH if DIR exists and is not already present."
-  (let* ((dir (directory-file-name (expand-file-name dir)))
-         (path (getenv "PATH"))
-         (paths (and path (split-string path path-separator t))))
-    (when (file-directory-p dir)
-      (add-to-list 'exec-path dir)
-      (unless (member dir paths)
-        (setenv "PATH" (if path (concat path path-separator dir) dir))))))
-
-(dolist (d mazd//extra-paths)
-  (mazd//path-append d))
 
 (provide 'init)
 
