@@ -72,10 +72,11 @@
            (win (get-buffer-window buf)))
       (if (and win (window-live-p win))
           (delete-window win)
-	(display-buffer-in-side-window
+	(display-buffer
 	 buf
-	 '((side . bottom)
-           (window-height . 0.25)))
+	 '((display-buffer-reuse-window
+	    display-buffer-below-selected)
+	   (window-height . 0.25)))
 	(select-window (get-buffer-window buf)))))
 
   :bind
