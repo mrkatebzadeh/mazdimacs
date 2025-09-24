@@ -53,7 +53,6 @@
   :config
   (setq lsp-eldoc-hook nil)
   (setq lsp-signature-auto-activate nil)
-  ;; comment to disable rustfmt on save
   (setq rustic-format-on-save nil)
   (setq rust-format-show-buffer nil)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))

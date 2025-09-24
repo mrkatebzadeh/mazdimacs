@@ -31,8 +31,6 @@
 (require 'mazd-email)
 (require 'mazd-irc)
 (require 'mazd-ledger)
-(require 'mazd-media)
-(require 'mazd-music)
 (require 'mazd-power)
 (require 'mazd-rfc)
 (require 'mazd-tramp)

@@ -52,6 +52,11 @@ Use this for files that change often, like cache files. Must end with a slash.")
   "Where package.el and quelpa plugins (and their caches) are stored.
 Must end with a slash.")
 
+(defvar mazd//eln-dir (concat mazd//local-dir "eln-cache/")
+  "Directory for eln-cache.")
+
+(startup-redirect-eln-cache mazd//eln-dir)
+
 (defvar mazd//core-file (concat mazd//modules-dir "mazd-core.el")
   "The root directory of Mazdimacs' core files. Must end with a slash.")
 
