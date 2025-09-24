@@ -31,6 +31,27 @@
   (setq org-edit-src-content-indentation 4)
   (require 'ob-python)
   (require 'ob-C)
+  (require 'jupyter)
+
+  (setq org-babel-default-header-args:jupyter
+	'((:results . "both")
+	  (:session . (lambda () (buffer-file-name)))
+	  (:kernel . "python3")
+	  (:pandoc . "t")
+	  (:exports . "both")
+	  (:cache .   "no")
+	  (:noweb . "no")
+	  (:hlines . "no")
+	  (:tangle . "no")
+	  (:eval . "never-export")))
+
+  (add-to-list 'org-src-lang-modes '("jupyter" . python))
+
+  (defalias 'org-babel-execute:ipython 'org-babel-execute:jupyter)
+  (setq org-babel-default-header-args:ipython org-babel-default-header-args:jupyter)
+  (add-to-list 'org-src-lang-modes '("ipython" . python))
+
+
   (setq python-version-checked t)
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
@@ -44,6 +65,7 @@
      (plantuml . t)
      (dot . t)
      (C . t)
+     (jupyter . t)
      )))
 
 
@@ -56,6 +78,10 @@
   (org-babel-next-src-block)
   (recenter))
 
+
+(use-package jupyter
+  :ensure t
+  :defer t)
 
 (general-define-key
  :prefix "SPC k"

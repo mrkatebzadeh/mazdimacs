@@ -27,16 +27,6 @@
   :ensure t
   :defer 1
   :config
-  (defun mazd//darken-color (color amount)
-    "Return a darker variant of COLOR by AMOUNT (0–255)."
-    (when (stringp color)
-      (let ((rgb (color-name-to-rgb color)))
-	(apply #'color-rgb-to-hex
-               (mapcar (lambda (c)
-			 (max 0 (- c (/ amount 255.0))))
-                       rgb)))))
-
-
   (defun mazd//treemacs-padding-setup ()
     "Add top padding, header, left/right margins, and node indentation in Treemacs."
     (interactive)

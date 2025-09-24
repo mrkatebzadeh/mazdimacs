@@ -36,6 +36,8 @@
 
   (unless (file-exists-p org-directory)
     (make-directory org-directory))
+
+  (mazd//setup-org-block-faces)
   )
 
 (use-package evil-org
@@ -56,7 +58,7 @@
   (org-bullets-bullet-list '("●" "◉" "○" "✸" "✿")))
 
 (use-package org-modern
-  :disabled t
+  ;; :disabled t
   :ensure t
   :defer t
   :custom
@@ -134,6 +136,18 @@
   :defer t
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+
+(defun mazd//setup-org-block-faces ()
+  "Set Org source block faces with dynamic colors based on the current background."
+  (let* ((bg (mazd//get-bg-color))
+         (block-bg (mazd//darken-color bg 20))
+         (line-bg (mazd//lighten-color bg 20)))
+    (custom-set-faces
+     `(org-block ((t (:background ,block-bg :extend t :inherit fixed-pitch :margin 8))))
+     `(org-block-begin-line ((t (:background ,line-bg :extend t :inherit fixed-pitch))))
+     `(org-block-end-line ((t (:background ,line-bg :extend t :inherit fixed-pitch)))))))
+
+(add-hook 'after-load-theme-hook #'mazd//setup-org-block-faces)
 
 (defun mazd//org-export()
   "Load required packages for exporting org file"

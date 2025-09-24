@@ -106,5 +106,27 @@
               (buffer-string)
             (error "GPG decryption failed")))))))
 
+(defun mazd//darken-color (color amount)
+  "Return a darker variant of COLOR by AMOUNT (0–255)."
+  (when (stringp color)
+    (let ((rgb (color-name-to-rgb color)))
+      (apply #'color-rgb-to-hex
+             (mapcar (lambda (c)
+		       (max 0 (- c (/ amount 255.0))))
+                     rgb)))))
+
+(defun mazd//lighten-color (color amount)
+  "Return a lighter variant of COLOR by AMOUNT (0–255)."
+  (when (stringp color)
+    (let ((rgb (color-name-to-rgb color)))
+      (apply #'color-rgb-to-hex
+             (mapcar (lambda (c)
+                       (min 1.0 (+ c (/ amount 255.0))))
+                     rgb)))))
+
+(defun mazd//get-bg-color ()
+  "Return the current default background color as a hex string."
+  (face-background 'default nil))
+
 (provide 'mazd-func)
 ;;; mazd//func.el ends here
