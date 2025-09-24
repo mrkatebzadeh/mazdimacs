@@ -63,6 +63,11 @@
     (let* ((buf (or (get-buffer mazd//vterm-buffer-name)
                     (with-current-buffer (generate-new-buffer mazd//vterm-buffer-name)
                       (vterm-mode)
+                      ;; Disable line numbers in vterm
+                      (when (bound-and-true-p display-line-numbers-mode)
+			(display-line-numbers-mode -1))
+                      (when (fboundp 'linum-mode)
+			(linum-mode -1))
                       (current-buffer))))
            (win (get-buffer-window buf)))
       (if (and win (window-live-p win))
@@ -72,6 +77,7 @@
 	 '((side . bottom)
            (window-height . 0.25)))
 	(select-window (get-buffer-window buf)))))
+
   :bind
   (("C-\\" . mazd//vterm-toggle))
   )
