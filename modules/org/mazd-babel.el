@@ -65,6 +65,7 @@
      (plantuml . t)
      (dot . t)
      (C . t)
+     (sqlite . t)
      (jupyter . t)
      )))
 

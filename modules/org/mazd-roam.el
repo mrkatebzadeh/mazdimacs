@@ -36,7 +36,7 @@
   (setq org-agenda-files
 	(append org-agenda-files
 		(file-expand-wildcards (concat org-roam-directory "/*.org"))))
-  (org-roam-setup))
+  (org-roam-db-autosync-mode))
 
 (use-package org-roam-ui
   :after org-roam

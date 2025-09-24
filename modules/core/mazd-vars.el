@@ -87,7 +87,7 @@ Must end with a slash.")
 (defvar mazd//variable-storage-file (concat mazd//cache-dir "mazd-vars.el")
       "File to store variable values." )
 
-(setq org-directory     "~/Dropbox/org")
+(setq org-directory     "~/Nextcloud/org")
 
 (defvar mazd//tramp-backup-directory
   (concat mazd//cache-dir "tramp-backups/"))
