@@ -95,6 +95,8 @@ Must end with a slash.")
 (defconst mazd//tramp
   (concat mazd//cache-dir "tramp"))
 
+(defvar mazd//async-packages nil
+  "List of packages declared with :async in `use-package'.")
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here

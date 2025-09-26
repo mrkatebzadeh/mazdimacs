@@ -24,6 +24,7 @@
 ;;
 
 (use-package magit
+  :async t
   :ensure nil
   :defer t
   :init

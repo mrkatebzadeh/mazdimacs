@@ -67,6 +67,28 @@
   `(progn
      ,@(mapcar (lambda (arg) `(,(cadr operator) (,@arg))) (cadr arglist))))
 
+(defmacro mazd//schedule (time repeat &rest body)
+  "Schedule code to run after the given TIME in seconds.
+Timer will repeat if REPEAT is `:repeat'.
+BODY can either be raw lambda body or a function reference."
+  (declare (indent 2))
+  `(run-with-timer
+    ,time ,(eq repeat :repeat)
+    ,(pcase body
+       (`((function ,_)) (car body))
+       (_ `(lambda () ,@body)))))
+
+(defmacro mazd//idle-schedule (time repeat &rest body)
+  "Schedule code to run after the given idle TIME in seconds.
+Timer will repeat if REPEAT is `:repeat'.
+BODY can either be raw lambda body or a function reference."
+  (declare (indent 2))
+  `(run-with-idle-timer
+    ,time ,(eq repeat :repeat)
+    ,(pcase body
+       (`((function ,_)) (car body))
+       (_ `(lambda () ,@body)))))
+
 (defmacro mazd//onetime-setup (name &optional docstring &rest body)
   (declare (doc-string 3) (indent 1))
   (let ((func-name (intern (concat "mazd//"

@@ -24,8 +24,9 @@
 ;;
 
 (use-package treemacs
+  :async t
   :ensure t
-  :defer 1
+  :defer t
   :config
   (defun mazd//treemacs-padding-setup ()
     "Add top padding, header, left/right margins, and node indentation in Treemacs."
