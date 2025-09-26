@@ -81,7 +81,7 @@ Keyword values:
 (defvar mazd//current-async-package ""
   "The name of the current package being loaded asynchronously.")
 
-(defvar mazd//async-idle-timer 0.5
+(defvar mazd//async-idle-timer 1
   "Time in seconds between loading packages asynchronously.")
 
 (defvar mazd//async-load-done-timer nil)
@@ -112,9 +112,9 @@ forces a mode-line update, and prints a message when all async packages are load
     (message "All async packages loaded")))
 
 (defun mazd//async-load-all-packages (&optional packages)
-  "Asynchronously load all packages in `mazd//async-packages` sorted by priority."
+  "Load all packages in `mazd//async-packages` incrementally without freezing UI."
   (let* ((packages (or packages mazd//async-packages))
-         (packages (sort packages (lambda (a b) (> (cdr a) (cdr b))))) ; sort by priority
+         (packages (sort (cl-copy-list packages) (lambda (a b) (> (cdr a) (cdr b)))))
          (packages (mapcar #'car packages))
          (packages (cl-remove-duplicates packages)))
     (setq mazd//async-load-total (length packages))
@@ -124,15 +124,13 @@ forces a mode-line update, and prints a message when all async packages are load
                     (let ((pkg (pop packages)))
                       (setq mazd//current-async-package (symbol-name pkg))
                       (condition-case err
-                          (require pkg)
+			  (load (symbol-name pkg) nil t)
                         (error (message "Error loading %S: %S" pkg err)))
-                      (mazd//async-load-update (symbol-name pkg))
+                      (setq mazd//async-load-progress (1+ mazd//async-load-progress))
+                      (force-mode-line-update)
                       (when packages
-                        (run-with-idle-timer mazd//async-idle-timer nil
-                                             #'load-next))))))
+                        (run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
       (load-next))))
-
-
 
 (use-package s
   :defer t
