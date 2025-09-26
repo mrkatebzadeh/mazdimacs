@@ -32,20 +32,15 @@
   "Load FILE quietly, without displaying load messages."
   (load file nil :no-message))
 
-(defun mazd//message-filter (msg &rest args)
-  "Filter out noisy messages from `message`.
-
-Suppress messages that are blank or contain \"Compiling\" or \"Loading\".
-Other messages are passed through normally to MSG."
-  (unless (or (null args)
-              (string-blank-p (car args))
-              (string-match-p "Compiling" (format "%s" (car args)))
-              (string-match-p "Loading" (format "%s" (car args))))
-    (let* ((str (car args))
-           (format-args (cdr args)))
-      (apply msg args))))
-
-(advice-add 'message :around 'mazd//message-filter)
+(defun mazd//message-filter (orig-func &rest args)
+  "Filter out unwanted messages but always call ORIG-FUNC."
+  (let ((msg (car args)))
+    (unless (or (null msg)
+                (string-blank-p msg)
+                (string-match-p "Compiling" msg)
+                (string-match-p "Loading" msg))
+      (apply orig-func args))))
+(advice-add 'message :around #'mazd//message-filter)
 
 (defmacro mazd//loud (&rest body)
   "Evaluate BODY with `inhibit-message` disabled, ensuring messages are shown."
