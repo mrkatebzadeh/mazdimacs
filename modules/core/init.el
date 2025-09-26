@@ -28,6 +28,8 @@
 (require 'mazd-core)
 (require 'mazd-func)
 (require 'mazd-package)
+(require 'mazd-async)
+(require 'mazd-depends)
 (require 'mazd-key)
 (require 'mazd-config)
 
