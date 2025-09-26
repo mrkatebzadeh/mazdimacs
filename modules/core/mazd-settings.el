@@ -27,7 +27,6 @@
 (defvar mazd//persistent-variables
   '(
     mazd//alpha-variable
-    mazd//language-server
     mazd//icon
     mazd//font-size
     mazd//font-family

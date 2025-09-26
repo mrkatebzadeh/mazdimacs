@@ -23,7 +23,7 @@
 
 ;;
 
-(require 'cl-lib)
+(eval-when-compile (require 'cl-lib))
 
 (setq use-package-expand-minimally t)
 (setq enable-local-variables :all)
