@@ -23,6 +23,17 @@
 
 ;;
 
+(use-package xcscope
+  :ensure t
+  :defer t
+  :init
+  (defun mazd//load-xcscope-and-setup ()
+    (interactive)
+    (unless (featurep 'xcscope)
+      (require 'xcscope))
+    (cscope-setup))
+  )
+
 (use-package srefactor
   :ensure t
   :defer t
@@ -148,7 +159,12 @@
  "b"  'cmake-build
  "M"  'cmake-make-clean
  "B"  'cmake-build-clean
- "s"  'srefactor-refactor-at-point)
+ "s"  'srefactor-refactor-at-point
+ "cc" 'mazd//load-xcscope-and-setup
+ "cs" 'cscope-find-this-symbol
+ "cd" 'cscope-find-global-definition
+ "ct" 'cscope-find-this-text-string
+ "cf" 'cscope-find-this-file)
 
 
 (provide 'mazd-clang)
