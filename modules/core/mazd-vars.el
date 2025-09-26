@@ -30,6 +30,10 @@
 (defconst mazd//modules-dir (concat mazd//emacs-dir "modules/")
   "The root directory for Mazdimacs' modules. Must end with a slash.")
 
+(defconst mazd//modules
+  '("core" "ui" "editor" "langs" "utils" "completion" "org")
+  "List of module names under `mazd//module-dir`.")
+
 (defconst mazd//vars-file (concat mazd//modules-dir "mazd-vars.el")
   "The Mazdimacs' vars files. Must end with a slash.")
 
@@ -57,35 +61,29 @@ Must end with a slash.")
 
 (startup-redirect-eln-cache mazd//eln-dir)
 
-(defconst mazd//core-file (concat mazd//modules-dir "mazd-core.el")
-  "The root directory of Mazdimacs' core files. Must end with a slash.")
-
-(defconst mazd//key-file (concat mazd//modules-dir "mazd-key.el")
-  "The root directory of Mazdimacs' key configs. Must end with a slash.")
-
-(defconst mazd//ui-file (concat mazd//modules-dir "mazd-ui.el")
-  "The root directory of Mazdimacs' UI files. Must end with a slash.")
-
 (defconst mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
   "The root directory of Mazdimacs' external files. Must end with a slash.")
 
-(defconst mazd//backup-dir (concat mazd//emacs-dir ".backups/")
+(defconst mazd//backup-dir (concat mazd//local-dir "backups/")
   "The root directory of Mazdimacs' backup files. Must end with a slash.")
 
-(defconst mazd//cache-dir (concat mazd//emacs-dir ".cache/")
+(defconst mazd//cache-dir (concat mazd//local-dir "cache/")
   "The root directory of Mazdimacs' cache files. Must end with a slash.")
 
-(defconst mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
+(defconst mazd//autosave-dir (concat mazd//local-dir "autosave/")
   "The root directory of Mazdimacs' autosave files. Must end with a slash.")
 
-(defconst mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
+(defconst mazd//eshell-dir (concat mazd//local-dir "eshell/")
   "The root directory of Mazdimacs' eshell files. Must end with a slash.")
 
-(defconst mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
+(defconst mazd//desktop-dir (concat mazd//local-dir "desktop/")
   "Directory to save desktop sessions.")
 
 (defconst mazd//variable-storage-file (concat mazd//cache-dir "mazd-vars.el")
   "File to store variable values." )
+
+(defconst mazd//autoload-file (concat mazd//cache-dir "autoloads.el")
+  "File to store autoloads." )
 
 (setq org-directory     "~/Nextcloud/org")
 

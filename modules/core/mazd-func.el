@@ -170,5 +170,26 @@ BODY can either be raw lambda body or a function reference."
   "Return the current default background color as a hex string."
   (face-background 'default nil))
 
+(defun mazd//autoload-generate ()
+  "Generate a single autoload file for all modules in `mazd/modules`.
+
+This function scans every `.el` file inside each module directory listed in
+`mazd/modules` (under `mazd//module-dir`).  For each file, it looks for
+`;;;###autoload` cookies and collects them into a unified autoload file
+defined by `mazd//autoload-file`.
+
+Logs progress with `mazd//log` and writes the resulting autoloads file to
+disk, overwriting the old one."
+  (interactive)
+  (require 'autoload)
+  (mazd//log "Generating autoloads...")
+  (with-temp-buffer
+    (dolist (module mazd//modules)
+      (let ((dir (expand-file-name module mazd//modules-dir)))
+        (dolist (file (directory-files-recursively dir "\\.el$"))
+          (let ((generated-autoload-file mazd//autoload-file))
+            (update-file-autoloads file t)))))
+    (write-region (point-min) (point-max) mazd//autoload-file)))
+
 (provide 'mazd-func)
 ;;; mazd//func.el ends here

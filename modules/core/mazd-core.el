@@ -105,6 +105,8 @@
         (funcall (plist-get (car result) :secret))
       nil)))
 
+(when (file-exists-p mazd//autoload-file)
+  (load mazd//autoload-file nil t))
 ;; ;; esup
 ;; (use-package esup
 ;;   :defer t
