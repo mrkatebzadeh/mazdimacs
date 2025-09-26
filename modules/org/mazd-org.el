@@ -24,7 +24,10 @@
 ;;
 
 (use-package org
-  :async low
+  :depends
+  (calendar find-func format-spec org-macs org-compat org-faces org-entities
+	    org-list org-pcomplete org-src org-footnote org-macro ob org org-agenda
+	    org-capture)
   :ensure nil
   :defer t
   :mode ("\\.org$" . org-mode)

@@ -24,7 +24,7 @@
 ;;
 
 (use-package magit
-  :async t
+  :depends (dash f s with-editor git-commit package eieio transient)
   :ensure nil
   :defer t
   :init
