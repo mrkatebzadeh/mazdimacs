@@ -96,11 +96,9 @@
                               ,(+ 3
                                   (string-width (or lsp-modeline--code-actions-string ""))
                                   (string-width (mazd//async-mode-line))
-                                  (string-width (mazd//incremental-load-mode-line))
                                   (string-width "%4l:3%c")))))))
                 (:eval (or lsp-modeline--code-actions-string ""))
                 (:eval (mazd//async-mode-line))
-                (:eval (mazd//incremental-load-mode-line))
                 (:propertize "%4l:%c" face mode-line-buffer-id)))
 
 

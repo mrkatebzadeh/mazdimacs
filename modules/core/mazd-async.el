@@ -28,71 +28,93 @@
 ;;<CODE>
 
 (defvar mazd//async-packages nil
-  "List of (PACKAGE . PRIORITY) for async loading. Higher PRIORITY loads first.")
+  "List of packages registered for async loading.
+Each element is a plist: (:package PACKAGE :priority PRIORITY).")
 
 (dolist (keyword '(:async))
   (push keyword use-package-deferring-keywords)
   (setq use-package-keywords
         (use-package-list-insert keyword use-package-keywords :after)))
 
-(defalias 'use-package-normalize/:async #'use-package-normalize-symlist)
+(defun use-package-normalize/:async (name-symbol keyword args)
+  "Normalize the :async keyword for `use-package`.
 
-(defvar mazd//async-packages nil
-  "List of (PACKAGE . PRIORITY) for async loading.
-Higher PRIORITY loads first. :async nil means skip, :async t means priority 0.
-Symbolic priorities like 'high or 'medium are mapped to numbers in the handler.")
+ARGS can be:
+- t            => load NAME-SYMBOL asynchronously with default priority 0
+- number       => load NAME-SYMBOL asynchronously with numeric priority
+- symbol       => a single package symbol, default priority 0
+- (:priority P :packages (...)) => custom priority and package list"
+  (use-package-only-one (symbol-name keyword) args
+    (lambda (_label arg)
+      (cond
+       ((eq arg t)
+        `(:priority 0 :packages (,name-symbol)))
+       ((numberp arg)
+        `(:priority ,arg :packages (,name-symbol)))
+       ((symbolp arg)
+        `(:priority 0 :packages (,arg)))
+       ((and (listp arg) (keywordp (car arg)))
+        arg)
+       (t
+        (use-package-error
+         ":async argument must be t, number, symbol, or plist with :priority and :packages"))))))
 
-(defalias 'use-package-normalize/:async #'use-package-normalize-symlist)
+(defun mazd//async-priority-to-number (priority)
+  "Convert PRIORITY to a numeric value for async loading.
+
+Accepts numbers or symbols: high=10, medium=5, low=0."
+  (cond
+   ((numberp priority) priority)
+   ((eq priority 'high) 10)
+   ((eq priority 'medium) 5)
+   ((eq priority 'low) 0)
+   (t 0)))
 
 (defun use-package-handler/:async (name _keyword targets rest state)
-  "Handle the :async keyword for `use-package`.
+  "Handle the :async keyword for `use-package` with optional priority.
 
-Keyword values:
-
-- `nil`      : package is not added to the async list
-- `t`        : package is added with lowest priority (0)
-- Symbol     : mapped to a numeric priority, e.g. 'high -> 10, 'medium -> 5, 'low -> 1"
-  (let ((value (if (listp targets) (car targets) targets)))
-    (when value
-      (let ((priority (pcase value
-                        ('t 0)
-                        ('high 10)
-                        ('medium 5)
-                        ('low 1)
-                        (_ 0))))
-        (push (cons name priority) mazd//async-packages))))
+TARGETS is always normalized to a plist by `use-package-normalize/:async`."
+  (let ((plist (if (and (listp targets)
+                        (= (length targets) 1)
+                        (listp (car targets)))
+                   (car targets)
+                 targets)))
+    (let* ((raw-priority (plist-get plist :priority))
+           (priority (mazd//async-priority-to-number raw-priority))
+           (pkgs (plist-get plist :packages)))
+      (unless (listp pkgs) (setq pkgs (list pkgs)))
+      (dolist (pkg pkgs)
+        (cl-pushnew (list :package pkg :priority priority)
+                    mazd//async-packages
+                    :test #'equal))))
   (use-package-process-keywords name rest state))
 
-
 (defvar mazd//async-load-progress 0
-  "Number of async packages loaded so far.")
+  "Tracks the number of packages loaded asynchronously.")
 
 (defvar mazd//async-load-total 0
   "Total number of packages to load asynchronously.")
 
 (defvar mazd//current-async-package ""
-  "The name of the current package being loaded asynchronously.")
+  "Current async package being loaded.")
 
-(defvar mazd//async-idle-timer 1
-  "Time in seconds between loading packages asynchronously.")
-
-(defvar mazd//async-load-done-timer nil)
+(defvar mazd//async-idle-timer 0.05
+  "Seconds between async package loads.")
 
 (defun mazd//async-mode-line ()
   "Return a string showing async package load progress for the mode-line.
 Returns an empty string if no async packages are registered.
-Shows current progress while loading and a checkmark [✔] when all packages are loaded."
+Shows current progress while loading and a checkmark ✔ when all packages are loaded."
   (cond
    ((zerop mazd//async-load-total)
     "")
    ((>= mazd//async-load-progress mazd//async-load-total)
-    "")
+    " ⟦Async ✔⟧")
    (t
-    (format " ⟪Async %d/%d: %s⟫"
+    (format " ⟦Async %d/%d: %s⟧"
             mazd//async-load-progress
             mazd//async-load-total
             mazd//current-async-package))))
-
 
 (defun mazd//async-load-update (package-name)
   "Update progress counters for async package loading.
@@ -101,16 +123,20 @@ Updates `mazd//async-load-progress` and `mazd//current-async-package`,
 forces a mode-line update, and prints a message when all async packages are loaded."
   (setq mazd//async-load-progress (1+ mazd//async-load-progress))
   (setq mazd//current-async-package package-name)
-  (force-mode-line-update)
   (when (>= mazd//async-load-progress mazd//async-load-total)
     (message "All async packages loaded")))
 
 (defun mazd//async-load-all-packages (&optional packages)
-  "Load all packages in `mazd//async-packages` incrementally without freezing UI."
+  "Load all packages in `mazd//async-packages` incrementally using idle timers.
+Respects priority order: higher priority loaded first."
+  (message "Incremental loading started")
   (let* ((packages (or packages mazd//async-packages))
-         (packages (sort (cl-copy-list packages) (lambda (a b) (> (cdr a) (cdr b)))))
-         (packages (mapcar #'car packages))
-         (packages (cl-remove-duplicates packages)))
+         (packages (sort (cl-copy-list packages)
+                         (lambda (a b) (> (plist-get a :priority)
+                                          (plist-get b :priority))))))
+
+    (setq packages (mapcar (lambda (p) (plist-get p :package)) packages))
+    (setq packages (cl-remove-duplicates packages))
     (setq mazd//async-load-total (length packages))
     (setq mazd//async-load-progress 0)
     (cl-labels ((load-next ()
@@ -118,17 +144,17 @@ forces a mode-line update, and prints a message when all async packages are load
                     (let ((pkg (pop packages)))
                       (setq mazd//current-async-package (symbol-name pkg))
                       (condition-case err
-			  (load (symbol-name pkg) nil t)
+                          (require pkg nil t)
                         (error (message "Error loading %S: %S" pkg err)))
-                      (setq mazd//async-load-progress (1+ mazd//async-load-progress))
-                      (force-mode-line-update)
+		      (mazd//async-load-update (symbol-name pkg))
                       (when packages
                         (run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
       (load-next))))
 
+
 (add-hook 'emacs-startup-hook
-          (lambda ()
-            (mazd//schedule 1 nil
+	  (lambda ()
+	    (mazd//schedule 0 nil
 			    (mazd//async-load-all-packages))))
 
 (provide 'mazd-async)
