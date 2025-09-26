@@ -38,9 +38,9 @@
   (defun rfc-update ()
     "Updates rfc files."
     (interactive)
-    (message "Syncing RFCs..")
+    (mazd//log "Syncing RFCs..")
     (shell-command (concat "rsync -qq -avz --delete ftp.rfc-editor.org::rfcs-text-only " rfc-mode-directory "rfc-update"))
-    (message "RFCs are updated.")))
+    (mazd//log "RFCs are updated.")))
 
 (general-define-key
  :prefix "SPC a"
@@ -49,7 +49,7 @@
  "R" 'mazd//rfc)
 
 (general-define-key
- :prefix "SPC l"
+ :prefix "SPC k"
  :states '(normal visual motion)
  :keymaps 'rfc-mode-map
  "g" 'rfc-mode-browse

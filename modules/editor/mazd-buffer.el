@@ -337,13 +337,13 @@
   (cond
    ((not display-line-numbers)
     (setq display-line-numbers 't)
-    (message "Absolute line numbers"))
+    (mazd//log "Absolute line numbers"))
    ((eq display-line-numbers 't)
     (setq display-line-numbers 'relative)
-    (message "Relative line numbers"))
+    (mazd//log "Relative line numbers"))
    ((eq display-line-numbers 'relative)
     (setq display-line-numbers nil)
-    (message "Line numbers off"))))
+    (mazd//log "Line numbers off"))))
 
 ;;; bindings
 (leader

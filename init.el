@@ -20,8 +20,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Path vars
-;;(setq user-emacs-directory (file-name-directory load-file-name))
-(message "Starting Mazdimacs")
+
 (setq debug-on-error nil)
 
 ;;; Increase the CPU processing restrictions
@@ -78,9 +77,9 @@
         (when (file-directory-p dir)
           (add-to-list 'load-path dir)
           (when (file-exists-p entry-file)
-            (message "[%s] Loading %s..." (mazd//generate-progress-bar count total) mod)
+            (mazd//log "[%s] Loading %s..." (mazd//generate-progress-bar count total) mod)
             (load entry-file))))))
-  (message "All modules loaded!"))
+  (mazd//log "All modules loaded!"))
 
 (defun mazd//generate-progress-bar (current total)
   "Generate a simple text-based progress bar."

@@ -184,7 +184,7 @@
   (setq mazd//font-family mazd//font-default-family)
   (setq mazd//font-size mazd//font-default-size)
   (mazd//apply-font-properties)
-  (message "Font reset to %s with size %d" mazd//font-default-family mazd//font-default-size))
+  (mazd//log "Font reset to %s with size %d" mazd//font-default-family mazd//font-default-size))
 
 (defun mazd//choose-font ()
   "Prompt user to select a font from available system fonts and apply it."
@@ -192,7 +192,7 @@
   (let ((font (completing-read "Choose font: " (font-family-list))))
     (setq mazd//font-family font)
     (mazd//apply-font-properties)
-    (message "Font set to: %s" font)))
+    (mazd//log "Font set to: %s" font)))
 
 (defun mazd//apply-font-properties ()
   "Apply the current values of font properties."

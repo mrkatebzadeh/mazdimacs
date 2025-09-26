@@ -94,7 +94,7 @@ projectile cache when it's possible and update recentf list."
              (when (fboundp 'recentf-add-file)
                (recentf-add-file new-name)
                (recentf-remove-if-non-kept filename))
-             (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
+             (mazd//log "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
 ;; from magnars
 (defun mazd//rename-current-buffer-file ()
@@ -119,7 +119,7 @@ projectile cache when it's possible and update recentf list."
                (when (fboundp 'recentf-add-file)
 		 (recentf-add-file new-name)
 		 (recentf-remove-if-non-kept filename))
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+               (mazd//log "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
 (defun mazd//delete-file (filename &optional ask-user)
   "Remove specified file or directory.
@@ -154,7 +154,7 @@ FILENAME is deleted using `mazd//delete-file' function.."
       (when (yes-or-no-p "Are you sure you want to delete this file? ")
         (delete-file filename t)
         (kill-buffer buffer)
-        (message "File '%s' successfully removed" filename)))))
+        (mazd//log "File '%s' successfully removed" filename)))))
 
 ;; from magnars
 (defun mazd//sudo-edit ()
@@ -162,9 +162,9 @@ FILENAME is deleted using `mazd//delete-file' function.."
   (interactive)
   (let ((file (buffer-file-name)))
     (if (not file)
-        (message "This buffer is not visiting a file.")
+        (mazd//err "This buffer is not visiting a file.")
       (if (file-writable-p file)
-          (message "File is already writable.")
+          (mazd//err "File is already writable.")
         (let ((sudo-file (concat "/sudo::" file)))
           (find-alternate-file sudo-file))))))
 
@@ -222,7 +222,7 @@ If the universal prefix argument is used then will the windows too."
                              (buffer-name)))
     (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
     (when (equal '(4) arg) (delete-other-windows))
-    (message "Buffers deleted!")))
+    (mazd//log "Buffers deleted!")))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun mazd//toggle-current-window-dedication ()
@@ -231,9 +231,9 @@ If the universal prefix argument is used then will the windows too."
   (let* ((window    (selected-window))
 	 (dedicated (window-dedicated-p window)))
     (set-window-dedicated-p window (not dedicated))
-    (message "Window %sdedicated to %s"
-	     (if dedicated "no longer " "")
-	     (buffer-name))))
+    (mazd//log "Window %sdedicated to %s"
+	       (if dedicated "no longer " "")
+	       (buffer-name))))
 
 ;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
 (defun mazd//show-and-copy-buffer-filename ()
@@ -242,8 +242,8 @@ If the universal prefix argument is used then will the windows too."
   ;; list-buffers-directory is the variable set in dired buffers
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
     (if file-name
-        (message (kill-new file-name))
-      (error "Buffer not visiting a file"))))
+        (mazd//log (kill-new file-name))
+      (mazd//err "Buffer not visiting a file"))))
 
 (defun mazd//new-empty-buffer ()
   "Create a new buffer called untitled(<n>)"
@@ -314,10 +314,10 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (setq formated (concat formated (format "[%s: %d], " name count)))))
     (when (interactive-p)
       (if (> (length formated) 2)
-          (message (format "%s\nWord count: %s"
-                           overview
-                           (substring formated 0 -2)))
-        (message "No words.")))
+          (mazd//log (format "%s\nWord count: %s"
+			     overview
+			     (substring formated 0 -2)))
+        (mazd//log "No words.")))
     words))
 
 (defun mazd//reload-dir-locals (proj)

@@ -27,7 +27,6 @@
 
 (setq package-enable-at-startup nil)
 
-;; increase gc threshold to speedup starting up
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
 
@@ -40,7 +39,9 @@
 
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq org-startup-with-inline-images t)
-(customize-set-variable 'mac-option-modifier 'nil)
+(customize-set-variable 'mac-option-modifier 'meta)
+
+(load (concat (file-truename user-emacs-directory) "mazd-log.el"))
 
 (provide 'early-init)
 ;;; early-init.el ends here

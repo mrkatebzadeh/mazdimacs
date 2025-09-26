@@ -46,7 +46,7 @@
             (remove-hook 'post-command-hook #'corfu--auto-post-command 'local)
           (add-hook 'post-command-hook #'corfu--auto-post-command nil 'local)))))
   (when interactive
-    (message "Corfu auto-complete %s" (if corfu-auto "disabled" "enabled")))
+    (mazd//log "Corfu auto-complete %s" (if corfu-auto "disabled" "enabled")))
   (setq corfu-auto (not corfu-auto)))
 
 

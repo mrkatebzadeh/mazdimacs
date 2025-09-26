@@ -50,7 +50,7 @@
 			 (when (erc-channel-user-op-p k)
 			   (incf ops)))
 		       hash-table)
-	      (message "%d users (%s ops) are online on %s" users ops channel))
+	      (mazd//log "%d users (%s ops) are online on %s" users ops channel))
 	  (user-error "The current buffer is not a channel")))
     (user-error "You must first be connected on IRC")))
 
@@ -68,8 +68,8 @@
 			     (setq ops (cons nick ops))))
 		       erc-channel-users)
 	      (if ops
-		  (message "The online ops users are: %s"  (mapconcat 'identity ops " "))
-		(message "There are no ops users online on %s" channel)))
+		  (mazd//log "The online ops users are: %s"  (mapconcat 'identity ops " "))
+		(mazd//log "There are no ops users online on %s" channel)))
 	  (user-error "The current buffer is not a channel")))
     (user-error "You must first be connected on IRC")))
 

@@ -48,7 +48,8 @@
  process-adaptive-read-buffering nil
  right-margin-width 0
  ring-bell-function 'ignore
- initial-scratch-message ""
+ initial-scratch-message t
+ load-prefer-newer t
  frame-inhibit-implied-resize t
  initial-major-mode 'fundamental-mode
  select-enable-clipboard t

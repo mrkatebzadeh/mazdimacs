@@ -64,7 +64,7 @@
               (setq mode-line-format nil)
               (fit-window-to-buffer win)
               (set-window-dedicated-p win t))))
-      (message "Hostname not recognized: %s" hostname))))
+      (mazd//err "Hostname not recognized: %s" hostname))))
 
 (defun mazd//siarch-cancel ()
   "Kill the *Siarch-output* buffer and its window."
@@ -76,7 +76,7 @@
             (when win
               (delete-window win)))
           (kill-buffer buf))
-      (message "Buffer *Siarch-output* does not exist."))))
+      (mazd//err "Buffer *Siarch-output* does not exist."))))
 
 (leader
   "cs" '(:ignore t :which-key "Siarch")

@@ -138,8 +138,8 @@ BODY can either be raw lambda body or a function reference."
 
 (defun mazd//read-encrypted-file (file)
   "Decrypt a GPG-encrypted file and return its contents as a string."
-  (let ((full-path (expand-file-name file)))  ;; Expand `~` to absolute path
-    (message "Trying to decrypt: %s" full-path)  ;; Debugging message
+  (let ((full-path (expand-file-name file)))
+    (mazd//log "Trying to decrypt: %s" full-path)
     (if (not (file-exists-p full-path))
         (error "File does not exist: %s" full-path)
       (with-temp-buffer

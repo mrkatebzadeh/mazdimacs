@@ -124,12 +124,12 @@ forces a mode-line update, and prints a message when all async packages are load
   (setq mazd//async-load-progress (1+ mazd//async-load-progress))
   (setq mazd//current-async-package package-name)
   (when (>= mazd//async-load-progress mazd//async-load-total)
-    (message "All async packages loaded")))
+    (mazd//log "All async packages loaded")))
 
 (defun mazd//async-load-all-packages (&optional packages)
   "Load all packages in `mazd//async-packages` incrementally using idle timers.
 Respects priority order: higher priority loaded first."
-  (message "Incremental loading started")
+  (mazd//log "Incremental loading started")
   (let* ((packages (or packages mazd//async-packages))
          (packages (sort (cl-copy-list packages)
                          (lambda (a b) (> (plist-get a :priority)
@@ -145,17 +145,16 @@ Respects priority order: higher priority loaded first."
                       (setq mazd//current-async-package (symbol-name pkg))
                       (condition-case err
                           (require pkg nil t)
-                        (error (message "Error loading %S: %S" pkg err)))
+                        (mazd//err "Error loading %S: %S" pkg err))
 		      (mazd//async-load-update (symbol-name pkg))
                       (when packages
-                        (run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
+			(run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
       (load-next))))
-
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
-	    (mazd//schedule 0 nil
-			    (mazd//async-load-all-packages))))
+	    (mazd//schedule 1 nil
+	      (mazd//async-load-all-packages))))
 
 (provide 'mazd-async)
 ;;; mazd-async.el ends here

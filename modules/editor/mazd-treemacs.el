@@ -27,6 +27,8 @@
   :async (:priority medium :packages(treemacs))
   :ensure t
   :defer t
+  :init
+  (defconst treemacs-no-load-time-warnings t)
   :config
   (defun mazd//treemacs-padding-setup ()
     "Add top padding, header, left/right margins, and node indentation in Treemacs."

@@ -192,7 +192,7 @@
          (url (org-element-property :path link))
          (url (concat type ":" url)))
     (kill-new url)
-    (message (concat "Copied URL: " url))))
+    (mazd//log (concat "Copied URL: " url))))
 
 (defun mazd//org-link-open-eww ()
   "Open the Org mode link under the cursor directly in EWW."
@@ -203,7 +203,7 @@
          (link (concat type ":" path)))
     (if (and type path)
         (eww link)
-      (message "No valid link found at point."))))
+      (mazd//err "No valid link found at point."))))
 
 (defun insert-file-as-org-table (filename)
   "Insert a file into the current buffer at point, and convert it to an org table."

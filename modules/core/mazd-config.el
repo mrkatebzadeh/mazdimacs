@@ -48,7 +48,7 @@
             (progn
               (save-some-buffers t)
               (kill-emacs))
-          (message "Exit aborted."))
+          (mazd//err "Exit aborted."))
       (kill-emacs))))
 
 ;;; bindigs
