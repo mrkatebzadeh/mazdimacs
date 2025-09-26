@@ -94,7 +94,7 @@
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (mazd//schedule 2 nil
+            (mazd//schedule 1 nil
 			    (mazd//async-load-all-packages))))
 
 (provide 'init)
