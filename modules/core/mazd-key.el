@@ -38,6 +38,10 @@
   (general-auto-unbind-keys)
   )
 
+(eval-when-compile
+  (setq evil-want-integration t
+        evil-want-keybinding nil))
+
 (use-package evil
   :ensure t
   :hook(text-mode . evil-mode)
