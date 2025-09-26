@@ -77,31 +77,31 @@
 (defvar lsp-modeline--code-actions-string nil)
 
 (setq-default mode-line-format
-	      '("%e"
-		(:propertize " " display (raise +0.4))
-		(:propertize " " display (raise -0.4))
+              '("%e"
+                (:propertize " " display (raise +0.4))
+                (:propertize " " display (raise -0.4))
+                (:propertize "𝓜𝓪𝔃𝓭 " face font-lock-comment-face)
+                mode-line-frame-identification
+                mode-line-buffer-identification
+                (:eval (when-let (vc vc-mode)
+                         (list (propertize "   " 'face 'font-lock-comment-face)
+                               (propertize (truncate-string-to-width
+                                            (substring vc 5) 50)
+                                           'face 'font-lock-comment-face))))
+                (:eval
+                 (propertize
+                  " " 'display
+                  `((space :align-to
+                           (- (+ right right-fringe right-margin)
+                              ,(+ 3
+                                  (string-width (or lsp-modeline--code-actions-string ""))
+                                  (string-width (mazd//async-mode-line))
+                                  (string-width "%4l:3%c")))))))
+                (:eval (or lsp-modeline--code-actions-string ""))
+                (:eval (mazd//async-mode-line))
+                (:propertize "%4l:%c" face mode-line-buffer-id)))
 
-		(:propertize "𝓜𝓪𝔃𝓭 " face font-lock-comment-face)
-		mode-line-frame-identification
-		mode-line-buffer-identification
 
-		(:eval (when-let (vc vc-mode)
-			 (list (propertize "   " 'face 'font-lock-comment-face)
-			       (propertize (truncate-string-to-width
-					    (substring vc 5) 50)
-					   'face 'font-lock-comment-face))))
-
-		(:eval (propertize
-			" " 'display
-			`((space :align-to
-				 (-  (+ right right-fringe right-margin)
-				     ,(+ 3
-					 (string-width (or lsp-modeline--code-actions-string ""))
-					 (string-width "%4l:3%c")))))))
-
-		(:eval (or lsp-modeline--code-actions-string ""))
-
-		(:propertize "%4l:%c" face mode-line-buffer-id)))
 
 (provide 'mazd-modeline)
 ;;; mazd-modeline.el ends here

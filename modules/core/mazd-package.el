@@ -43,10 +43,8 @@
   (setq use-package-keywords
         (use-package-list-insert keyword use-package-keywords :after)))
 
-;; Normalize function for :async (just a pass-through)
 (defalias 'use-package-normalize/:async #'use-package-normalize-symlist)
 
-;; Handler for :async
 (defun use-package-handler/:async (name _keyword targets rest state)
   "Register the package NAME as async."
   (use-package-concat
@@ -65,35 +63,50 @@
 (defvar mazd//async-idle-timer 0.5
   "Time in seconds between loading packages asynchronously.")
 
+(defvar mazd//async-load-done-timer nil)
+
+(defun mazd//async-mode-line ()
+  "Return a string showing async package load progress for the mode-line.
+Shows current progress while loading and a checkmark [✔] when all packages are loaded."
+  (cond
+   ((>= mazd//async-load-progress mazd//async-load-total)
+    " [✔]")
+   ((zerop mazd//async-load-total)
+    "")
+   (t
+    (format " [Async %d/%d: %s]"
+            mazd//async-load-progress
+            mazd//async-load-total
+            mazd//current-async-package))))
+
 (defun mazd//async-load-update (package-name)
-  "Update progress counters for async package loading."
+  "Update progress counters for async package loading.
+PACKAGE-NAME is the name of the package that was just loaded.
+Updates `mazd//async-load-progress` and `mazd//current-async-package`,
+forces a mode-line update, and prints a message when all async packages are loaded."
   (setq mazd//async-load-progress (1+ mazd//async-load-progress))
   (setq mazd//current-async-package package-name)
-  (message "Async loading [%d/%d]: %s"
-           mazd//async-load-progress
-           mazd//async-load-total
-           package-name)
-  (force-mode-line-update))
+  (force-mode-line-update)
+  (when (>= mazd//async-load-progress mazd//async-load-total)
+    (message "All async packages loaded: %S" mazd//async-packages)))
 
 (defun mazd//async-load-all-packages (&optional packages)
   "Asynchronously load all packages in `mazd//async-packages`."
   (let* ((packages (or packages mazd//async-packages))
-         (packages (cl-remove-duplicates packages))
-         (mazd//async-load-total (length packages))
-         (mazd//async-load-progress 0))
+         (packages (cl-remove-duplicates packages)))
+    (setq mazd//async-load-total (length packages))
+    (setq mazd//async-load-progress 0)
     (cl-labels ((load-next ()
                   (when packages
                     (let ((pkg (pop packages)))
                       (setq mazd//current-async-package (symbol-name pkg))
                       (condition-case err
-                          (progn
-                            (require pkg)
-                            (mazd//async-load-update (symbol-name pkg)))
+                          (require pkg)
                         (error (message "Error loading %S: %S" pkg err)))
+                      (mazd//async-load-update (symbol-name pkg))
                       (when packages
-                        (run-with-idle-timer
-                         mazd//async-idle-timer nil
-                         #'load-next))))))
+                        (run-with-idle-timer mazd//async-idle-timer nil
+                                             #'load-next))))))
       (load-next))))
 
 (use-package s
