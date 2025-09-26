@@ -23,76 +23,76 @@
 
 ;; Variables
 
-(defvar mazd//emacs-dir
+(defconst mazd//emacs-dir
   (eval-when-compile (file-truename user-emacs-directory))
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
-(defvar mazd//modules-dir (concat mazd//emacs-dir "modules/")
+(defconst mazd//modules-dir (concat mazd//emacs-dir "modules/")
   "The root directory for Mazdimacs' modules. Must end with a slash.")
 
-(defvar mazd//vars-file (concat mazd//modules-dir "mazd-vars.el")
+(defconst mazd//vars-file (concat mazd//modules-dir "mazd-vars.el")
   "The Mazdimacs' vars files. Must end with a slash.")
 
-(defvar mazd//local-dir (concat mazd//emacs-dir ".local/")
+(defconst mazd//local-dir (concat mazd//emacs-dir ".local/")
   "Root directory for local storage.
 Use this as a storage location for this system's installation of MK Emacs.
 These files should not be shared across systems. By default, it is used by
 `mazd//etc-dir' and `mazd//cache-dir'. Must end with a slash.")
 
-(defvar mazd//etc-dir (concat mazd//local-dir "etc/")
+(defconst mazd//etc-dir (concat mazd//local-dir "etc/")
   "Directory for non-volatile local storage.
 Use this for files that don't change much, like server binaries, external
 dependencies or long-term shared data. Must end with a slash.")
 
-(defvar mazd//cache-dir (concat mazd//local-dir "cache/")
+(defconst mazd//cache-dir (concat mazd//local-dir "cache/")
   "Directory for volatile local storage.
 Use this for files that change often, like cache files. Must end with a slash.")
 
-(defvar mazd//packages-dir (concat mazd//local-dir "packages/")
+(defconst mazd//packages-dir (concat mazd//local-dir "packages/")
   "Where package.el and quelpa plugins (and their caches) are stored.
 Must end with a slash.")
 
-(defvar mazd//eln-dir (concat mazd//local-dir "eln-cache/")
+(defconst mazd//eln-dir (concat mazd//local-dir "eln-cache/")
   "Directory for eln-cache.")
 
 (startup-redirect-eln-cache mazd//eln-dir)
 
-(defvar mazd//core-file (concat mazd//modules-dir "mazd-core.el")
+(defconst mazd//core-file (concat mazd//modules-dir "mazd-core.el")
   "The root directory of Mazdimacs' core files. Must end with a slash.")
 
-(defvar mazd//key-file (concat mazd//modules-dir "mazd-key.el")
+(defconst mazd//key-file (concat mazd//modules-dir "mazd-key.el")
   "The root directory of Mazdimacs' key configs. Must end with a slash.")
 
-(defvar mazd//ui-file (concat mazd//modules-dir "mazd-ui.el")
+(defconst mazd//ui-file (concat mazd//modules-dir "mazd-ui.el")
   "The root directory of Mazdimacs' UI files. Must end with a slash.")
 
-(defvar mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
+(defconst mazd//lisp-dir (concat mazd//emacs-dir "site-lisp/")
   "The root directory of Mazdimacs' external files. Must end with a slash.")
 
-(defvar mazd//backup-dir (concat mazd//emacs-dir ".backups/")
+(defconst mazd//backup-dir (concat mazd//emacs-dir ".backups/")
   "The root directory of Mazdimacs' backup files. Must end with a slash.")
 
-(defvar mazd//cache-dir (concat mazd//emacs-dir ".cache/")
+(defconst mazd//cache-dir (concat mazd//emacs-dir ".cache/")
   "The root directory of Mazdimacs' cache files. Must end with a slash.")
 
-(defvar mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
+(defconst mazd//autosave-dir (concat mazd//emacs-dir ".autosave/")
   "The root directory of Mazdimacs' autosave files. Must end with a slash.")
 
-(defvar mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
+(defconst mazd//eshell-dir (concat mazd//emacs-dir ".eshell/")
   "The root directory of Mazdimacs' eshell files. Must end with a slash.")
 
-(defvar mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
+(defconst mazd//desktop-dir (concat mazd//emacs-dir ".desktop/")
   "Directory to save desktop sessions.")
 
-(defvar mazd//variable-storage-file (concat mazd//cache-dir "mazd-vars.el")
-      "File to store variable values." )
+(defconst mazd//variable-storage-file (concat mazd//cache-dir "mazd-vars.el")
+  "File to store variable values." )
 
 (setq org-directory     "~/Nextcloud/org")
 
-(defvar mazd//tramp-backup-directory
+(defconst mazd//tramp-backup-directory
   (concat mazd//cache-dir "tramp-backups/"))
 
-(defvar mazd//tramp
+(defconst mazd//tramp
   (concat mazd//cache-dir "tramp"))
 
 
