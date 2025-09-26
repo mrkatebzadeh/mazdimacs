@@ -92,11 +92,6 @@
 
 (mazd//load-modules-with-progress)
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (mazd//schedule 1 nil
-			    (mazd//async-load-all-packages))))
-
 (provide 'init)
 
 ;;; init.el ends here
