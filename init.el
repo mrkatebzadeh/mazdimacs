@@ -19,11 +19,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Path vars
-
 (setq debug-on-error nil)
 
-;;; Increase the CPU processing restrictions
 (when (boundp 'read-process-output-max)
   (setq process-adaptive-read-buffering nil
         read-process-output-max (* 24 1024 1024)))
@@ -32,11 +29,11 @@
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (message "[Emacs loaded in %s with %d garbage collections.]"
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)
+            (mazd//log "[Emacs loaded in %s with %d garbage collections.]"
+		       (format "%.2f seconds"
+			       (float-time
+				(time-subtract after-init-time before-init-time)))
+		       gcs-done)
             (setq mazd//emacs-started t)))
 
 (defvar mazd//extra-paths
