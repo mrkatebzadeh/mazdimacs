@@ -24,8 +24,9 @@
 ;;
 
 (use-package yasnippet
-  :depends
-  (eldoc easymenu help-mode)
+  :async (:priority low
+		    :packages
+		    (eldoc easymenu help-mode))
   :diminish t
   :defer t
   :commands (yas-minor-mode)

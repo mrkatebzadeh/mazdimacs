@@ -25,8 +25,8 @@
 
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (use-package mu4e
-  :depends
-  (mu4e-core mu4e-headers mu4e-view mu4e-compose mu4e-alert mu4e-context)
+  :async (:priority low
+		    :packages (mu4e-core mu4e-headers mu4e-view mu4e-compose mu4e-alert mu4e-context))
   :ensure nil
   :defer t)
 

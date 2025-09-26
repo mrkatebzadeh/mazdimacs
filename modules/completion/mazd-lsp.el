@@ -24,8 +24,8 @@
 ;;
 
 (use-package lsp-mode
-  :depends
-  (lsp-mode-core lsp-protocol lsp-clients lsp-ui lsp-treemacs)
+  :async
+  (:priority low :packages (lsp-mode-core lsp-protocol lsp-clients lsp-ui lsp-treemacs))
   :ensure t
   :defer t
   :init

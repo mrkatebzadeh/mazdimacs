@@ -30,8 +30,9 @@
 
 
 (use-package recentf
-  :depends
-  (easymenu tree-widget timer)
+  :async (:priority medium
+		    :packages
+		    (easymenu tree-widget timer))
   :ensure nil
   :defer t
   :init
