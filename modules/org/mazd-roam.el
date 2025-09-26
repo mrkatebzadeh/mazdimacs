@@ -24,6 +24,7 @@
 ;;
 
 (use-package org-roam
+  :async t
   :ensure t
   :defer t
   :custom

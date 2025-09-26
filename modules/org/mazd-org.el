@@ -24,7 +24,7 @@
 ;;
 
 (use-package org
-  :async t
+  :async low
   :ensure nil
   :defer t
   :mode ("\\.org$" . org-mode)
