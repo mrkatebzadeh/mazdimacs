@@ -24,7 +24,7 @@
 ;;
 
 (use-package lsp-mode
-  :async t
+  :async medium
   :ensure t
   :defer t
   :init

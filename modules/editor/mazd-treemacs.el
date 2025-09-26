@@ -24,7 +24,7 @@
 ;;
 
 (use-package treemacs
-  :async t
+  :async high
   :ensure t
   :defer t
   :config
