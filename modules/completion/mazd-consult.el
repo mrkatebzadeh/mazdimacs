@@ -25,6 +25,7 @@
 
 
 (use-package consult
+  :async t
   :ensure t
   :defer t
   :commands
