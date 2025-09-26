@@ -45,11 +45,32 @@
 
 (defalias 'use-package-normalize/:async #'use-package-normalize-symlist)
 
+(defvar mazd//async-packages nil
+  "List of (PACKAGE . PRIORITY) for async loading.
+Higher PRIORITY loads first. :async nil means skip, :async t means priority 0.
+Symbolic priorities like 'high or 'medium are mapped to numbers in the handler.")
+
+(defalias 'use-package-normalize/:async #'use-package-normalize-symlist)
+
 (defun use-package-handler/:async (name _keyword targets rest state)
-  "Register the package NAME as async."
-  (use-package-concat
-   `((add-to-list 'mazd//async-packages ',name))
-   (use-package-process-keywords name rest state)))
+  "Handle the :async keyword for `use-package`.
+
+Keyword values:
+
+- `nil`      : package is not added to the async list
+- `t`        : package is added with lowest priority (0)
+- Symbol     : mapped to a numeric priority, e.g. 'high -> 10, 'medium -> 5, 'low -> 1"
+  (let ((value (if (listp targets) (car targets) targets)))
+    (when value
+      (let ((priority (pcase value
+                        ('t 0)
+                        ('high 10)
+                        ('medium 5)
+                        ('low 1)
+                        (_ 0))))
+        (push (cons name priority) mazd//async-packages))))
+  (use-package-process-keywords name rest state))
+
 
 (defvar mazd//async-load-progress 0
   "Number of async packages loaded so far.")
@@ -88,11 +109,13 @@ forces a mode-line update, and prints a message when all async packages are load
   (setq mazd//current-async-package package-name)
   (force-mode-line-update)
   (when (>= mazd//async-load-progress mazd//async-load-total)
-    (message "All async packages loaded: %S" mazd//async-packages)))
+    (message "All async packages loaded")))
 
 (defun mazd//async-load-all-packages (&optional packages)
-  "Asynchronously load all packages in `mazd//async-packages`."
+  "Asynchronously load all packages in `mazd//async-packages` sorted by priority."
   (let* ((packages (or packages mazd//async-packages))
+         (packages (sort packages (lambda (a b) (> (cdr a) (cdr b))))) ; sort by priority
+         (packages (mapcar #'car packages))
          (packages (cl-remove-duplicates packages)))
     (setq mazd//async-load-total (length packages))
     (setq mazd//async-load-progress 0)
@@ -108,6 +131,8 @@ forces a mode-line update, and prints a message when all async packages are load
                         (run-with-idle-timer mazd//async-idle-timer nil
                                              #'load-next))))))
       (load-next))))
+
+
 
 (use-package s
   :defer t

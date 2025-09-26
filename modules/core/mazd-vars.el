@@ -96,7 +96,7 @@ Must end with a slash.")
   (concat mazd//cache-dir "tramp"))
 
 (defvar mazd//async-packages nil
-  "List of packages declared with :async in `use-package'.")
+  "List of (PACKAGE . PRIORITY) for async loading. Higher PRIORITY loads first.")
 
 (provide 'mazd-vars)
 ;;; mazd-vars.el ends here
