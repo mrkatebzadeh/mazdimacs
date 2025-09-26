@@ -26,18 +26,21 @@
 (defvar siarch-dir (expand-file-name ".siarch" (getenv "HOME"))
   "Directory where the siarch script is located.")
 
+;;;###autoload
 (defun mazd//siarch-nix-file ()
   "Open flake.nix file."
   (interactive)
   (find-file (concat siarch-dir "/flake.nix")))
 
 
+;;;###autoload
 (defvar siarch-hostname-params
   '((SiAir . "macbookair")
     (SiAir.local . "macbookair")
     (shiraz . "shiraz"))
   "Mapping of hostnames to parameters for ./siarch.sh.")
 
+;;;###autoload
 (defun mazd//siarch-rebuild ()
   "Run ./siarch.sh with different arguments based on the selected hostname."
   (interactive)
@@ -66,6 +69,7 @@
               (set-window-dedicated-p win t))))
       (mazd//err "Hostname not recognized: %s" hostname))))
 
+;;;###autoload
 (defun mazd//siarch-cancel ()
   "Kill the *Siarch-output* buffer and its window."
   (interactive)

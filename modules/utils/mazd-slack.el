@@ -52,6 +52,7 @@
   (setq alert-default-style 'notifier))
 
 
+;;;###autoload
 (defun mazd//start-slack ()
   "Start Slack with default team"
   (interactive)

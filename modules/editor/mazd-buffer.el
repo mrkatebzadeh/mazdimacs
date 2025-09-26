@@ -331,6 +331,7 @@
 ;; highlight matches
 (show-paren-mode 1)
 
+;;;###autoload
 (defun mazd//toggle-line-numbers ()
   "Cycle through absolute, relative, and no line numbers."
   (interactive)

@@ -94,42 +94,49 @@
 (winner-mode 1)
 
 
+;;;###autoload
 (defun mazd//switch-to-window-left ()
   "Switch to the window to the left and blink the buffer."
   (interactive)
   (evil-window-left 1)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//switch-to-window-down ()
   "Switch to the window below and blink the buffer."
   (interactive)
   (evil-window-down 1)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//switch-to-window-up ()
   "Switch to the window above and blink the buffer."
   (interactive)
   (evil-window-up 1)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//switch-to-window-right ()
   "Switch to the window to the right and blink the buffer."
   (interactive)
   (evil-window-right 1)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//vsplit-window ()
   "Vertically split window and blink the buffer."
   (interactive)
   (evil-window-vsplit)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//split-window ()
   "Horizontally split window and blink the buffer."
   (interactive)
   (evil-window-split)
   (mazd//blink-on-buffer-switch))
 
+;;;###autoload
 (defun mazd//delete-window ()
   "Delete the current window and blink the buffer."
   (interactive)
@@ -153,6 +160,7 @@
     (mazd//blink-buffer)
     ))
 
+;;;###autoload
 (defun mazd//fullscreen ()
   "Set to fullscreen"
   (interactive)

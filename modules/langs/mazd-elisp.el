@@ -38,6 +38,7 @@
     (define-key kmap (kbd "<backtab>") 'outshine-cycle-buffer)))
 
 
+;;;###autoload
 (defun mazd//byte-compile-init-dir ()
   "Byte-compile all your dotfiles."
   (interactive)

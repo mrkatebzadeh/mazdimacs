@@ -166,18 +166,21 @@
   :ensure nil
   )
 
+;;;###autoload
 (defun mazd//increase-font-size ()
   "Increase font size by 1."
   (interactive)
   (setq mazd//font-size (+ mazd//font-size 10))
   (mazd//apply-font-properties))
 
+;;;###autoload
 (defun mazd//decrease-font-size ()
   "Decrease font size by 1."
   (interactive)
   (setq mazd//font-size (- mazd//font-size 10))
   (mazd//apply-font-properties))
 
+;;;###autoload
 (defun mazd//reset-font ()
   "Reset font size and font family to default values."
   (interactive)
@@ -186,6 +189,7 @@
   (mazd//apply-font-properties)
   (mazd//log "Font reset to %s with size %d" mazd//font-default-family mazd//font-default-size))
 
+;;;###autoload
 (defun mazd//choose-font ()
   "Prompt user to select a font from available system fonts and apply it."
   (interactive)
@@ -202,6 +206,7 @@
                       :weight 'normal
                       :width 'normal))
 
+;;;###autoload
 (defun mazd//toggle-transparency ()
   "Toggle background transparency between `mazd//alpha-variable` and 100."
   (interactive)

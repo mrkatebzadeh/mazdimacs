@@ -128,6 +128,7 @@
 (mazd//after auctex-latexmk
   (auctex-latexmazd//setup))
 
+;;;###autoload
 (defun latex-compile ()
   (interactive)
   (save-buffer)

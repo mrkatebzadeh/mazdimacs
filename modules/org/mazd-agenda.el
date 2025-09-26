@@ -52,12 +52,14 @@
                                       (search category-keep))
         ))
 
+;;;###autoload
 (defun mazd//org-agenda ()
   "Setup and open org-agenda"
   (interactive)
   (mazd//org-agenda-setup)
   (org-agenda))
 
+;;;###autoload
 (defun mazd//open-agenda-note-file()
   (interactive)
   (find-file org-default-notes-file))

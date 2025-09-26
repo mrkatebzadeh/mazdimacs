@@ -154,12 +154,14 @@
 
 (add-hook 'after-load-theme-hook #'mazd//setup-org-block-faces)
 
+;;;###autoload
 (defun mazd//org-export()
   "Load required packages for exporting org file"
   (interactive)
   (require 'ox-moderncv)
   (require 'ox-reveal))
 
+;;;###autoload
 (defun mazd//org-clicky()
   "Open link at point if there is one, otherwise insert newline."
   (interactive)
@@ -177,6 +179,7 @@
   (define-key org-mode-map (kbd "C-c f") 'org-mark-ring-push))
 
 
+;;;###autoload
 (defun mazd//eval-and-next-block ()
   "Evaluate the current Org mode source block and move to the next one."
   (interactive)
@@ -184,6 +187,7 @@
   (org-babel-execute-src-block)
   (org-babel-next-src-block))
 
+;;;###autoload
 (defun mazd//org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
   (interactive "P")
@@ -194,6 +198,7 @@
     (kill-new url)
     (mazd//log (concat "Copied URL: " url))))
 
+;;;###autoload
 (defun mazd//org-link-open-eww ()
   "Open the Org mode link under the cursor directly in EWW."
   (interactive)
@@ -205,6 +210,7 @@
         (eww link)
       (mazd//err "No valid link found at point."))))
 
+;;;###autoload
 (defun insert-file-as-org-table (filename)
   "Insert a file into the current buffer at point, and convert it to an org table."
   (interactive (list (ido-read-file-name "csv file: ")))

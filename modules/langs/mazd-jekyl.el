@@ -27,6 +27,8 @@
   :ensure t
   :commands (hyde)
   :init
+
+;;;###autoload
   (defun mazd//hyde ()
     "Helper function"
     (interactive)

@@ -78,20 +78,21 @@
 
   )
 
+;;;###autoload
 (defun tramp-switch-method (method &optional file-name)
   (interactive (list
                 (completing-read "Choose method: "
                                  (mapcar #'car tramp-methods))))
   (find-alternate-file
    (with-parsed-tramp-file-name (or file-name buffer-file-name) parsed
-     (tramp-make-tramp-file-name
-      method
-      parsed-user
-      parsed-domain
-      parsed-host
-      parsed-port
-      parsed-localname
-      parsed-hop))))
+				(tramp-make-tramp-file-name
+				 method
+				 parsed-user
+				 parsed-domain
+				 parsed-host
+				 parsed-port
+				 parsed-localname
+				 parsed-hop))))
 
 (provide 'mazd-tramp)
 ;;; mazd-tramp.el ends here

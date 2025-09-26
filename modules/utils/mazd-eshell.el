@@ -35,7 +35,7 @@
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   )
 
-
+;;;###autoload
 (defun mazd//update-ticket()
   (interactive)
   (let ((command (format
@@ -53,35 +53,36 @@
   :ensure t
   :defer t
   :init
-  (defvar mazd//vterm-buffer-name "*vterm-toggle*"
-    "Name of the toggleable vterm buffer.")
-
-  (defun mazd//vterm-toggle ()
-    "Toggle a vterm window at the bottom of the frame, 25% height."
-    (interactive)
-    (require 'vterm)
-    (let* ((buf (or (get-buffer mazd//vterm-buffer-name)
-                    (with-current-buffer (generate-new-buffer mazd//vterm-buffer-name)
-                      (vterm-mode)
-                      ;; Disable line numbers in vterm
-                      (when (bound-and-true-p display-line-numbers-mode)
-			(display-line-numbers-mode -1))
-                      (when (fboundp 'linum-mode)
-			(linum-mode -1))
-                      (current-buffer))))
-           (win (get-buffer-window buf)))
-      (if (and win (window-live-p win))
-          (delete-window win)
-	(display-buffer
-	 buf
-	 '((display-buffer-reuse-window
-	    display-buffer-below-selected)
-	   (window-height . 0.25)))
-	(select-window (get-buffer-window buf)))))
-
   :bind
   (("C-\\" . mazd//vterm-toggle))
   )
+
+(defvar mazd//vterm-buffer-name "*vterm-toggle*"
+  "Name of the toggleable vterm buffer.")
+
+;;;###autoload
+(defun mazd//vterm-toggle ()
+  "Toggle a vterm window at the bottom of the frame, 25% height."
+  (interactive)
+  (require 'vterm)
+  (let* ((buf (or (get-buffer mazd//vterm-buffer-name)
+                  (with-current-buffer (generate-new-buffer mazd//vterm-buffer-name)
+                    (vterm-mode)
+                    ;; Disable line numbers in vterm
+                    (when (bound-and-true-p display-line-numbers-mode)
+		      (display-line-numbers-mode -1))
+                    (when (fboundp 'linum-mode)
+		      (linum-mode -1))
+                    (current-buffer))))
+         (win (get-buffer-window buf)))
+    (if (and win (window-live-p win))
+        (delete-window win)
+      (display-buffer
+       buf
+       '((display-buffer-reuse-window
+	  display-buffer-below-selected)
+	 (window-height . 0.25)))
+      (select-window (get-buffer-window buf)))))
 
 (leader
   "s" '(:ignore t :which-key "Shell")

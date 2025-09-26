@@ -45,6 +45,7 @@
 	  consult--source-bookmark
 	  ))
 
+;;;###autoload
   (defun mazd//consult-grep (&optional dir initial)
     "Search in DIR using ripgrep, honoring .gitignore and excluding .git/."
     (interactive "P")

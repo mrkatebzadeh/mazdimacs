@@ -72,6 +72,7 @@
 
 (add-hook 'org-mode-hook #'mazd//org-babel-setup)
 
+;;;###autoload
 (defun mazd//org-code-execute ()
   "Execute the current code block, jump to the next code block, and center it in the buffer."
   (interactive)

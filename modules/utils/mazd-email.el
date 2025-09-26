@@ -225,6 +225,8 @@
 	    (setq message-sendmail-extra-arguments (list '"-a" account))))))
   (setq message-sendmail-envelope-from 'header)
   (add-hook 'message-send-mail-hook 'choose-msmtp-account)
+
+;;;###autoload
   (defun mu4e-choose-signature ()
     "Insert one of a number of sigs"
     (interactive)
@@ -261,6 +263,7 @@
   (setq gnus-dired-mail-mode 'mu4e-user-agent)
   (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 
+;;;###autoload
 (defun mazd//notmuch-show-expand-only-unread-h ()
   (interactive)
   (let ((unread nil)

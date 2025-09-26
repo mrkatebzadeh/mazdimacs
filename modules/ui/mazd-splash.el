@@ -143,6 +143,7 @@ banner at the center. Also checks to see if buffer named *splash* already exists
     (select-window calling-window)))
 
 
+;;;###autoload
 (defun mazd//redraw ()
   (interactive)
   "Fix up buffer and recenter."
@@ -150,6 +151,7 @@ banner at the center. Also checks to see if buffer named *splash* already exists
   (mazd//set-window-start (selected-window)))
 
 
+;;;###autoload
 (defun mazd//recenter ()
   (interactive)
   "Fix up buffer and recenter."

@@ -25,6 +25,7 @@
 
 ;;; Code:
 
+;;;###autoload
 (defun mazd//kill-dired-buffers ()
   (interactive)
   (mapc (lambda (buffer)
@@ -32,6 +33,7 @@
 	    (kill-buffer buffer)))
 	(buffer-list)))
 
+;;;###autoload
 (defun mazd//dired-create-file-or-directory ()
   "Create a new file or directory."
   (interactive)
@@ -93,6 +95,7 @@
 	image-dired-gallery-dir (concat image-dired-dir "gallery/")
 	image-dired-temp-image-file (concat image-dired-dir "temp-image")
 	image-dired-temp-rotate-image-file (concat image-dired-dir "temp-rotate-image")))
+
 (use-package dired-git-info
   :ensure t
   :defer t
@@ -106,6 +109,7 @@
   :after dired
   :ensure t
   )
+
 (use-package dired-rsync-transient
   :defer t
   :after dired
@@ -184,12 +188,14 @@
     (kbd "q") 'mazd//kill-dired-buffers)
   )
 
+;;;###autoload
 (defun mazd//sidebar-toggle ()
   "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
   (interactive)
   (dired-sidebar-toggle-sidebar)
   )
 
+;;;###autoload
 (defun mazd//project-switch-project ()
   "Switch to a project and open its root directory in `dired`."
   (interactive)

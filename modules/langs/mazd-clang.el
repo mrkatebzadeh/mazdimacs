@@ -26,13 +26,14 @@
 (use-package xcscope
   :ensure t
   :defer t
-  :init
-  (defun mazd//load-xcscope-and-setup ()
-    (interactive)
-    (unless (featurep 'xcscope)
-      (require 'xcscope))
-    (cscope-setup))
   )
+
+;;;###autoload
+(defun mazd//load-xcscope-and-setup ()
+  (interactive)
+  (unless (featurep 'xcscope)
+    (require 'xcscope))
+  (cscope-setup))
 
 (use-package srefactor
   :ensure t

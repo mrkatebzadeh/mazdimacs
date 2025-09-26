@@ -158,10 +158,12 @@
   (add-hook 'org-ref-clean-bibtex-entry-hook 'my-orcb-key)
   )
 
+;;;###autoload
 (defun mazd//open-bib-file()
   (interactive)
   (find-file (car org-ref-default-bibliography)))
 
+;;;###autoload
 (defun mazd//open-note-file()
   (interactive)
   (find-file org-ref-bibliography-notes))

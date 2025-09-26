@@ -69,6 +69,7 @@
   )
 ;;; config
 
+;;;###autoload
 (defun mazd//rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
 When NEW-FILENAME is not specified, asks user for a new name.
@@ -96,7 +97,7 @@ projectile cache when it's possible and update recentf list."
                (recentf-remove-if-non-kept filename))
              (mazd//log "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
 
-;; from magnars
+;;;###autoload
 (defun mazd//rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
@@ -121,6 +122,7 @@ projectile cache when it's possible and update recentf list."
 		 (recentf-remove-if-non-kept filename))
                (mazd//log "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
+;;;###autoload
 (defun mazd//delete-file (filename &optional ask-user)
   "Remove specified file or directory.
 Also kills associated buffer (if any exists) and invalidates
@@ -136,13 +138,15 @@ removal."
               (yes-or-no-p "Are you sure you want to delete this file? "))
       (delete-file filename))))
 
+;;;###autoload
 (defun mazd//delete-file-confirm (filename)
   "Remove specified file or directory after users approval.
 FILENAME is deleted using `mazd//delete-file' function.."
   (interactive "f")
   (funcall-interactively #'mazd//delete-file filename t))
 
-;; from magnars
+
+;;;###autoload
 (defun mazd//delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."
   (interactive)
@@ -156,7 +160,7 @@ FILENAME is deleted using `mazd//delete-file' function.."
         (kill-buffer buffer)
         (mazd//log "File '%s' successfully removed" filename)))))
 
-;; from magnars
+;;;###autoload
 (defun mazd//sudo-edit ()
   "Edit the current file as root if it's not writable."
   (interactive)
@@ -168,7 +172,7 @@ FILENAME is deleted using `mazd//delete-file' function.."
         (let ((sudo-file (concat "/sudo::" file)))
           (find-alternate-file sudo-file))))))
 
-
+;;;###autoload
 (defun mazd//delete-window (&optional arg)
   "Delete the current window.
 If the universal prefix argument is used then kill the buffer too."
@@ -177,6 +181,7 @@ If the universal prefix argument is used then kill the buffer too."
       (kill-buffer-and-window)
     (delete-window)))
 
+;;;###autoload
 (defun mazd//ace-delete-window (&optional arg)
   "Ace delete window.
 If the universal prefix argument is used then kill the buffer too."
@@ -190,7 +195,7 @@ If the universal prefix argument is used then kill the buffer too."
          (mazd//kill-this-buffer arg)))
      (aw-delete-window window))))
 
-;; our own implementation of kill-this-buffer from menu-bar.el
+;;;###autoload
 (defun mazd//kill-this-buffer (&optional arg)
   "Kill the current buffer.
 If the universal prefix argument is used then kill also the window."
@@ -201,6 +206,7 @@ If the universal prefix argument is used then kill also the window."
         (kill-buffer-and-window)
       (kill-buffer))))
 
+;;;###autoload
 (defun mazd//ace-kill-this-buffer (&optional arg)
   "Ace kill visible buffer in a window.
 If the universal prefix argument is used then kill also the window."
@@ -213,7 +219,7 @@ If the universal prefix argument is used then kill also the window."
        (with-selected-window window
          (mazd//kill-this-buffer arg))))))
 
-;; found at http://emacswiki.org/emacs/KillingBuffers
+;;;###autoload
 (defun mazd//kill-other-buffers (&optional arg)
   "Kill all other buffers.
 If the universal prefix argument is used then will the windows too."
@@ -224,7 +230,7 @@ If the universal prefix argument is used then will the windows too."
     (when (equal '(4) arg) (delete-other-windows))
     (mazd//log "Buffers deleted!")))
 
-;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
+;;;###autoload
 (defun mazd//toggle-current-window-dedication ()
   "Toggle dedication state of a window."
   (interactive)
@@ -235,7 +241,7 @@ If the universal prefix argument is used then will the windows too."
 	       (if dedicated "no longer " "")
 	       (buffer-name))))
 
-;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
+;;;###autoload
 (defun mazd//show-and-copy-buffer-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
@@ -245,18 +251,20 @@ If the universal prefix argument is used then will the windows too."
         (mazd//log (kill-new file-name))
       (mazd//err "Buffer not visiting a file"))))
 
+;;;###autoload
 (defun mazd//new-empty-buffer ()
   "Create a new buffer called untitled(<n>)"
   (interactive)
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
-;; http://stackoverflow.com/a/10216338/4869
+;;;###autoload
 (defun mazd//copy-whole-buffer-to-clipboard ()
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
 
+;;;###autoload
 (defun mazd//copy-clipboard-to-whole-buffer ()
   "Copy clipboard and replace buffer"
   (interactive)
@@ -264,22 +272,25 @@ If the universal prefix argument is used then will the windows too."
   (clipboard-yank)
   (deactivate-mark))
 
+;;;###autoload
 (defun mazd//dos2unix ()
   "Converts the current buffer to UNIX file format."
   (interactive)
   (set-buffer-file-coding-system 'undecided-unix nil))
 
+;;;###autoload
 (defun mazd//unix2dos ()
   "Converts the current buffer to DOS file format."
   (interactive)
   (set-buffer-file-coding-system 'undecided-dos nil))
 
+;;;###autoload
 (defun mazd//copy-file ()
   "Write the file under new name."
   (interactive)
   (call-interactively 'write-file))
 
-;; from http://www.emacswiki.org/emacs/WordCount
+;;;###autoload
 (defun mazd//count-words-analysis (start end)
   "Count how many times each word is used in the region.
  Punctuation is ignored."

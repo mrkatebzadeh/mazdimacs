@@ -34,6 +34,7 @@
     (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)
     (add-hook 'before-save-hook #'mazd//untabify-buffer nil t))
 
+;;;###autoload
   (defun mazd//untabify-buffer ()
     "Convert all tabs in the buffer to spaces."
     (interactive)
@@ -48,6 +49,8 @@
   :defer t
   :ensure t
   :preface
+
+;;;###autoload
   (defun lsp-pyright-format-buffer ()
     (interactive)
     (when (and (executable-find "yapf") buffer-file-name)
@@ -63,6 +66,7 @@
   :defer t
   :ensure t)
 
+;;;###autoload
 (defun mazd//run-python-file ()
   "Run the current Python file in a dedicated buffer."
   (interactive)

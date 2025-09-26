@@ -38,6 +38,7 @@
            (daily-name (format-time-string "%Y%m%d" yesterday)))
       (expand-file-name (concat org-journal-dir daily-name))))
 
+;;;###autoload
   (defun journal-file-yesterday ()
     "Creates and load a file based on yesterday's date."
     (interactive)
@@ -61,6 +62,7 @@
   :defer t
   :ensure nil)
 
+;;;###autoload
 (defun mazd//org-drill ()
   "Load and run org-drill"
   (interactive)
