@@ -52,7 +52,43 @@
   :ensure t
   :defer t)
 
-;;; config
+(use-package shackle
+  :ensure t
+  :defer t
+  :async (:priority low :packages(shackle))
+  :config
+  (setq shackle-rules
+	'(("*xref*"                 :select t   :align right :size 0.4)
+	  (" *undo-tree*"           :select t   :align right :size 0.3)
+	  (magit-popup-mode         :select t   :align right :size 0.4)
+	  (debugger-mode            :select t   :align below :size 0.4)
+	  (magit-diff-mode          :select nil :align right :size 0.5)
+	  (magit-log-select-mode    :select nil :align right :size 0.5)
+	  ("*Ledger Report*"        :select t   :align below :size 0.5)
+	  ("*org-roam*"             :select nil :align right :size 0.25)
+	  (flycheck-error-list-mode :select nil :align below :size 0.25)
+	  (vterm-mode               :select t   :align below :size 0.25)
+	  (compilation-mode         :select nil :align below :size 0.25)
+	  (comint-mode              :select nil :align below :size 0.25)
+	  (messages-buffer-mode     :select t   :align below :size 0.25)
+	  (inferior-emacs-lisp-mode :select t   :align below :size 0.25)
+	  (ert-results-mode         :select t   :align below :size 0.5)
+	  (calendar-mode            :select t   :align below :size 0.25)
+	  (racer-help-mode          :select t   :align right :size 0.5)
+	  (help-mode                :select t   :align right :size 0.5)
+	  (helpful-mode             :select t   :align right :size 0.5)
+	  ("CAPTURE-journal.org"    :select t   :align below :size 0.25)
+	  (" *Embark Actions*"      :select nil :align below :size 0.5)
+	  (" *Deletions*"           :select t   :align below :size 0.25)
+	  (" *Marked Files*"        :select t   :align below :size 0.25)
+	  ("*Org Select*"           :select t   :align below :size 0.33)
+	  ("*Org Note*"             :select t   :align below :size 0.33)
+	  ("*Org Links*"            :select t   :align below :size 0.2)
+	  (" *Org todo*"            :select t   :align below :size 0.2)
+	  ("*Man.*"                 :select t   :align below :size 0.5  :regexp t)
+	  ("*Org Src.*"             :select t   :align right :size 0.5  :regexp t)
+	  ("*Go-Translate*"         :select t   :align right :size 0.5)))
+  )
 
 (windmove-default-keybindings)
 (winner-mode 1)
