@@ -111,7 +111,7 @@
 (leader
   "ae" 'elfeed)
 
-(with-eval-after-load 'elfeed
+(mazd//after elfeed
   (general-define-key
    :prefix "SPC k"
    :states 'normal

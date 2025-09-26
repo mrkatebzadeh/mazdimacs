@@ -28,9 +28,7 @@
   :defer t
   :commands org-cliplink-capture)
 
-(with-eval-after-load 'org
-
-
+(mazd//after org
   (setq
    org-capture-templates
    '(("t" "todo" entry (file+headline org-default-notes-file "Tasks")

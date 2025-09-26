@@ -23,14 +23,14 @@
 
 ;;
 
-(with-eval-after-load 'password-cache
+(mazd//after password-cache
   (setq password-cache-expiry nil))
 
-(with-eval-after-load 'tramp-cache
+(mazd//after tramp-cache
   (setq tramp-persistency-file-name mazd//tramp))
 
 
-(with-eval-after-load 'tramp
+(mazd//after tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (setq tramp-completion-use-auth-sources nil)
   ;; Define an rsyncx method analogous to scpx
@@ -64,7 +64,7 @@
                  (tramp-copy-keep-date t)
                  (tramp-copy-keep-tmpfile t)
                  (tramp-copy-recursive t)))
-  (with-eval-after-load 'consult-tramp
+  (mazd//after consult-tramp
     (setq consult-tramp-method "rsyncx"))
 
 

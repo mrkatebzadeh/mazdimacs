@@ -29,8 +29,7 @@
   :commands calc
   :defer  t)
 
-;;; calc
-(with-eval-after-load 'calc
+(mazd//after calc
   (setq math-additional-units '((GiB "1024 * MiB" "Giga Byte")
 				(MiB "1024 * KiB" "Mega Byte")
 				(KiB "1024 * B" "Kilo Byte")

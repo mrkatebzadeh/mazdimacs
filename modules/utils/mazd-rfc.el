@@ -32,7 +32,7 @@
   (require 'rfc-mode)
   (rfc-mode-browse))
 
-(with-eval-after-load 'rfc-mode
+(mazd//after rfc-mode
   (setq rfc-mode-directory (expand-file-name "~/Dropbox/rfcs/"))
   (setq rfc-mode-index-path (concat rfc-mode-directory "rfc-index.txt"))
   (defun rfc-update ()

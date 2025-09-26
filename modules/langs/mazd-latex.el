@@ -89,7 +89,7 @@
   :ensure nil
   :defer t
   :config
-  (with-eval-after-load 'embark
+  (mazd//after embark
     (add-to-list 'embark-keymap-alist '(bibtex-completion . consult-bibtex-embark-map)))
   )
 
@@ -101,7 +101,7 @@
 
 ;;; config
 
-(with-eval-after-load 'auctex
+(mazd//after auctex
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'LaTeX-mode-hook
@@ -121,11 +121,11 @@
 			     (let ((TeX-command-force nil))
 			       (TeX-command-master arg)))))))
 
-(with-eval-after-load 'reftex
+(mazd//after reftex
   (setq reftex-cite-prompt-optional-args t))
 
 
-(with-eval-after-load 'auctex-latexmk
+(mazd//after auctex-latexmk
   (auctex-latexmazd//setup))
 
 (defun latex-compile ()

@@ -191,9 +191,9 @@
  "P"   'markdown-previous-link
  "<RET>" 'markdown-jump)
 
-(with-eval-after-load 'pdf-tools
+(mazd//after pdf-tools
   (general-define-key
-   :prefix "SPC l"
+   :prefix "SPC k"
    :states '(normal visual motion)
    :keymaps 'pdf-view-mode-map
    ;; Slicing image

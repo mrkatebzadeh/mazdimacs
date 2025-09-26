@@ -361,7 +361,7 @@
   "se" 'er/expand-region
   "sa" 'avy-goto-char)
 
-(with-eval-after-load 'smart-hungry-delete
+(mazd//after smart-hungry-delete
   (general-define-key
    :prefix "<backspace>"
    :states '(insert)

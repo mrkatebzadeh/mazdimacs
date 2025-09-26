@@ -40,7 +40,7 @@
   (dashboard-setup-startup-hook)
   )
 
-(with-eval-after-load 'dashboard
+(mazd//after dashboard
   (defcustom mazd//dashboard-homepage-footer-url
     "https://github.com/emacs-dashboard/emacs-dashboard"
     "URL to use for `dashboard-insert-homepage-footer'."

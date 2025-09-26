@@ -26,7 +26,7 @@
 (use-package transmission
   :defer t)
 
-(with-eval-after-load 'transmission
+(mazd//after transmission
   (defvar transmission-auto-refresh-all nil
     "Enable status auto refresh in all transmission buffers.")
   (setq transmission-refresh-modes '(transmission-mode
@@ -39,9 +39,9 @@
  :keymaps 'override
  "b" 'transmission)
 
-(with-eval-after-load 'transmission
+(mazd//after transmission
   (general-define-key
-   :prefix "SPC l"
+   :prefix "SPC k"
    :states '(normal visual motion emacs)
    :keymaps 'transmission-mode-map
    "a" 'transmission-add

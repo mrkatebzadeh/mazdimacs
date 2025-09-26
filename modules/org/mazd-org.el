@@ -167,7 +167,7 @@
             (evil-define-key 'normal org-mode-map (kbd "RET") 'mazd//org-clicky)))
 (advice-add 'org-open-at-point :before #'org-mark-ring-push)
 (setq org-link-frame-setup '((file . find-file)))
-(with-eval-after-load 'org
+(mazd//after org
   (define-key org-mode-map (kbd "C-c b") 'org-mark-ring-goto)
   (define-key org-mode-map (kbd "C-c f") 'org-mark-ring-push))
 
@@ -207,11 +207,10 @@
 	 (end (+ start (nth 1 (insert-file-contents filename)))))
     (org-table-convert-region start end)))
 
-
-(with-eval-after-load 'ox-latex
+(mazd//after ox-latex
   (add-to-list 'org-latex-classes
-               '("mazd-plain"
-                 "\\documentclass[11pt]{article}
+	       '("mazd-plain"
+		 "\\documentclass[11pt]{article}
 \\usepackage[utf8]{inputenc}
 \\usepackage[T1]{fontenc}
 \\usepackage[english]{babel}
@@ -228,10 +227,10 @@
     pdfborder={0 0 0}
     ]{hyperref}
 \\definecolor{darkblue}{rgb}{0.0, 0.0, 0.5}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 (setq org-latex-default-packages-alist nil)
 (setq org-latex-packages-alist nil)
 (setq org-latex-with-hyperref nil)

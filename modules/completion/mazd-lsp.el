@@ -78,11 +78,11 @@
                         (lsp--set-configuration
                          `(:crates ,(make-hash-table)))))))
 
-  (with-eval-after-load 'lsp-modeline
+  (mazd//after lsp-modeline
     (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
-                        :inherit font-lock-comment-face)
+			:inherit font-lock-comment-face)
     (set-face-attribute 'lsp-modeline-code-actions-face nil
-                        :inherit font-lock-comment-face))
+			:inherit font-lock-comment-face))
   )
 
 (use-package lsp-ui

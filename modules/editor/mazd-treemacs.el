@@ -105,12 +105,12 @@
 (use-package treemacs-nerd-icons
   :defer t
   :ensure t
-  :init
-  (with-eval-after-load 'lsp-treemacs 'treemacs
-			(require 'treemacs-nerd-icons))
   :config
   (treemacs-load-theme "nerd-icons")
   )
+
+(mazd//after (lsp-treemacs treemacs)
+  (require 'treemacs-nerd-icons))
 
 (use-package treemacs-evil
   :ensure t
@@ -127,8 +127,9 @@
   (use-package lsp-treemacs-nerd-icons
     :ensure nil
     :defer t
-    :init (with-eval-after-load 'lsp-treemacs
-	    (require 'lsp-treemacs-nerd-icons)))
+    :init
+    (mazd//after lsp-treemacs
+      (require 'lsp-treemacs-nerd-icons)))
   )
 
 (use-package  treemacs-projectile

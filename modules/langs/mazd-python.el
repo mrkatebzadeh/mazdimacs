@@ -73,9 +73,9 @@
       (compilation-start command t
                          (lambda (_) "*Python Run*")))))
 
-(with-eval-after-load 'python
+(mazd//after python
   (define-key python-mode-map (kbd "C-c C-r") #'mazd//run-python-file))
-(with-eval-after-load 'python-ts-mode
+(mazd//after python-ts-mode
   (define-key python-ts-mode-map (kbd "C-c C-r") #'mazd//run-python-file))
 
 ;;; bindings

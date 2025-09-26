@@ -94,7 +94,7 @@
   (mu4e-column-faces-mode)
   (mu4e))
 
-(with-eval-after-load 'mu4e
+(mazd//after mu4e
   (plist-put (cdr (assq 'refile   mu4e-marks)) :char "×")
   (plist-put (cdr (assq 'trash    mu4e-marks)) :char "×")
   (plist-put (cdr (assq 'untrash  mu4e-marks)) :char "×")
@@ -155,7 +155,7 @@
   (add-hook 'mu4e-compose-mode-hook
 	    (lambda () (use-hard-newlines t 'guess)))
   (setq mu4e-view-actions
-        '(("capture message" . mu4e-action-capture-message)
+	'(("capture message" . mu4e-action-capture-message)
           ("view in browser" . mu4e-action-view-in-browser)
           ("show this thread" . mu4e-action-show-thread)
 	  ("View as pdf" . mu4e-action-view-as-pdf)))
@@ -241,13 +241,12 @@
   (require 'mu4e-org)
   (setq org-mu4e-link-query-in-headers-mode nil))
 
-(with-eval-after-load 'mu4e-alert
+(mazd//after mu4e-alert
   (mu4e-alert-set-default-style 'notifications)
   (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
   (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
 
-;;; gnus-dired
-(with-eval-after-load 'gnus
+(mazd//after gnus
   (defun gnus-dired-mail-buffers ()
     (let (buffers)
       (save-current-buffer
@@ -276,32 +275,32 @@
   (let (confirm-kill-processes)
     (apply orig-fn args)))
 
-(with-eval-after-load 'notmuch
+(mazd//after notmuch
   (setq notmuch-fcc-dirs nil
-        notmuch-show-logo nil
-        notmuch-message-headers-visible nil
-        message-kill-buffer-on-exit t
-        message-send-mail-function 'message-send-mail-with-sendmail
-        notmuch-search-oldest-first nil
-        send-mail-function 'sendmail-send-it
-        sendmail-program "/usr/local/bin/msmtp"
-        notmuch-search-result-format
-        '(("date" . "%12s ")
+	notmuch-show-logo nil
+	notmuch-message-headers-visible nil
+	message-kill-buffer-on-exit t
+	message-send-mail-function 'message-send-mail-with-sendmail
+	notmuch-search-oldest-first nil
+	send-mail-function 'sendmail-send-it
+	sendmail-program "/usr/local/bin/msmtp"
+	notmuch-search-result-format
+	'(("date" . "%12s ")
           ("count" . "%-7s ")
           ("authors" . "%-30s ")
           ("subject" . "%-72s ")
           ("tags" . "(%s)"))
-        notmuch-tag-formats
-        '(("unread" (propertize tag 'face 'notmuch-tag-unread)))
-        notmuch-hello-sections
-        '(notmuch-hello-insert-saved-searches
+	notmuch-tag-formats
+	'(("unread" (propertize tag 'face 'notmuch-tag-unread)))
+	notmuch-hello-sections
+	'(notmuch-hello-insert-saved-searches
           notmuch-hello-insert-alltags)
-        notmuch-saved-searches
-        '((:name "inbox"   :query "tag:inbox not tag:trash" :key "i")
+	notmuch-saved-searches
+	'((:name "inbox"   :query "tag:inbox not tag:trash" :key "i")
           (:name "flagged" :query "tag:flagged"             :key "f")
           (:name "sent"    :query "tag:sent"                :key "s")
           (:name "drafts"  :query "tag:draft"               :key "d"))
-        notmuch-archive-tags '("-inbox" "-unread"))
+	notmuch-archive-tags '("-inbox" "-unread"))
   (add-hook 'notmuch-show-hook #'mazd//notmuch-show-expand-only-unread-h)
 
   (add-hook 'doom-real-buffer-functions #'notmuch-interesting-buffer)
@@ -309,7 +308,7 @@
   (advice-add #'notmuch-start-notmuch-sentinel :around #'mazd//notmuch-dont-confirm-on-kill-process-a)
   )
 
-(with-eval-after-load 'mu4e
+(mazd//after  mu4e
   (general-define-key
    :prefix "SPC k"
    :states '(normal visual motion)

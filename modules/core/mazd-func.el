@@ -25,6 +25,26 @@
 
 (require 'nadvice)
 
+(defmacro mazd//after (features &rest body)
+  "Run BODY after loading FEATURE.
+    Same as `with-eval-after-load', but there is no need to quote FEATURES."
+  (declare (debug (sexp body)) (indent 1))
+  (setf features (if (listp features) (nreverse features) (list features)))
+  (let* ((module (pop features))
+         (form `(with-eval-after-load
+                    ,(if (stringp module)
+                         module
+                       `(quote ,module))
+                  ,@body)))
+    (while features
+      (-let [module (pop features)]
+        (setf form `(with-eval-after-load
+                        ,(if (stringp module)
+                             module
+                           `(quote ,module))
+                      ,form))))
+    form))
+
 (defmacro mazd//require-config-module (feature)
   `(if (fboundp 'mazd//require-config-module-maybe-byte-compile)
        (mazd//require-config-module-maybe-byte-compile ,feature)

@@ -37,7 +37,7 @@
   :defer t)
 
 
-(with-eval-after-load 'ox-reveal
+(mazd//after ox-reveal
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"
 	org-reveal-mathjax t))
 
