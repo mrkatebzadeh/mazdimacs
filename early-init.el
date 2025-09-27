@@ -39,9 +39,16 @@
 
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq org-startup-with-inline-images t)
-(customize-set-variable 'mac-option-modifier 'meta)
 
 (load (concat (file-truename user-emacs-directory) "mazd-log.el"))
+
+(when (eq system-type 'darwin)
+  (setq mac-option-key-is-meta nil)
+  (setq mac-left-option-modifier nil)
+  (setq mac-right-option-modifier nil)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'super)
+  (setq mac-control-modifier 'control))
 
 (provide 'early-init)
 ;;; early-init.el ends here
