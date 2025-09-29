@@ -25,6 +25,7 @@
 
 (require 'mazd-python)
 (require 'mazd-latex)
+(require 'mazd-linux)
 (require 'mazd-clang)
 (require 'mazd-c3)
 (require 'mazd-rust)
