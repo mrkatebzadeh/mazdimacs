@@ -38,6 +38,7 @@
 (require 'mazd-remote)
 (require 'mazd-slack)
 (require 'mazd-leetcode)
+(require 'mazd-xkcd)
 
 (provide 'utils)
 ;;; utils.el ends here

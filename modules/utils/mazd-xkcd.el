@@ -26,8 +26,9 @@
 (use-package xkcd
   :ensure t
   :defer t
-  :config
+  :init
   (setq xkcd-cache-dir (concat mazd//emacs-dir ".xkcd/"))
+  :config
   (setq xkcd-cache-latest (concat xkcd-cache-dir "latest"))
   (make-directory xkcd-cache-dir t))
 
