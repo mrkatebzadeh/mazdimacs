@@ -1,4 +1,4 @@
-;;; mazd-slide.el --- Slide -*- lexical-binding: t; -*-
+;;; mazd-slide.el --- <TITLE> -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,9 +23,34 @@
 
 ;;
 
+;;; Code:
+
+;;<CODE>
+
+(use-package dslide
+  :ensure t
+  :vc (:url "https://github.com/positron-solutions/dslide")
+  :defer t
+  :commands (dslide-deck-start)
+  :config
+  (evil-define-key 'normal dslide-mode-map
+    (kbd "<right>") 'dslide-deck-forward
+    (kbd "<left>")  'dslide-deck-backward
+    (kbd "<RET>")   'dslide-deck-present
+    (kbd "<escape>") 'dslide-deck-stop)
+  )
+
+(use-package moc
+  :ensure t
+  :defer t
+  :vc(:url "https://github.com/positron-solutions/moc.git"))
+
 (use-package ox-reveal
   :ensure t
   :after org
+  :config
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"
+	org-reveal-mathjax t)
   )
 
 (use-package htmlize
@@ -36,17 +61,11 @@
   :ensure t
   :defer t)
 
-
-(mazd//after ox-reveal
-  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"
-	org-reveal-mathjax t))
-
 (defun mazd//org-beamer-setup ()
   "Setup org-beamer"
   (unless (boundp 'org-export-latex-classes)
     (setq org-export-latex-classes nil))
   (add-to-list 'org-export-latex-classes
-	       ;; beamer class, for presentations
 	       '("beamer"
 		 "\\documentclass[11pt]{beamer}\n
       \\mode<{{{beamermode}}}>\n
@@ -78,8 +97,6 @@
 		  "\\begin{frame}[fragile]\\frametitle{%s}"
 		  "\\end{frame}")))
 
-  ;; letter class, for formal letters
-
   (add-to-list 'org-export-latex-classes
 
 	       '("letter"
@@ -101,7 +118,6 @@
           ("" "minted" t)
           ("" "parskip" t)
           ("" "tikz" t))))
-
 
 (provide 'mazd-slide)
 ;;; mazd-slide.el ends here

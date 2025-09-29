@@ -30,6 +30,7 @@
 (require 'mazd-crypt)
 (require 'mazd-capture)
 (require 'mazd-ref)
+(require 'mazd-slide)
 
 (provide 'init)
 ;;; init.el<org> ends here
