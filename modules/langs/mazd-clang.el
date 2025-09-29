@@ -44,7 +44,6 @@
 (use-package google-c-style
   :ensure t
   :hook ((c++-mode) . google-set-c-style))
-					;  (c-mode-common . google-make-newline-indent))
 
 (use-package cmake-mode
   :ensure t
@@ -97,21 +96,20 @@
 
 (defun mazd//set-gdb-layout(&optional c-buffer)
   (if (not c-buffer)
-      (setq c-buffer (window-buffer (selected-window)))) ;; save current buffer
+      (setq c-buffer (window-buffer (selected-window))))
 
-  ;; from http://stackoverflow.com/q/39762833/846686
-  (set-window-dedicated-p (selected-window) nil) ;; unset dedicate state if needed
+  (set-window-dedicated-p (selected-window) nil)
   (switch-to-buffer gud-comint-buffer)
-  (delete-other-windows) ;; clean all
+  (delete-other-windows)
 
   (let* (
-         (w-source (selected-window)) ;; left top
-         (w-gdb (split-window w-source nil 'right)) ;; right bottom
-         (w-locals (split-window w-gdb nil 'above)) ;; right middle bottom
-         (w-stack (split-window w-locals nil 'above)) ;; right middle top
-         (w-breakpoints (split-window w-stack nil 'above)) ;; right top
+         (w-source (selected-window))
+         (w-gdb (split-window w-source nil 'right))
+         (w-locals (split-window w-gdb nil 'above))
+         (w-stack (split-window w-locals nil 'above))
+         (w-breakpoints (split-window w-stack nil 'above))
          (w-io (split-window w-source (floor(* 0.9 (window-body-height)))
-                             'below)) ;; left bottom
+                             'below))
          )
     (set-window-buffer w-io (gdb-get-buffer-create 'gdb-inferior-io))
     (set-window-dedicated-p w-io t)
@@ -121,36 +119,30 @@
     (set-window-dedicated-p w-locals t)
     (set-window-buffer w-stack (gdb-get-buffer-create 'gdb-stack-buffer))
     (set-window-dedicated-p w-stack t)
-
     (set-window-buffer w-gdb gud-comint-buffer)
-
     (select-window w-source)
     (set-window-buffer w-source c-buffer)
     ))
+
 (defadvice gdb (around args activate)
   "Change the way to gdb works."
-  (setq global-config-editing (current-window-configuration)) ;; to restore: (set-window-configuration c-editing)
+  (setq global-config-editing (current-window-configuration))
   (let (
-        (c-buffer (window-buffer (selected-window))) ;; save current buffer
+        (c-buffer (window-buffer (selected-window)))
         )
     ad-do-it
     (mazd//set-gdb-layout c-buffer))
   )
+
 (defadvice gdb-reset (around args activate)
   "Change the way to gdb exit."
   ad-do-it
   (set-window-configuration global-config-editing))
-;;; bindings
 
 (general-define-key
  :prefix "SPC k"
  :states '(normal visual motion)
  :keymaps '(c-mode-map c++-mode-map)
- "g" '(:ignore t :which-key "goto")
- "gc" 'ccls/callee
- "gC" 'ccls/caller
- "gm" 'ccls/member
- "f" '(:ignore t :which-key "find")
  "h"  'cpp-auto-include
  "F"  'clang-format-buffer
  "d"  'cmake-objdump
@@ -161,12 +153,12 @@
  "M"  'cmake-make-clean
  "B"  'cmake-build-clean
  "s"  'srefactor-refactor-at-point
+ "c" '(:ignore t :which-key "cscope")
  "cc" 'mazd//load-xcscope-and-setup
  "cs" 'cscope-find-this-symbol
  "cd" 'cscope-find-global-definition
  "ct" 'cscope-find-this-text-string
  "cf" 'cscope-find-this-file)
-
 
 (provide 'mazd-clang)
 ;;; mazd//clang.el ends here
