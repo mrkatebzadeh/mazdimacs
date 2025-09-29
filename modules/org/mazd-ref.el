@@ -23,6 +23,15 @@
 
 ;;
 
+(use-package citar
+  :defer t
+  :ensure t
+  :custom
+  (citar-bibliography '("~/Dropbox/org/ref/master.bib"))
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup))
+
 (use-package org-latex
   :after org
   :defer t
