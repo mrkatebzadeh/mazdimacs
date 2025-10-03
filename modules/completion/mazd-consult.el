@@ -76,6 +76,11 @@
   :ensure t
   :bind ("M-g y" . consult-yasnippet))
 
+(use-package embark-consult
+  :ensure t
+  :defer t
+  :after (embark consult))
+
 ;;; Files
 (leader
   "fK" 'consult-yank-kill-ring
