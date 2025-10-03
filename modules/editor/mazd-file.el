@@ -333,6 +333,7 @@ Compare them on count first,and in case of tie sort them alphabetically."
         (mazd//log "No words.")))
     words))
 
+;;;###autoload
 (defun mazd//reload-dir-locals (proj)
   "Read values from the current project's .dir-locals file and
 apply them in all project file buffers as if opening those files
