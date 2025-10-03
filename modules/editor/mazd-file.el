@@ -248,7 +248,9 @@ If the universal prefix argument is used then will the windows too."
   ;; list-buffers-directory is the variable set in dired buffers
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
     (if file-name
-        (mazd//log (kill-new file-name))
+	(progn
+	  (kill-new file-name)
+	  (mazd//log "Filename copied: %s" file-name))
       (mazd//err "Buffer not visiting a file"))))
 
 ;;;###autoload
