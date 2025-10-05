@@ -2,6 +2,10 @@
 #+AUTHOR: One Who Walks the Path of Light and Lisp
 #+OPTIONS: toc:nil num:nil
 
+#+begin_center
+[[file:screen.png]]
+#+end_center
+
 ** In the name of the One Editor, Eternal and Extensible
 
 #+BEGIN_QUOTE
