@@ -25,7 +25,8 @@
 
 ;;; Code:
 
-;;<CODE>
+(defconst mazd//async-enabled nil
+  "Non-nil means asynchronous loading/features are enabled.")
 
 (defvar mazd//async-packages nil
   "List of packages registered for async loading.
@@ -152,10 +153,11 @@ Respects priority order: higher priority loaded first."
 			(run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
       (load-next))))
 
-(add-hook 'elpaca-after-init-hook
-          (lambda ()
-            (mazd//schedule 1 nil
-	      (mazd//async-load-all-packages))))
+(when mazd//async-enabled
+  (add-hook 'elpaca-after-init-hook
+            (lambda ()
+              (mazd//schedule 1 nil
+		(mazd//async-load-all-packages)))))
 
 (provide 'mazd-async)
 ;;; mazd-async.el ends here
