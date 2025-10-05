@@ -60,7 +60,6 @@
 (dolist (d mazd//extra-paths)
   (mazd//path-append d))
 
-
 (add-to-list 'load-path (locate-user-emacs-file "modules/"))
 (defun mazd//load-modules-with-progress ()
   "Load specified modules in order, displaying a progress bar."

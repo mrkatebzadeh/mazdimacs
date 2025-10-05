@@ -210,7 +210,7 @@
   :ensure t
   :defer t
   :config
-  (add-hook 'after-init-hook #'global-emojify-mode)
+  (setq emojify-emojis-dir (concat mazd//local-dir "/emojis/"))
   )
 
 (use-package fixmee
@@ -328,7 +328,6 @@
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
-;; highlight matches
 (show-paren-mode 1)
 
 ;;;###autoload
@@ -346,21 +345,18 @@
     (setq display-line-numbers nil)
     (mazd//log "Line numbers off"))))
 
-;;; bindings
 (leader
-  "bd" 'kill-current-buffer
-  "bD" 'kill-buffer
-  "bB" 'ibuffer
-  "bw" 'evil-write
-  "bu" 'undo-tree-visualize)
+ "bd" 'kill-current-buffer
+ "bD" 'kill-buffer
+ "bB" 'ibuffer
+ "bw" 'evil-write
+ "bu" 'undo-tree-visualize
+ "bb" 'consult-buffer
+ )
 
 (leader
-  "bb" 'consult-buffer
-  )
-
-(leader
-  "se" 'er/expand-region
-  "sa" 'avy-goto-char)
+ "Se" 'er/expand-region
+ "Sa" 'avy-goto-char)
 
 (mazd//after smart-hungry-delete
   (general-define-key
@@ -370,20 +366,21 @@
    "" 'smart-hungry-delete-backward-char))
 
 (leader
-  "hg" 'google-this
-  "hG" 'google-this-search)
+ "hg" 'google-this
+ "hG" 'google-this-search)
 
 (leader
-  "tR" 'auto-revert-mode
-  "tb" 'tool-bar-mode
-  "th" 'highlight-indent-guides-mode
-  "tp" 'smartparens-mode
-  "tn" 'mazd//toggle-line-numbers
-  "tf" 'format-all-mode
-  "tr" 'rainbow-delimiters-mode)
+ "te" 'emojify-mode
+ "tR" 'auto-revert-mode
+ "tb" 'tool-bar-mode
+ "th" 'highlight-indent-guides-mode
+ "tp" 'smartparens-mode
+ "tn" 'mazd//toggle-line-numbers
+ "tf" 'format-all-mode
+ "tr" 'rainbow-delimiters-mode)
 
 (leader
-  "/" 'comment-line)
+ "/" 'comment-line)
 
 (provide 'mazd-buffer)
 ;;; mazd//buffer.el ends here
