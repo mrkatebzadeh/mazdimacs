@@ -75,6 +75,7 @@
 
 (use-package mu4e-column-faces
   :defer t
+  :ensure t
   :config (mu4e-column-faces-mode))
 
 (use-package org-mime
