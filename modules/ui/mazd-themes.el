@@ -26,7 +26,7 @@
 (use-package anisochromatic
   :vc (:url "https://github.com/isomatter-labs/anisochromatic-emacs")
   :disabled t
-  :ensure nil
+  :ensure (:host github :repo "isomatter-labs/anisochromatic-emacs")
   :config
   ;; Disable any other active themes
   ;; (mapc #'disable-theme custom-enabled-themes)
