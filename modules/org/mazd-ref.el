@@ -179,18 +179,12 @@
 
 
 (leader
-  "oR" '(:ignore t :which-key "Ref")
-  "oRn" 'mazd//open-note-file
-  "oRo" 'mazd//open-bib-file
-  )
-
-(leader
-  "oRd" 'doi-utils-add-bibtex-entry-from-doi
-  )
-
-(leader
-  "oRl" 'consult-bibtex
-  )
+ "R" '(:ignore t :which-key "Ref")
+ "Rn" 'mazd//open-note-file
+ "Ro" 'mazd//open-bib-file
+ "Rd" 'doi-utils-add-bibtex-entry-from-doi
+ "Rl" 'consult-bibtex
+ )
 
 (with-eval-after-load 'evil
   (evil-define-key 'normal bibtex-mode-map

@@ -70,7 +70,6 @@
   )
 
 (local-leader  org-agenda-mode-map
-	       :prefix "SPC A"
 	       "ht" 'org-agenda-todo
 	       "" '(:ignore t :which-key "Agenda")
 	       "h" '(:ignore t :which-key "headings")
