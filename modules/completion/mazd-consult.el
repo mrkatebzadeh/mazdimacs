@@ -61,7 +61,7 @@
   )
 
 (use-package consult-tramp
-  :ensure nil
+  :ensure (:host github :repo "Ladicle/consult-tramp")
   :defer t
   :commands (consult-tramp))
 
