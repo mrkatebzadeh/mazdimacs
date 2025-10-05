@@ -310,8 +310,8 @@
   (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'consult-mu)
   )
 (leader
-  "am" 'mazd//mu4e
-  "an" 'notmuch)
+ "am" 'mazd//mu4e
+ "an" 'notmuch)
 
 (provide 'mazd-email)
 ;;; mazd//email.el ends here

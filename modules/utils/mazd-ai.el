@@ -48,6 +48,7 @@
 (use-package aidermacs
   :defer t
   :vc (:url "https://github.com/MatthewZMD/aidermacs")
+  :ensure (:host github :repo "MatthewZMD/aidermacs")
   :config
   (defun pass-openai-key ()
     (string-trim (shell-command-to-string "pass openai/key")))

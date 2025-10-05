@@ -149,7 +149,7 @@
 (use-package org-modern-indent
   :disabled t
   :vc (:url "https://github.com/jdtsmith/org-modern-indent.git")
-  :ensure nil
+  :ensure (:host github :repo "jdtsmith/org-modern-indent")
   :defer t
   :config
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))

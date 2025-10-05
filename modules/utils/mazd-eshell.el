@@ -30,7 +30,7 @@
 
 (use-package aweshell
   :vc (:url "https://github.com/manateelazycat/aweshell.git")
-  :ensure nil
+  :ensure (:host github :repo "manateelazycat/aweshell")
   :defer t
   :commands (aweshell-toggle aweshell-dedicated-toggle)
   )

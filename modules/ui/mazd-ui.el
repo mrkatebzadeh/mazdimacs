@@ -155,8 +155,9 @@
 
 (use-package svg-lib
   :defer t
-  :vc(:url "https://github.com/rougier/svg-lib")
-  :ensure nil
+  :vc (:url "https://github.com/rougier/svg-lib")
+  :ensure (:host github :repo "rougier/svg-lib")
+
   )
 
 (use-package svg-tag-mode
