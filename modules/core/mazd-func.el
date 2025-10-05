@@ -191,5 +191,9 @@ disk, overwriting the old one."
             (update-file-autoloads file t)))))
     (write-region (point-min) (point-max) mazd//autoload-file)))
 
+(leader
+ "m" '(:ignore t :which-key "Mazd")
+ "mg" 'mazd//autoload-generate)
+
 (provide 'mazd-func)
 ;;; mazd//func.el ends here
