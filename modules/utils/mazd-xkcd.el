@@ -27,7 +27,7 @@
   :ensure t
   :defer t
   :init
-  (setq xkcd-cache-dir (concat mazd//emacs-dir ".xkcd/"))
+  (setq xkcd-cache-dir (concat mazd//local-dir "/xkcd/"))
   :config
   (setq xkcd-cache-latest (concat xkcd-cache-dir "latest"))
   (make-directory xkcd-cache-dir t))
