@@ -121,15 +121,14 @@
   :ensure t
   :after (treemacs)
   :custom
-  (lsp-treemacs-theme "nerd-icons-ext")
+  (lsp-treemacs-theme "nerd-icons-ext"))
 
-  (use-package lsp-treemacs-nerd-icons
-    :ensure nil
-    :defer t
-    :init
-    (mazd//after lsp-treemacs
-      (require 'lsp-treemacs-nerd-icons)))
-  )
+(use-package lsp-treemacs-nerd-icons
+  :ensure (:host github :repo "velnbur/lsp-treemacs-nerd-icons")
+  :defer t
+  :init
+  (mazd//after lsp-treemacs
+    (require 'lsp-treemacs-nerd-icons)))
 
 (use-package  treemacs-projectile
   :ensure t
