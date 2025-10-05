@@ -82,11 +82,8 @@
 
 (use-package cpp-auto-include
   :defer t
-  :ensure nil
-  :commands (cpp-auto-include)
-  :load-path (lambda () (concat mazd//lisp-dir "/cpp-auto-include")))
-
-;;; config
+  :ensure (:host github :repo "emacsorphanage/cpp-auto-include")
+  :commands (cpp-auto-include))
 
 (setq-default c-default-style "linux")
 
