@@ -46,7 +46,7 @@
 (use-package autoinsert
   :defer t
   :init
-  (setq auto-insert-query nil)
+  (setq auto-insert-query t)
 
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
   (add-hook 'find-file-hook 'auto-insert)
