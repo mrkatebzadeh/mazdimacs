@@ -40,10 +40,8 @@
   :defer t
   :after mu4e)
 
-(add-to-list 'load-path (concat mazd//lisp-dir "consult-mu"))
-(add-to-list 'load-path (concat mazd//lisp-dir "consult-mu/extras"))
 (use-package consult-mu
-  :ensure nil
+  :ensure (:host github :repo "armindarvish/consult-mu")
   :after (consult mu4e)
   :custom
   (consult-mu-maxnum 200)
