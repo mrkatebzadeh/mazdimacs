@@ -51,17 +51,16 @@
           (mazd//err "Exit aborted."))
       (kill-emacs))))
 
-;;; bindigs
 (leader
-  "q" '(:ignore t :which-key "Quit")
-  "qq" 'mazd//kill-emacs
-  "qQ" 'delete-frame)
+ "q" '(:ignore t :which-key "Quit")
+ "qq" 'mazd//kill-emacs
+ "qQ" 'delete-frame)
 
 (leader
-  "c" '(:ignore t :which-key "Configs")
-  "cc" 'mazd//init-file
-  "ct" 'try)
-
+ "c" '(:ignore t :which-key "Configs")
+ "cc" 'mazd//init-file
+ "cg" 'mazd//autoload-generate
+ "ct" 'try)
 
 (provide 'mazd-config)
 ;;; mazd//config.el ends here
