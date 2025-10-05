@@ -24,38 +24,38 @@
 ;;
 
 (use-package engine-mode
+  :ensure t
   :defer t
   :config
   (defengine amazon
-    "https://www.amazon.com/s?k=%s")
+	     "https://www.amazon.com/s?k=%s")
 
   (defengine duckduckgo
-    "https://duckduckgo.com/?q=%s")
+	     "https://duckduckgo.com/?q=%s")
 
   (defengine github
-    "https://github.com/search?q=%s")
+	     "https://github.com/search?q=%s")
 
   (defengine google-images
-    "https://www.google.com/search?tbm=isch&q=%s")
+	     "https://www.google.com/search?tbm=isch&q=%s")
 
   (defengine google-maps
-    "https://www.google.com/maps/search/%s")
+	     "https://www.google.com/maps/search/%s")
 
   (defengine stack-overflow
-    "https://stackoverflow.com/search?q=%s")
+	     "https://stackoverflow.com/search?q=%s")
 
   (defengine youtube
-    "https://www.youtube.com/results?search_query=%s")
+	     "https://www.youtube.com/results?search_query=%s")
 
   (defengine wikipedia
-    "https://en.wikipedia.org/w/index.php?search=%s")
+	     "https://en.wikipedia.org/w/index.php?search=%s")
 
   (defengine google
-    "https://www.google.com/search?q=%s")
+	     "https://www.google.com/search?q=%s")
 
   (defengine brave
-    "https://search.brave.com/search?q=%s")
-
+	     "https://search.brave.com/search?q=%s")
   )
 
 (use-package google-translate
