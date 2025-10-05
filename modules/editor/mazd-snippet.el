@@ -31,8 +31,8 @@
   :defer t
   :commands (yas-minor-mode)
   :hook ((prog-mode . yas-minor-mode))
-  :config
   :ensure t
+  :config
   (setq yas-verbosity 0)
   )
 
@@ -50,7 +50,6 @@
   :ensure t
   :init
   (setq auto-insert-query t)
-
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
   (add-hook 'find-file-hook 'auto-insert)
   (auto-insert-mode 1)
