@@ -57,7 +57,7 @@
   (gcmh-mode))
 
 (use-package transient
-  :ensure t)
+  :ensure (:wait t))
 
 (provide 'mazd-basic)
 ;;; mazd-basic.el ends here

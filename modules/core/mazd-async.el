@@ -155,7 +155,7 @@ Respects priority order: higher priority loaded first."
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
-	    (mazd//schedule 1 nil
+	    (mazd//schedule 0 nil
 	      (mazd//async-load-all-packages))))
 
 (provide 'mazd-async)

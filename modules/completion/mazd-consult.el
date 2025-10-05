@@ -83,13 +83,14 @@
 
 ;;; Files
 (leader
-  "fK" 'consult-yank-kill-ring
-  "fr" 'consult-recent-file
-  "ft" 'consult-tramp
-  "ff" 'find-file)
-;;; Insert
+ "fK" 'consult-yank-kill-ring
+ "fr" 'consult-recent-file
+ "ft" 'consult-tramp
+ "ff" 'find-file)
+
 (leader
-  "is" 'consult-yasnippet)
+ "i" '(:ignore t :which-key "Insert")
+ "is" 'consult-yasnippet)
 
 (leader
   "lt" 'consult-flymake)

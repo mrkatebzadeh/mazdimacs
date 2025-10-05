@@ -246,21 +246,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (elpaca-wait)
 
 (leader
-  "" '(nil :which-key "My lieutenant general prefix")
-  "f" '(:ignore t :which-key "Files")
-  "o" '(:ignore t :which-key "Org")
-  "a" '(:ignore t :which-key "Applications")
-  "g" '(:ignore t :which-key "Magit")
-  "m" '(:ignore t :which-key "EMMS")
-  "k" '(:ignore t :which-key "Local Bindings")
-  "b" '(:ignore t :which-key "Buffers")
-  "h" '(:ignore t :which-key "Help!")
-  "v" '(:ignore t :which-key "Volume")
-  "w" '(:ignore t :which-key "Windows")
-  "t" '(:ignore t :which-key "Toggles")
+ "" '(nil :which-key "My lieutenant general prefix")
+ "f" '(:ignore t :which-key "Files")
+ "o" '(:ignore t :which-key "Org")
+ "a" '(:ignore t :which-key "Applications")
+ "g" '(:ignore t :which-key "Magit")
+ "m" '(:ignore t :which-key "EMMS")
+ "k" '(:ignore t :which-key "Local Bindings")
+ "b" '(:ignore t :which-key "Buffers")
+ "h" '(:ignore t :which-key "Help!")
+ "v" '(:ignore t :which-key "Volume")
+ "w" '(:ignore t :which-key "Windows")
+ "t" '(:ignore t :which-key "Toggles")
 
-  "x" 'execute-extended-command
-  )
+ "x" 'execute-extended-command
+ )
 
 (provide 'mazd-key)
 ;;; mazd//key.el ends here
