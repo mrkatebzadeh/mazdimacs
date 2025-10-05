@@ -28,6 +28,7 @@
 (use-package projectile
   :ensure t
   :config
+  (setq projectile-known-projects-file (concat mazd//local-dir "/projectile-bookmarks.eld"))
   (setq projectile-enable-caching t)
   )
 
@@ -46,23 +47,21 @@
   :bind (:map projectile-command-map
               ("p" . consult-projectile-switch-project)))
 
+(leader
+ "fg" 'consult-grep
+ "fG" 'consult-git-grep
+ )
 
 (leader
-  "p" '(:ignore t :which-key "Projects"))
-
-(leader
-  "fg" 'consult-grep
-  "fG" 'consult-git-grep
-  )
-(leader
-  "pa" 'projectile-add-known-project
-  "pc" 'projectile-kill-buffers
-  "pf" 'projectile-find-file
-  "pF" 'consult-projectile-find-file
-  "pb" 'projectile-switch-to-buffer
-  "pd" 'projectile-find-dir
-  "pp" 'projectile-switch-project
-  )
+ "p" '(:ignore t :which-key "Projects")
+ "pa" 'projectile-add-known-project
+ "pc" 'projectile-kill-buffers
+ "pf" 'projectile-find-file
+ "pF" 'consult-projectile-find-file
+ "pb" 'projectile-switch-to-buffer
+ "pd" 'projectile-find-dir
+ "pp" 'projectile-switch-project
+ )
 
 (provide 'mazd-project)
 ;;; mazd-project.el ends here
