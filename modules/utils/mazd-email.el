@@ -41,7 +41,7 @@
   :after mu4e)
 
 (use-package consult-mu
-  :ensure (:host github :repo "armindarvish/consult-mu")
+  :ensure (:host github :repo "armindarvish/consult-mu" :files (:defaults "extras/*.el"))
   :after (consult mu4e)
   :custom
   (consult-mu-maxnum 200)
@@ -49,7 +49,9 @@
   (consult-mu-mark-previewed-as-read nil)
   (consult-mu-mark-viewed-as-read t)
   (consult-mu-use-wide-reply t)
-  (consult-mu-headers-template (lambda () (concat "%f" (number-to-string (floor (* (frame-width) 0.15))) "%s" (number-to-string (floor (* (frame-width) 0.5))) "%d13" "%g" "%x")))
+  (consult-mu-headers-template
+   (lambda ()
+     (concat "%f" (number-to-string (floor (* (frame-width) 0.15))) "%s" (number-to-string (floor (* (frame-width) 0.5))) "%d13" "%g" "%x")))
 
   :config
   (setq consult-mu-saved-searches-dynamics '("#flag:unread"))
@@ -82,6 +84,9 @@
   :after (org notmuch)
   :config (setq org-mime-library 'mml))
 
+(use-package mu4e-thread-folding
+  :ensure (:host github :repo "rougier/mu4e-thread-folding"))
+
 ;;;###autoload
 (defun mazd//mu4e()
   (interactive)
@@ -111,9 +116,6 @@
                     1)))
     "SVG tag default face"
     :group 'svg-tag)
-  ;; Folding mode for mu4e
-  (use-package mu4e-thread-folding
-    :ensure nil)
 
   (require 'svg-tag-mode)
   (require 'mu4e-thread-folding)
