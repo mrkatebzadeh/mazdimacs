@@ -25,6 +25,10 @@
 
 ;;; Code:
 
+(defconst mazd//modules
+  '("core" "ui" "editor" "langs" "extra" "completion" "org")
+  "List of module names under `mazd//module-dir`.")
+
 (setq package-enable-at-startup nil)
 
 (setq gc-cons-percentage 0.6)

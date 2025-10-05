@@ -30,10 +30,6 @@
 (defconst mazd//modules-dir (concat mazd//emacs-dir "modules/")
   "The root directory for Mazdimacs' modules. Must end with a slash.")
 
-(defconst mazd//modules
-  '("core" "ui" "editor" "langs" "utils" "completion" "org")
-  "List of module names under `mazd//module-dir`.")
-
 (defconst mazd//vars-file (concat mazd//modules-dir "mazd-vars.el")
   "The Mazdimacs' vars files. Must end with a slash.")
 
