@@ -25,9 +25,6 @@
 
 ;;; Code:
 
-;;<CODE>
-
-
 (defun mazd//load (file)
   "Load FILE quietly, without displaying load messages."
   (load file nil :no-message))
