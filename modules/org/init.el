@@ -31,6 +31,7 @@
 (require 'mazd-capture)
 (require 'mazd-ref)
 (require 'mazd-slide)
+(require 'mazd-misc)
 
 (provide 'init)
 ;;; init.el<org> ends here

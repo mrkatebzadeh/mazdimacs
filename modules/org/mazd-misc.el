@@ -71,7 +71,7 @@
 (use-package org-tvdb
   :disabled t
   :defer t
-  :ensure nil ; remove this if available through melpa
+  :ensure nil
   :config
   (load-library "~/Dropbox/org/keys/tvdb.el.gpg")
   :commands (org-tvdb-insert-todo-list
@@ -82,16 +82,15 @@
 	     org-tvdb-update-series
 	     org-tvdb-update-season))
 
-(use-package ox-moderncv
+(use-package org-cv
   :defer t
-  :ensure nil
-  :load-path (lambda () (concat mazd//lisp-dir "/org-cv/")))
+  :ensure (:host gitlab :repo "Titan-C/org-cv" :main "ox-moderncv.el"))
 
 (leader
-  "oj" '(:ignore t :which-key "org-journal")
-  "ojt" 'org-journal-new-entry
-  "ojy" 'journal-file-yesterday
-  )
+ "oj" '(:ignore t :which-key "org-journal")
+ "ojt" 'org-journal-new-entry
+ "ojy" 'journal-file-yesterday
+ )
 
 (provide 'mazd-misc)
 ;;; mazd-misc.el ends here
