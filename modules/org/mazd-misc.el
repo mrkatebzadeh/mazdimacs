@@ -58,16 +58,6 @@
   :config
   (load-library "~/Dropbox/org/keys/gcal.el.gpg"))
 
-(use-package org-drill
-  :defer t
-  :ensure nil)
-
-;;;###autoload
-(defun mazd//org-drill ()
-  "Load and run org-drill"
-  (interactive)
-  (require 'org-drill))
-
 (use-package org-tvdb
   :disabled t
   :defer t
