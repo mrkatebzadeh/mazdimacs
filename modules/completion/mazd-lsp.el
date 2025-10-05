@@ -132,29 +132,28 @@
 	 ("<f7>" . dap-breakpoint-toggle))))
 
 (leader
-  "lt" 'consult-lsp-diagnostics
-  "ls" 'consult-lsp-symbols
-  "lF" 'consult-lsp-file-symbols)
+ "d" '(:ignore t :which-key "Debug")
+ "dd" 'dap-debug
+ "dB" 'dap-breakpoint-condition
+ "dc" 'dap-continue
+ "dn" 'dap-next
+ "di" 'dap-step-in
+ "do" 'dap-step-out
+ "db" 'dap-breakpoint-toggle
+ )
 
 (leader
-  "d" '(:ignore t :which-key "Debug")
-  "dd" 'dap-debug
-  "dB" 'dap-breakpoint-condition
-  "dc" 'dap-continue
-  "dn" 'dap-next
-  "di" 'dap-step-in
-  "do" 'dap-step-out
-  "db" 'dap-breakpoint-toggle
-  )
-
-(leader
-  "ld" 'lsp-ui-peek-find-definitions
-  "lD" 'lsp-ui-peek-find-implementation
-  "lR" 'lsp-ui-peek-find-references
-  "lr" 'lsp-rename
-  "la" 'lsp-execute-code-action
-  "lf" 'format-all-buffer
-  "lk" 'lsp-ui-doc-glance)
+ "l" '(:ignore t :which-key "LSP")
+ "ld" 'lsp-ui-peek-find-definitions
+ "lD" 'lsp-ui-peek-find-implementation
+ "lR" 'lsp-ui-peek-find-references
+ "lr" 'lsp-rename
+ "la" 'lsp-execute-code-action
+ "lf" 'format-all-buffer
+ "lt" 'consult-lsp-diagnostics
+ "ls" 'consult-lsp-symbols
+ "lF" 'consult-lsp-file-symbols
+ "lk" 'lsp-ui-doc-glance)
 
 
 (provide 'mazd-lsp)
