@@ -75,7 +75,7 @@
           (when (file-exists-p entry-file)
             (mazd//log "[%s] Loading %s..." (mazd//generate-progress-bar count total) mod)
             (load entry-file))))))
-  (mazd//log "All modules loaded!"))
+  )
 
 (defun mazd//generate-progress-bar (current total)
   "Generate a simple text-based progress bar."

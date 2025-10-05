@@ -65,7 +65,11 @@
 (elpaca `(,@elpaca-order))
 
 (elpaca elpaca-use-package
-	(elpaca-use-package-mode))
+  (elpaca-use-package-mode))
+
+(add-hook 'elpaca-after-init-hook
+          (lambda ()
+            (mazd//log "All Elpaca operations are complete.")))
 
 (provide 'mazd-elpaca)
 ;;; mazd-elpaca.el ends here

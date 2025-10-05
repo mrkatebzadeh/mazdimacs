@@ -130,7 +130,6 @@ forces a mode-line update, and prints a message when all async packages are load
   "Load all packages in `mazd//async-packages` incrementally using idle timers.
 Respects priority order: higher priority loaded first."
 
-  (elpaca-wait)
   (mazd//log "Incremental loading started")
   (let* ((packages (or packages mazd//async-packages))
          (packages (sort (cl-copy-list packages)
@@ -153,9 +152,9 @@ Respects priority order: higher priority loaded first."
 			(run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
       (load-next))))
 
-(add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (mazd//schedule 0 nil
+(add-hook 'elpaca-after-init-hook
+          (lambda ()
+            (mazd//schedule 1 nil
 	      (mazd//async-load-all-packages))))
 
 (provide 'mazd-async)
