@@ -51,27 +51,6 @@
   (org-journal-file-format "%Y%m%d")
   (org-journal-time-format ""))
 
-(use-package org-gcal
-  :disabled t
-  :ensure t
-  :defer t
-  :config
-  (load-library "~/Dropbox/org/keys/gcal.el.gpg"))
-
-(use-package org-tvdb
-  :disabled t
-  :defer t
-  :ensure nil
-  :config
-  (load-library "~/Dropbox/org/keys/tvdb.el.gpg")
-  :commands (org-tvdb-insert-todo-list
-	     org-tvdb-add-season
-	     org-tvdb-add-series
-	     org-tvdb-mark-series-watched
-	     org-tvdb-mark-season-watched
-	     org-tvdb-update-series
-	     org-tvdb-update-season))
-
 (use-package org-cv
   :defer t
   :ensure (:host gitlab :repo "Titan-C/org-cv" :main "ox-moderncv.el"))
