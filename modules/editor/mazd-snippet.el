@@ -32,10 +32,12 @@
   :commands (yas-minor-mode)
   :hook ((prog-mode . yas-minor-mode))
   :config
+  :ensure t
   (setq yas-verbosity 0)
   )
 
 (use-package yasnippet-snippets
+  :ensure t
   :defer t)
 
 (defun autoinsert-yas-expand()
@@ -46,6 +48,7 @@
 (use-package autoinsert
   :defer t
   :init
+  :ensure t
   (setq auto-insert-query t)
 
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
