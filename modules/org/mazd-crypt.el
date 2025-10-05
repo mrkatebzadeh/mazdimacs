@@ -29,16 +29,13 @@
   :defer t
   :custom (org-crypt-key "mr.katebzadeh@gmail.com"))
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'org-mode-map
- "C" '(:ignore t :which-key "Crypt")
- "Ce" 'org-encrypt-entry
- "CE" 'org-encrypt-entries
- "Cd" 'org-decrypt-entry
- "CD" 'org-decrypt-entries
- )
+(local-leader org-mode-map
+	      "C" '(:ignore t :which-key "Crypt")
+	      "Ce" 'org-encrypt-entry
+	      "CE" 'org-encrypt-entries
+	      "Cd" 'org-decrypt-entry
+	      "CD" 'org-decrypt-entries
+	      )
 
 (provide 'mazd-crypt)
 ;;; mazd-crypt.el ends here

@@ -25,15 +25,13 @@
 (use-package vertico
   :defer t
   :ensure t
-  :general
-  (:keymaps 'vertico-map
-	    "<left>" #'vertico-directory-delete-char
-	    "DEL" #'vertico-directory-delete-char)
+  :config
+  (general-define-key
+   :keymaps 'vertico-map
+   "<left>" #'vertico-directory-delete-char
+   "DEL"    #'vertico-directory-delete-char)
   :custom
-  ;; (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 10) ;; Show more candidates
-  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  (vertico-count 10)
   :init
   (vertico-mode))
 
@@ -50,35 +48,28 @@
   (setq vertico-posframe-border '((t (:background "#323445"))))
   )
 
-;; `orderless' completion style.
 (use-package orderless
   :defer t
   :after vertico
   :ensure t
   :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package embark
-  ;; :disabled t
   :ensure t
   :defer t
   :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
 
   :init
 
-  ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
-  ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
@@ -136,6 +127,7 @@ targets."
   (marginalia-mode))
 
 (use-package vertico-multiform
+  :disabled t
   :defer t
   :ensure nil
   :hook (after-init . vertico-multiform-mode)

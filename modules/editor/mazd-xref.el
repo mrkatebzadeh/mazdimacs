@@ -26,13 +26,14 @@
 (use-package xref
   :ensure nil)
 
-(general-define-key
- :states 'motion
- "gD" 'xref-find-definitions-other-window
- "gr" 'xref-find-references
- "gd" 'evil-goto-definition
- "gx" 'xref-find-apropos
- )
+(with-eval-after-load 'general
+  (general-define-key
+   :states 'motion
+   "gD" 'xref-find-definitions-other-window
+   "gr" 'xref-find-references
+   "gd" 'evil-goto-definition
+   "gx" 'xref-find-apropos
+   ))
 
 (provide 'mazd-xref)
 ;;; mazd-xref.el ends here

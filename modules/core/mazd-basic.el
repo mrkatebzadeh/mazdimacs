@@ -1,4 +1,4 @@
-;;; mazd//web.el --- Web -*- lexical-binding: t; -*-
+;;; mazd-basic.el --- MAZD-BASIC -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,13 +23,41 @@
 
 ;;
 
-(use-package web-mode
+;;; Code:
+
+(use-package s
+  :defer t
+  :ensure t)
+
+(use-package f
+  :defer t
+  :ensure t)
+
+(use-package restart-emacs
+  :defer t
+  :ensure t)
+
+(use-package exec-path-from-shell
+  :defer t
   :ensure t
-  :defer t)
+  :config
+  (setq exec-path-from-shell-check-startup-files nil)
+  )
 
-(use-package web-server
-  :ensure (web-server :host github :repo "eschulte/emacs-web-server")
-  :defer t)
+(use-package gcmh
+  :ensure t
+  :init
+  (setq gcmh-verbose             t
+	gcmh-lows-cons-threshold #x800000
+	gcmh-high-cons-threshold (* 128 1024 1024)
+	gcmh-idle-delay 20
+	)
 
-(provide 'mazd-web)
-;;; mazd//web.el ends here
+  :config
+  (gcmh-mode))
+
+(use-package transient
+  :ensure t)
+
+(provide 'mazd-basic)
+;;; mazd-basic.el ends here

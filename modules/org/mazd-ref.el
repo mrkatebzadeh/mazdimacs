@@ -192,39 +192,37 @@
   "oRl" 'consult-bibtex
   )
 
-(evil-define-key 'normal bibtex-mode-map
-  (kbd "C-j") 'org-ref-bibtex-next-entry
-  (kbd "C-k") 'org-ref-bibtex-previous-entry
-  "gj" 'org-ref-bibtex-next-entry
-  "gk" 'org-ref-bibtex-previous-entry)
+(with-eval-after-load 'evil
+  (evil-define-key 'normal bibtex-mode-map
+    (kbd "C-j") 'org-ref-bibtex-next-entry
+    (kbd "C-k") 'org-ref-bibtex-previous-entry
+    "gj" 'org-ref-bibtex-next-entry
+    "gk" 'org-ref-bibtex-previous-entry))
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'bibtex-mode-map
- "" '(:ignore t :which-key "Ref")
+(local-leader bibtex-mode-map
+	      "" '(:ignore t :which-key "Bibtex Mode")
 
- ;; Navigation
- "j" 'org-ref-bibtex-next-entry
- "k" 'org-ref-bibtex-previous-entry
+	      ;; Navigation
+	      "j" 'org-ref-bibtex-next-entry
+	      "k" 'org-ref-bibtex-previous-entry
 
- ;; Open
- "b" 'org-ref-open-in-browser
- "n" 'org-ref-open-bibtex-notes
- "p" 'org-ref-open-bibtex-pdf
+	      ;; Open
+	      "b" 'org-ref-open-in-browser
+	      "n" 'org-ref-open-bibtex-notes
+	      "p" 'org-ref-open-bibtex-pdf
 
- ;; Misc
- "h" 'org-ref-bibtex-hydra/body
- "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
- "s" 'org-ref-sort-bibtex-entry
+	      ;; Misc
+	      "h" 'org-ref-bibtex-hydra/body
+	      "i" 'org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+	      "s" 'org-ref-sort-bibtex-entry
 
- ;; Lookup utilities
- "l" '(:ignore t :which-key "Lookup")
- "la" 'arxiv-add-bibtex-entry
- "lA" 'arxiv-get-pdf-add-bibtex-entry
- "ld" 'doi-utils-add-bibtex-entry-from-doi
- "li" 'isbn-to-bibtex
- "lp" 'pubmed-insert-bibtex-from-pmid)
+	      ;; Lookup utilities
+	      "l" '(:ignore t :which-key "Lookup")
+	      "la" 'arxiv-add-bibtex-entry
+	      "lA" 'arxiv-get-pdf-add-bibtex-entry
+	      "ld" 'doi-utils-add-bibtex-entry-from-doi
+	      "li" 'isbn-to-bibtex
+	      "lp" 'pubmed-insert-bibtex-from-pmid)
 
 (provide 'mazd-ref)
 ;;; mazd-ref.el ends here

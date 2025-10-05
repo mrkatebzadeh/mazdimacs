@@ -34,25 +34,21 @@
     (interactive)
     (hyde)))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "j" 'mazd//hyde)
+(leader
+  :keymaps 'override
+  "aj" 'mazd//hyde)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps '(hyde/hyde-mode hyde-mode-map)
- "n" 'hyde/new-post
- "c" 'hyde/hyde-commit-post
- "g" 'hyde/load-posts
- "d" 'hyde/delete-post
- "p" 'hyde/promote-to-post
- "q" 'hyde/quit
- "s" 'hyde/serve
- "x" 'hyde/stop-serve
- "o" 'hyde/open-post-maybe)
+(local-leader (hyde/hyde-mode hyde-mode-map)
+	      "" '(:ignore t :which-key "Hyde Mode")
+	      "n" 'hyde/new-post
+	      "c" 'hyde/hyde-commit-post
+	      "g" 'hyde/load-posts
+	      "d" 'hyde/delete-post
+	      "p" 'hyde/promote-to-post
+	      "q" 'hyde/quit
+	      "s" 'hyde/serve
+	      "x" 'hyde/stop-serve
+	      "o" 'hyde/open-post-maybe)
 
 
 

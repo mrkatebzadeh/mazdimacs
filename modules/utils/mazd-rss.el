@@ -29,7 +29,6 @@
   :init
   (setq elfeed-search-filter "@all")
   :config
-  ;; face for starred articles
   (defface elfeed-search-starred-title-face
     '((t :foreground "#f77"))
     "Marks a starred Elfeed entry.")
@@ -47,7 +46,7 @@
   (setq rmh-elfeed-org-files  (list (concat org-directory "/feed/emacs.org")
 				    (concat org-directory "/feed/research.org"))))
 
-;; add a star
+;;;###autoload
 (defun mazd//elfeed-star ()
   "Apply starred to all selected entries."
   (interactive )
@@ -57,7 +56,7 @@
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
-;; remove a start
+;;;###autoload
 (defun mazd//elfeed-unstar ()
   "Remove starred tag from all selected entries."
   (interactive )
@@ -67,33 +66,36 @@
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
-;;shortcut to jump to starred bookmark
+;;;###autoload
 (defun mazd//elfeed-show-starred ()
   (interactive)
   (bookmark-jump "elfeed-starred"))
 
-;;searches
+;;;###autoload
 (defun mazd//elfeed-show-all ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-all"))
 
+;;;###autoload
 (defun mazd//elfeed-show-emacs ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-emacs"))
 
+;;;###autoload
 (defun mazd//elfeed-show-daily ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-daily"))
 
+;;;###autoload
 (defun mazd//elfeed-show-network ()
   (interactive)
   (bookmark-maybe-load-default-file)
   (bookmark-jump "elfeed-network"))
 
-;; makes sure elfeed reads index from disk before launching
+;;;###autoload
 (defun mazd//elfeed-load-db-and-open ()
   "Wrapper to load the elfeed db from disk before opening"
   (interactive)
@@ -101,7 +103,7 @@
   (elfeed)
   (elfeed-search-update--force))
 
-;;write to disk when quiting
+;;;###autoload
 (defun mazd//elfeed-save-db-and-bury ()
   "Wrapper to save the elfeed db to disk before burying buffer"
   (interactive)
@@ -112,20 +114,18 @@
   "ae" 'elfeed)
 
 (mazd//after elfeed
-  (general-define-key
-   :prefix "SPC k"
-   :states 'normal
-   :keymaps 'elfeed-search-mode-map
-   "a" 'elfeed-show-all
-   "b" '(:ignore t :which-key "bookmarks")
-   "be" 'mazd//elfeed-show-emacs
-   "bd" 'mazd//elfeed-show-daily
-   "bn" 'mazd//elfeed-show-network
-   "bs" 'mazd//elfeed-show-starred
-   "q" 'mazd//elfeed-save-db-and-bury
-   "s" 'mazd//elfeed-star
-   "S" 'mazd//elfeed-unstar
-   "u" 'elfeed-update))
+  (local-leader elfeed-search-mode-map
+		"" '(:ignore t :which-key "Elfeed Mode")
+		"a" 'elfeed-show-all
+		"b" '(:ignore t :which-key "bookmarks")
+		"be" 'mazd//elfeed-show-emacs
+		"bd" 'mazd//elfeed-show-daily
+		"bn" 'mazd//elfeed-show-network
+		"bs" 'mazd//elfeed-show-starred
+		"q" 'mazd//elfeed-save-db-and-bury
+		"s" 'mazd//elfeed-star
+		"S" 'mazd//elfeed-unstar
+		"u" 'elfeed-update))
 
 (provide 'mazd-rss)
 ;;; mazd//rss.el ends here

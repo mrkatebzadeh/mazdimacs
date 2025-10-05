@@ -69,74 +69,72 @@
   "on" 'mazd//open-agenda-note-file
   )
 
-(general-define-key
- :prefix "SPC K"
- :states '(normal visual motion emacs)
- :keymaps 'org-agenda-mode-map
- "" '(:ignore t :which-key "Agenda")
- "h" '(:ignore t :which-key "headings")
- "ht" 'org-agenda-todo
- "hk" 'org-agenda-kill
- "hr" 'org-agenda-refile
- "hA" 'org-agenda-archive-default
- "hT" 'org-agenda-set-tags
- "hp" 'org-agenda-priority
+(local-leader  org-agenda-mode-map
+	       :prefix "SPC A"
+	       "ht" 'org-agenda-todo
+	       "" '(:ignore t :which-key "Agenda")
+	       "h" '(:ignore t :which-key "headings")
+	       "hk" 'org-agenda-kill
+	       "hr" 'org-agenda-refile
+	       "hA" 'org-agenda-archive-default
+	       "hT" 'org-agenda-set-tags
+	       "hp" 'org-agenda-priority
 
- ;; Visit entry
- "SPC" 'org-agenda-show-and-scroll-up
- "<tab>" 'org-agenda-goto
- "TAB" 'org-agenda-goto
- "RET" 'org-agenda-switch-to
- "o"   'link-hint-open-link
+	       ;; Visit entry
+	       "SPC" 'org-agenda-show-and-scroll-up
+	       "<tab>" 'org-agenda-goto
+	       "TAB" 'org-agenda-goto
+	       "RET" 'org-agenda-switch-to
+	       "o"   'link-hint-open-link
 
- ;; Date
- "d" '(:ignore t :which-key "date")
- "ds" 'org-agenda-schedule
- "dd" 'org-agenda-deadline
- "dt" 'org-agenda-date-prompt
- "+" 'org-agenda-do-date-later
- "-" 'org-agenda-do-date-earlier
+	       ;; Date
+	       "d" '(:ignore t :which-key "date")
+	       "ds" 'org-agenda-schedule
+	       "dd" 'org-agenda-deadline
+	       "dt" 'org-agenda-date-prompt
+	       "+" 'org-agenda-do-date-later
+	       "-" 'org-agenda-do-date-earlier
 
- ;; View
- "v" '(:ignore t :which-key "view")
- "vd" 'org-agenda-day-view
- "vw" 'org-agenda-week-view
- "vt" 'org-agenda-fortnight-view
- "vm" 'org-agenda-month-view
- "vy" 'org-agenda-year-view
- "vn" 'org-agenda-later
- "vp" 'org-agenda-earlier
- "vr" 'org-agenda-reset-view
+	       ;; View
+	       "v" '(:ignore t :which-key "view")
+	       "vd" 'org-agenda-day-view
+	       "vw" 'org-agenda-week-view
+	       "vt" 'org-agenda-fortnight-view
+	       "vm" 'org-agenda-month-view
+	       "vy" 'org-agenda-year-view
+	       "vn" 'org-agenda-later
+	       "vp" 'org-agenda-earlier
+	       "vr" 'org-agenda-reset-view
 
- ;; Toggle mode
- "t" '(:ignore t :which-key "toggle")
- "tf" 'org-agenda-follow-mode
- "tl" 'org-agenda-log-mode
- "ta" 'org-agenda-archives-mode
- "tr" 'org-agenda-clockreport-mode
- "td" 'org-agenda-toggle-diary
+	       ;; Toggle mode
+	       "t" '(:ignore t :which-key "toggle")
+	       "tf" 'org-agenda-follow-mode
+	       "tl" 'org-agenda-log-mode
+	       "ta" 'org-agenda-archives-mode
+	       "tr" 'org-agenda-clockreport-mode
+	       "td" 'org-agenda-toggle-diary
 
- ;; Filter
- "f" '(:ignore t :which-key "filter")
- "ft" 'org-agenda-filter-by-tag
- "fr" 'org-agenda-filter-by-tag-refine
- "fc" 'org-agenda-filter-by-category
- "fh" 'org-agenda-filter-by-top-headline
- "fx" 'org-agenda-filter-by-regexp
- "fd" 'org-agenda-filter-remove-all
+	       ;; Filter
+	       "f" '(:ignore t :which-key "filter")
+	       "ft" 'org-agenda-filter-by-tag
+	       "fr" 'org-agenda-filter-by-tag-refine
+	       "fc" 'org-agenda-filter-by-category
+	       "fh" 'org-agenda-filter-by-top-headline
+	       "fx" 'org-agenda-filter-by-regexp
+	       "fd" 'org-agenda-filter-remove-all
 
- ;; Clock
- "c" '(:ignore t :which-key "clock")
- "ci" 'org-agenda-clock-in
- "co" 'org-agenda-clock-out
- "ck" 'org-agenda-clock-cancel
- "cj" 'org-agenda-clock-goto
+	       ;; Clock
+	       "c" '(:ignore t :which-key "clock")
+	       "ci" 'org-agenda-clock-in
+	       "co" 'org-agenda-clock-out
+	       "ck" 'org-agenda-clock-cancel
+	       "cj" 'org-agenda-clock-goto
 
- ;; Other
- "q" 'org-agenda-quit
- "gr" 'org-agenda-redo
- "." 'org-agenda-goto-today
- "gd" 'org-agenda-goto-date)
+	       ;; Other
+	       "q" 'org-agenda-quit
+	       "gr" 'org-agenda-redo
+	       "." 'org-agenda-goto-today
+	       "gd" 'org-agenda-goto-date)
 
 (eval-after-load 'org-agenda
   '(progn

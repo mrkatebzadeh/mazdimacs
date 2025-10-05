@@ -33,6 +33,7 @@
 
 
 (use-package consult-projectile
+  :ensure t
   :demand t
   :after (:all projectile consult embark)
   :config

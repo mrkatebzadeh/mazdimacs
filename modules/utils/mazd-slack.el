@@ -68,28 +68,24 @@
   (slack-start)
   )
 
-;;; bindings
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'slack-mode-map
- "" '(:ignore t :which-key "Slack")
- "K" 'slack-stop
- "c" 'slack-select-rooms
- "u" 'slack-select-unread-rooms
- "U" 'slack-user-select
- "s" 'slack-search-from-messages
- "J" 'slack-jump-to-browser
- "j" 'slack-jump-to-app
- "e" 'slack-insert-emoji
- "E" 'slack-message-edit
- "r" 'slack-message-add-reaction
- "t" 'slack-thread-show-or-create
- "g" 'slack-message-redisplay
- "G" 'slack-conversations-list-update-quick
- "q" 'slack-quote-and-reply
- "Q" 'slack-quote-and-reply-with-link
- )
+(local-leader slack-mode-map
+	      "" '(:ignore t :which-key "Slack")
+	      "K" 'slack-stop
+	      "c" 'slack-select-rooms
+	      "u" 'slack-select-unread-rooms
+	      "U" 'slack-user-select
+	      "s" 'slack-search-from-messages
+	      "J" 'slack-jump-to-browser
+	      "j" 'slack-jump-to-app
+	      "e" 'slack-insert-emoji
+	      "E" 'slack-message-edit
+	      "r" 'slack-message-add-reaction
+	      "t" 'slack-thread-show-or-create
+	      "g" 'slack-message-redisplay
+	      "G" 'slack-conversations-list-update-quick
+	      "q" 'slack-quote-and-reply
+	      "Q" 'slack-quote-and-reply-with-link
+	      )
 
 (leader
   "as" 'mazd//start-slack)

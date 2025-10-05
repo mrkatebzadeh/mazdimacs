@@ -39,36 +39,5 @@
 (setq use-package-compute-statistics t)
 
 
-(use-package s
-  :defer t
-  :ensure t)
-
-(use-package f
-  :defer t
-  :ensure t)
-
-(use-package restart-emacs
-  :defer t
-  :ensure t)
-
-(use-package exec-path-from-shell
-  :defer t
-  :ensure t
-  :config
-  (setq exec-path-from-shell-check-startup-files nil)
-  )
-
-(use-package gcmh
-  :ensure t
-  :init
-  (setq gcmh-verbose             t
-        gcmh-lows-cons-threshold #x800000
-	gcmh-high-cons-threshold (* 128 1024 1024)
-	gcmh-idle-delay 20
-	)
-
-  :config
-  (gcmh-mode))
-
 (provide 'mazd-package)
 ;;; mazd//package.el ends here

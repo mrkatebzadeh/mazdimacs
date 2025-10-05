@@ -203,14 +203,11 @@
     (when project
       (dired project))))
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'dired-mode-map
- "g" 'dired-git-info-mode
- "r" 'dired-rsync
- "R" 'dired-rsync-transient
- )
+(local-leader dired-mode-map
+	      "g" 'dired-git-info-mode
+	      "r" 'dired-rsync
+	      "R" 'dired-rsync-transient
+	      )
 
 (leader
   ;; "fe" 'mazd//sidebar-toggle

@@ -129,6 +129,8 @@ forces a mode-line update, and prints a message when all async packages are load
 (defun mazd//async-load-all-packages (&optional packages)
   "Load all packages in `mazd//async-packages` incrementally using idle timers.
 Respects priority order: higher priority loaded first."
+
+  (elpaca-wait)
   (mazd//log "Incremental loading started")
   (let* ((packages (or packages mazd//async-packages))
          (packages (sort (cl-copy-list packages)

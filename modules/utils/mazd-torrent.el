@@ -33,36 +33,31 @@
 				     transmission-files-mode
 				     transmission-info-mode
 				     transmission-peers-mode)))
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "b" 'transmission)
+(leader
+  "ab" 'transmission)
 
 (mazd//after transmission
-  (general-define-key
-   :prefix "SPC k"
-   :states '(normal visual motion emacs)
-   :keymaps 'transmission-mode-map
-   "a" 'transmission-add
-   "d" 'transmission-set-download
-   "e" 'transmission-peers
-   "f" 'transmission-files
-   "i" 'transmission-info
-   "k" 'transmission-trackers-add
-   "l" 'transmission-set-ratio
-   "m" 'transmission-toggle-mark
-   "r" 'transmission-remove
-   "D" 'transmission-delete
-   "s" 'transmission-toggle
-   "t" 'transmission-invert-marks
-   "u" 'transmission-set-upload
-   "v" 'transmission-verify
-   "q" 'transmission-quit
-   "x" 'transmission-toggle
-   "y" 'transmission-set-bandwidth-priority
-   "U" 'transmission-unmark-all))
+  (local-leader transmission-mode-map
+		"" '(:ignore t :which-key "Transmission Mode")
+		"a" 'transmission-add
+		"d" 'transmission-set-download
+		"e" 'transmission-peers
+		"f" 'transmission-files
+		"i" 'transmission-info
+		"k" 'transmission-trackers-add
+		"l" 'transmission-set-ratio
+		"m" 'transmission-toggle-mark
+		"r" 'transmission-remove
+		"D" 'transmission-delete
+		"s" 'transmission-toggle
+		"t" 'transmission-invert-marks
+		"u" 'transmission-set-upload
+		"v" 'transmission-verify
+		"q" 'transmission-quit
+		"x" 'transmission-toggle
+		"y" 'transmission-set-bandwidth-priority
+		"U" 'transmission-unmark-all))
 
 
-  (provide 'mazd-torrent)
+(provide 'mazd-torrent)
 ;;; mazd//torrent.el ends here

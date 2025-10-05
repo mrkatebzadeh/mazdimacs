@@ -34,75 +34,61 @@
   :defer t
   :commands (docker))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "D" 'docker)
+(leader
+  "aD" 'docker)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'docker-container-mode-map
- "a" 'docker-container-attach
- "c" 'docker-container-cp
- "d" 'docker-container-diff
- "i" 'docker-container-inspect
- "k" 'docker-container-kill
- "L" 'docker-container-logs
- "l" 'docker-container-ls
- "p" 'docker-container-pause
- "n" 'docker-container-rename
- "R" 'docker-container-restart
- "r" 'docker-container-rm
- "s" 'docker-container-start
- "S" 'docker-container-stop
- "P" 'docker-container-unpause)
+(local-leader docker-container-mode-map
+	      "" '(:ignore t :which-key "Docker Container Mode")
+	      "a" 'docker-container-attach
+	      "c" 'docker-container-cp
+	      "d" 'docker-container-diff
+	      "i" 'docker-container-inspect
+	      "k" 'docker-container-kill
+	      "L" 'docker-container-logs
+	      "l" 'docker-container-ls
+	      "p" 'docker-container-pause
+	      "n" 'docker-container-rename
+	      "R" 'docker-container-restart
+	      "r" 'docker-container-rm
+	      "s" 'docker-container-start
+	      "S" 'docker-container-stop
+	      "P" 'docker-container-unpause)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'docker-image-mode-map
- "i" 'docker-image-inspect
- "f" 'docker-image-pull
- "p" 'docker-image-push
- "r" 'docker-image-rm
- "l" 'docker-image-ls
- "U" 'docker-image-run
- "t" 'docker-image-tag)
+(local-leader docker-image-mode-map
+	      "" '(:ignore t :which-key "Docker Image Mode")
+	      "i" 'docker-image-inspect
+	      "f" 'docker-image-pull
+	      "p" 'docker-image-push
+	      "r" 'docker-image-rm
+	      "l" 'docker-image-ls
+	      "U" 'docker-image-run
+	      "t" 'docker-image-tag)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'docker-network-mode-map
- "r" 'docker-network-rm
- "l" 'docker-network-ls)
+(local-leader docker-network-mode-map
+	      "" '(:ignore t :which-key "Docker Network Mode")
+	      "r" 'docker-network-rm
+	      "l" 'docker-network-ls)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'docker-volume-mode-map
- "r" 'docker-volume-rm
- "l" 'docker-volume-ls)
+(local-leader docker-volume-mode-map
+	      "r" 'docker-volume-rm
+	      "l" 'docker-volume-ls)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'dockerfile-mode-map
- "b" 'docker-compose-build
- "C" 'docker-compose-config
- "c" 'docker-compose-create
- "d" 'docker-compose-down
- "e" 'docker-compose-exec
- "L" 'docker-compose-logs
- "f" 'docker-compose-pull
- "p" 'docker-compose-push
- "r" 'docker-compose-remove
- "R" 'docker-compose-restart
- "U" 'docker-compose-run
- "s" 'docker-compose-start
- "S" 'docker-compose-stop
- "u" 'docker-compose-up)
+(local-leader dockerfile-mode-map
+	      "" '(:ignore t :which-key "Docker Mode")
+	      "b" 'docker-compose-build
+	      "C" 'docker-compose-config
+	      "c" 'docker-compose-create
+	      "d" 'docker-compose-down
+	      "e" 'docker-compose-exec
+	      "L" 'docker-compose-logs
+	      "f" 'docker-compose-pull
+	      "p" 'docker-compose-push
+	      "r" 'docker-compose-remove
+	      "R" 'docker-compose-restart
+	      "U" 'docker-compose-run
+	      "s" 'docker-compose-start
+	      "S" 'docker-compose-stop
+	      "u" 'docker-compose-up)
 
 (provide 'mazd-docker)
 ;;; mazd//docker.el ends here

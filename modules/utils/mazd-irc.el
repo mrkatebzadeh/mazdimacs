@@ -138,7 +138,6 @@
   (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
                              "324" "329" "332" "333" "353" "477"))
   :config
-					;(add-to-list 'erc-modules 'notifications)
   (erc-services-mode 1)
   (erc-update-modules))
 
@@ -149,11 +148,8 @@
   :defer t
   :after erc)
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "i" 'mazd//erc-start-or-switch)
+(leader
+  "ai" 'mazd//erc-start-or-switch)
 
 (provide 'mazd-irc)
 ;;; mazd//irc.el ends here

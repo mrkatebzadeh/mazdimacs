@@ -42,22 +42,17 @@
     (shell-command (concat "rsync -qq -avz --delete ftp.rfc-editor.org::rfcs-text-only " rfc-mode-directory "rfc-update"))
     (mazd//log "RFCs are updated.")))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "R" 'mazd//rfc)
+(leader
+  "aR" 'mazd//rfc)
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'rfc-mode-map
- "g" 'rfc-mode-browse
- "l" 'rfc-mode-read
- "u" 'rfc-update
- "q" 'rfc-mode-quit
- "n" 'rfc-mode-forward-page
- "p" 'rfc-mode-backward-page)
+(local-leader rfc-mode-map
+	      "" '(:ignore t :which-key "RFC Mode")
+	      "g" 'rfc-mode-browse
+	      "l" 'rfc-mode-read
+	      "u" 'rfc-update
+	      "q" 'rfc-mode-quit
+	      "n" 'rfc-mode-forward-page
+	      "p" 'rfc-mode-backward-page)
 
 (provide 'mazd-rfc)
 ;;; mazd//rfc.el ends here

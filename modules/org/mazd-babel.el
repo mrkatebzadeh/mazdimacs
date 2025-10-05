@@ -85,35 +85,32 @@
   :ensure t
   :defer t)
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'org-mode-map
- "b" '(:ignore t :which-key "Babel")
- "bp" 'org-babel-previous-src-block
- "bn"     'org-babel-next-src-block
- "be"     'org-edit-special
- "bE"     'org-babel-execute-maybe
- "bo"     'org-babel-open-src-block-result
- "bv"     'org-babel-expand-src-block
- "bu"     'org-babel-goto-src-block-head
- "bg"     'org-babel-goto-named-src-block
- "br"     'org-babel-goto-named-result
- "bb"     'org-babel-execute-buffer
- "bs"     'org-babel-execute-subtree
- "bd"     'org-babel-demarcate-block
- "bt"     'org-babel-tangle
- "bf"     'org-babel-tangle-file
- "bc"     'org-babel-check-src-block
- "bj"     'org-babel-insert-header-arg
- "bl"     'org-babel-load-in-session
- "bi"     'org-babel-lob-ingest
- "bI"     'org-babel-view-src-block-info
- "bz"     'org-babel-switch-to-session
- "bZ"     'org-babel-switch-to-session-with-code
- "ba"     'org-babel-sha1-hash
- "bx"     'mazd//org-code-execute
- )
+(local-leader org-mode-map :prefix "SPC B"
+	      "" '(:ignore t :which-key "Babel")
+	      "p" 'org-babel-previous-src-block
+	      "n"     'org-babel-next-src-block
+	      "e"     'org-edit-special
+	      "E"     'org-babel-execute-maybe
+	      "o"     'org-babel-open-src-block-result
+	      "v"     'org-babel-expand-src-block
+	      "u"     'org-babel-goto-src-block-head
+	      "g"     'org-babel-goto-named-src-block
+	      "r"     'org-babel-goto-named-result
+	      "b"     'org-babel-execute-buffer
+	      "s"     'org-babel-execute-subtree
+	      "d"     'org-babel-demarcate-block
+	      "t"     'org-babel-tangle
+	      "f"     'org-babel-tangle-file
+	      "c"     'org-babel-check-src-block
+	      "j"     'org-babel-insert-header-arg
+	      "l"     'org-babel-load-in-session
+	      "i"     'org-babel-lob-ingest
+	      "I"     'org-babel-view-src-block-info
+	      "z"     'org-babel-switch-to-session
+	      "Z"     'org-babel-switch-to-session-with-code
+	      "a"     'org-babel-sha1-hash
+	      "x"     'mazd//org-code-execute
+	      )
 
 
 (provide 'mazd-babel)

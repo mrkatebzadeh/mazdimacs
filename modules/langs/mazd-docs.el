@@ -120,108 +120,97 @@
   (setq mouse-wheel-follow-mouse t
 	pdf-view-resize-factor 1.10))
 
-
-
-;;; config
-
-;;; bindigs
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'markdown-mode-map
- ;; Movement
- "{"   'markdown-backward-paragraph
- "}"   'markdown-forward-paragraph
- ;; Completion, and Cycling
- "]"   'markdown-complete
- ;; Indentation
- ">"   'markdown-indent-region
- "<"   'markdown-exdent-region
- ;; Buffer-wide commands
- "c" '(:ignore t :which-key "commands")
- "c]"  'markdown-complete-buffer
- "cc"  'markdown-check-refs
- "ce"  'markdown-export
- "cm"  'markdown-other-window
- "cn"  'markdown-cleanup-list-numbers
- "co"  'markdown-open
- "cp"  'markdown-preview
- "cv"  'markdown-export-and-preview
- "cw"  'markdown-kill-ring-save
- ;; headings
- "h" '(:ignore t :which-key "headings")
- "hi"  'markdown-insert-header-dwim
- "hI"  'markdown-insert-header-setext-dwim
- "h1"  'markdown-insert-header-atx-1
- "h2"  'markdown-insert-header-atx-2
- "h3"  'markdown-insert-header-atx-3
- "h4"  'markdown-insert-header-atx-4
- "h5"  'markdown-insert-header-atx-5
- "h6"  'markdown-insert-header-atx-6
- "h!"  'markdown-insert-header-setext-1
- "h@"  'markdown-insert-header-setext-2
- ;; Insertion of common elements
- "i" '(:ignore t :which-key "insert")
- "-"   'markdown-insert-hr
- "if"  'markdown-insert-footnote
- "ii"  'markdown-insert-image
- "ik"  'spacemacs/insert-keybinding-markdown
- "iI"  'markdown-insert-reference-image
- "il"  'markdown-insert-link
- "iL"  'markdown-insert-reference-link-dwim
- "iw"  'markdown-insert-wiki-link
- "iu"  'markdown-insert-uri
- ;; Element removal
- "k"   'markdown-kill-thing-at-point
- ;; List editing
- "li"  'markdown-insert-list-item
- ;; region manipulation
- "f" '(:ignore t :which-key "region")
- "xb"  'markdown-insert-bold
- "xi"  'markdown-insert-italic
- "xc"  'markdown-insert-code
- "xC"  'markdown-insert-gfm-code-block
- "xq"  'markdown-insert-blockquote
- "xQ"  'markdown-blockquote-region
- "xp"  'markdown-insert-pre
- "xP"  'markdown-pre-region
- ;; Following and Jumping
- "N"   'markdown-next-link
- "f"   'markdown-follow-thing-at-point
- "P"   'markdown-previous-link
- "<RET>" 'markdown-jump)
+(local-leader markdown-mode-map
+	      ;; Movement
+	      "{"   'markdown-backward-paragraph
+	      "}"   'markdown-forward-paragraph
+	      ;; Completion, and Cycling
+	      "]"   'markdown-complete
+	      ;; Indentation
+	      ">"   'markdown-indent-region
+	      "<"   'markdown-exdent-region
+	      ;; Buffer-wide commands
+	      "c" '(:ignore t :which-key "commands")
+	      "c]"  'markdown-complete-buffer
+	      "cc"  'markdown-check-refs
+	      "ce"  'markdown-export
+	      "cm"  'markdown-other-window
+	      "cn"  'markdown-cleanup-list-numbers
+	      "co"  'markdown-open
+	      "cp"  'markdown-preview
+	      "cv"  'markdown-export-and-preview
+	      "cw"  'markdown-kill-ring-save
+	      ;; headings
+	      "h" '(:ignore t :which-key "headings")
+	      "hi"  'markdown-insert-header-dwim
+	      "hI"  'markdown-insert-header-setext-dwim
+	      "h1"  'markdown-insert-header-atx-1
+	      "h2"  'markdown-insert-header-atx-2
+	      "h3"  'markdown-insert-header-atx-3
+	      "h4"  'markdown-insert-header-atx-4
+	      "h5"  'markdown-insert-header-atx-5
+	      "h6"  'markdown-insert-header-atx-6
+	      "h!"  'markdown-insert-header-setext-1
+	      "h@"  'markdown-insert-header-setext-2
+	      ;; Insertion of common elements
+	      "i" '(:ignore t :which-key "insert")
+	      "-"   'markdown-insert-hr
+	      "if"  'markdown-insert-footnote
+	      "ii"  'markdown-insert-image
+	      "ik"  'spacemacs/insert-keybinding-markdown
+	      "iI"  'markdown-insert-reference-image
+	      "il"  'markdown-insert-link
+	      "iL"  'markdown-insert-reference-link-dwim
+	      "iw"  'markdown-insert-wiki-link
+	      "iu"  'markdown-insert-uri
+	      ;; Element removal
+	      "k"   'markdown-kill-thing-at-point
+	      ;; List editing
+	      "li"  'markdown-insert-list-item
+	      ;; region manipulation
+	      "f" '(:ignore t :which-key "region")
+	      "xb"  'markdown-insert-bold
+	      "xi"  'markdown-insert-italic
+	      "xc"  'markdown-insert-code
+	      "xC"  'markdown-insert-gfm-code-block
+	      "xq"  'markdown-insert-blockquote
+	      "xQ"  'markdown-blockquote-region
+	      "xp"  'markdown-insert-pre
+	      "xP"  'markdown-pre-region
+	      ;; Following and Jumping
+	      "N"   'markdown-next-link
+	      "f"   'markdown-follow-thing-at-point
+	      "P"   'markdown-previous-link
+	      "<RET>" 'markdown-jump)
 
 (mazd//after pdf-tools
-  (general-define-key
-   :prefix "SPC k"
-   :states '(normal visual motion)
-   :keymaps 'pdf-view-mode-map
-   ;; Slicing image
-   "s" '(:ignore t :which-key "slicing")
-   "sm" 'pdf-view-set-slice-using-mouse
-   "sb" 'pdf-view-set-slice-from-bounding-box
-   "sr" 'pdf-view-reset-slice
-   ;; Annotations
-   "a" '(:ignore t :which-key "annotations")
-   "aD" 	'pdf-annot-delete
-   "at" 	'pdf-annot-attachment-dired
-   "ah" 	'pdf-annot-add-highlight-markup-annotation
-   "al" 	'pdf-annot-list-annotations
-   "am" 	'pdf-annot-add-markup-annotation
-   "ao" 	'pdf-annot-add-strikeout-markup-annotation
-   "as" 	'pdf-annot-add-squiggly-markup-annotation
-   "at" 	'pdf-annot-add-text-annotation
-   "au" 	'pdf-annot-add-underline-markup-annotation
-   ;; Fit image to window
-   "f" '(:ignore t :which-key "fit")
-   "fw" 'pdf-view-fit-width-to-window
-   "fh" 'pdf-view-fit-height-to-window
-   "fp" 'pdf-view-fit-page-to-window
-   ;; Other
-   "o" 'pdf-occur
-   "p" 'pdf-misc-print-document
-   "O" 'pdf-outline
-   "n" 'pdf-view-midnight-minor-mode))
+  (local-leader pdf-view-mode-map
+		;; Slicing image
+		"s" '(:ignore t :which-key "slicing")
+		"sm" 'pdf-view-set-slice-using-mouse
+		"sb" 'pdf-view-set-slice-from-bounding-box
+		"sr" 'pdf-view-reset-slice
+		;; Annotations
+		"a" '(:ignore t :which-key "annotations")
+		"aD" 	'pdf-annot-delete
+		"at" 	'pdf-annot-attachment-dired
+		"ah" 	'pdf-annot-add-highlight-markup-annotation
+		"al" 	'pdf-annot-list-annotations
+		"am" 	'pdf-annot-add-markup-annotation
+		"ao" 	'pdf-annot-add-strikeout-markup-annotation
+		"as" 	'pdf-annot-add-squiggly-markup-annotation
+		"at" 	'pdf-annot-add-text-annotation
+		"au" 	'pdf-annot-add-underline-markup-annotation
+		;; Fit image to window
+		"f" '(:ignore t :which-key "fit")
+		"fw" 'pdf-view-fit-width-to-window
+		"fh" 'pdf-view-fit-height-to-window
+		"fp" 'pdf-view-fit-page-to-window
+		;; Other
+		"o" 'pdf-occur
+		"p" 'pdf-misc-print-document
+		"O" 'pdf-outline
+		"n" 'pdf-view-midnight-minor-mode))
 
 (provide 'mazd-docs)
 ;;; mazd//docs.el ends here

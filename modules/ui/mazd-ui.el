@@ -159,11 +159,10 @@
   :ensure nil
   )
 
-;; Replace keywords with SVG tags
 (use-package svg-tag-mode
   :defer t
-  :vc(:url "https://github.com/rougier/svg-tag-mode")
-  :ensure nil
+  :vc (:url "https://github.com/rougier/svg-tag-mode")
+  :ensure (:host github :repo "rougier/svg-tag-mode")
   )
 
 ;;;###autoload

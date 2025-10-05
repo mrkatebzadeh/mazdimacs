@@ -50,14 +50,15 @@
   )
 
 (leader
-  "or" '(:ignore t :which-key "Roam")
-  "ort" 'org-roam-buffer-toggle
-  "orf" 'org-roam-node-find
-  "ori" 'org-roam-node-insert
-  "oru" 'org-roam-ui-mode
-  "org" 'org-roam-graph
-  "orc" 'org-roam-capture
-  "orj" 'org-roam-dailies-capture-today
+  :prefix "SPC r"
+  "" '(:ignore t :which-key "Roam")
+  "t" 'org-roam-buffer-toggle
+  "f" 'org-roam-node-find
+  "i" 'org-roam-node-insert
+  "u" 'org-roam-ui-mode
+  "g" 'org-roam-graph
+  "c" 'org-roam-capture
+  "j" 'org-roam-dailies-capture-today
   )
 
 (provide 'mazd-roam)

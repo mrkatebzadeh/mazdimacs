@@ -26,6 +26,11 @@
 (use-package general
   :ensure t
   :config
+  (general-create-definer leader-map
+    :states '(normal visual emacs)
+    :keymaps 'override
+    :prefix "SPC"
+    :global-prefix "A-SPC")
   (setq general-override-states '(insert
                                   emacs
                                   hybrid
@@ -69,6 +74,16 @@
   (evil-set-undo-system 'undo-redo)
   (when (fboundp #'undo-tree-undo)
     (evil-set-undo-system 'undo-tree))
+
+
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
   )
 
 ;; evil-collection
@@ -190,23 +205,34 @@
              hum/keyboard-quit
              mc-hide-unmatched-lines-mode)
   :config
-  (setq mc/list-file (locate-user-emacs-file ".cache/.mc-lists.el"))
-
-  ;; This is required to load the save file, due to a poor design
-  ;; decision in multiple-cursors.el
+  (setq mc/list-file (concat mazd//cache-dir "/.mc-lists.el"))
   (load mc/list-file t)
 
   (define-key mc/keymap (kbd "<return>") nil)
   (define-key mc/keymap (kbd "C-c <return>") 'multiple-cursors-mode))
 
-(general-create-definer leader
-  :states '(normal visual emacs)
-  :keymaps 'override
-  :prefix "SPC"
-  :global-prefix "A-SPC")
+(defmacro leader (&rest args)
+  `(with-eval-after-load 'general
+     (leader-map ,@args)))
 
-;; Esc
-;;;(global-set-key [escape] 'keyboard-quit)
+(defvar local-leader-prefix "SPC k"
+  "Default prefix key for local leader bindings.")
+
+(defmacro local-leader (mode-map &rest args)
+  "Define local leader keys for MODE-MAP with optional :prefix override."
+  (let* ((prefix (if (plist-member args :prefix)
+                     (plist-get args :prefix)
+                   local-leader-prefix))
+         ;; Remove :prefix and its value from args before passing to general
+         (args (cl-loop for (k v) on args by #'cddr
+                        unless (eq k :prefix) append (list k v))))
+    `(with-eval-after-load 'general
+       (general-define-key
+        :prefix ,prefix
+        :states '(normal visual motion)
+        :keymaps ',mode-map
+        ,@args))))
+
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
 In Delete Selection mode, if the mark is active, just deactivate it;
@@ -217,18 +243,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
+(elpaca-wait)
 
-
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
-
-;; leader file
 (leader
   "" '(nil :which-key "My lieutenant general prefix")
   "f" '(:ignore t :which-key "Files")

@@ -82,15 +82,9 @@
 (mazd//after python-ts-mode
   (define-key python-ts-mode-map (kbd "C-c C-r") #'mazd//run-python-file))
 
-;;; bindings
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps '(python-ts-mode-map python-map)
- "R" 'run-python
- "r" 'mazd//run-python-file)
-
-
+(local-leader (python-ts-mode-map python-map)
+	      "R" 'run-python
+	      "r" 'mazd//run-python-file)
 
 (provide 'mazd-python)
 ;;; mazd//python.el ends here

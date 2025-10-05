@@ -254,103 +254,100 @@
   "ol" 'org-store-link
   )
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'org-mode-map
- "c" 'org-todo
- "s" 'org-schedule
- "n" 'mazd//eval-and-next-block
- "'" 'org-edit-special
- "d" 'org-deadline
- "D" 'org-insert-drawer
- "i" 'org-insert-structure-template
- "e" '(:ignore t :which-key "export")
- "ee" 'org-export-dispatch
- "f" 'org-set-effort
- "P" 'org-set-property
- ":" 'org-set-tags
+(local-leader org-mode-map
+	      "c" 'org-todo
+	      "s" 'org-schedule
+	      "n" 'mazd//eval-and-next-block
+	      "'" 'org-edit-special
+	      "d" 'org-deadline
+	      "D" 'org-insert-drawer
+	      "i" 'org-insert-structure-template
+	      "e" '(:ignore t :which-key "export")
+	      "ee" 'org-export-dispatch
+	      "f" 'org-set-effort
+	      "P" 'org-set-property
+	      ":" 'org-set-tags
 
- ;; "b" 'org-tree-to-indirect-buffer
- "A" 'org-archive-subtree
- "l" '(:ignore t :which-key "Link")
- "ly" 'mazd//org-link-copy
- "le" 'mazd//org-link-open-eww
- "lo" 'org-open-at-point
- "lb" 'org-mark-ring-goto
- "lf" 'org-mark-ring-push
+	      ;; "b" 'org-tree-to-indirect-buffer
+	      "A" 'org-archive-subtree
+	      "l" '(:ignore t :which-key "Link")
+	      "ly" 'mazd//org-link-copy
+	      "le" 'mazd//org-link-open-eww
+	      "lo" 'org-open-at-point
+	      "lb" 'org-mark-ring-goto
+	      "lf" 'org-mark-ring-push
 
- "T" 'org-show-todo-tree
- "." 'org-time-stamp
- "!" 'org-time-stamp-inactive
+	      "T" 'org-show-todo-tree
+	      "." 'org-time-stamp
+	      "!" 'org-time-stamp-inactive
 
- ;; headings
- "h" '(:ignore t :which-key "Headings")
- "hi" 'org-insert-heading-after-current
- "hI" 'org-insert-heading
- "hs" 'org-insert-subheading
+	      ;; headings
+	      "h" '(:ignore t :which-key "Headings")
+	      "hi" 'org-insert-heading-after-current
+	      "hI" 'org-insert-heading
+	      "hs" 'org-insert-subheading
 
- ;; More cycling options (timestamps, headlines, items, properties)
- "L" 'org-shiftright
- "H" 'org-shiftleft
- "J" 'org-shiftdown
- "K" 'org-shiftup
+	      ;; More cycling options (timestamps, headlines, items, properties)
+	      "L" 'org-shiftright
+	      "H" 'org-shiftleft
+	      "J" 'org-shiftdown
+	      "K" 'org-shiftup
 
- ;; Change between TODO sets
- "C-S-l" 'org-shiftcontrolright
- "C-S-h" 'org-shiftcontrolleft
- "C-S-j" 'org-shiftcontroldown
- "C-S-k" 'org-shiftcontrolup
+	      ;; Change between TODO sets
+	      "C-S-l" 'org-shiftcontrolright
+	      "C-S-h" 'org-shiftcontrolleft
+	      "C-S-j" 'org-shiftcontroldown
+	      "C-S-k" 'org-shiftcontrolup
 
- ;; Subtree editing
- "S" '(:ignore t :which-key "Subtree")
- "Sl" 'org-demote-subtree
- "Sh" 'org-promote-subtree
- "Sj" 'org-move-subtree-down
- "Sk" 'org-move-subtree-up
+	      ;; Subtree editing
+	      "S" '(:ignore t :which-key "Subtree")
+	      "Sl" 'org-demote-subtree
+	      "Sh" 'org-promote-subtree
+	      "Sj" 'org-move-subtree-down
+	      "Sk" 'org-move-subtree-up
 
- ;; tables
- "T" '(:ignore t :which-key "Table")
- "Ta" 'org-table-align
- "Tb" 'org-table-blank-field
- "Tc" 'org-table-convert
- "Td" '(:ignore t :which-key "Delete")
- "Tdc" 'org-table-delete-column
- "Tdr" 'org-table-kill-row
- "Te" 'org-table-eval-formula
- "TE" 'org-table-export
- "Th" 'org-table-previous-field
- "TH" 'org-table-move-column-left
- "Ti" '(:ignore t :which-key "Insert")
- "Tic" 'org-table-insert-column
- "Tih" 'org-table-insert-hline
- "TiH" 'org-table-hline-and-move
- "Tir" 'org-table-insert-row
- "TI" 'org-table-import
- "Tj" 'org-table-next-row
- "TJ" 'org-table-move-row-down
- "TK" 'org-table-move-row-up
- "Tl" 'org-table-next-field
- "TL" 'org-table-move-column-right
- "Tn" 'org-table-create
- "TN" 'org-table-create-with-table.el
- "Tr" 'org-table-recalculate
- "Ts" 'org-table-sort-lines
- "Tt" '(:ignore t :which-key "Toggles")
- "Ttf" 'org-table-toggle-formula-debugger
- "Tto" 'org-table-toggle-coordinate-overlays
- "Tw" 'org-table-wrap-region
+	      ;; tables
+	      "T" '(:ignore t :which-key "Table")
+	      "Ta" 'org-table-align
+	      "Tb" 'org-table-blank-field
+	      "Tc" 'org-table-convert
+	      "Td" '(:ignore t :which-key "Delete")
+	      "Tdc" 'org-table-delete-column
+	      "Tdr" 'org-table-kill-row
+	      "Te" 'org-table-eval-formula
+	      "TE" 'org-table-export
+	      "Th" 'org-table-previous-field
+	      "TH" 'org-table-move-column-left
+	      "Ti" '(:ignore t :which-key "Insert")
+	      "Tic" 'org-table-insert-column
+	      "Tih" 'org-table-insert-hline
+	      "TiH" 'org-table-hline-and-move
+	      "Tir" 'org-table-insert-row
+	      "TI" 'org-table-import
+	      "Tj" 'org-table-next-row
+	      "TJ" 'org-table-move-row-down
+	      "TK" 'org-table-move-row-up
+	      "Tl" 'org-table-next-field
+	      "TL" 'org-table-move-column-right
+	      "Tn" 'org-table-create
+	      "TN" 'org-table-create-with-table.el
+	      "Tr" 'org-table-recalculate
+	      "Ts" 'org-table-sort-lines
+	      "Tt" '(:ignore t :which-key "Toggles")
+	      "Ttf" 'org-table-toggle-formula-debugger
+	      "Tto" 'org-table-toggle-coordinate-overlays
+	      "Tw" 'org-table-wrap-region
 
- "t" '(:ignore t :which-key "Toggles")
- "tc" 'org-toggle-checkbox
- "te" 'org-toggle-pretty-entities
- "ti" 'org-toggle-inline-images
- "tn" 'org-num-mode
- "tl" 'org-toggle-link-display
- "tt" 'org-show-todo-tree
- "tT" 'org-todo
- "tV" 'space-doc-mode
- "tx" 'org-latex-preview
- )
+	      "t" '(:ignore t :which-key "Toggles")
+	      "tc" 'org-toggle-checkbox
+	      "te" 'org-toggle-pretty-entities
+	      "ti" 'org-toggle-inline-images
+	      "tn" 'org-num-mode
+	      "tl" 'org-toggle-link-display
+	      "tt" 'org-show-todo-tree
+	      "tT" 'org-todo
+	      "tV" 'space-doc-mode
+	      "tx" 'org-latex-preview
+	      )
 (provide 'mazd-org)
 ;;; mazd-org.el<org> ends here

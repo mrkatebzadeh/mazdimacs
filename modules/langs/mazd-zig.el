@@ -28,16 +28,12 @@
   :defer t
   )
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps '(zig-mode-map)
- "" '(:ignore t :which-key "Zig mode")
- "<escape>" '(keyboard-escape-quit :which-key t)
- "b" '(zig-compile :which-key "build")
- "r" '(zig-run :which-key "run")
- "t" '(zig-test :which-key "test")
- )
+(local-leader zig-mode-map
+	      "" '(:ignore t :which-key "Zig mode")
+	      "b" '(zig-compile :which-key "build")
+	      "r" '(zig-run :which-key "run")
+	      "t" '(zig-test :which-key "test")
+	      )
 
 
 

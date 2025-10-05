@@ -37,33 +37,27 @@
   :defer t
   :init (add-hook 'ledger-mode-hook #'flycheck-mode))
 
-;;; bindigs
+(local-leader ledger-mode-map
+	      "" '(:ignore t :which-key "Ledger Mode")
+	      "d" 'ledger-delete-current-transaction
+	      "a" 'ledger-add-transaction
+	      "b" 'ledger-post-edit-amount
+	      "c" 'ledger-toggle-current
+	      "C" 'ledger-mode-clean-buffer
+	      "l" 'ledger-display-ledger-stats
+	      "p" 'ledger-display-balance-at-point
+	      "q" 'ledger-post-align-xact
+	      "r" 'ledger-reconcile
+	      "R" 'ledger-report
+	      "t" 'ledger-insert-effective-date)
 
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'ledger-mode-map
- "d" 'ledger-delete-current-transaction
- "a" 'ledger-add-transaction
- "b" 'ledger-post-edit-amount
- "c" 'ledger-toggle-current
- "C" 'ledger-mode-clean-buffer
- "l" 'ledger-display-ledger-stats
- "p" 'ledger-display-balance-at-point
- "q" 'ledger-post-align-xact
- "r" 'ledger-reconcile
- "R" 'ledger-report
- "t" 'ledger-insert-effective-date)
-
-(general-define-key
- :prefix "SPC l"
- :states '(normal visual motion)
- :keymaps 'ledger-reconcile-mode-map
- "," 'ledger-reconcile-toggle
- "a" 'ledger-reconcile-add
- "q" 'ledger-reconcile-quit
- "t" 'ledger-reconcile-change-target
- "RET" 'ledger-reconcile-finish)
+(local-leader ledger-reconcile-mode-map
+	      "" '(:ignore t :which-key "Ledger Reconcile Mode")
+	      "," 'ledger-reconcile-toggle
+	      "a" 'ledger-reconcile-add
+	      "q" 'ledger-reconcile-quit
+	      "t" 'ledger-reconcile-change-target
+	      "RET" 'ledger-reconcile-finish)
 
 (provide 'mazd-ledger)
 ;;; mazd//ledger.el ends here

@@ -46,7 +46,7 @@
   :hook ((c++-mode) . google-set-c-style))
 
 (use-package cmake-mode
-  :ensure t
+  :ensure (:host github :repo "emacsmirror/cmake-mode")
   :defer t
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 
@@ -62,7 +62,7 @@
 
 (use-package clang-format+
   :vc (:url "https://github.com/SavchenkoValeriy/emacs-clang-format-plus")
-  :ensure nil
+  :ensure (:host github :repo "SavchenkoValeriy/emacs-clang-format-plus")
   :defer t
   :commands (clang-format+-mode)
   :init
@@ -139,26 +139,24 @@
   ad-do-it
   (set-window-configuration global-config-editing))
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps '(c-mode-map c++-mode-map)
- "h"  'cpp-auto-include
- "F"  'clang-format-buffer
- "d"  'cmake-objdump
- "D"  'mazd//cc-dap
- "G"  'gdb
- "m"  'cmake-make
- "b"  'cmake-build
- "M"  'cmake-make-clean
- "B"  'cmake-build-clean
- "s"  'srefactor-refactor-at-point
- "c" '(:ignore t :which-key "cscope")
- "cc" 'mazd//load-xcscope-and-setup
- "cs" 'cscope-find-this-symbol
- "cd" 'cscope-find-global-definition
- "ct" 'cscope-find-this-text-string
- "cf" 'cscope-find-this-file)
+(local-leader (c-mode-map c++-mode-map)
+	      "" '(:ignore t :which-key "C/C++ Mode")
+	      "h"  'cpp-auto-include
+	      "F"  'clang-format-buffer
+	      "d"  'cmake-objdump
+	      "D"  'mazd//cc-dap
+	      "G"  'gdb
+	      "m"  'cmake-make
+	      "b"  'cmake-build
+	      "M"  'cmake-make-clean
+	      "B"  'cmake-build-clean
+	      "s"  'srefactor-refactor-at-point
+	      "c" '(:ignore t :which-key "cscope")
+	      "cc" 'mazd//load-xcscope-and-setup
+	      "cs" 'cscope-find-this-symbol
+	      "cd" 'cscope-find-global-definition
+	      "ct" 'cscope-find-this-text-string
+	      "cf" 'cscope-find-this-file)
 
 (provide 'mazd-clang)
 ;;; mazd//clang.el ends here

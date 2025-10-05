@@ -30,12 +30,10 @@
 (leader
   "aG" 'rmsbolt-mode)
 
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'rmsbolt-mode-map
- "c" 'rmsbolt-compile
- )
+(local-leader rmsbolt-mode-map
+	      "" '(:ignore t :which-key "Godbolt Mode")
+	      "c" 'rmsbolt-compile
+	      )
 
 (provide 'mazd-godbolt)
 ;;; mazd//godbolt.el ends here

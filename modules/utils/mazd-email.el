@@ -40,12 +40,6 @@
   :defer t
   :after mu4e)
 
-;;; gnus-dired
-(use-package gnus
-  :ensure t
-  :defer t)
-
-
 (add-to-list 'load-path (concat mazd//lisp-dir "consult-mu"))
 (add-to-list 'load-path (concat mazd//lisp-dir "consult-mu/extras"))
 (use-package consult-mu
@@ -250,19 +244,6 @@
   (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
   (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
 
-(mazd//after gnus
-  (defun gnus-dired-mail-buffers ()
-    (let (buffers)
-      (save-current-buffer
-	(dolist (buffer (buffer-list t))
-	  (set-buffer buffer)
-	  (when (and (derived-mode-p 'message-mode)
-		     (null message-sent-message-via))
-	    (push (buffer-name buffer) buffers))))
-      (nreverse buffers)))
-  (setq gnus-dired-mail-mode 'mu4e-user-agent)
-  (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
-
 ;;;###autoload
 (defun mazd//notmuch-show-expand-only-unread-h ()
   (interactive)
@@ -314,23 +295,16 @@
   )
 
 (mazd//after  mu4e
-  (general-define-key
-   :prefix "SPC k"
-   :states '(normal visual motion)
-   :keymaps 'mu4e-compose-mode-map
-   "k" 'message-kill-buffer
-   "w" 'message-send
-   "s" 'mu4e-choose-signature
-   )
+  (local-leader mu4e-compose-mode-map
+		"k" 'message-kill-buffer
+		"w" 'message-send
+		"s" 'mu4e-choose-signature
+		"c" 'consult-mu-contacts
+		"a" 'consult-mu-compose-attach
+		"d" 'consult-mu-compose-detach
+		)
   (evil-collection-init 'mu4e)
 
-  (general-define-key
-   :prefix "SPC k"
-   :states '(normal visual motion)
-   :keymaps 'mu4e-compose-mode-map
-   "c" 'consult-mu-contacts
-   "a" 'consult-mu-compose-attach
-   "d" 'consult-mu-compose-detach)
   (evil-define-key 'normal mu4e-headers-mode-map (kbd "/") 'consult-mu-async)
   (evil-define-key 'normal mu4e-headers-mode-map (kbd "C") 'consult-mu)
   )

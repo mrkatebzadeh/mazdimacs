@@ -80,7 +80,7 @@
   ;; no longer be necessary.
   (when buffer-file-name
     (setq-local buffer-save-without-query t)
-      (setq-local lsp-inlay-hint-enable t)
+    (setq-local lsp-inlay-hint-enable t)
     )
 
   (add-hook 'before-save-hook 'lsp-format-buffer nil t)
@@ -88,16 +88,12 @@
 
   )
 
-;;; bindings
-(general-define-key
- :prefix "SPC k"
- :states '(normal visual motion)
- :keymaps 'rust-mode-map
- "c" '(:ignore t :which-key "cargo")
- "ca" 'cargo-process-add
- "cb" 'cargo-process-build
- "cn" 'cargo-process-new
- "cr" 'cargo-process-run)
+(local-leader rust-mode-map
+	      "" '(:ignore t :which-key "Rust Mode")
+	      "a" 'cargo-process-add
+	      "b" 'cargo-process-build
+	      "n" 'cargo-process-new
+	      "r" 'cargo-process-run)
 
 (provide 'mazd-rust)
 ;;; mazd//rust.el ends here

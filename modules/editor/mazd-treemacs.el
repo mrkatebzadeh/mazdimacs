@@ -101,10 +101,6 @@
      (treemacs-git-mode 'simple)))
   )
 
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
-
 (use-package treemacs-nerd-icons
   :defer t
   :ensure t

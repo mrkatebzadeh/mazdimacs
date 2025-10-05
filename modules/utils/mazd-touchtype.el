@@ -29,15 +29,11 @@
   :defer t
   :ensure nil
   :commands (speed-type-text)
-  :load-path (lambda () (concat mazd//lisp-dir ""))
   :config
   (setq speed-type-dir (concat mazd//cache-dir "/speed-test")))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "s" 'speed-type-text)
+(leader
+  "as" 'speed-type-text)
 
 (provide 'mazd-touchtype)
 ;;; mazd//touchtype.el ends here

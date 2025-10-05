@@ -28,11 +28,8 @@
   :config
   (setq md4rd-subs-active '(emacs OnePiece boruto archlinux)))
 
-(general-define-key
- :prefix "SPC a"
- :states '(normal visual motion)
- :keymaps 'override
- "r" 'md4rd)
+(leader
+  "ar" 'md4rd)
 
 (provide 'mazd-reddit)
 ;;; mazd//reddit.el ends here

@@ -30,7 +30,7 @@
 
 (use-package ultra-scroll
   :vc ( :url "https://github.com/jdtsmith/ultra-scroll.git")
-  :ensure nil
+  :ensure (:host github :repo "jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
