@@ -47,7 +47,7 @@
 
 (use-package autoinsert
   :defer t
-  :ensure t
+  :ensure nil
   :init
   (setq auto-insert-query t)
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
