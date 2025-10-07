@@ -25,26 +25,6 @@
 
 ;;; Code:
 
-(use-package flymake
-  :defer t
-  :ensure nil
-  :config
-  (advice-add #'flymake--indicator-overlay-spec
-              :filter-return
-              (lambda (indicator)
-                (concat indicator
-                        (propertize " "
-                                    'face 'default
-                                    'display `((margin left-margin)
-                                               (space :width 3))))))
-  (setq-default left-margin-width 2 right-margin-width 0)
-  :custom
-  (flymake-indicator-type 'margins)
-  (flymake-margin-indicators-string
-   `((error ,(nerd-icons-codicon "nf-cod-warning") compilation-error)
-     (warning ,(nerd-icons-faicon "nf-fa-warning") compilation-warning)
-     (note ,(nerd-icons-faicon "nf-fa-circle_info") compilation-info))))
-
 (use-package flycheck
   :defer t
   :preface
@@ -76,13 +56,113 @@
 
   :hook ((prog-mode . flycheck-mode)
 	 (flycheck-mode . mazd//flycheck-prefer-eldoc))
+  :config
+  (delq 'new-line flycheck-check-syntax-automatically)
+  (setq flycheck-idle-change-delay 1.0)
+  (setq flycheck-buffer-switch-check-intermediate-buffers t)
+  (setq flycheck-display-errors-delay 0.8)
+
+  (setq flycheck-indication-mode 'left-margin)
+
+  (require 'nerd-icons)
+  (defcustom mazd//error-icon (concat (nerd-icons-codicon "nf-cod-error") " ")
+    "Nerd icon used for Flycheck error fringe and margin."
+    :type 'string
+    :group 'mazd)
+
+  (defcustom mazd//warning-icon (concat (nerd-icons-codicon "nf-cod-warning") " ")
+    "Nerd icon used for Flycheck warning fringe and margin."
+    :type 'string
+    :group 'mazd)
+
+  (defcustom mazd//info-icon (concat (nerd-icons-codicon "nf-cod-info") " ")
+    "Nerd icon used for Flycheck info fringe and margin."
+    :type 'string
+    :group 'mazd)
+
+  (defcustom mazd//continuation-icon (nerd-icons-codicon "nf-cod-debug_stackframe")
+    "Nerd icon used for Flycheck continuation in the margin."
+    :type 'string
+    :group 'mazd)
+
+  (custom-set-faces
+   '(flycheck-fringe-error   ((t (:foreground "#e78284" :weight bold))))
+   '(flycheck-fringe-warning ((t (:foreground "#ef9f76" :weight bold))))
+   '(flycheck-fringe-info    ((t (:foreground "#99d1db" :weight bold)))))
+
+  (flycheck-define-error-level 'error
+    :severity 100 :compilation-level 2
+    :overlay-category 'flycheck-error-overlay
+    :margin-spec (flycheck-make-margin-spec mazd//error-icon 'flycheck-fringe-error)
+    :fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    :fringe-face 'flycheck-fringe-error
+    :error-list-face 'flycheck-error-list-error)
+
+  (flycheck-define-error-level 'warning
+    :severity 10 :compilation-level 1
+    :overlay-category 'flycheck-warning-overlay
+    :margin-spec (flycheck-make-margin-spec mazd//warning-icon 'flycheck-fringe-warning)
+    :fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    :fringe-face 'flycheck-fringe-warning
+    :error-list-face 'flycheck-error-list-warning)
+
+  (flycheck-define-error-level 'info
+    :severity -10 :compilation-level 0
+    :overlay-category 'flycheck-info-overlay
+    :margin-spec (flycheck-make-margin-spec mazd//info-icon 'flycheck-fringe-info)
+    :fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    :fringe-face 'flycheck-fringe-info
+    :error-list-face 'flycheck-error-list-info)
+
+  (setf (get 'error 'flycheck-margin-continuation)
+	(flycheck-make-margin-spec mazd//continuation-icon 'flycheck-fringe-error))
+
+  (flycheck-refresh-fringes-and-margins)
   )
 
 (use-package flycheck-indicator
+  :disabled t
   :defer t
   :ensure t
-  :after flycheck
-  :hook (flycheck-mode . flycheck-indicator-mode))
+  :custom
+  (flycheck-indicator-icon-error mazd//error-icon)
+  (flycheck-indicator-icon-warning mazd//warning-icon)
+  (flycheck-indicator-icon-info mazd//info-icon)
+  :init
+  (add-hook 'flycheck-mode-hook 'flycheck-indicator-mode)
+  :config
+  (custom-set-faces
+   '(flycheck-indicator-disabled ((t (:foreground "#8c8caa" :weight bold))))
+   '(flycheck-indicator-running  ((t (:foreground "#f5a97f" :weight bold))))
+   '(flycheck-indicator-success  ((t (:foreground "#8bd5ca" :weight bold))))
+   '(flycheck-indicator-error    ((t (:foreground "#e78284" :weight bold))))
+   '(flycheck-indicator-warning  ((t (:foreground "#ef9f76" :weight bold))))
+   '(flycheck-indicator-info     ((t (:foreground "#99d1db" :weight bold))))
+   )
+
+  (defun flycheck-indicator--icons-formatter (info warnings errors)
+    "Get colorized icons for INFO WARNINGS and ERRORS with padding."
+    (propertize (concat
+		 (when (> info 0)
+                   (propertize (format " %c %s" flycheck-indicator-icon-info info)
+                               'font-lock-face 'flycheck-indicator-info))
+		 (when (> warnings 0)
+                   (propertize (format " %c %s" flycheck-indicator-icon-warning warnings)
+                               'font-lock-face 'flycheck-indicator-warning))
+		 (when (> errors 0)
+                   (propertize (format " %c %s" flycheck-indicator-icon-error errors)
+                               'font-lock-face 'flycheck-indicator-error)))
+		'help-echo (concat (when (> errors 0) (format "%s errors\n" errors))
+                                   (when (> warnings 0) (format "%s warnings\n" warnings))
+                                   (when (> info 0) (format "%s infos\n" info))
+                                   "mouse-1: Check whether Flycheck can be used in this buffer.")
+		'local-map (let ((map (make-sparse-keymap)))
+                             (define-key map [mode-line mouse-1]
+					 'flycheck-verify-setup)
+                             map)
+		'mouse-face 'mode-line-highlight))
+
+  )
 
 (setq ispell-dictionary "en_US")
 (setq ispell-program-name "aspell")
