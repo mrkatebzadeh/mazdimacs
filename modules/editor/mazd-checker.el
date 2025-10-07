@@ -65,17 +65,17 @@
   (setq flycheck-indication-mode 'left-margin)
 
   (require 'nerd-icons)
-  (defcustom mazd//error-icon (concat (nerd-icons-codicon "nf-cod-error") " ")
+  (defcustom mazd//error-icon (format " %s " (nerd-icons-codicon "nf-cod-error"))
     "Nerd icon used for Flycheck error fringe and margin."
     :type 'string
     :group 'mazd)
 
-  (defcustom mazd//warning-icon (concat (nerd-icons-codicon "nf-cod-warning") " ")
+  (defcustom mazd//warning-icon (format " %s " (nerd-icons-codicon "nf-cod-warning"))
     "Nerd icon used for Flycheck warning fringe and margin."
     :type 'string
     :group 'mazd)
 
-  (defcustom mazd//info-icon (concat (nerd-icons-codicon "nf-cod-info") " ")
+  (defcustom mazd//info-icon (format " %s " (nerd-icons-codicon "nf-cod-info"))
     "Nerd icon used for Flycheck info fringe and margin."
     :type 'string
     :group 'mazd)

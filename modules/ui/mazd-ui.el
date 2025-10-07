@@ -216,7 +216,7 @@
 (mazd//apply-font-properties)
 
 (defun mazd//text-mode-margins ()
-  (setq left-margin-width 2
+  (setq left-margin-width 3
         right-margin-width 1)
   (set-window-buffer (selected-window) (current-buffer)))
 
