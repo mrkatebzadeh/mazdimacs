@@ -48,6 +48,12 @@
   (lsp-rust-analyzer-display-closure-return-type-hints t)
   (lsp-rust-analyzer-display-parameter-hints nil)
   (lsp-rust-analyzer-display-reborrow-hints nil)
+
+  (lsp-enable-folding nil)
+  (lsp-enable-text-document-color nil)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-headerline-breadcrumb-enable nil)
+
   (lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
   :hook (
          (LaTeX-mode . lsp-deferred)
@@ -63,8 +69,8 @@
   :config
   (setq lsp-diagnostics-provider :flycheck
         lsp-completion-provider  :none)
-  (setq lsp-headerline-breadcrumb-enable nil
-        lsp-lens-enable                  nil
+
+  (setq lsp-lens-enable                  nil
         lsp-modeline-code-actions-enable t
         lsp-modeline-code-action-fallback-icon "✦"
         lsp-signature-doc-lines 3)
@@ -77,8 +83,8 @@
     :initialized-fn (lambda (workspace)
                       ;; Put any init options here
                       (with-lsp-workspace workspace
-                        (lsp--set-configuration
-                         `(:crates ,(make-hash-table)))))))
+					  (lsp--set-configuration
+					   `(:crates ,(make-hash-table)))))))
 
   (mazd//after lsp-modeline
     (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
@@ -95,11 +101,9 @@
 	     lsp-ui-peek-find-implementation
 	     lsp-ui-peek-find-references)
   :config
-  (setq lsp-prefer-flymake nil
-	lsp-headerline-breadcrumb-enable-diagnostics nil
-        lsp-ui-doc-max-height 15
+  (setq lsp-ui-doc-max-height 15
 	lsp-ui-doc-max-width 150
-        lsp-ui-sideline-ignore-duplicate t
+	lsp-ui-sideline-ignore-duplicate t
 	lsp-ui-doc-enable t
 	lsp-ui-doc-show-with-mouse t
 	lsp-ui-sideline-show-diagnostics t
