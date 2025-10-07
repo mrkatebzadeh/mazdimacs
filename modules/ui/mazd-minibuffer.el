@@ -53,9 +53,9 @@
   :after vertico
   :ensure t
   :custom
-  (completion-styles '(orderless basic))
+  (completion-styles '(orderless flex))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles orderless flex)))))
 
 (use-package embark
   :ensure t
