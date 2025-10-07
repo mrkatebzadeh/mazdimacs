@@ -50,7 +50,6 @@
   (setq tab-width 4)
   (setq indent-tabs-mode nil)
 
-  ;; linenumber
   (global-display-line-numbers-mode 1)
   (setq display-line-numbers 'relative)
 
@@ -60,12 +59,10 @@
     (modify-syntax-entry ?_ "w"))
 
   (add-hook 'after-change-major-mode-hook #'mazd//evil-word-syntax-setup)
-  ;; highlight current line
   (global-hl-line-mode +1)
   (setq jit-lock-defer-time 0)
   (setq font-lock-maximum-decoration t)
 
-  ;; smooth scroll
   (setq scroll-step 1
 	scroll-conservatively 10000
 	auto-window-vscroll nil)
@@ -218,16 +215,23 @@
 
 (mazd//apply-font-properties)
 
+(defun mazd//text-mode-margins ()
+  (setq left-margin-width 2
+        right-margin-width 1)
+  (set-window-buffer (selected-window) (current-buffer)))
+
+(add-hook 'prog-mode-hook #'mazd//text-mode-margins)
+
 (leader
-  "u" '(:ignore t :which-key "UI")
-  "uf" '(:ignore t :which-key "Font")
-  "ut" 'mazd//toggle-transparency
-  "uT" 'consult-theme
-  "ufi" 'mazd//increase-font-size
-  "ufd" 'mazd//decrease-font-size
-  "ufr" 'mazd//reset-font
-  "uff" 'mazd//choose-font
-  )
+ "u" '(:ignore t :which-key "UI")
+ "uf" '(:ignore t :which-key "Font")
+ "ut" 'mazd//toggle-transparency
+ "uT" 'consult-theme
+ "ufi" 'mazd//increase-font-size
+ "ufd" 'mazd//decrease-font-size
+ "ufr" 'mazd//reset-font
+ "uff" 'mazd//choose-font
+ )
 
 (provide 'mazd-ui)
 ;;; mazd//ui.el ends here
