@@ -47,15 +47,13 @@
   :ensure t
   :defer t
   :init
-
-
   (setq rustic-lsp-client 'lsp)
   :config
   (setq lsp-eldoc-hook nil)
   (setq lsp-signature-auto-activate nil)
   (setq rustic-format-on-save nil)
   (setq rust-format-show-buffer nil)
-  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+  (add-hook 'rustic-mode-hook 'mazd//rustic-mode-hook))
 
 (use-package crates
   :vc (:url "https://github.com/mrkatebzadeh/crates.el.git")
@@ -73,19 +71,13 @@
   (crates-checkmark-symbol " ")
   (crates-warning-symbol " "))
 
-(defun rk/rustic-mode-hook ()
-  ;; so that run C-c C-c C-r works without having to confirm, but don't try to
-  ;; save rust buffers that are not file visiting. Once
-  ;; https://github.com/brotzeit/rustic/issues/253 has been resolved this should
-  ;; no longer be necessary.
+(defun mazd//rustic-mode-hook ()
   (when buffer-file-name
     (setq-local buffer-save-without-query t)
     (setq-local lsp-inlay-hint-enable t)
     )
 
   (add-hook 'before-save-hook 'lsp-format-buffer nil t)
-
-
   )
 
 (local-leader rust-mode-map
