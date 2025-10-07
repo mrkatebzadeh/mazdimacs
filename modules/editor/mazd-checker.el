@@ -28,7 +28,7 @@
 (use-package flymake
   :defer t
   :ensure nil
-  :config ; (Optional) For fix bad icon display (Only for left margin)
+  :config
   (advice-add #'flymake--indicator-overlay-spec
               :filter-return
               (lambda (indicator)
@@ -74,8 +74,15 @@
     (setq flycheck-display-errors-function nil)
     (setq flycheck-help-echo-function nil))
 
-  :hook ((flycheck-mode . mazd//flycheck-prefer-eldoc))
+  :hook ((prog-mode . flycheck-mode)
+	 (flycheck-mode . mazd//flycheck-prefer-eldoc))
   )
+
+(use-package flycheck-indicator
+  :defer t
+  :ensure t
+  :after flycheck
+  :hook (flycheck-mode . flycheck-indicator-mode))
 
 (setq ispell-dictionary "en_US")
 (setq ispell-program-name "aspell")
@@ -89,11 +96,7 @@
   (flyspell-default-dictionary "en_US")
   (flyspell-issue-message-flag nil)
   (flyspell-issue-welcome-flag nil)
-  :init
-  (dolist (hook '(text-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode 1))))
-  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode -1))))
+  :hook (text-mode . flyspell-mode)
   )
 
 (use-package flyspell-correct
@@ -122,10 +125,14 @@
 
 ;;; bindings
 (leader
-  "ts" 'flyspell-mode
-  "tl" 'langtool-check
-  "tc" 'global-flycheck-mode)
+ "ts" 'flyspell-mode
+ "tl" 'langtool-check
+ "tc" 'global-flycheck-mode)
 
+(leader
+ "" '(:ignore t :which-key "Checker")
+ "Cl" 'consult-flyspell
+ "Cs" 'flyspell-correct-at-point)
 
 (provide 'mazd-checker)
 ;;; mazd//checker.el ends here

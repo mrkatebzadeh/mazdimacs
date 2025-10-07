@@ -25,7 +25,6 @@
 
 (use-package outshine
   :ensure t
-  ;; Easier navigation for source files, especially this one.
   :bind (:map outshine-mode-map
 	      ("<S-iso-lefttab>" . outshine-cycle-buffer))
   :hook (emacs-lisp-mode . outshine-mode)
@@ -36,7 +35,6 @@
   (let ((kmap outline-minor-mode-map))
     (define-key kmap (kbd "M-RET") 'outshine-insert-heading)
     (define-key kmap (kbd "<backtab>") 'outshine-cycle-buffer)))
-
 
 ;;;###autoload
 (defun mazd//byte-compile-init-dir ()
