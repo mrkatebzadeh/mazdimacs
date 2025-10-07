@@ -70,6 +70,12 @@
   :ensure t
   :bind ("M-g s" . consult-flyspell))
 
+(use-package consult-flycheck
+  :defer t
+  :ensure (:host github :repo "minad/consult-flycheck")
+  :after (flycheck consult)
+  )
+
 (use-package consult-yasnippet
   :after (yasnippet consult)
   :defer t
@@ -93,7 +99,7 @@
  "is" 'consult-yasnippet)
 
 (leader
-  "lt" 'consult-flymake)
+ "lt" 'consult-flycheck)
 
 (provide 'mazd-consult)
 ;;; mazd//consult.el ends here
