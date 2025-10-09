@@ -61,7 +61,26 @@
  x-stretch-cursor t
  )
 
-;;; Basic configs
+(setq auto-mode-case-fold nil)
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+(setq fast-but-imprecise-scrolling t)
+(setq inhibit-compacting-font-caches t)
+(setq read-process-output-max (* 64 1024))
+(setq redisplay-skip-fontification-on-input t)
+
+(setq hscroll-margin 2
+      hscroll-step 1
+      scroll-conservatively 10
+      scroll-margin 0
+      scroll-preserve-screen-position t
+      auto-window-vscroll nil
+      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
+      mouse-wheel-scroll-amount-horizontal 2)
+
 (setq warning-minimum-level :emergency)
 (setq eshell-directory-name mazd//eshell-dir)
 (setq pcache-directory (concat mazd//cache-dir "/var/pcache"))
