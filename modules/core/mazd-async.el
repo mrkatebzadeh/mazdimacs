@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(defconst mazd//async-enabled nil
+(defconst mazd//async-enabled t
   "Non-nil means asynchronous loading/features are enabled.")
 
 (defvar mazd//async-packages nil
@@ -127,20 +127,22 @@ forces a mode-line update, and prints a message when all async packages are load
   (when (>= mazd//async-load-progress mazd//async-load-total)
     (mazd//log "All async packages loaded")))
 
-(defun mazd//async-load-all-packages (&optional packages)
-  "Load all packages in `mazd//async-packages` incrementally using idle timers.
-Respects priority order: higher priority loaded first."
+(defun mazd//async-load-all-packages (&optional packages delay)
+  "Load all packages in `mazd//async-packages` incrementally.
+PACKAGES is a list of plist package descriptors; defaults to `mazd//async-packages`.
+DELAY is the number of seconds to wait between loading each package."
 
   (mazd//log "Incremental loading started")
   (let* ((packages (or packages mazd//async-packages))
          (packages (sort (cl-copy-list packages)
-                         (lambda (a b) (> (plist-get a :priority)
-                                          (plist-get b :priority))))))
-
+                         (lambda (a b)
+                           (> (plist-get a :priority)
+                              (plist-get b :priority))))))
     (setq packages (mapcar (lambda (p) (plist-get p :package)) packages))
     (setq packages (cl-remove-duplicates packages))
     (setq mazd//async-load-total (length packages))
     (setq mazd//async-load-progress 0)
+
     (cl-labels ((load-next ()
                   (when packages
                     (let ((pkg (pop packages)))
@@ -148,16 +150,17 @@ Respects priority order: higher priority loaded first."
                       (condition-case err
                           (require pkg nil t)
                         (mazd//err "Error loading %S: %S" pkg err))
-		      (mazd//async-load-update (symbol-name pkg))
+                      (mazd//async-load-update (symbol-name pkg))
                       (when packages
-			(run-with-idle-timer mazd//async-idle-timer nil #'load-next))))))
+                        (run-with-timer delay nil #'load-next))))))
       (load-next))))
+
 
 (when mazd//async-enabled
   (add-hook 'elpaca-after-init-hook
             (lambda ()
               (mazd//schedule 1 nil
-		(mazd//async-load-all-packages)))))
+		(mazd//async-load-all-packages nil 0.75)))))
 
 (provide 'mazd-async)
 ;;; mazd-async.el ends here
