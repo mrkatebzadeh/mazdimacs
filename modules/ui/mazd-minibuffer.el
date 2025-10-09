@@ -28,7 +28,7 @@
   :config
   (general-define-key
    :keymaps 'vertico-map
-   "<left>" #'vertico-directory-delete-char
+   "<left>" #'vertico-directory-up
    "DEL"    #'vertico-directory-delete-char)
   :custom
   (vertico-count 10)
