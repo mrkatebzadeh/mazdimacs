@@ -76,8 +76,44 @@
 
 (defvar lsp-modeline--code-actions-string nil)
 
+(defface mode-line-evil-normal
+  '((t :foreground "#A6E3A1"))  ; Green color from Frappe
+  "Face for Evil normal state in mode line.")
+
+(defface mode-line-evil-insert
+  '((t :foreground "#89B4FA"))  ; Blue color from Frappe
+  "Face for Evil insert state in mode line.")
+
+(defface mode-line-evil-visual
+  '((t :foreground "#F38BA8"))  ; Pink color from Frappe
+  "Face for Evil visual state in mode line.")
+
+(defface mode-line-evil-replace
+  '((t :foreground "#F87171"))  ; Red color from Frappe
+  "Face for Evil replace state in mode line.")
+
+(defface mode-line-evil-emacs
+  '((t :foreground "#CBA6F7"))  ; Purple color from Frappe
+  "Face for Evil emacs state in mode line.")
+
 (setq-default mode-line-format
               '("%e"
+		(:eval
+                 (let ((state-face (pcase evil-state
+                                     ('normal 'mode-line-evil-normal)
+                                     ('insert 'mode-line-evil-insert)
+                                     ('visual 'mode-line-evil-visual)
+                                     ('replace 'mode-line-evil-replace)
+                                     ('emacs 'mode-line-evil-emacs)
+                                     (_ 'mode-line))) ; Fallback face
+                       (state-tag (pcase evil-state
+                                    ('normal "N")
+                                    ('insert "I")
+                                    ('visual "V")
+                                    ('replace "R")
+                                    ('emacs "E")
+                                    (_ "?")))) ; Fallback tag
+                   (propertize (format " %s󰍟 " state-tag) 'face state-face)))
                 (:propertize " " display (raise +0.4))
                 (:propertize " " display (raise -0.4))
                 (:propertize "𝓜𝓪𝔃𝓭 " face font-lock-comment-face)
@@ -100,8 +136,6 @@
                 (:eval (or lsp-modeline--code-actions-string ""))
                 (:eval (mazd//async-mode-line))
                 (:propertize "%4l:%c" face mode-line-buffer-id)))
-
-
 
 (provide 'mazd-modeline)
 ;;; mazd-modeline.el ends here
