@@ -25,7 +25,7 @@
 
 
 (use-package consult
-  :async (:priority high :packages (consolt))
+  :async (:priority high :packages (consult))
   :ensure t
   :defer t
   :commands
