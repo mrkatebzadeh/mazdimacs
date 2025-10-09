@@ -53,8 +53,16 @@
   :ensure t
   :defer t
   :init
+  :hook (vterm-mode . hide-mode-line-mode)
   :bind
   (("C-\\" . mazd//vterm-toggle))
+  :preface
+  (when noninteractive
+    (advice-add #'vterm-module-compile :override #'ignore)
+    (provide 'vterm-module))
+  :config
+  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-max-scrollback 5000)
   )
 
 (defvar mazd//vterm-buffer-name "*vterm-toggle*"
