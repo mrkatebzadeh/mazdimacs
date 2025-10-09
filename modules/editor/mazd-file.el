@@ -35,10 +35,7 @@
 		    (easymenu tree-widget timer))
   :ensure nil
   :defer t
-  :init
-  (add-hook 'find-file-hook (lambda () (unless recentf-mode
-					 (recentf-mode)
-					 (recentf-track-opened-file))))
+  :hook (pre-command . recentf-mode)
   :custom
   (recentf-exclude (list "COMMIT_EDITMSG"
                          "~$"
@@ -49,7 +46,9 @@
                          (expand-file-name (concat mazd//emacs-dir "emms/"))
                          "/ssh:"
                          "/sudo:"
-                         "/tmp/"))
+                         "/tmp/")
+		   (concat "^" (regexp-quote (or (getenv "XDG_RUNTIME_DIR")
+						 "/run"))))
   (recentf-max-menu-items 15)
   (recentf-max-saved-items 15)
   (recentf-save-file (concat mazd//backup-dir "recentf"))
@@ -359,31 +358,31 @@ Signals an error if there is no current project."
 ;;; bindings
 
 (leader
-  "fb" 'bookmark-jump
-  "fR" '(:ignore t :which-key "rename")
-  "fRf" 'mazd//rename-file
-  "fRb" 'mazd//rename-current-buffer-file
-  "fd" '(:ignore t :which-key "delete")
-  "fdf" 'mazd//delete-file-confirm
-  "fdb" 'mazd//delete-current-buffer-file
-  "fdw" 'mazd//delete-window
-  "fda" 'mazd//ace-delete-window
-  "fk" '(:ignore t :which-key "kill")
-  "fkb" 'mazd//kill-this-buffer
-  "fka" 'mazd//ace-kill-this-buffer
-  "fko" 'mazd//kill-other-buffers
-  "fD" 'mazd//toggle-current-window-dedication
-  "fs" 'mazd//sudo-edit
-  "fF" 'mazd//show-and-copy-buffer-filename
-  "fn" 'mazd//new-empty-buffer
-  "fy" 'mazd//copy-whole-buffer-to-clipboard
-  "fp" 'mazd//copy-clipboard-to-whole-buffer
-  "fC" '(:ignore t :which-key "convert")
-  "fCu" 'mazd//dos2unix
-  "fCd" 'mazd//unix2dos
-  "fc" 'mazd//copy-file
-  "fa" 'mazd//count-words-analysis
-  "pv" 'mazd//reload-dir-locals)
+ "fb" 'bookmark-jump
+ "fR" '(:ignore t :which-key "rename")
+ "fRf" 'mazd//rename-file
+ "fRb" 'mazd//rename-current-buffer-file
+ "fd" '(:ignore t :which-key "delete")
+ "fdf" 'mazd//delete-file-confirm
+ "fdb" 'mazd//delete-current-buffer-file
+ "fdw" 'mazd//delete-window
+ "fda" 'mazd//ace-delete-window
+ "fk" '(:ignore t :which-key "kill")
+ "fkb" 'mazd//kill-this-buffer
+ "fka" 'mazd//ace-kill-this-buffer
+ "fko" 'mazd//kill-other-buffers
+ "fD" 'mazd//toggle-current-window-dedication
+ "fs" 'mazd//sudo-edit
+ "fF" 'mazd//show-and-copy-buffer-filename
+ "fn" 'mazd//new-empty-buffer
+ "fy" 'mazd//copy-whole-buffer-to-clipboard
+ "fp" 'mazd//copy-clipboard-to-whole-buffer
+ "fC" '(:ignore t :which-key "convert")
+ "fCu" 'mazd//dos2unix
+ "fCd" 'mazd//unix2dos
+ "fc" 'mazd//copy-file
+ "fa" 'mazd//count-words-analysis
+ "pv" 'mazd//reload-dir-locals)
 
 
 (provide 'mazd-file)
