@@ -68,6 +68,8 @@
 (elpaca elpaca-use-package
   (elpaca-use-package-mode))
 
+(setq use-package-compute-statistics t)
+
 (add-hook 'elpaca-after-init-hook
           (lambda ()
             (mazd//log "All Elpaca operations are complete.")))
