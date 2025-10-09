@@ -54,7 +54,9 @@
   (recentf-save-file (concat mazd//backup-dir "recentf"))
   :config (when (boundp 'recentf-auto-save-timer)
 	    (cancel-timer recentf-auto-save-timer)
-	    (setq recentf-auto-save-timer nil)))
+	    (setq recentf-auto-save-timer nil))
+  (add-to-list 'recentf-filename-handlers #'substring-no-properties)
+  )
 
 (use-package direnv
   :defer t
