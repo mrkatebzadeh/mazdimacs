@@ -62,7 +62,8 @@
   "ag" 'gptel)
 
 (leader
-  "gg" 'gptel-magit-generate-message)
+ "gg" 'gptel-magit-commit-generate
+ "gG" 'gptel-magit-generate-message)
 
 (provide 'mazd-ai)
 ;;; mazd//ai.el ends here
