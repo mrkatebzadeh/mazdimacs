@@ -286,6 +286,13 @@
 		  ("Rust" (rustfmt "--edition" "2021"))
                   ("Shell" (shfmt "-i" "4" "-ci")))))
 
+(use-package saveplace
+  :ensure nil
+  :defer t
+  :hook (pre-command . save-place-mode)
+  :custom (save-place-file (concat mazd//cache-dir "saveplace"))
+  )
+
 ;;; config
 (defalias 'list-buffers 'ibuffer-other-window)
 
