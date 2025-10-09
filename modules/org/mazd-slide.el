@@ -46,6 +46,7 @@
   :vc(:url "https://github.com/positron-solutions/moc.git"))
 
 (use-package ox-reveal
+  :defer t
   :ensure t
   :after org
   :config

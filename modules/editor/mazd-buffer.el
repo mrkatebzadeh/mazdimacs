@@ -288,8 +288,6 @@
 
 (use-package saveplace
   :ensure nil
-  :defer t
-  :hook (pre-command . save-place-mode)
   :custom (save-place-file (concat mazd//cache-dir "saveplace"))
   )
 

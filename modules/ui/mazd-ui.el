@@ -118,11 +118,10 @@
 
 (use-package savehist
   :ensure nil
-  :defer t
   :async (:priority low :packages (custom))
-  :hook
-  (pre-hook . savehist-mode)
-  :custom (savehist-file (concat mazd//cache-dir "savehist")))
+  :custom (savehist-file (concat mazd//cache-dir "savehist"))
+  :init
+  (savehist-mode 1))
 
 (use-package spacious-padding
   :disabled t

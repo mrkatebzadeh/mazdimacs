@@ -34,8 +34,6 @@
 		    :packages
 		    (easymenu tree-widget timer))
   :ensure nil
-  :defer t
-  :hook (pre-command . recentf-mode)
   :custom
   (recentf-exclude (list "COMMIT_EDITMSG"
                          "~$"

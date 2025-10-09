@@ -85,6 +85,8 @@
   :config (setq org-mime-library 'mml))
 
 (use-package mu4e-thread-folding
+  :defer t
+  :after mu4e
   :ensure (:host github :repo "rougier/mu4e-thread-folding"))
 
 ;;;###autoload

@@ -23,7 +23,6 @@
 
 ;;
 (use-package vertico
-  :defer t
   :ensure t
   :config
   (general-define-key
@@ -32,7 +31,7 @@
    "DEL"    #'vertico-directory-delete-char)
   :custom
   (vertico-count 10)
-  :hook  (pre-command . vertico-mode)
+  :init (vertico-mode)
   )
 
 (use-package vertico-posframe
@@ -49,8 +48,6 @@
   )
 
 (use-package orderless
-  :defer t
-  :hook  (pre-command . orderless-mode)
   :ensure t
   :custom
   (completion-styles '(orderless flex))
@@ -59,7 +56,6 @@
 
 (use-package embark
   :ensure t
-  :defer t
   :bind
   (("C-." . embark-act)
    ("C-;" . embark-dwim)
@@ -117,9 +113,8 @@ targets."
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package marginalia
-  :defer t
   :ensure t
-  :hook  (pre-command . marginalia-mode)
+  :init (marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
   )
@@ -170,8 +165,10 @@ targets."
 
 (use-package nerd-icons-completion
   :config
+  :after marginalia
   :ensure (:host github :repo "rainstormstudio/nerd-icons-completion")
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :init
   (nerd-icons-completion-mode))
 
 (provide 'mazd-minibuffer)

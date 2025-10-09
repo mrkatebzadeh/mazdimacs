@@ -26,6 +26,7 @@
 ;;; Code:
 
 (use-package projectile
+  :defer t
   :ensure t
   :config
   (setq projectile-known-projects-file (concat mazd//local-dir "/projectile-bookmarks.eld"))
