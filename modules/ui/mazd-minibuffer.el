@@ -24,6 +24,8 @@
 ;;
 (use-package vertico
   :ensure t
+  :defer t
+  :hook (mazd//first-input-hook . vertico-mode)
   :config
   (general-define-key
    :keymaps 'vertico-map
@@ -31,7 +33,6 @@
    "DEL"    #'vertico-directory-delete-char)
   :custom
   (vertico-count 10)
-  :init (vertico-mode)
   )
 
 (use-package vertico-posframe
@@ -49,6 +50,10 @@
 
 (use-package orderless
   :ensure t
+  :defer t
+  :hook (mazd//first-input-hook .
+				(lambda ()
+				  (require 'orderless)))
   :custom
   (completion-styles '(orderless flex))
   (completion-category-defaults nil)
@@ -114,9 +119,12 @@ targets."
 
 (use-package marginalia
   :ensure t
-  :init (marginalia-mode)
+  :defer t
+  :hook (mazd//first-input-hook . marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
+  :config
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   )
 
 (use-package vertico-multiform
@@ -165,11 +173,9 @@ targets."
 
 (use-package nerd-icons-completion
   :config
-  :after marginalia
+  :defer t
   :ensure (:host github :repo "rainstormstudio/nerd-icons-completion")
-  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
-  :init
-  (nerd-icons-completion-mode))
+  )
 
 (provide 'mazd-minibuffer)
 ;;; mazd-minibuffer.el ends here

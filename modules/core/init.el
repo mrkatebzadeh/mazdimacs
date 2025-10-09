@@ -27,6 +27,7 @@
 (require 'mazd-settings)
 (require 'mazd-core)
 (require 'mazd-func)
+(require 'mazd-hook)
 (require 'mazd-elpaca)
 (require 'mazd-basic)
 (require 'mazd-async)
