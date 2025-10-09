@@ -48,11 +48,10 @@
 (use-package autoinsert
   :defer t
   :ensure nil
+  :hook(mazd//first-file . auto-insert)
   :init
   (setq auto-insert-query t)
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
-  (add-hook 'find-file-hook 'auto-insert)
-  (auto-insert-mode 1)
 
   :config
   (define-auto-insert "\\.rs?$" ["default-rs" autoinsert-yas-expand])

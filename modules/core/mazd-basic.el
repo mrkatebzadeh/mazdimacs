@@ -57,6 +57,7 @@
   (gcmh-mode))
 
 (use-package transient
+  :defer t
   :ensure (:wait t))
 
 (provide 'mazd-basic)

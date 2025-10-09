@@ -25,7 +25,7 @@
 (use-package vertico
   :ensure t
   :defer t
-  :hook (mazd//first-input-hook . vertico-mode)
+  :hook (mazd//first-input . vertico-mode)
   :config
   (general-define-key
    :keymaps 'vertico-map
@@ -51,9 +51,9 @@
 (use-package orderless
   :ensure t
   :defer t
-  :hook (mazd//first-input-hook .
-				(lambda ()
-				  (require 'orderless)))
+  :hook (mazd//first-input .
+			   (lambda ()
+			     (require 'orderless)))
   :custom
   (completion-styles '(orderless flex))
   (completion-category-defaults nil)
@@ -120,7 +120,7 @@ targets."
 (use-package marginalia
   :ensure t
   :defer t
-  :hook (mazd//first-input-hook . marginalia-mode)
+  :hook (mazd//first-input . marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
   :config
