@@ -116,11 +116,13 @@
   (global-ligature-mode t)
   )
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :ensure nil
-  :init
-  (savehist-mode))
+  :defer t
+  :async (:priority low :packages (custom))
+  :hook
+  (pre-hook . savehist-mode)
+  :custom (savehist-file (concat mazd//cache-dir "savehist")))
 
 (use-package spacious-padding
   :disabled t
@@ -198,10 +200,10 @@
 (defun mazd//apply-font-properties ()
   "Apply the current values of font properties."
   (set-face-attribute 'default nil
-                      :family mazd//font-family
-                      :height mazd//font-size
-                      :weight 'normal
-                      :width 'normal))
+		      :family mazd//font-family
+		      :height mazd//font-size
+		      :weight 'normal
+		      :width 'normal))
 
 ;;;###autoload
 (defun mazd//toggle-transparency ()
