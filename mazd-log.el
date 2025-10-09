@@ -44,21 +44,24 @@
   `(let ((inhibit-message nil))
      ,@body))
 
+(defvar mazd//catppuccin-colors
+  '((green . "#8bd5ca")
+    (red   . "#ed8796"))
+  "Catppuccin Frappe colors for logging.")
+
 (defun mazd//log (str &rest args)
-  "Log STR formatted with ARGS as a green bullet message."
+  "Log STR formatted with ARGS as a green bullet message to *Messages* without echo."
   (mazd//loud
    (message "%s %s"
-            (propertize "•" 'face '(:foreground "green" :weight bold))
+            (propertize "•" 'face `(:foreground ,(alist-get 'green mazd//catppuccin-colors) :weight bold))
             (apply #'format str args))))
 
 (defun mazd//err (str &rest args)
-  "Log STR formatted with ARGS as a red bullet error message."
+  "Log STR formatted with ARGS as a red bullet error message (echoed)."
   (mazd//loud
    (message "%s %s"
-            (propertize "•" 'face '(:foreground "red" :weight bold))
+            (propertize "•" 'face `(:foreground ,(alist-get 'red mazd//catppuccin-colors) :weight bold))
             (apply #'format str args))))
-
-
 
 (defun mazd//clear-line ()
   "Clear the current and previous echo area lines."
