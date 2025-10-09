@@ -155,6 +155,11 @@
    "g+" 'evil-numbers/inc-at-pt
    "g-" 'evil-numbers/dec-at-pt))
 
+(when (not (display-graphic-p))
+  (use-package evil-terminal-cursor-changer
+    :ensure t
+    :config (evil-terminal-cursor-changer-activate))
+  )
 
 (use-package kkp
   :ensure t
