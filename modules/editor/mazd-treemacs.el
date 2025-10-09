@@ -24,7 +24,7 @@
 ;;
 
 (use-package treemacs
-  :async (:priority medium :packages(treemacs))
+  :async (:priority high :packages(treemacs))
   :ensure t
   :defer t
   :init
