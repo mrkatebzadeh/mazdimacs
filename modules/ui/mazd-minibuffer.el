@@ -32,8 +32,8 @@
    "DEL"    #'vertico-directory-delete-char)
   :custom
   (vertico-count 10)
-  :init
-  (vertico-mode))
+  :hook  (pre-command . vertico-mode)
+  )
 
 (use-package vertico-posframe
   :disabled t
@@ -50,7 +50,7 @@
 
 (use-package orderless
   :defer t
-  :after vertico
+  :hook  (pre-command . orderless-mode)
   :ensure t
   :custom
   (completion-styles '(orderless flex))
@@ -119,12 +119,10 @@ targets."
 (use-package marginalia
   :defer t
   :ensure t
+  :hook  (pre-command . marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
-
-  :init
-
-  (marginalia-mode))
+  )
 
 (use-package vertico-multiform
   :disabled t
@@ -169,6 +167,12 @@ targets."
                                                             :height 0.5)))))
   (mini-frame-mode 1)
   )
+
+(use-package nerd-icons-completion
+  :config
+  :ensure (:host github :repo "rainstormstudio/nerd-icons-completion")
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  (nerd-icons-completion-mode))
 
 (provide 'mazd-minibuffer)
 ;;; mazd-minibuffer.el ends here
