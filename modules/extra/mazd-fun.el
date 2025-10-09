@@ -33,6 +33,7 @@
   (make-directory xkcd-cache-dir t))
 
 (use-package zone-matrix
+  :disabled t
   :ensure (:host github :repo "ober/zone-matrix")
   :config
   (setq zone-programs [zone-matrix])
