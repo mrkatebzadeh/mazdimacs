@@ -132,5 +132,6 @@
 ;;   :ensure t
 ;;   :defer t)
 
+(setq sentence-end "\\([.!?][]\"')}]*\\($\\|[ \t]\\)\\)")
 (provide 'mazd-core)
 ;;; mazd//core.el ends here
