@@ -32,6 +32,7 @@
   (setq gptel-api-key (string-trim (shell-command-to-string "pass openai/key")))
   :config
   (setq gptel-model "gpt-4-mini")
+  (setq gptel-default-mode 'org-mode)
   (add-to-list 'gptel-directives
 	       '(proofreader . "Act as a proofreader. Review text for spelling, grammar, or punctuation errors and suggest improvements.")))
 
