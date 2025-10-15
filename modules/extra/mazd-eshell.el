@@ -53,6 +53,8 @@
   :ensure t
   :defer t
   :init
+  (with-eval-after-load 'evil
+    (advice-add 'evil-collection-vterm-insert :before #'vterm-reset-cursor-point))
   :hook (vterm-mode . hide-mode-line-mode)
   :bind
   (("C-\\" . mazd//vterm-toggle))
