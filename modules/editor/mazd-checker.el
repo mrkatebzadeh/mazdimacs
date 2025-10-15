@@ -26,6 +26,7 @@
 ;;; Code:
 
 (use-package flycheck
+  :ensure t
   :defer t
   :preface
 
