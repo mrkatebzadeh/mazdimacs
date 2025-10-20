@@ -31,6 +31,8 @@
 
 (setq package-enable-at-startup nil)
 
+(setenv "LSP_USE_PLISTS" "true")
+
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
 
