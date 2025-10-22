@@ -1,4 +1,4 @@
-;;; editor.el --- Buffer -*- lexical-binding: t; -*-
+;;; mazd-fold.el --- FOLD -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  M.R. Siavash Katebzadeh
 
@@ -23,20 +23,20 @@
 
 ;;
 
-(require 'mazd-buffer)
-(require 'mazd-file)
-(require 'mazd-window)
-(require 'mazd-git)
-(require 'mazd-checker)
-(require 'mazd-search)
-(require 'mazd-snippet)
-(require 'mazd-help)
-(require 'mazd-treemacs)
-(require 'mazd-dired)
-(require 'mazd-xref)
-(require 'mazd-project)
-(require 'mazd-undo)
-(require 'mazd-fold)
+;;; Code:
 
-(provide 'editor)
-;;; editor.el ends here
+(use-package outline-indent
+  :ensure t
+  :defer t
+  :commands outline-indent-minor-mode
+  :hook (prog-mode . outline-indent-minor-mode)
+  :custom
+  (outline-indent-ellipsis " ▼")
+  :config
+  (add-hook 'outline-minor-mode-hook
+            #'(lambda()
+		(setq-local make-window-start-visible t))))
+
+
+(provide 'mazd-fold)
+;;; mazd-fold.el ends here
